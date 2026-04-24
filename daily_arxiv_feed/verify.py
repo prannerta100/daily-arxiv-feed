@@ -1,10 +1,9 @@
-import json
 import logging
 
 from openai import OpenAI
 
 from daily_arxiv_feed.fetch import Paper
-from daily_arxiv_feed.llm import chat
+from daily_arxiv_feed.llm import chat, parse_json_response
 from daily_arxiv_feed.summarize import SUMMARIZE_SYSTEM_PROMPT
 
 logger = logging.getLogger(__name__)
@@ -32,7 +31,7 @@ Summary to verify:
 - Most important result: {summary['most_important_result']}"""
 
     response = chat(client=client, system=VERIFY_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
-    return json.loads(response)
+    return parse_json_response(response)
 
 
 def _regenerate_summary(client: OpenAI, paper: Paper, feedback: list[str]) -> dict:
@@ -48,7 +47,7 @@ Respond with JSON:
 {{"one_line_takeaway": "...", "key_contribution": "...", "method": "...", "most_important_result": "..."}}"""
 
     response = chat(client=client, system=SUMMARIZE_SYSTEM_PROMPT, user=regen_prompt, json_mode=True)
-    return json.loads(response)
+    return parse_json_response(response)
 
 
 def verify_summaries(client: OpenAI, papers: list[Paper], summaries: list[dict]) -> list[dict]:

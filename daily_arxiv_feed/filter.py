@@ -1,10 +1,9 @@
-import json
 import logging
 
 from openai import OpenAI
 
 from daily_arxiv_feed.fetch import Paper
-from daily_arxiv_feed.llm import chat
+from daily_arxiv_feed.llm import chat, parse_json_response
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +58,7 @@ def _build_rank_prompt(candidates: list[dict], paper_map: dict[str, Paper]) -> s
 
 
 def parse_filter_response(response: str) -> list[dict]:
-    data = json.loads(response)
+    data = parse_json_response(response)
     return data["papers"]
 
 

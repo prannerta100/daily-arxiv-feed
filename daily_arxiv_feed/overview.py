@@ -1,10 +1,9 @@
-import json
 import logging
 
 from openai import OpenAI
 
 from daily_arxiv_feed.fetch import Paper
-from daily_arxiv_feed.llm import chat
+from daily_arxiv_feed.llm import chat, parse_json_response
 
 logger = logging.getLogger(__name__)
 
@@ -22,5 +21,5 @@ def generate_overview(client: OpenAI, all_papers: list[Paper]) -> str:
     user_prompt = f"Today's {len(all_papers)} arxiv papers:\n\n" + "\n".join(lines)
 
     response = chat(client=client, system=OVERVIEW_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
-    data = json.loads(response)
+    data = parse_json_response(response)
     return data["overview"]

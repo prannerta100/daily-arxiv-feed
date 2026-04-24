@@ -1,6 +1,6 @@
 import logging
-import subprocess
 import re
+import subprocess
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
@@ -17,7 +17,8 @@ CATEGORY_NAMES = {
     4: "LLM Evaluation",
 }
 
-LATEX_SPECIAL = {
+_LATEX_SPECIAL_RE = re.compile(r'([&%$#_{}~^\\])')
+_LATEX_SPECIAL_MAP = {
     '&': r'\&',
     '%': r'\%',
     '$': r'\$',
@@ -34,11 +35,24 @@ LATEX_SPECIAL = {
 def _latex_escape(text: str) -> str:
     if not isinstance(text, str):
         text = str(text)
-    text = text.replace('\\', r'\textbackslash{}')
-    for char, replacement in LATEX_SPECIAL.items():
-        if char != '\\':
-            text = text.replace(char, replacement)
-    return text
+    return _LATEX_SPECIAL_RE.sub(lambda m: _LATEX_SPECIAL_MAP[m.group(1)], text)
+
+
+_LATEX_CMD_RE = re.compile(r'\\[a-zA-Z]+\{[^}]*\}|\\["\'^`~uvHtcdb]\{[^}]*\}|\\["\'^`~uvHtcdb][a-zA-Z]')
+
+
+def _latex_escape_preserving_commands(text: str) -> str:
+    """Escape special chars but preserve existing LaTeX commands like \\"o, \\'{e}."""
+    if not isinstance(text, str):
+        text = str(text)
+    parts = _LATEX_CMD_RE.split(text)
+    commands = _LATEX_CMD_RE.findall(text)
+    result = []
+    for i, part in enumerate(parts):
+        result.append(_latex_escape(part))
+        if i < len(commands):
+            result.append(commands[i])
+    return "".join(result)
 
 
 def _latex_passthrough(text: str) -> str:
@@ -70,12 +84,11 @@ def render_latex(summaries: list[dict], date: str, overview: str = "") -> str:
     )
     env.filters["e"] = _latex_escape
     env.filters["raw"] = _latex_passthrough
+    env.filters["arxiv"] = _latex_escape_preserving_commands
 
     template = env.get_template("neurips_digest.tex")
 
-    # Pre-process: join authors into a string
-    for s in summaries:
-        s["authors_str"] = ", ".join(s["authors"])
+    summaries = [dict(s, authors_str=", ".join(s["authors"])) for s in summaries]
 
     # Group papers by primary category
     grouped: dict[int, list[dict]] = {}
@@ -123,6 +136,7 @@ def compile_pdf(tex_content: str, output_dir: Path, filename: str) -> Path:
         capture_output=True,
         text=True,
         cwd=str(output_dir.resolve()),
+        timeout=300,
     )
     if result.returncode != 0:
         logger.error("tectonic failed:\n%s", result.stderr)
@@ -139,6 +153,7 @@ def get_page_count(pdf_path: Path) -> int:
         ["pdfinfo", str(pdf_path)],
         capture_output=True,
         text=True,
+        timeout=10,
     )
     if result.returncode == 0:
         match = re.search(r"Pages:\s+(\d+)", result.stdout)

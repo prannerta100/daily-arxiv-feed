@@ -1,10 +1,9 @@
-import json
 import logging
 
 from openai import OpenAI
 
 from daily_arxiv_feed.fetch import Paper
-from daily_arxiv_feed.llm import chat
+from daily_arxiv_feed.llm import chat, parse_json_response
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +46,7 @@ def summarize_papers(client: OpenAI, papers: list[Paper], decisions: list[dict])
     for paper in papers:
         user_prompt = build_summarize_prompt(paper, decisions)
         response = chat(client=client, system=SUMMARIZE_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
-        summary = json.loads(response)
+        summary = parse_json_response(response)
         results.append({
             "arxiv_id": paper.arxiv_id,
             "title": paper.title,

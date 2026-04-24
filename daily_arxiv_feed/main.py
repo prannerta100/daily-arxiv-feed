@@ -5,7 +5,7 @@ from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 
-from daily_arxiv_feed.llm import get_client, chat
+from daily_arxiv_feed.llm import get_client, chat, parse_json_response
 from daily_arxiv_feed.fetch import fetch_papers
 from daily_arxiv_feed.filter import filter_papers
 from daily_arxiv_feed.summarize import summarize_papers
@@ -39,7 +39,7 @@ def _compress_summaries(client, summaries: list[dict]) -> list[dict]:
     user_prompt = "\n".join(lines)
 
     response = chat(client=client, system=COMPRESS_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
-    compressed = json.loads(response)
+    compressed = parse_json_response(response)
 
     summary_map = {c["arxiv_id"]: c for c in compressed["summaries"]}
     for s in summaries:
@@ -81,7 +81,11 @@ def run_pipeline(output_dir: Path | None = None, date: str | None = None) -> Pat
     logger.info("Selected %d papers", len(selected))
 
     logger.info("=== Stage 2.5: Field Overview ===")
-    overview = generate_overview(client, papers)
+    try:
+        overview = generate_overview(client, papers)
+    except Exception:
+        logger.exception("Overview generation failed, continuing without it")
+        overview = ""
 
     logger.info("=== Stage 3: Summarize ===")
     summaries = summarize_papers(client, selected, all_decisions)

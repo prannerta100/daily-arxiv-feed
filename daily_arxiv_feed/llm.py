@@ -1,5 +1,7 @@
+import json
 import os
 import logging
+import re
 import time
 import random
 
@@ -54,3 +56,16 @@ def chat(
                 time.sleep(wait)
             else:
                 raise
+
+
+_JSON_FENCE_RE = re.compile(r"```(?:json)?\s*\n?(.*?)\n?\s*```", re.DOTALL)
+
+
+def parse_json_response(text: str) -> dict:
+    text = text.strip()
+    fence_match = _JSON_FENCE_RE.search(text)
+    if fence_match:
+        text = fence_match.group(1).strip()
+    start = text.index("{")
+    end = text.rindex("}") + 1
+    return json.loads(text[start:end])

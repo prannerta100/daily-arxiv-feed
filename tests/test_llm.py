@@ -1,7 +1,7 @@
 import os
 from unittest.mock import patch, MagicMock
 
-from daily_arxiv_feed.llm import get_client, chat
+from daily_arxiv_feed.llm import get_client, chat, parse_json_response
 
 
 def test_get_client_reads_env():
@@ -38,3 +38,17 @@ def test_chat_calls_openai_create():
     assert result == '{"result": "ok"}'
     call_kwargs = mock_client.chat.completions.create.call_args
     assert call_kwargs.kwargs["model"] == "gpt-5.2"
+
+
+def test_parse_json_response_plain():
+    assert parse_json_response('{"key": "val"}') == {"key": "val"}
+
+
+def test_parse_json_response_markdown_fenced():
+    text = '```json\n{"key": "val"}\n```'
+    assert parse_json_response(text) == {"key": "val"}
+
+
+def test_parse_json_response_with_preamble():
+    text = 'Here is the result:\n{"key": "val"}\nDone!'
+    assert parse_json_response(text) == {"key": "val"}

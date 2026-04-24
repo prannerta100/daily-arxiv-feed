@@ -78,3 +78,23 @@ def test_render_latex_preserves_latex_in_titles():
     }]
     tex = render_latex(summaries, "2026-04-24")
     assert 'Fr\\"obe' in tex
+
+
+def test_render_latex_escapes_special_chars_in_titles():
+    summaries = [{
+        "arxiv_id": "2504.1",
+        "title": "R&D for 50% Improvement",
+        "authors": ["Author A & Author B"],
+        "url": "https://arxiv.org/abs/2504.1",
+        "categories": [1],
+        "summary": {
+            "one_line_takeaway": "T",
+            "key_contribution": "C",
+            "method": "M",
+            "most_important_result": "R",
+        },
+    }]
+    tex = render_latex(summaries, "2026-04-24")
+    assert r"R\&D" in tex
+    assert r"50\%" in tex
+    assert r"Author A \& Author B" in tex

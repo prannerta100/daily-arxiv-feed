@@ -12,7 +12,7 @@ from defusedxml import ElementTree as ET
 logger = logging.getLogger(__name__)
 
 CATEGORIES = ["cs.CL", "cs.SD", "eess.AS", "cs.LG", "cs.AI"]
-MAX_RETRIES = 100
+MAX_RETRIES = 15
 INITIAL_BACKOFF = 2.0
 MAX_BACKOFF = 60.0
 

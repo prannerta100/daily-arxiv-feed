@@ -27,8 +27,8 @@
 \BLOCK{for section in sections}
 \section*{\VAR{section.name}}
 \BLOCK{for paper in section.papers}
-{\small\textbf{\VAR{paper.title|raw}}} {\scriptsize[\href{\VAR{paper.url}}{arxiv}]}\\
-{\scriptsize \VAR{paper.authors_str|raw}}\\[1pt]
+{\small\textbf{\VAR{paper.title|arxiv}}} {\scriptsize[\href{\VAR{paper.url}}{arxiv}]}\\
+{\scriptsize \VAR{paper.authors_str|arxiv}}\\[1pt]
 \BLOCK{if paper.verification_warning}
 {\scriptsize\textcolor{red}{! \VAR{paper.verification_warning|e}}}\\[1pt]
 \BLOCK{endif}
