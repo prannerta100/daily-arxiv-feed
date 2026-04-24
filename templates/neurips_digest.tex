@@ -1,8 +1,8 @@
-\documentclass[10pt,letterpaper]{article}
+\documentclass[9pt,letterpaper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{times}
-\usepackage[margin=0.6in,top=0.5in,bottom=0.5in]{geometry}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{enumitem}
@@ -11,38 +11,36 @@
 \hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
 
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{3pt}
+\setlength{\parskip}{2pt}
 \setlist{nosep,leftmargin=*}
 
-\titleformat{\section}{\normalsize\bfseries}{}{0pt}{}
-\titlespacing{\section}{0pt}{6pt}{2pt}
+\titleformat{\section}{\small\bfseries}{}{0pt}{}
+\titlespacing{\section}{0pt}{4pt}{1pt}
 
 \pagestyle{empty}
 
 \begin{document}
 
-{\small\textbf{Arxiv Digest --- \VAR{date}} \hfill {\footnotesize\VAR{paper_count} papers selected}}
+{\footnotesize\textbf{Arxiv Digest --- \VAR{date}} \hfill \VAR{paper_count} papers}
 
-\medskip
+\smallskip
 \BLOCK{for section in sections}
 \section*{\VAR{section.name}}
 \BLOCK{for paper in section.papers}
-\textbf{\VAR{paper.title|e}} {\footnotesize[\href{\VAR{paper.url}}{arxiv}]}\\
-{\footnotesize \VAR{paper.authors_str|e}}\\[1pt]
+{\small\textbf{\VAR{paper.title|raw}}} {\scriptsize[\href{\VAR{paper.url}}{arxiv}]}\\
+{\scriptsize \VAR{paper.authors_str|raw}}\\[1pt]
 \BLOCK{if paper.verification_warning}
-{\footnotesize\textcolor{red}{$\triangle$ \VAR{paper.verification_warning|e}}}\\[1pt]
+{\scriptsize\textcolor{red}{! \VAR{paper.verification_warning|e}}}\\[1pt]
 \BLOCK{endif}
-\textit{\VAR{paper.summary.one_line_takeaway|e}}\\[2pt]
-\VAR{paper.summary.key_contribution|e}
-\VAR{paper.summary.method|e}
-\VAR{paper.summary.most_important_result|e}
+{\small\textit{\VAR{paper.summary.one_line_takeaway|e}}}\\[1pt]
+{\footnotesize \VAR{paper.summary.key_contribution|e} \VAR{paper.summary.method|e} \VAR{paper.summary.most_important_result|e}}
 
 \smallskip
 \BLOCK{endfor}
 \BLOCK{endfor}
 \BLOCK{if overview}
 \section*{Field Overview}
-\VAR{overview|e}
+{\footnotesize \VAR{overview|e}}
 \BLOCK{endif}
 
 \end{document}

@@ -41,22 +41,40 @@ def test_render_latex_groups_by_category():
     assert "Foundation Model Theory" in tex
 
 
-def test_render_latex_escapes_special_chars():
+def test_render_latex_escapes_summary_special_chars():
     summaries = [{
         "arxiv_id": "2504.1",
-        "title": "Paper with $pecial & ch#rs",
-        "authors": ["O'Brien & Co"],
+        "title": "Paper Title",
+        "authors": ["Author A"],
         "url": "https://arxiv.org/abs/2504.1",
         "categories": [1],
         "summary": {
-            "one_line_takeaway": "100% improvement",
+            "one_line_takeaway": "100% improvement & more",
+            "key_contribution": "Uses $special chars#",
+            "method": "M",
+            "most_important_result": "R",
+        },
+    }]
+    tex = render_latex(summaries, "2026-04-24")
+    assert "\\%" in tex
+    assert "\\&" in tex
+    assert "\\$" in tex
+    assert "\\#" in tex
+
+
+def test_render_latex_preserves_latex_in_titles():
+    summaries = [{
+        "arxiv_id": "2504.1",
+        "title": 'Fr\\"obe et al.',
+        "authors": ['Fr\\"obe'],
+        "url": "https://arxiv.org/abs/2504.1",
+        "categories": [1],
+        "summary": {
+            "one_line_takeaway": "T",
             "key_contribution": "C",
             "method": "M",
             "most_important_result": "R",
         },
     }]
     tex = render_latex(summaries, "2026-04-24")
-    assert "\\$" in tex or "\\$pecial" in tex
-    assert "\\&" in tex
-    assert "\\#" in tex
-    assert "\\%" in tex
+    assert 'Fr\\"obe' in tex

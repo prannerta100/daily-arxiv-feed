@@ -32,14 +32,18 @@ LATEX_SPECIAL = {
 
 
 def _latex_escape(text: str) -> str:
-    """Escape LaTeX special characters."""
     if not isinstance(text, str):
         text = str(text)
-    # Escape backslash first to avoid double-escaping
     text = text.replace('\\', r'\textbackslash{}')
     for char, replacement in LATEX_SPECIAL.items():
         if char != '\\':
             text = text.replace(char, replacement)
+    return text
+
+
+def _latex_passthrough(text: str) -> str:
+    if not isinstance(text, str):
+        text = str(text)
     return text
 
 
@@ -65,6 +69,7 @@ def render_latex(summaries: list[dict], date: str, overview: str = "") -> str:
         comment_end_string="}",
     )
     env.filters["e"] = _latex_escape
+    env.filters["raw"] = _latex_passthrough
 
     template = env.get_template("neurips_digest.tex")
 
@@ -114,10 +119,10 @@ def compile_pdf(tex_content: str, output_dir: Path, filename: str) -> Path:
     tex_path.write_text(tex_content, encoding="utf-8")
 
     result = subprocess.run(
-        ["tectonic", str(tex_path)],
+        ["tectonic", str(tex_path.resolve())],
         capture_output=True,
         text=True,
-        cwd=str(output_dir),
+        cwd=str(output_dir.resolve()),
     )
     if result.returncode != 0:
         logger.error("tectonic failed:\n%s", result.stderr)
@@ -130,21 +135,15 @@ def compile_pdf(tex_content: str, output_dir: Path, filename: str) -> Path:
 
 
 def get_page_count(pdf_path: Path) -> int:
-    """Extract page count from PDF using strings command.
-
-    Args:
-        pdf_path: Path to the PDF file.
-
-    Returns:
-        Number of pages in the PDF.
-    """
     result = subprocess.run(
-        ["strings", str(pdf_path)],
+        ["pdfinfo", str(pdf_path)],
         capture_output=True,
         text=True,
     )
-    matches = re.findall(r"/Count\s+(\d+)", result.stdout)
-    if matches:
-        return max(int(m) for m in matches)
-    count = result.stdout.count("/Page")
-    return max(count - 1, 1)
+    if result.returncode == 0:
+        match = re.search(r"Pages:\s+(\d+)", result.stdout)
+        if match:
+            return int(match.group(1))
+    logger.warning("pdfinfo failed, estimating page count from file size")
+    size_kb = pdf_path.stat().st_size / 1024
+    return max(1, int(size_kb / 6))
