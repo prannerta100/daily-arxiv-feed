@@ -29,7 +29,7 @@
 \section*{\VAR{section.name}}
 \BLOCK{for paper in section.papers}
 {\small\textbf{\VAR{paper.title|arxiv}}} {\scriptsize[\href{\VAR{paper.url}}{arxiv}]}\\
-{\scriptsize \VAR{paper.authors_str|arxiv}}\\[1pt]
+{\scriptsize \VAR{paper.authors_str|arxiv}}\\
 \BLOCK{if paper.verification_warning}
 {\scriptsize\textcolor{red}{! \VAR{paper.verification_warning|e}}}\\[1pt]
 \BLOCK{endif}

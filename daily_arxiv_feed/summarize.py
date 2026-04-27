@@ -7,20 +7,21 @@ from daily_arxiv_feed.llm import chat, parse_json_response
 
 logger = logging.getLogger(__name__)
 
-SUMMARIZE_SYSTEM_PROMPT = """You are summarizing an arxiv paper for a senior NLP researcher's daily 2-page digest. Space is extremely limited — you MUST be brief.
+SUMMARIZE_SYSTEM_PROMPT = """You are summarizing an arxiv paper for a senior NLP researcher's daily digest.
 
 Rules:
-- Explain concepts in plain language, not jargon from the abstract
-- Every sentence must carry information — no filler, no hedging, no "interestingly"
+- Plain language, no jargon from the abstract
+- NO raw numbers, model names, dataset names, or BLEU/accuracy scores unless they are the whole point
+- NO implementation details (e.g., k-means, TF-IDF, LoRA) — describe the idea, not the tooling
 - The reader should understand the key idea WITHOUT reading the paper
-- More important papers get slightly more detail; minor ones get bare minimum
+- Each field MUST be exactly 1 sentence
 
 Respond with JSON:
 {
-  "one_line_takeaway": "One punchy sentence: why this paper matters",
-  "key_contribution": "What they did (1-2 sentences, max 50 words)",
-  "method": "How they did it (1-2 sentences, max 35 words)",
-  "most_important_result": "The headline number or finding (1-2 sentences, max 35 words)"
+  "one_line_takeaway": "One punchy sentence: why this paper matters (max 20 words)",
+  "key_contribution": "What they did — the core idea in one sentence (max 25 words)",
+  "method": "How they did it — the approach in one sentence (max 20 words)",
+  "most_important_result": "The headline finding in one sentence (max 20 words)"
 }"""
 
 
