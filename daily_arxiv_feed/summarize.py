@@ -18,9 +18,9 @@ Rules:
 Respond with JSON:
 {
   "one_line_takeaway": "One punchy sentence: why this paper matters",
-  "key_contribution": "What they did (1-2 sentences, max 40 words)",
-  "method": "How they did it (1 sentence, max 25 words)",
-  "most_important_result": "The headline number or finding (1 sentence, max 25 words)"
+  "key_contribution": "What they did (1-2 sentences, max 50 words)",
+  "method": "How they did it (1-2 sentences, max 35 words)",
+  "most_important_result": "The headline number or finding (1-2 sentences, max 35 words)"
 }"""
 
 
