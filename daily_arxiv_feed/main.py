@@ -15,7 +15,7 @@ from daily_arxiv_feed.compile import render_latex, compile_pdf, get_page_count
 
 logger = logging.getLogger(__name__)
 
-MAX_PAGES = 2
+MAX_PAGES = 3
 MAX_COMPRESS_ITERATIONS = 3
 
 COMPRESS_SYSTEM_PROMPT = """You are compressing paper summaries to fit a strict 2-page PDF limit. The current digest is too long. Rewrite ALL summaries to be shorter while preserving the key insight and most important result for each paper. Use tighter prose — fewer words, same information density. Do not drop any paper.
