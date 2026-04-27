@@ -38,8 +38,16 @@ def _compress_summaries(client, summaries: list[dict]) -> list[dict]:
         lines.append("")
     user_prompt = "\n".join(lines)
 
-    response = chat(client=client, system=COMPRESS_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
-    compressed = parse_json_response(response)
+    for attempt in range(2):
+        try:
+            response = chat(client=client, system=COMPRESS_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
+            compressed = parse_json_response(response)
+            break
+        except Exception:
+            if attempt == 1:
+                logger.warning("Compression failed twice, keeping original summaries")
+                return summaries
+            logger.warning("Compression JSON parse failed, retrying")
 
     summary_map = {c["arxiv_id"]: c for c in compressed["summaries"]}
     for s in summaries:

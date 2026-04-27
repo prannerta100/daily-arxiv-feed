@@ -61,11 +61,21 @@ def chat(
 _JSON_FENCE_RE = re.compile(r"```(?:json)?\s*\n?(.*?)\n?\s*```", re.DOTALL)
 
 
-def parse_json_response(text: str) -> dict:
+def _extract_json_text(text: str) -> str:
     text = text.strip()
     fence_match = _JSON_FENCE_RE.search(text)
     if fence_match:
         text = fence_match.group(1).strip()
     start = text.index("{")
     end = text.rindex("}") + 1
-    return json.loads(text[start:end])
+    return text[start:end]
+
+
+def parse_json_response(text: str) -> dict:
+    raw = _extract_json_text(text)
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        # Attempt repair: fix unescaped control characters inside string values
+        repaired = re.sub(r'[\x00-\x1f]+', ' ', raw)
+        return json.loads(repaired)
