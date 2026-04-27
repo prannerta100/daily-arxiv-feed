@@ -44,7 +44,7 @@ def _retry_request(url: str, **kwargs) -> httpx.Response:
 def fetch_via_rss() -> list[Paper]:
     papers = []
     for cat in CATEGORIES:
-        url = f"http://rss.arxiv.org/rss/{cat}"
+        url = f"https://rss.arxiv.org/rss/{cat}"
         resp = _retry_request(url)
         feed = feedparser.parse(resp.text)
         for entry in feed.entries:
@@ -72,7 +72,7 @@ def fetch_via_rss() -> list[Paper]:
 def fetch_via_api() -> list[Paper]:
     papers = []
     for cat in CATEGORIES:
-        url = "http://export.arxiv.org/api/query"
+        url = "https://export.arxiv.org/api/query"
         params = {
             "search_query": f"cat:{cat}",
             "sortBy": "submittedDate",
