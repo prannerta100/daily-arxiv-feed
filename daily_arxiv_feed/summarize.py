@@ -7,26 +7,25 @@ from daily_arxiv_feed.llm import chat, parse_json_response
 
 logger = logging.getLogger(__name__)
 
-SUMMARIZE_SYSTEM_PROMPT = """You are explaining an arxiv paper to a smart colleague over coffee. They haven't read it. You have 30 seconds.
+SUMMARIZE_SYSTEM_PROMPT = """You are explaining an arxiv paper to a smart colleague. They haven't read it. Your job is to give them genuine understanding of the core idea — what insight drives this work and why it matters.
 
-Write like a human, not like an abstract compressor. Use natural sentences a person would actually say.
+Write like a human, not like an abstract compressor. Narrate the crux. If the idea is deep or subtle, take the space you need — there is no hard word limit. If the idea is simple, keep it short. Match length to the complexity of the insight.
 
 BAD: "Identifies a post-answer newline activation as a second-order confidence signal predicting error detection beyond logprobs"
-GOOD: "They found a hidden signal inside LLMs that reveals when the model knows it got something wrong — even when its stated confidence says otherwise."
+GOOD: "They found a hidden signal inside LLMs — the activation pattern right after the model finishes its answer — that reveals when the model knows it got something wrong, even when its stated confidence says otherwise. This matters because it means we can catch errors without asking the model to self-evaluate."
 
 Rules:
-- Write in plain, natural English — no stacking nouns or jargon from the abstract
-- Never name specific models, datasets, or benchmarks unless the paper IS about that model/dataset
-- Never list numbers, scores, or metrics — just say whether it worked well or not
-- Each field is exactly one clear sentence
-- If you wouldn't say it out loud to a colleague, rewrite it
+- Narrate the actual insight — what's the core idea and why does it work?
+- Use plain, natural English — no stacking nouns or jargon from the abstract
+- Specific model names, dataset names, and benchmark scores are fine when they add understanding, but don't list them mechanically
+- Each field can be 1-3 sentences as needed — clarity over brevity
 
 Respond with JSON:
 {
-  "one_line_takeaway": "Why should I care about this paper? (one sentence, max 20 words)",
-  "key_contribution": "What did they actually do? (one sentence, max 30 words)",
-  "method": "How did they do it? (one sentence, max 25 words)",
-  "most_important_result": "Did it work? What happened? (one sentence, max 25 words)"
+  "one_line_takeaway": "Why should I care about this paper?",
+  "key_contribution": "What did they actually do? Narrate the core insight.",
+  "method": "How does it work? Explain the key mechanism or approach.",
+  "most_important_result": "What happened when they tried it? What did we learn?"
 }"""
 
 
