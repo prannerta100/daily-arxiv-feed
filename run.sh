@@ -3,6 +3,8 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
+poetry install --quiet --no-interaction
+
 export WEBEX_TOKEN
 WEBEX_TOKEN=$(token-generator personal bts)
 
