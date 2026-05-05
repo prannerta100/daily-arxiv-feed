@@ -65,6 +65,7 @@ def _compress_summaries(client, summaries: list[dict]) -> list[dict]:
 
 def _push_pdf(pdf_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
+    pdf_path = pdf_path.resolve()
     tex_path = pdf_path.with_suffix(".tex")
     files_to_push = [str(pdf_path.relative_to(repo_root))]
     if tex_path.exists():
