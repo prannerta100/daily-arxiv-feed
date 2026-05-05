@@ -10,14 +10,17 @@ logger = logging.getLogger(__name__)
 
 VERIFY_SYSTEM_PROMPT = """You are verifying a summary of an arxiv paper against its original abstract.
 
-Check for:
-- Factual inconsistencies between the summary and abstract
-- Claims in the summary not supported by the abstract
-- Misrepresented results or conclusions
-- Exaggerated or understated findings
+Only flag ACTUAL factual errors — things that contradict the abstract or materially misrepresent the work. Do NOT flag:
+- Reasonable inferences or explanations that are consistent with the abstract
+- Minor wording choices or paraphrasing that doesn't change meaning
+- Causal explanations that logically follow from stated findings
+- Slight generalizations that don't mislead the reader
+- Attributions to authors (e.g., "they show..." or "Smith et al. find...")
+
+The bar for failure is: would a reader of this summary walk away with a WRONG understanding of what the paper did or found?
 
 Respond with JSON:
-{"passed": true/false, "issues": ["list of specific issues found, empty if passed"]}"""
+{"passed": true/false, "issues": ["list of specific FACTUAL errors only, empty if passed"]}"""
 
 
 def _verify_one(client: OpenAI, abstract: str, summary: dict) -> dict:
@@ -38,7 +41,7 @@ def _regenerate_summary(client: OpenAI, paper: Paper, feedback: list[str]) -> di
     regen_prompt = f"""Regenerate a summary for this paper. Your previous summary had these issues:
 {chr(10).join('- ' + issue for issue in feedback)}
 
-Fix these issues. Be accurate to the abstract.
+Fix these issues. Be accurate to the abstract. Write in full, natural prose — complete sentences with subjects and verbs, minimum 50 words per field (except one_line_takeaway which should be 20+ words). Do NOT compress into shorthand or telegram-style fragments.
 
 Title: {paper.title}
 Abstract: {paper.abstract}

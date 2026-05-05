@@ -18,14 +18,19 @@ Rules:
 - Narrate the actual insight — what's the core idea and why does it work?
 - Use plain, natural English — no stacking nouns or jargon from the abstract
 - Specific model names, dataset names, and benchmark scores are fine when they add understanding, but don't list them mechanically
-- Each field can be 1-3 sentences as needed — clarity over brevity
+- Each field should be 2-4 complete sentences written in full prose
+- NEVER omit subjects from sentences (bad: "Identifies X..." good: "They identify X...")
+- NEVER compress by removing articles, spaces, or connectives
+- NEVER write in telegram/shorthand style — write how you'd actually explain it out loud
+- one_line_takeaway: minimum 20 words, a complete thought
+- key_contribution, method, most_important_result: minimum 50 words each
 
 Respond with JSON:
 {
-  "one_line_takeaway": "Why should I care about this paper?",
-  "key_contribution": "What did they actually do? Narrate the core insight.",
-  "method": "How does it work? Explain the key mechanism or approach.",
-  "most_important_result": "What happened when they tried it? What did we learn?"
+  "one_line_takeaway": "Why should I care about this paper? (full sentence, 20+ words)",
+  "key_contribution": "What did they actually do? Narrate the core insight. (50+ words, full prose)",
+  "method": "How does it work? Explain the key mechanism or approach. (50+ words, full prose)",
+  "most_important_result": "What happened when they tried it? What did we learn? (50+ words, full prose)"
 }"""
 
 

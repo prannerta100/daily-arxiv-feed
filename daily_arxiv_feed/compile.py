@@ -31,10 +31,27 @@ _LATEX_SPECIAL_MAP = {
     '\\': r'\textbackslash{}',
 }
 
+_UNICODE_NORMALIZE = {
+    '‘': '`',       # left single quote
+    '’': "'",       # right single quote / apostrophe
+    '“': '``',      # left double quote
+    '”': "''",      # right double quote
+    '–': '--',      # en-dash
+    '—': '---',     # em-dash
+    '…': '...',     # ellipsis
+    ' ': '~',       # non-breaking space
+}
+_UNICODE_NORMALIZE_RE = re.compile('[' + ''.join(_UNICODE_NORMALIZE.keys()) + ']')
+
+
+def _normalize_unicode(text: str) -> str:
+    return _UNICODE_NORMALIZE_RE.sub(lambda m: _UNICODE_NORMALIZE[m.group()], text)
+
 
 def _latex_escape(text: str) -> str:
     if not isinstance(text, str):
         text = str(text)
+    text = _normalize_unicode(text)
     return _LATEX_SPECIAL_RE.sub(lambda m: _LATEX_SPECIAL_MAP[m.group(1)], text)
 
 
