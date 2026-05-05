@@ -1,5 +1,6 @@
 import json
 import logging
+import subprocess
 import sys
 from dataclasses import asdict
 from datetime import datetime
@@ -62,6 +63,26 @@ def _compress_summaries(client, summaries: list[dict]) -> list[dict]:
     return summaries
 
 
+def _push_pdf(pdf_path: Path) -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    tex_path = pdf_path.with_suffix(".tex")
+    files_to_push = [str(pdf_path.relative_to(repo_root))]
+    if tex_path.exists():
+        files_to_push.append(str(tex_path.relative_to(repo_root)))
+
+    date = pdf_path.stem
+    try:
+        subprocess.run(["git", "add"] + files_to_push, cwd=repo_root, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", f"digest: {date}"],
+            cwd=repo_root, check=True,
+        )
+        subprocess.run(["git", "push"], cwd=repo_root, check=True)
+        logger.info("Pushed %s to remote", ", ".join(files_to_push))
+    except subprocess.CalledProcessError as e:
+        logger.warning("Git push failed: %s", e)
+
+
 def run_pipeline(output_dir: Path | None = None, date: str | None = None) -> Path | None:
     if output_dir is None:
         output_dir = Path(__file__).resolve().parent.parent / "output"
@@ -122,6 +143,9 @@ def run_pipeline(output_dir: Path | None = None, date: str | None = None) -> Pat
 
     if pages > MAX_PAGES:
         logger.warning("PDF still %d pages after %d compression attempts", pages, MAX_COMPRESS_ITERATIONS)
+
+    logger.info("=== Stage 6: Push to remote ===")
+    _push_pdf(pdf_path)
 
     logger.info("Done! PDF at %s", pdf_path)
     return pdf_path

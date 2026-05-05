@@ -1,7 +1,7 @@
 __pycache__/
 *.pyc
 .venv/
-output/
+output/staging/
 logs/
 dist/
 *.egg-info/
