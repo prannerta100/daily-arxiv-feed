@@ -1,0 +1,112 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-06} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Multilingual Safety Alignment via Self-Distillation}} {\scriptsize[\href{https://arxiv.org/abs/2605.02971}{arxiv}]}\\
+{\scriptsize Ruiyang Qin, Qingzhuo Wang, Dongrui Liu, Qiang Li, Zhihua Wei, Wen Shen}\\
+
+{\small\textit{Transfers an LLM's English safety policy to many languages using only multilingual prompts---no curated multilingual safe responses.}}\\[1pt]
+{\footnotesize Multilingual Self-Distillation (MSD) addresses the common gap where models are aligned in English but jailbreakable in low-resource languages, without requiring per-language safety datasets. Use the aligned model as teacher and a student copy trained to match the teacher's safety behavior on multilingual queries (on-policy and off-policy variants). Add Dual-Perspective Safety Weighting (DPSW) to upweight safety-critical tokens via teacher--student divergence and avoid over-penalizing benign content. MSD markedly improves jailbreak resistance in low-resource (and even unseen) languages while largely preserving helpfulness; DPSW reduces the typical capability drop by focusing learning on the safety decision boundary.}
+
+\medskip
+
+{\small\textbf{Teaching LLMs Brazilian Healthcare: Injecting Knowledge from Official Clinical Guidelines}} {\scriptsize[\href{https://arxiv.org/abs/2605.01077}{arxiv}]}\\
+{\scriptsize Hugo Abonizio, Filipe Rocha Lopes, Roberto Lotufo, Rodrigo Nogueira}\\
+
+{\small\textit{Distills official SUS clinical guidelines into an open 14B model, yielding a Portuguese assistant that reliably recalls protocol details.}}\\[1pt]
+{\footnotesize A reproducible recipe (plus new PT-BR benchmarks and released weights/data) for injecting Brazilian SUS/PCDT guideline knowledge into an open LLM, targeting exact criteria/doses/monitoring rules. Use 178 SUS guidelines (\textasciitilde{}5.4M tokens) to generate \textasciitilde{}70M tokens of synthetic data in three styles (rephrasings, wiki-like articles, QA) via four generator LLMs; train Qwen2.5-14B-Instruct with continual pretraining then GRPO alignment to improve guideline-faithful responses. Final model scores 83.9\% on HealthBench-BR and 85.4\% on PCDT-QA, reportedly beating larger closed models and a web-RAG baseline on protocol-grounded recall; ablations show multi-generator synthesis and GRPO are key (raw SFT on guidelines is insufficient).}
+
+\medskip
+
+{\small\textbf{Lost in the Tower of Babel: The Adverse Effects of Incidental Multilingualism in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.01224}{arxiv}]}\\
+{\scriptsize Anjishnu Mukherjee, Chutong Meng, Antonios Anastasopoulos}\\
+
+{\small\textit{``Multilingual'' LLM behavior is often accidental and brittle: language use can drift under mixed-language context, breaking real deployments.}}\\[1pt]
+{\footnotesize Frames and evidences ``incidental multilingualism'' as a source of operational failures: unreliable self-reported language support, unexpected output languages, and easy language-context perturbations that change behavior. Audit models by (1) asking which languages they support and (2) testing actual response language under multilingual prompts; introduce a simple language-change attack (switch/mix prompt language without changing task) to measure output-language and behavior drift. Self-reported language support poorly predicts real behavior; small, realistic language shifts can trigger unexpected language choices and inconsistent outputs---showing multilingual reliability/equity is not guaranteed by web-scale training and must be engineered and validated.}
+
+\medskip
+
+{\small\textbf{Auditing demographic bias in AI-based emergency police dispatch: a cross-lingual evaluation of eleven large language models}} {\scriptsize[\href{https://arxiv.org/abs/2605.01451}{arxiv}]}\\
+{\scriptsize William Guey, Wei Zhang, Pierrick Bougault, Yi Wang, Bertan Ucar, Vitor D. de Moura, Jos\'e O. Gomes}\\
+
+{\small\textit{LLM dispatch-triage bias concentrates in ambiguous cases and can change or reverse between English and Mandarin, so fairness doesn't transfer across languages.}}\\[1pt]
+{\footnotesize A controlled, cross-lingual audit of emergency police dispatch as an ordinal (5-level) priority task using minimal pairs that differ only by demographic cues. Create clear vs borderline dispatch scenarios; generate minimal-pair variants inserting demographic cues (religious appearance, gender, race) in English and Mandarin; query 11 LLMs (19,800 outputs) and measure priority shifts attributable solely to demographics. Demographic effects are largest when severity is underdetermined and largely disappear when priority is clear; religious appearance shifts most, then gender, then race. Bias patterns differ by language: gender bias strengthens in Mandarin, race bias is stronger in English, and some effects flip direction---requiring language/jurisdiction-specific validation.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail}} {\scriptsize[\href{https://arxiv.org/abs/2605.03073}{arxiv}]}\\
+{\scriptsize Venkata Pushpak Teja Menta}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary implies the TTS→STT flywheel/pipeline itself ``achieves EHR = 0.98'' / ``produces synthetic entity-dense audio with very high entity hit rates.'' In the abstract, 0.98 is reported as a standalone figure (``synthesises \textasciitilde{}22,000 ... utterances at = 0.98'') without explicitly stating it is an ASR Entity-Hit-Rate; EHR is only explicitly defined/used for the baseline ASR systems (0.027 and 0.16). This conflates the 0.98 metric with EHR and attributes it to the flywheel as an ASR performance result.}}\\[1pt]
+
+{\small\textit{Entity-heavy, code-mixed Telugu breaks strong ASR systems; a TTS→STT flywheel can synthesize entity-dense audio with near-perfect entity preservation.}}\\[1pt]
+{\footnotesize Defines and quantifies a key Indic ASR failure mode (entities: numbers, amounts, addresses, brands, code-mix) via Entity-Hit-Rate (EHR), then provides an open synthetic-data pipeline and releases artifacts. Build an open Indic TTS pipeline to synthesize \textasciitilde{}22k entity-dense Indic--English code-mix utterances; evaluate on a held-out synthesized entity-dense Telugu test set using EHR; compare to an open-source Whisper Telugu model and a commercial ASR; release code/data/predictions/dictionaries. On the entity-dense Telugu test set, EHR is 0.027 (vasista22/whisper-telugu-large-v2) and 0.16 (Deepgram Nova-3), while the proposed TTS pipeline achieves EHR=0.98 on its synthesized corpus---showing a stark entity robustness gap and a practical way to generate entity-faithful audio.}
+
+\medskip
+
+{\small\textbf{Script collapse in multilingual ASR: A reference-free metric and 100-pair benchmark}} {\scriptsize[\href{https://arxiv.org/abs/2604.08786}{arxiv}]}\\
+{\scriptsize Hanif Rahman}\\
+
+{\small\textit{Multilingual ASR can output fluent text in the wrong script---undetected by WER---so they propose a reference-free script metric and benchmark it at scale.}}\\[1pt]
+{\footnotesize Introduces Script Fidelity Rate (SFR) and a 100 model--language pair benchmark (10 languages, 6 scripts, 10 models) to make ``script collapse'' measurable and comparable. Compute SFR as the fraction of hypothesis characters in the expected Unicode script block (no reference needed). Sweep FLEURS across Whisper sizes, MMS-1B, SeamlessM4T-v2, Gemma 4 E2B. Test mitigation via script-aware prompting for Gemma 4 and measure downstream NLLB translation on languages with low baseline SFR. 21/100 pairs have severe collapse (SFR<10\%): 20 are Whisper, plus Gemma 4 E2B on Urdu with a generic prompt. Script-aware prompting raises Gemma mean SFR 71.2\%→97.7\% and fixes Urdu 6.5\%→97.0\%, recovering +5.9 chrF translation on the low-SFR subset.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Arithmetic in the Wild: Llama uses Base-10 Addition to Reason About Cyclic Concepts}} {\scriptsize[\href{https://arxiv.org/abs/2605.01148}{arxiv}]}\\
+{\scriptsize Sheridan Feucht, Tal Haklay, Usha Bhalla, Daniel Wurgaft, Can Rager, Rapha\"el Sarfati, Jack Merullo, Thomas McGrath, Owen Lewis, Ekdeep Singh Lubana, Thomas Fel, Atticus Geiger}\\
+
+{\small\textit{For cyclic concepts (months/weekdays), Llama often does decimal addition then maps back to labels, rather than true modular arithmetic.}}\\[1pt]
+{\footnotesize Mechanistic evidence that Llama-3.1-8B reuses a generic base-10 addition circuit across cyclic domains, despite circular concept representations. Probe cyclic reasoning prompts; identify periodic ``Fourier-like'' internal features with base-10-aligned periods (2/5/10); trace computation to a sparse set of 28 layer-18 MLP neurons reused across tasks; interpret as two-stage: add in numbers, then remap to cyclic token. Behavior and internals fit ``base-10 addition → remap'' (e.g., August=8, +6=14 → February), not modulus-12 arithmetic; 28 neurons (\textasciitilde{}0.2\% of that MLP) are causally implicated and shared across cyclic tasks, showing algorithm can differ from representational geometry.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Prosa: Rubric-Based Evaluation of LLMs on Real User Chats in Brazilian Portuguese}} {\scriptsize[\href{https://arxiv.org/abs/2605.01630}{arxiv}]}\\
+{\scriptsize Roseval Malaquias Junior, Giovana Kerche Bon\'as, Thales Sales Almeida, Hugo Abonizio, Thiago Laitz, Ramon Pires, Marcos Piau, Celio Larcher, Rodrigo Nogueira}\\
+
+{\small\textit{Stable LLM rankings on real PT-BR chats come from rubric + binary judging with consensus filtering, not from picking a ``perfect'' judge model.}}\\[1pt]
+{\footnotesize Prosa: a 1,000-conversation Brazilian Portuguese multi-turn benchmark (from WildChat) plus an evaluation protocol that makes leaderboards judge-invariant and more discriminative. Replace holistic scores with binary pass/fail rubric items; use three judge models and keep only items with inter-judge agreement (filtering ambiguous signals) to compute final scores. Holistic judging yields agreement on only 7/16 model ranks across judges; filtered rubric judging yields agreement on all 16/16 ranks and increases adjacent-model score gaps by 47\%, with low eval cost (\textasciitilde{}\$2.1 per new model using Gemini 3 Flash).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM reliability/safety and agentic systems. There's a large cluster (at least \textasciitilde{}25--35 papers) on safety, jailbreaks, and governance---e.g., MultiBreak, ContextualJailbreak, SRTJ, EvoJail, RefusalGuard, RouteHijack, reward hacking/tool-use exploits, and multiple ``position'' papers on agentic safety and workflow governance. Another major theme (at least \textasciitilde{}20--30) is evaluation and reliability measurement---hallucination benchmarks/mitigation (HalluScan, MultiWikiQHalluA, ``Only Say What You Know''), calibration/abstention and confidence signals, and LLM-as-judge stability/disagreement (Prosa, STABLEVAL, RMGAP, StressEval). A similarly large engineering trend (at least \textasciitilde{}20) targets efficiency and serving---speculative decoding variants, KV-cache compression/quantization (eOptShrinkQ, HeadQ, SplitZip), early-exit/acceleration, and MoE serving/prefill (ZeRO-Prefill). Notable emerging directions include long-horizon memory for agents (MemORAI, GRAVITY, MEMAUDIT) and a strong healthcare/biomed concentration (at least \textasciitilde{}15--25) spanning clinical RAG/benchmarks (Medmarks, PhysicianBench, ClinicBot) and multimodal medical tasks (dental, radiology, pathology), suggesting continued push toward deployable, audited medical agents.}
+
+
+\end{document}
