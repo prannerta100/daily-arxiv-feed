@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-07} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{NSL-MT: Linguistically Informed Negative Samples for Efficient Machine Translation in Low-Resource Languages}} {\scriptsize[\href{https://arxiv.org/abs/2511.09537}{arxiv}]}\\
+{\scriptsize Mamadou K. Keita, Christopher Homan, Huy Le}\\
+
+{\small\textit{NSL-MT boosts low-resource MT by training against linguistically impossible target sentences, pushing probability mass away from ungrammatical outputs.}}\\[1pt]
+{\footnotesize Adds linguistically informed negative targets (specific grammar violations) as supervision, reshaping the model's distribution in low-data regimes where it otherwise over-scores ungrammatical translations. For each parallel pair, generates targeted ungrammatical target variants (e.g., agreement/inflection/word-order errors) and trains with an added penalty when the model prefers these negatives---contrastive learning defined by grammar violations. Consistently improves BLEU (few to low double-digit gains, largest when baselines are weak) and delivers strong data efficiency: \textasciitilde{}1k parallel examples with NSL-MT can match/beat standard training with \textasciitilde{}5k (\textasciitilde{}5× effective data).}
+
+\medskip
+
+{\small\textbf{Harnessing Linguistic Dissimilarity for Language Generalization on Unseen Low-Resource Varieties}} {\scriptsize[\href{https://arxiv.org/abs/2605.04500}{arxiv}]}\\
+{\scriptsize Jinju Kim, Haeji Jung, Youjeong Roh, Jong Hwan Ko, David R. Mortensen}\\
+
+{\small\textit{Modeling linguistic dissimilarity---not just similarity---can improve transfer to low-resource varieties, yielding large dependency-parsing gains across ten varieties.}}\\[1pt]
+{\footnotesize Challenges ``make varieties similar'' transfer; proposes a two-stage approach that selects a helpful source variety and learns representations that separate variety-specific cues from variety-invariant structure. Uses TOPPing for source-variety selection, then VACAI-Bowl with two branches: one captures variety-specific attributes, the other learns variety-invariant features via adversarial training; applied to structural prediction (dependency parsing). On dependency parsing over ten low-resource varieties, TOPPing+VACAI-Bowl reports an average 54.62\% improvement, supporting the value of explicitly encoding both shared and variety-specific signals.}
+
+\medskip
+
+{\small\textbf{Nsanku: Evaluating Zero-Shot Translation Performance of LLMs for Ghanaian Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.04208}{arxiv}]}\\
+{\scriptsize Stephen E. Moore, Mich-Seth Owusu, Akwasi Asare, Lawrence Adu Gyamfi, Paul Azunre, Joel Budu, Jonathan Asiamah, Elias Dzobo, Kelvin Newman, Edmund O. Benefo, Gerhardt Datsomor, Onesimus Addo Appiah, Ama Branoa Banful, Lucas Woedem Kpatah, Saani Mustapha Deishini, John Ayernor}\\
+
+{\small\textit{Nsanku benchmarks zero-shot English↔43 Ghanaian-language translation for 19 LLMs and finds no model is both high-quality and consistently reliable across languages.}}\\[1pt]
+{\footnotesize Provides an apples-to-apples evaluation for many Ghanaian languages and reframes performance as reliability: not just average BLEU/chrF, but stability across 43 languages. Uses 300 aligned Bible sentence pairs per language (YouVersion), prompts LLMs for zero-shot translation, scores with BLEU and chrF (plus an average), and analyzes cross-language consistency/variance. Top average quality comes from proprietary models (gemini-2.5-flash, claude-sonnet-4-5, gpt-4.1); best open-weight is kimi-k2-instruct-0905, but consistency analysis shows no model/language achieves both high quality and high consistency, with large per-language variation (e.g., Siwu ≫ Nkonya).}
+
+\medskip
+
+{\small\textbf{Purdah and Patriarchy: Evaluating and Mitigating South Asian Biases in Open-Ended Multilingual LLM Generations}} {\scriptsize[\href{https://arxiv.org/abs/2505.18466}{arxiv}]}\\
+{\scriptsize Mamnuya Rinki, Chahat Raj, Anjishnu Mukherjee, Ziwei Zhu}\\
+
+{\small\textit{Multilingual LLMs reproduce culturally coded, intersectional South Asian stereotypes in open-ended generations; a South Asia--grounded lexicon can measure and partially mitigate them across 10 languages.}}\\[1pt]
+{\footnotesize Introduces a culturally specific, intersectional bias evaluation (lexicon + framework) targeting South Asian stigma patterns (e.g., purdah/patriarchy) that standard English/West-centric benchmarks miss, and tests debiasing prompts in this setting. Defines South Asia--relevant bias dimensions; builds an intersectional lexicon spanning gender, religion, marital status, family size; elicits open-ended outputs (stories/to-do lists/hobbies); evaluates bias before/after two self-debiasing prompting strategies across 10 languages. Finds measurable intersectional stereotypes in multilingual open-ended text that conventional tests can miss; self-debiasing prompts reduce bias unevenly by language/context, and more complex prompting is not reliably better---mitigation must be evaluated in the same multilingual, culturally grounded regime.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{SignVerse-2M: A Two-Million-Clip Pose-Native Universe of 55+ Sign Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.01720}{arxiv}]}\\
+{\scriptsize Sen Fang, Hongbin Zhong, Yanxin Zhang, Dimitris N. Metaxas}\\
+
+{\small\textit{SignVerse-2M is a 2M-clip, 55+ sign-language dataset built ``pose-native,'' letting models train/evaluate directly in a unified 2D keypoint space used by modern pose pipelines.}}\\[1pt]
+{\footnotesize Releases a large multilingual sign corpus whose primary modality is standardized 2D pose sequences (not RGB), giving the field a single consistent pose interface (aligned with common controls like DWPose) plus tasks, a construction pipeline, and a baseline. Collects public sign-language videos across 55+ languages, runs a unified preprocessing pipeline with DWPose to convert each clip into a standardized 2D keypoint time series, and provides task setups with a simple SignDW Transformer baseline. Consolidates \textasciitilde{}2M real-world pose clips into one multilingual DWPose-derived corpus and demonstrates feasibility for multilingual pose-space modeling via defined tasks and a trained baseline, positioning the dataset as an interoperable pose-native evaluation/training resource (with stated limitations).}
+
+\medskip
+
+{\small\textbf{SQuTR: A Robustness Benchmark for Spoken Query to Text Retrieval under Acoustic Noise}} {\scriptsize[\href{https://arxiv.org/abs/2602.12783}{arxiv}]}\\
+{\scriptsize Yuejie Li, Ke Yang, Yueying Hua, Berlin Chen, Jianhao Nie, Yueping He, Caixin Kang}\\
+
+{\small\textit{SQuTR standardizes spoken-query→text retrieval evaluation under controlled real-world noise (English/Chinese), making robustness comparable instead of ad hoc.}}\\[1pt]
+{\footnotesize Introduces a reproducible benchmark that fixes queries, noise conditions, and evaluation so robustness claims can be compared; it turns noise robustness into a measurable ``stress curve'' rather than a single clean-audio score. Builds 37k+ queries from six EN/ZH retrieval datasets, synthesizes speech with 200 speaker profiles, mixes 17 environmental noise types at controlled SNRs, and evaluates cascaded (ASR+IR) and end-to-end systems under one protocol. Across representative systems, retrieval quality drops sharply as SNR decreases, with large differences in degradation rates; even strong models fail under extreme noise, showing scaling alone doesn't solve acoustic robustness and clean benchmarks overestimate real-world performance.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Single-Position Intervention Fails: Distributed Output Templates Drive In-Context Learning}} {\scriptsize[\href{https://arxiv.org/abs/2605.04061}{arxiv}]}\\
+{\scriptsize Bryan Cheng, Jasper Zhang}\\
+
+{\small\textit{In-context task identity isn't localized to one token/layer: single-position edits can fail completely, while distributed interventions over demo output tokens can transfer tasks with high success.}}\\[1pt]
+{\footnotesize Shows a key mechanistic pitfall: perfect linear probe accuracy at a position doesn't imply causal control; task behavior is carried by a distributed output-template spanning many demonstration output tokens. Runs causal activation patching: replicate high-accuracy task probes at specific layers/positions, then compare single-position patching vs patching all demonstration output-token positions; adds necessity ablations and tests whether transfer follows internal compatibility vs surface formatting similarity. In Llama-3.2-3B, single-position intervention yields 0\% task transfer across all 28 layers despite 100\% probe accuracy at those positions; patching all demo output tokens reaches up to 96\% transfer and peaks in a consistent ``intervention window'' (\textasciitilde{}30\% depth, e.g., layer 8), observed across LLaMA/Qwen/Gemma; query position is necessary while no single demo position is, and transfer tracks internal compatibility more than superficial similarity.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{DoGMaTiQ: Automated Generation of Question-and-Answer Nuggets for Report Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2605.04458}{arxiv}]}\\
+{\scriptsize Bryan Li, William Walden, Yu Hou, Gabrielle Kaili-May Liu, Dawn Lawrie, Jame Mayfield, Eugene Yang, Chris Callison-Burch, Laura Dietz}\\
+
+{\small\textit{DoGMaTiQ auto-generates document-grounded QA ``nuggets'' for report evaluation, and the resulting automatic rankings track human rankings in multilingual/cross-lingual TREC settings.}}\\[1pt]
+{\footnotesize Removes the main bottleneck in nugget-based long-report evaluation---manual nugget authoring---by automatically producing a deduplicated, quality-filtered QA nugget set that functions like a curated checklist. LLM generates document-grounded QA nuggets; paraphrase clustering merges duplicates; selection filters for well-formed/answerable/discriminative nuggets; nuggets are then used within AutoArgue to score report coverage. On NeuCLIR and RAGTIME, fully automatic evaluation using DoGMaTiQ nuggets yields system rankings that correlate strongly with human-in-the-loop/manual judgments; nugget-generator quality is the dominant driver and rankings are not overly fragile to outliers.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is overwhelmingly dominated by LLM post-training/alignment and agentic systems: at least \textasciitilde{}25--35 papers touch RLHF/RLVR/DPO/GRPO variants, reward modeling, credit assignment, or preference querying (e.g., multiple GRPO fixes, outcome/step-level credit, online feedback, alignment collapse). A second major cluster is trustworthiness/safety for LLMs and multimodal models---hallucination detection/uncertainty quantification/watermarking/jailbreaks/backdoors/unlearning---with at least \textasciitilde{}20 papers (several proposing single-pass hallucination signals, conformal/entropy UQ, semantic watermarking, and agent tool-use safety platforms). Efficiency and systems for scaling/deployment is another strong theme (KV-cache management, speculative decoding, quantization/distillation, MoE routing/training/serving, long-context ``memory'' architectures), again at least \textasciitilde{}15--25 papers, often explicitly targeting long-context and multi-LLM serving constraints. Notable emerging directions include ``agent benchmarks + red-teaming infrastructure'' (Agent Island, AuditRepairBench, DTap, AgentTrust, iWorld-Bench) and a visible audio-focused mini-wave (MSEB, ReasonAudio, singing transcription, audio diffusion/evaluation) alongside continued attention to low-resource/multilingual NLP (Ghanaian languages, Tajik, Bashkir) and domain evaluations in medicine/politics/conflict monitoring.}
+
+
+\end{document}
