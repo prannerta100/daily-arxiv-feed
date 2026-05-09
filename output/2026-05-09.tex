@@ -1,0 +1,94 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-09} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Linear Semantic Segmentation for Low-Resource Spoken Dialects}} {\scriptsize[\href{https://arxiv.org/abs/2605.06276}{arxiv}]}\\
+{\scriptsize Kirill Chirkunov, Younes Samih, Abed Alhakim Freihat, Hanan Aldarmaki}\\
+
+{\small\textit{Strong Arabic discourse segmenters trained on written MSA can fail on real dialectal speech; a new benchmark plus a coherence-driven model narrows the gap.}}\\[1pt]
+{\footnotesize Releases a native-annotated, multi-genre Arabic semantic-segmentation benchmark (1K+ samples) centered on conversational dialects (calls, podcasts/code-switching, dialogue, plus news) and documents sharp cross-genre transfer drops from MSA news to spoken dialects. Benchmark existing segmenters across genres, then propose a model biased toward local semantic coherence and robustness to conversational discontinuities (topic jumps, code-switching, weak markers) rather than clean syntax/cues; compare to strong baselines on dialectal non-news. MSA-news performance overestimates real robustness: baselines degrade markedly on dialectal transcribed speech, while the proposed coherence-based segmenter consistently outperforms them on dialectal/non-news genres, indicating different inductive biases are needed for conversational dialects.}
+
+\medskip
+
+{\small\textbf{CrossCult-KIBench: A Benchmark for Cross-Cultural Knowledge Insertion in MLLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.06115}{arxiv}]}\\
+{\scriptsize Zhen Zeng, Leijiang Gu, Feng Li, Jing Yu, Zenglin Shi}\\
+
+{\small\textit{Makes ``cultural adaptation'' measurable for MLLMs by scoring target-culture gains while penalizing regressions on other cultures, especially under sequential updates.}}\\[1pt]
+{\footnotesize Defines cross-cultural knowledge insertion as a constrained update problem (improve a target culture without harming others) and introduces CrossCult-KIBench, an image-grounded, multilingual (EN/ZH/AR) benchmark that evaluates both benefits and collateral damage. 9,800 image-grounded cases over 49 cultural visual scenarios; evaluates single-insert and sequential-insert settings with metrics for insertion effectiveness and non-target side effects. Baseline MCKI retrieves culture knowledge from an external memory and conditionally prepends it (no fine-tuning). Across methods, target-culture improvements often cause noticeable non-target regressions, worst in sequential insertion---showing current ``insertion'' techniques are not reliably culture-specific and that interference/forgetting is central in multimodal, multilingual adaptation.}
+
+\medskip
+
+{\small\textbf{XL-SafetyBench: A Country-Grounded Cross-Cultural Benchmark for LLM Safety and Cultural Sensitivity}} {\scriptsize[\href{https://arxiv.org/abs/2605.05662}{arxiv}]}\\
+{\scriptsize Dasol Choi, Eugenia Kim, Jaewon Noh, Sang Seo, Eunmi Kim, Myunggyo Oh, Yunjin Park, Brigitta Jesica Kartono, Josef Pichlmeier, Helena Berndt, Sai Krishna Mendu, Glenn Johannes Tungka, \"Ozlem G\"ok\c{c}e, Suresh Gehlot, Katherine Pratt, Amanda Minnich, Haon Park}\\
+
+{\small\textit{Country-grounded safety testing shows safety varies by locale, and some ``safe'' local models look safe mainly because they fail to understand/comply.}}\\[1pt]
+{\footnotesize Introduces XL-SafetyBench: 5,500 country-specific prompts across 10 country--language pairs, separating jailbreak resistance from culturally specific sensitivity (not mere translations) and evaluating them as distinct axes. Two suites: (1) Jailbreak Benchmark with adversarial, locally grounded harmful requests; (2) Cultural Benchmark with superficially benign prompts containing local sensitivities. Built via LLM-assisted discovery + automated checks + two native annotators per country. Reports ASR plus NSR and CSR to disentangle refusal, neutrality, and cultural handling. Jailbreak robustness and cultural sensitivity are weakly coupled for frontier models, so single safety scores can misrank systems. For local models, ASR and NSR show a strong negative correlation (r = -0.81), implying apparent safety often reflects incapability rather than alignment.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{X-Voice: Enabling Everyone to Speak 30 Languages via Zero-Shot Cross-Lingual Voice Cloning}} {\scriptsize[\href{https://arxiv.org/abs/2605.05611}{arxiv}]}\\
+{\scriptsize Rixi Xu, Qingyu Liu, Haitao Li, Yushen Chen, Zhikang Niu, Yunting Yang, Jian Zhao, Ke Li, Berrak Sisman, Qinyuan Cheng, Xipeng Qiu, Kai Yu, Xie Chen}\\
+
+{\small\textit{Zero-shot cross-lingual voice cloning across 30 languages is feasible with audio-only speaker prompts by training on IPA and fine-tuning to remove prompt-transcript dependence.}}\\[1pt]
+{\footnotesize X-Voice (0.4B) enables practical multilingual voice cloning without transcripts/forced alignment for the reference audio, using IPA-based text unification plus a two-stage training scheme that teaches audio-only prompt conditioning; releases the full stack. Flow-matching TTS (extended F5-TTS) with IPA text and dual-level language IDs. Stage 1 trains with prompt audio + transcript; then uses the model to synthesize \textasciitilde{}10K hours of speaker-consistent segments to create clean prompt pairs. Stage 2 fine-tunes while masking prompt text so the model extracts speaker identity from audio alone; uses decoupled/scheduled classifier-free guidance for stable multilingual generation. After Stage 2, audio-only prompting yields usable zero-shot cloning; X-Voice outperforms prior multilingual flow-matching baselines (e.g., LEMAS-TTS) and achieves cross-lingual cloning quality competitive with much larger systems (e.g., Qwen3-TTS), showing the training paradigm---not just scale---drives gains.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Transformers Provably Implement In-Context Reinforcement Learning with Policy Improvement}} {\scriptsize[\href{https://arxiv.org/abs/2605.05755}{arxiv}]}\\
+{\scriptsize Haodong Liang, Lifeng Lai}\\
+
+{\small\textit{Provides a constructive and training-dynamics proof that a transformer can implement classical RL policy improvement in-context, and gradient training can recover it.}}\\[1pt]
+{\footnotesize Gives explicit transformer weights that implement policy-improvement updates (e.g., semi-gradient SARSA, actor--critic) from trajectory tokens, and proves (under richness conditions) gradient-flow training converges to the algorithmic solution manifold. (1) Construct a linear self-attention block whose attention/value heads compute the statistics needed for value/advantage estimation and output an improved policy from the same trajectory (no parameter updates). (2) Train via teacher-mimicking: an RL algorithm provides targets; analyze gradient flow and show local exponential convergence given sufficiently rich MDP/trajectory distributions. Claims the first ICRL convergence guarantee: gradient flow converges locally and exponentially to parameters implementing the target policy-improvement rule; tabular-MDP experiments recover the predicted structure and generalize to unseen MDPs with strong in-context control.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Beyond Accuracy: Policy Invariance as a Reliability Test for LLM Safety Judges}} {\scriptsize[\href{https://arxiv.org/abs/2605.06161}{arxiv}]}\\
+{\scriptsize Shihao Weng, Yang Feng, Xiaofei Xie}\\
+
+{\small\textit{Safety-judge verdicts can change nearly as much from policy rewording as from real policy strictness changes, undermining leaderboard reliability.}}\\[1pt]
+{\footnotesize Proposes ``policy invariance'' as a required property for LLM safety judges and introduces a stress test plus reporting artifacts (Policy Invariance Score, Judge Card) to audit judge robustness beyond accuracy on a fixed rubric. Generate controlled policy variants: meaning-preserving rewrites (should not flip), threshold shifts strict↔lenient (should flip more), and ambiguity-aware calibration (instability should concentrate on borderline cases). Measure verdict flips on identical trajectories across multiple judges/datasets and summarize with invariance metrics and Judge Cards. Meaning-preserving rewrites induce up to 9.1\% extra verdict flips beyond baseline jitter, and 18--43\% of flips occur on non-ambiguous cases---showing many safety scores are entangled with rubric phrasing unless judges are explicitly audited.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM systems and their infrastructure: at least \textasciitilde{}25--35 papers touch agents (multi-agent orchestration, memory/skill libraries, budgeted tool use, workflow reproducibility), with a particularly dense cluster around agentic RAG and retrieval evaluation/security (≈10--15 on RAG for enterprise/finance/biomed, plus leakage/jailbreak/authorization and evidence-scoping). A second major theme is ``reasoning post-training + test-time scaling'' (≈15--25) spanning RLVR/GRPO variants, verifier/process supervision, self-consistency/aggregation, and compute-aware routing/cascades---often explicitly framed as cost control and reliability rather than raw accuracy. Safety/oversight and evaluation methodology is another strong throughline (≈10--20): safety judges, dynamic boundary evaluation, cross-cultural safety/bias benchmarks, jailbreaks, and monitoring/warning systems for agent traces. Some surprising emerging clusters are tabular foundation models as a first-class modality (≈4--7) and a noticeable uptick in mechanistic interpretability work focused on transformer memory/SAEs/attention pathologies (≈6--10), suggesting a shift toward diagnosing failure modes in deployed, long-horizon agent settings.}
+
+
+\end{document}
