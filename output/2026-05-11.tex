@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-11} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Multilingual Safety Alignment via Self-Distillation}} {\scriptsize[\href{https://arxiv.org/abs/2605.02971}{arxiv}]}\\
+{\scriptsize Ruiyang Qin, Qingzhuo Wang, Dongrui Liu, Qiang Li, Zhihua Wei, Wen Shen}\\
+
+{\small\textit{Self-distill an LLM's English refusal behavior into low-resource languages using only multilingual prompts, with loss focused on safety-critical tokens.}}\\[1pt]
+{\footnotesize Multilingual Self-Distillation (MSD) closes the ``safe in English, jailbreakable elsewhere'' gap without any target-language safe-response data, by transferring the model's already-learned safety behavior cross-lingually. Teacher--student self-distillation on multilingual versions of prompts (on-policy or off-policy). Dual-Perspective Safety Weighting (DPSW) upweights tokens where teacher--student divergence indicates safety-critical content (refusal/policy/warnings) and downweights irrelevant tokens. MSD improves multilingual jailbreak robustness across models/benchmarks, generalizes to harder sets and even unseen languages, and largely preserves general utility---consistent with activating latent safety rather than memorizing templates.}
+
+\medskip
+
+{\small\textbf{Why do Large Language Models Fail in Low-resource Translation? Unraveling the Token Dynamics of Large Language Models for Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2605.07533}{arxiv}]}\\
+{\scriptsize Shenbin Qian, Yves Scherrer}\\
+
+{\small\textit{LLM low-resource MT often fails because the model under-activates target-language-specific tokens; this token-usage deficit predicts quality drops.}}\\[1pt]
+{\footnotesize Introduces Token Activation Rate (TAR) to quantify how much a model uses language-specific target tokens, turning ``weak in that language'' into a measurable, comparable diagnostic that correlates with COMET across many models/pairs. Evaluate 15 LLMs on 22 translation directions; score with COMET; compute TAR from generated outputs (language-specific token usage) and relate it to known language coverage, directionality, and behaviors like output length. Non-English-centric pairs systematically underperform; low TAR strongly tracks poor COMET and explains much of the gap. Reasoning-oriented models often respond with longer outputs in low-TAR settings, but verbosity doesn't reliably recover quality.}
+
+\medskip
+
+{\small\textbf{The Translation Tax Is Not a Scalar: A Counterfactual Audit of English-Source Cue Inheritance in Chinese Multilingual Benchmarks}} {\scriptsize[\href{https://arxiv.org/abs/2605.07093}{arxiv}]}\\
+{\scriptsize Zezheng Lin, Fengming Liu, Handi Li}\\
+
+{\small\textit{``Translation tax'' in English→Chinese benchmarks isn't a single correction: cue inheritance varies by estimator and by item.}}\\[1pt]
+{\footnotesize Counterfactual, item-level audit shows no stable scalar ``translation tax.'' Provides naturalization protocol + per-item evidence and reporting checklist to make translation-cue risks explicit rather than assumed. Compare three proxy estimators (back-translation gaps, cue-score calibration, multi-model native-control) and a stronger counterfactual: LLM ``naturalizes'' Chinese surface form while keeping semantics/answers fixed; also identifies and fixes a prompt-construction bug. Proxies disagree and are fragile; after fixing the prompt bug, apparent model-family interactions vanish, but a dose-response remains: high-residue items benefit, low-residue items don't---so validity risk is estimator- and item-dependent.}
+
+\medskip
+
+{\small\textbf{Data Contamination in Neural Hieroglyphic Translation: A Reproducibility Study}} {\scriptsize[\href{https://arxiv.org/abs/2605.07453}{arxiv}]}\\
+{\scriptsize Ammar Toutou, Abdelrahman Harb, Christine Basta}\\
+
+{\small\textit{A reported 61.5 BLEU hieroglyphic→German result was heavily inflated by target-side test leakage; proper decontamination yields much lower, realistic baselines.}}\\[1pt]
+{\footnotesize Reproducibility + contamination audit shows tiny, repetitive corpora are extremely sensitive to target leakage; releases a decontaminated test set and corrected baselines for this ultra-low-resource setting. Re-run released setup; search for exact target-string matches and high n-gram overlap between train and test German references; compare contaminated vs clean subsets; show document-level filtering is insufficient and require target-level deduplication. Released model scores \textasciitilde{}37 BLEU (not 61.5). Finds 16/50 test targets exactly in training; contaminated subset reaches \textasciitilde{}83.8 BLEU / \textasciitilde{}0.924 COMET-22 vs clean \textasciitilde{}30.9--39.2 BLEU / \textasciitilde{}0.622--0.676 COMET-22. Produces a clean 34-sample test set and reset baselines.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Minimizing Modality Gap from the Input Side: Your Speech LLM Can Be a Prosody-Aware Text LLM}} {\scriptsize[\href{https://arxiv.org/abs/2605.05927}{arxiv}]}\\
+{\scriptsize Wenqian Cui, Xiao-Hui Li, Daxin Tan, Qiyong Zheng, Irwin King}\\
+
+{\small\textit{Shrink the speech--text modality gap by fixing the input: feed a text LLM aligned text tokens plus explicit prosody features, not raw acoustics.}}\\[1pt]
+{\footnotesize TextPro-SLM reframes modality gap as input-representation mismatch and proposes a prosody-aware, text-like interface that preserves text semantics while adding paralinguistic understanding. WhisperPro encoder outputs time-aligned (1) text tokens and (2) prosody embeddings; start from a text LLM checkpoint and train it to use the prosody channel for emotion/emphasis/style without relearning language from audio. Achieves the lowest reported modality gap among comparable speech LLMs at 3B/7B, improves paralinguistic tasks, and does so with \textasciitilde{}1,000 hours of LLM training audio (high data efficiency).}
+
+\medskip
+
+{\small\textbf{OLaPh: Optimal Language Phonemizer}} {\scriptsize[\href{https://arxiv.org/abs/2509.20086}{arxiv}]}\\
+{\scriptsize Johannes Wirth}\\
+
+{\small\textit{A hybrid phonemizer that prioritizes lexica and uses language-aware fallbacks is strong on the OOV long tail---and can bootstrap an LLM phonemizer via synthetic supervision.}}\\[1pt]
+{\footnotesize OLaPh treats multilingual G2P as reliability-first: deterministic lexicon pronunciations when available, robust OOV handling via structured backoff, released as a resource and used to generate consistent data for instruction-tuning an LLM phonemizer. Pipeline: multilingual lexica → fallback stack; key fallback uses NLP + statistical subword segmentation to decompose unknown words into pronounceable pieces covered by lexicon/rules. Use OLaPh outputs to synthesize a large training set and fine-tune an instruction-following LLM to emit phonemes given text+language. On WikiPron, OLaPh beats baselines overall and stays strong on OOV-heavy evals; segmentation/backoff drives robustness. The LLM trained on OLaPh data usually matches and sometimes exceeds OLaPh on harder generalization cases, though OLaPh remains best on average.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{How Do Language Models Compose Functions?}} {\scriptsize[\href{https://arxiv.org/abs/2510.01685}{arxiv}]}\\
+{\scriptsize Apoorv Khandelwal, Ellie Pavlick}\\
+
+{\small\textit{LLMs often fail at two-hop composition even when each hop is solvable, and successes can come from either explicit intermediate computation or a ``direct'' shortcut.}}\\[1pt]
+{\footnotesize Distinguishes two internal mechanisms for y=g(f(x)) queries---compositional (detectable f(x) in residual stream) vs direct (no detectable intermediate)---and links mechanism choice to embedding-space geometry. Two-hop factual tasks; measure the compositionality gap by comparing f(x), g(z), and g(f(x)). Probe residual stream to detect intermediate f(x); analyze when direct vs compositional runs occur and relate to translation-like embedding relations. Confirms a persistent compositionality gap. Finds both mechanisms in-model; direct (idiomatic) solving dominates when the task behaves like a translation from x to g(f(x)) in embedding space, showing computation style varies with geometry.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM/agent post-training and evaluation work: at least \textasciitilde{}25--35 papers on RLHF/RLVR/GRPO, on-policy distillation, test-time scaling, and ``reasoning trace'' control/compression (e.g., LaTER, PaT, SEIF, Prune-OPD, rubric-based rewards, CoT compression/bias). A second big cluster is agent reliability/safety in real environments---roughly \textasciitilde{}20+ on tool/web/phone/GUI agents, memory, routing, and security (prompt injection, jailbreaks, lifecycle frameworks, agent benchmarks like TeamBench/SREGym/AgentEscapeBench, plus KV-cache/long-context efficiency with \textasciitilde{}10+ on eviction/quantization/sparse attention/speculative decoding). There's also a noticeable diffusion-for-text resurgence (\textasciitilde{}8--12) with multiple ``diffusion language model''/flow-matching papers (TextLDM, entropy-gated bitstream diffusion, guidance dynamics), alongside multimodal/video/VLA benchmarks and safety attacks (\textasciitilde{}10+). A surprising emerging direction is ``agents for science/medicine/chemistry'' (clinical multi-turn diagnosis agents, synthesis planning/cost reasoning, lab manipulation, weather reporting) appearing as a coherent applied cluster rather than isolated demos.}
+
+
+\end{document}
