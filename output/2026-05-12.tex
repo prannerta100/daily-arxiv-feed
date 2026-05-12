@@ -1,0 +1,112 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-12} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{LLiMba: Sardinian on a Single GPU -- Adapting a 3B Language Model to a Vanishing Romance Language}} {\scriptsize[\href{https://arxiv.org/abs/2605.09015}{arxiv}]}\\
+{\scriptsize Luca Ballore}\\
+
+{\small\textit{A Sardinian-capable 3B model can be built on a single 24GB GPU via continued pretraining + the right adapter capacity; rank matters more than the LoRA variant label.}}\\[1pt]
+{\footnotesize Releases LLiMba (Qwen2.5-3B-Instruct adapted to Sardinian) and a practical, resource-light recipe; provides a controlled comparison of full FT vs multiple adapter methods and highlights tokenization/eval pitfalls. Two-stage adaptation: continued pretraining on 11.5M Sardinian tokens plus 2.4M Romance replay to reduce register drift, then SFT with matched setups (full FT, LoRA, rsLoRA at varying ranks, DoRA). Evaluated via held-out perplexity and FLORES-200 translation plus qualitative error analysis. CPT reaches Sardinian PPL 6.76 and improves all six FLORES directions vs the base. Best SFT is rsLoRA r=256, winning all directions into Sardinian (e.g., EN→SC 28.5 BLEU vs 17.3 after CPT and 21.0 with full FT); DoRA r256 shows a small train--eval gap yet worst factual accuracy, and script/tokenization effects can mislead PPL/metric comparisons.}
+
+\medskip
+
+{\small\textbf{Crosslingual On-Policy Self-Distillation for Multilingual Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2605.09548}{arxiv}]}\\
+{\scriptsize Yihong Liu, Raoyuan Zhao, Michael A. Hedderich, Hinrich Sch\"utze}\\
+
+{\small\textit{COPSD transfers English reasoning into low-resource languages by on-policy self-distillation with dense token-level targets, avoiding brittle reward-only RL.}}\\[1pt]
+{\footnotesize A no-external-teacher recipe where the same model teaches itself: a ``teacher view'' gets privileged crosslingual context (English translation + English reference solution) to provide reliable stepwise supervision for low-resource-language reasoning. Student generates CoT+answer from the low-resource prompt (on-policy rollout). The teacher (same weights) scores that trajectory under a prompt augmented with English translation and an English reference solution; training minimizes token-distribution divergence along the student's trajectory, yielding dense gradients where the student goes wrong. Across 17 low-resource African languages, COPSD consistently improves math reasoning over base models and an RL baseline (GRPO), with better format adherence and stronger benefits from test-time scaling; gains are largest in the lowest-resource languages and transfer to harder multilingual reasoning benchmarks.}
+
+\medskip
+
+{\small\textbf{Language-Conditioned Visual Grounding with CLIP Multilingual}} {\scriptsize[\href{https://arxiv.org/abs/2605.09060}{arxiv}]}\\
+{\scriptsize J. de Curt\`o, Mauro Liz, I. de Zarz\`a}\\
+
+{\small\textit{Multilingual CLIP grounding gaps mostly originate in the text branch; scaling can help coverage-limited languages but worsen tokenizer-driven structural failures.}}\\[1pt]
+{\footnotesize A controlled probe that fixes the visual encoder and swaps multilingual text encoders across 13 languages, attributing grounding differences to the language side rather than vision. Dense grounding via text--spatial feature similarity heatmaps on 210 images × 11 concepts. Compare each language's heatmaps to English using cluster-mask IoU, top-percentile IoU, and Spearman correlation; repeat across model scales (ViT-B/32 vs ViT-H/14; XLM-R base vs large). Arabic, Basque, and Luxembourgish show persistent structural grounding penalties with identical vision features, implicating the text branch. Scaling helps Arabic but degrades Basque/Luxembourgish in the structural-failure regime, consistent with coverage vs tokenizer-fertility causes. Peak similarity often remains high while spatial overlap collapses---models match the concept but point to the wrong region.}
+
+\medskip
+
+{\small\textbf{StereoTales: A Multilingual Framework for Open-Ended Stereotype Discovery in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.10442}{arxiv}]}\\
+{\scriptsize Pierre Le Jeune, \'Etienne Duchesne, Weixuan Xiao, Stefano Palminteri, Bazire Houssin, Beno\^it Mal\'ezieux, Matteo Dora}\\
+
+{\small\textit{StereoTales enables multilingual, open-ended stereotype discovery by mining large story generations instead of testing a fixed bias checklist.}}\\[1pt]
+{\footnotesize Provides a dataset + pipeline to surface emergent, culturally specific stereotypes in free-form LLM stories across languages, using protagonist demographic profiling and statistical association discovery. Generate 650k+ stories from 23 LLMs in 10 languages; annotate protagonists across 19 dimensions (79 attributes). Use statistical tests to find over-represented attribute--content associations; rate harmfulness for 1,500+ associations via 247 humans and LLM judges; release data/code. All evaluated models produce harmful stereotypes, largely shared across providers. Prompt language shifts which stereotypes emerge and can amplify locally salient biases. Human vs LLM harmfulness ratings correlate (Spearman ρ=0.62), with disagreements clustering by attribute type rather than model provider.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{EverydayMMQA: A Multilingual and Multimodal Framework for Culturally Grounded Spoken Visual QA}} {\scriptsize[\href{https://arxiv.org/abs/2510.06371}{arxiv}]}\\
+{\scriptsize Firoj Alam, Ali Ezzat Shahroor, Md. Arid Hasan, Zien Sheikh Ali, Hunzalah Hassan Bhatti, Mohamed Bayan Kmainasi, Shammur Absar Chowdhury, Basel Mousi, Fahim Dalvi, Nadir Durrani, Natasa Milic-Frayling}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary calls OASIS a "multilingual" dataset. The abstract specifies the dataset focuses on English and Arabic varieties; describing it as multilingual could mislead readers into thinking it covers many languages beyond these two.}}\\[1pt]
+
+{\small\textit{OASIS is a massive culturally grounded spoken+visual multilingual QA benchmark (English + Arabic varieties) built to test everyday reasoning beyond standard VQA.}}\\[1pt]
+{\footnotesize Introduces OASIS and the EverydayMMQA framework: a scalable, human-validated pipeline for culturally localized multimodal QA, explicitly targeting pragmatic/commonsense/culture-linked reasoning and spoken inputs. Semi-automatic data creation with multi-stage human-in-the-loop validation. Real images paired with many QA pairs; questions provided as text and as speech (human-recorded and voice-cloned). Supports four settings: text-only, speech-only, text+image, speech+image. Releases \textasciitilde{}0.92M images and 14.8M QA pairs, including 3.7M spoken questions (383 hours human speech; \textasciitilde{}20k hours voice-cloned) across English and Arabic (MSA + dialects from 18 countries). Benchmarks 8 models (closed/open/fine-tuned) and plans public release of dataset + framework.}
+
+\medskip
+
+{\small\textbf{WorldSpeech: A Multilingual Speech Corpus from Around the World}} {\scriptsize[\href{https://arxiv.org/abs/2605.09167}{arxiv}]}\\
+{\scriptsize Antonis Asonitis, Luca A. Lanzend\"orfer, Fr\'ed\'eric Berdoz, Roger Wattenhofer}\\
+
+{\small\textit{WorldSpeech reframes multilingual ASR as a data bottleneck: a standardized 65k-hour, 76-language corpus yields large WER drops via straightforward fine-tuning.}}\\[1pt]
+{\footnotesize Releases WorldSpeech: a large, consistently processed set of aligned audio--transcript pairs (uniform 24 kHz) aggregated from public sources, making many ``low-resource'' languages practically trainable. Collect speech+text from parliaments, broadcasts, audiobooks, etc.; align and normalize into a uniform training format. Validate usefulness by fine-tuning existing ASR models per language and measuring WER changes. Fine-tuning on WorldSpeech gives an average 63.5\% relative WER reduction across 11 diverse languages. Scale is substantial: 37 languages exceed 200 hours, many in the 500--1000+ hour range, enabling stable gains without new ASR architectures.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Beyond Language: Format-Agnostic Reasoning Subspaces in Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2605.09496}{arxiv}]}\\
+{\scriptsize Aojie Yuan, Zhiyuan Su}\\
+
+{\small\textit{LLMs appear to reuse a small mid-layer ``format-agnostic'' subspace for reasoning across prose, math, and code, separating concept from surface form.}}\\[1pt]
+{\footnotesize Identifies a low-dimensional Format-Agnostic Reasoning Subspace (FARS) and supports it with causal evidence (activation patching/ablation), plus TriForm---a controlled benchmark disentangling concept vs format. TriForm: 18 concepts × 6 surface forms. Analyses include permutation-corrected RSA, cross-form concept probing, and causal activation patching. FARS is derived by PCA over concept centroids to isolate \textasciitilde{}10 concept-separating dimensions. Across five models (1.6B--8B) and three families, \textasciitilde{}10 mid-layer dimensions capture concept geometry largely invariant to format. Patching only FARS preserves \textasciitilde{}90--96\% of original behavior, outperforming full-vector patching (\textasciitilde{}44--56\%) and variance-PCA (\textasciitilde{}60--74\%); prose and math align more than either aligns with code (declarative vs procedural split).}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Sanity Checks for Long-Form Hallucination Detection}} {\scriptsize[\href{https://arxiv.org/abs/2605.08346}{arxiv}]}\\
+{\scriptsize Geigh Zollicoffer, Minh Vu, Hongli Zhan, Raymond Li, Manish Bhattarai}\\
+
+{\small\textit{Many ``reasoning-aware'' long-form hallucination detectors mostly key off final-answer cues; simple invariance tests expose this, and a lightweight trace-based scorer stays robust.}}\\[1pt]
+{\footnotesize Defines sanity checks that distinguish detectors that truly use the chain-of-thought from those exploiting endpoint artifacts: predictions should be invariant when only the final answer line changes or is removed. Two oracle perturbations on existing CoT outputs: (1) Force---swap only the final answer to the ground truth while keeping the reasoning unchanged; (2) Remove---delete explicit answer-announcement lines. Then propose TRACT, a simple trajectory-feature scorer (stepwise hedging/length/vocab convergence) designed to rely on trace-internal signals. Many published CoT-based detectors flip under Force/Remove---often improving sharply when the final answer is corrected despite unchanged (possibly wrong) reasoning---showing evaluation leakage from answer-level artifacts. TRACT remains stable under these tests while staying competitive on unperturbed data.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Across the list, the dominant theme is LLM/MLLM reliability and evaluation---especially hallucination detection, calibration/uncertainty, and benchmark design (at least \textasciitilde{}25--35 papers, e.g., multiple hallucination-detection works, calibration/meta-metrics, leakage-free RAG eval, long-document verifiable reasoning, and many new domain benchmarks in law/medicine/math). A second major cluster is agentic AI: tool use, multi-agent collaboration/failure modes, memory/long-horizon behavior, and agent security (roughly \textasciitilde{}30--45 papers spanning tool-calling efficiency, multi-agent auditing/Byzantine robustness, memory attacks, OS/web-agent jailbreaks, and ``agent benchmarks'' like SWE Atlas/WildClawBench/CalBench). Efficiency/serving and systems work is also unusually heavy (≈15--25 papers) around KV-cache eviction/compression, speculative decoding, quantization/low-rank/MoE execution, and edge/federated fine-tuning; a notable emerging direction is non-autoregressive text generation via diffusion/flow models plus RL-style post-training (≈10--15 papers). Surprising clusters include (i) mechanistic interpretability focused on circuits/SAEs and single-neuron/layer effects (≈10+), and (ii) a sizable audio-focused tranche (deepfake detection fairness/robustness, audio-language evaluation, timbre transfer; ≈10--15), suggesting multimodal trustworthiness is becoming a first-class concern alongside text.}
+
+
+\end{document}
