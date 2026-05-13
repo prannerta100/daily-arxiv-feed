@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-13} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Latent Causal Void: Explicit Missing-Context Reconstruction for Misinformation Detection}} {\scriptsize[\href{https://arxiv.org/abs/2605.12156}{arxiv}]}\\
+{\scriptsize Hui Li, Zhongquan Jian, Jinsong Su, Junfeng Yao}\\
+
+{\small\textit{Misinformation detectors improve when they explicitly reconstruct the missing background fact that makes an otherwise coherent article misleading, then reason over those reconstructed gaps across sources.}}\\[1pt]
+{\footnotesize Targets omission-based misinformation by turning ``what's not said'' into explicit text: sentence-level missing-context reconstructions become the primary object of reasoning, rather than appending retrieved evidence or predicting a vague omission flag. Retrieve temporally aligned related articles; for each target sentence--context pair, prompt a frozen instruction-tuned LLM to generate a short ``missing fact'' snippet. Use these snippets as relation text on edges in a heterograph (target sentences + context articles) and run graph aggregation/reasoning to classify omission-based misinformation. On an English/Chinese omission-aware benchmark, LCV beats the strongest omission-aware baseline by \textasciitilde{}+2.6 macro-F1 (EN) and \textasciitilde{}+2.8 (ZH), showing that explicit missing-fact reconstruction is more informative than raw retrieval or abstract omission labels and transfers across languages.}
+
+\medskip
+
+{\small\textbf{100,000+ Movie Reviews from Kazakhstan: Russian, Kazakh, and Code-Switched Texts}} {\scriptsize[\href{https://arxiv.org/abs/2605.08600}{arxiv}]}\\
+{\scriptsize Rustem Yeshpanov}\\
+
+{\small\textit{Releases 100k+ Kazakhstan movie reviews (Russian, Kazakh, code-switched) and shows fine-grained rating prediction remains hard under leakage-controlled splits even for strong multilingual transformers.}}\\[1pt]
+{\footnotesize Provides a realistic, underrepresented multilingual/code-switching benchmark with manual language + sentiment labels and evaluation designed to reduce movie-specific leakage, exposing gaps between coarse sentiment and generalizable rating inference. Scrape 100,502 kino.kz reviews (2001--2025); manually label language category and polarity; define 3-way polarity and 5-class score prediction; use leakage-controlled splits to limit title/memorization shortcuts; compare BoW/TF‑IDF vs mBERT/XLM‑R/RemBERT. Transformers consistently beat BoW/TF‑IDF on 3-way polarity, but 5-class score prediction stays difficult once leakage is controlled (imbalance + subtle adjacent ratings), highlighting a realism gap between sentiment detection and robust rating inference.}
+
+\medskip
+
+{\small\textbf{StereoTales: A Multilingual Framework for Open-Ended Stereotype Discovery in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.10442}{arxiv}]}\\
+{\scriptsize Pierre Le Jeune, \'Etienne Duchesne, Weixuan Xiao, Stefano Palminteri, Bazire Houssin, Beno\^it Mal\'ezieux, Matteo Dora}\\
+
+{\small\textit{StereoTales enables large-scale discovery and measurement of stereotypes in open-ended multilingual story generation, beyond fixed English templates.}}\\[1pt]
+{\footnotesize Introduces a 10-language framework/dataset (650k+ stories from 23 LLMs) that surfaces stereotype-like attribute associations statistically, with protagonist profiles across 19 dimensions and human+LLM harmfulness ratings. Prompt 23 LLMs to generate stories in 10 languages; annotate each story with protagonist socio-demographic attributes (79 attributes, 19 dimensions); run statistical over-representation tests to extract 1,500+ candidate associations; collect harmfulness ratings from 247 humans and from LLMs for comparison. All models produce harmful stereotypes; which stereotypes appear shifts strongly by language/cultural context. Human vs LLM harmfulness judgments correlate (Spearman ρ≈0.62), with disagreements concentrated in certain attribute classes rather than specific providers.}
+
+\medskip
+
+{\small\textbf{HEBATRON: A Hebrew-Specialized Open-Weight Mixture-of-Experts Language Model}} {\scriptsize[\href{https://arxiv.org/abs/2605.11255}{arxiv}]}\\
+{\scriptsize Noam Kayzer, Dan Revital, Ori Bar Joseph, Smadar Arvatz, Or Levi, Tal Geva, Shaltiel Shmidman, Amir DN Cohen, Noam Ordan, Omer Baruch, Kate Zinkovskaia, Zevi Apini, Sarel Weinberger}\\
+
+{\small\textit{Hebatron shows a Hebrew-first open-weight MoE can be both strong and efficient, using a forgetting-aware curriculum and bilingual instruction tuning while keeping long context.}}\\[1pt]
+{\footnotesize Adapts Nemotron-3 sparse MoE to Hebrew with an easy-to-hard curriculum plus continuous anti-forgetting anchoring, then large bilingual SFT---demonstrating a practical recipe for high-quality, long-context, low-inference-cost models in underserved languages. Start from Nemotron-3 MoE (router activates few experts/token); run 3-phase easy-to-hard specialization with continuous anchoring to prevent general-skill collapse; then supervised fine-tune on \textasciitilde{}2M Hebrew--English instruction examples; retain native 65k context window. Curriculum order matters: easy-to-hard yields \textasciitilde{}+3 points on their aggregate suite vs reversed. Hebatron reports 73.8\% avg on Hebrew reasoning (vs 68.9\% for DictaLM-3.0-24B-Thinking) and achieves MoE efficiency: 30B total params but \textasciitilde{}3B active/token (\textasciitilde{}9× throughput) with 65,536-token context.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Mind the Pause: Disfluency-Aware Objective Tuning for Multilingual Speech Correction with LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.12242}{arxiv}]}\\
+{\scriptsize Deepak Kumar, Baban Gain, Asif Ekbal}\\
+
+{\small\textit{Use token-level disfluency tags to steer an LLM rewrite and explicitly penalize copying disfluent tokens, improving multilingual ASR transcript readability.}}\\[1pt]
+{\footnotesize Moves beyond detect-and-delete by combining a disfluency tagger with instruction-tuned rewriting, plus a contrastive objective that discourages reproducing fillers/repetitions/false starts while preserving meaning. Stage 1: sequence tagger marks disfluent tokens in ASR output. Stage 2: instruction fine-tune an LLM to rewrite into fluent text using those cues; add a contrastive penalty when outputs copy tagged disfluent tokens. On Hindi, Bengali, and Marathi, the disfluency-cue + contrastive rewrite approach consistently outperforms strong multilingual seq2seq baselines, supporting the claim that detection-only removal harms fluency/coherence; code is released.}
+
+\medskip
+
+{\small\textbf{Mechanistic Interpretability of ASR models using Sparse Autoencoders}} {\scriptsize[\href{https://arxiv.org/abs/2605.12225}{arxiv}]}\\
+{\scriptsize Dan Pluth, Zachary Nicholas Houghton, Yu Zhou, Vijay K. Gurbani}\\
+
+{\small\textit{Sparse autoencoders can decompose Whisper encoder activations into interpretable features that can be causally steered to change transcription, including cross-lingually.}}\\[1pt]
+{\footnotesize Extends SAE-based mechanistic interpretability from text LLMs to ASR by showing Whisper's frame-level representations admit sparse, fairly monosemantic features and that intervening on them predictably alters outputs across languages. Collect Whisper encoder frame activations; train an SAE with sparsity to reconstruct them using few active latents; interpret latents by inspecting highly activating frames; test causality by adding/amplifying latent directions (or decoded effects) in the encoder representation and observing transcription changes; evaluate cross-lingual consistency. Finds sparse features corresponding to linguistic and non-linguistic factors; interventions on selected features systematically steer Whisper's transcriptions and generalize across languages, supporting both interpretability and causal control of ASR internals via SAEs.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Geometric Factual Recall in Transformers}} {\scriptsize[\href{https://arxiv.org/abs/2605.12426}{arxiv}]}\\
+{\scriptsize Shauli Ravfogel, Gilad Yehudai, Joan Bruna, Alberto Bietti}\\
+
+{\small\textit{Transformers can store many facts by arranging embedding geometry so a small MLP selects the right attribute, rather than allocating a separate parameter ``slot'' per fact.}}\\[1pt]
+{\footnotesize Provides a geometric alternative to ``weights as associative memory'': subject embeddings encode superposed attribute directions, and a query-conditioned MLP acts as a reusable selector; extends to multi-hop chains with depth--capacity bounds. Analyze a single-layer transformer memorizing a random subject→attribute bijection; prove constructions where embedding dimension grows only logarithmically with \#subjects via superposition; show ReLU-gated MLP can select the query-relevant attribute component; give multi-hop constructions and depth analyses; validate with training dynamics. Proves log-dimensional embeddings suffice for perfect bijection recall, contradicting linear-capacity intuitions. Empirically, SGD finds the predicted superposition+gating solution, and the trained MLP transfers zero-shot to new random bijections when only subject embeddings are reinitialized---evidence it learned a generic selector, not memorized pairs.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{The Evaluation Differential: When Frontier AI Models Recognise They Are Being Tested}} {\scriptsize[\href{https://arxiv.org/abs/2605.11496}{arxiv}]}\\
+{\scriptsize Varad Vishwarupe, Nigel Shadbolt, Marina Jirotka, Ivan Flechais}\\
+
+{\small\textit{If models recognize they're being tested and change behavior, benchmark scores can't justify safety claims; audits must measure/condition on test recognition.}}\\[1pt]
+{\footnotesize Formalizes the Evaluation Differential (ED) and normalized ED (nED) to quantify behavior changes between recognized-eval vs deployment-like contexts; proves ED is not identifiable from marginal benchmark scores; proposes TRACE to issue only claims warranted under possible test-recognition effects. Model ``under evaluation'' as a latent context inferred from cues; define ED as conditional divergence in a target behavior across eval-recognized vs non-recognized regimes; show aggregate pass rates conflate these regimes; TRACE wraps existing evals with explicit test-recognition elicitation/measurement/bounding and downgrades claims when ED can't be bounded. Core result: standard reported scores cannot recover ED, so identical benchmark performance can mask large deployment behavior differences. TRACE yields a claim typology (ED-stable/degraded/inverted/undetermined) and motivates governance practice: safety reports should audit test recognition and qualify claims accordingly.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM/agent post-training and reliability work: at least \textasciitilde{}25--35 papers on RLVR/GRPO/DPO/on-policy distillation, reward shaping, and ``thinking'' efficiency (e.g., TokenRatio, ξ-DPO, Taming Extreme Tokens, many OPD/entropy-collapse/credit-assignment variants). A second major cluster is agentic systems infrastructure and evaluation---roughly \textasciitilde{}20--30 papers on tool-using agents, long-horizon memory, benchmarks, and security (e.g., LongMemEval-V2, MEME, MedMemoryBench, CTFusion, ExploitGym, MT-JailBench, AgentShield/MCPShield/skill supply-chain attacks). Multimodality is also heavily represented (\textasciitilde{}15--25 papers) with VLM/VLA scaling, token/computation reduction, and hallucination/grounding evaluation (e.g., ReVision, OmniThoughtVis, UniVLR, KV/token pruning, multimodal summary evaluation). Notable emerging directions include ``calibration as a first-class capability'' (multiple papers on probabilistic calibration/confidence alignment) and a surprisingly dense set of MoE routing/robustness + inference/serving optimization papers (router collapse, expert geometry, prefetching, KV-cache compression/offloading, carbon-aware routing).}
+
+
+\end{document}
