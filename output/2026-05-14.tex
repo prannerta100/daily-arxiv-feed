@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-14} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{DocAtlas: Multilingual Document Understanding Across 80+ Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.12623}{arxiv}]}\\
+{\scriptsize Ahmed Heakl, Youssef Mohamed, Abdullah Sohail, Rania Elbadry, Ahmed Nassar, Peter W. J. Staar, Fahad Shahbaz Khan, Imran Razzak, Salman Khan}\\
+
+{\small\textit{DocAtlas provides a scalable, model-free way to generate reliable multilingual document-understanding supervision (80+ languages) and shows DPO improves robustness where SFT can wreck out-of-domain performance.}}\\[1pt]
+{\footnotesize An end-to-end dataset/benchmark recipe: start from digital sources (DOCX/LaTeX) and render to obtain exact text, geometry, layout regions, and reading order---avoiding English-centric auto-labeling loops and enabling 82 languages incl. RTL scripts. Two rendering-derived pipelines emit unified DocTag annotations: (1) differential DOCX rendering to recover boxes/regions/types; (2) LaTeX synthesis/rendering for RTL or weak DOCX tooling. Use the clean supervision to benchmark 16 models on 9 tasks and to adapt models via DPO vs standard SFT. Benchmarking shows sharp drops on low-resource scripts despite strong Latin-script results. In adaptation, DPO yields small consistent gains in- and out-of-domain (\textasciitilde{}+1.9\%, +1.8\%) without harming base language, while SFT can cause catastrophic OOD degradation (up to −21\%); best tuned variant beats the strongest baseline by \textasciitilde{}+1.7\%.}
+
+\medskip
+
+{\small\textbf{DiM\textsuperscript{3}: Bridging Multilingual and Multimodal Models via Direction- and Magnitude-Aware Merging}} {\scriptsize[\href{https://arxiv.org/abs/2605.12960}{arxiv}]}\\
+{\scriptsize Zijing Wang, Mingyang Wang, Ercong Nie, Yongkang Liu, Shi Feng, Mengjie Zhao, Daling Wang, Xiaocui Yang, Hinrich Sch\"utze}\\
+
+{\small\textit{DiM³ makes English-centric VLMs multilingual without new multimodal data or retraining by merging multilingual and multimodal weight deltas to avoid interference.}}\\[1pt]
+{\footnotesize A training-free, direction- and magnitude-aware merge rule that composes (i) a multilingual LM delta and (ii) a multimodal (VLM) delta on the same backbone, yielding multilingual VLM capability while preserving multimodal skill. Compute residual updates from backbone→multimodal and backbone→multilingual. Merge per-parameter using agreement in direction/magnitude (combine when aligned; down-weight/select when conflicting). Keep vision encoder/projector fixed; merge only within the shared LM backbone where cross-lingual alignment lives. Across 57 languages and multiple backbones, DiM³ beats standard merging baselines on multilingual text and multilingual VLM eval, substantially improving multilinguality while largely preserving VLM performance; it can also further improve already-multilingual VLMs. Analysis suggests it mainly adjusts mid-layer semantics for cross-lingual alignment while leaving higher-layer task structure intact.}
+
+\medskip
+
+{\small\textbf{Mitigating Cross-Lingual Cultural Inconsistencies in LLMs via Consensus-Driven Preference Optimisation}} {\scriptsize[\href{https://arxiv.org/abs/2605.12515}{arxiv}]}\\
+{\scriptsize Lucas Resck, Isabelle Augenstein, Anna Korhonen}\\
+
+{\small\textit{LLMs can ``switch cultures'' when you switch prompt languages; C-3PO measures and reduces this so a fixed persona stays consistent across languages.}}\\[1pt]
+{\footnotesize Formulates cross-lingual cultural drift as a multi-view consistency failure; introduces Singleton Fleiss's kappa (κ\_S) for robust consistency measurement and C-3PO, a consensus-driven preference-optimization method to align outputs across languages. Generate persona-anchored prompts in multiple languages, compare candidate answers, and optimize preferences toward the cross-lingual consensus rather than language-specific cultural priors. Provide mechanistic evidence via layer-wise and early-decoding analyses showing language-conditioned priors emerge as representations stabilize. Cultural inconsistency is systematic and worse in lower-resource languages (e.g., Indonesian, Persian). C-3PO improves κ\_S by up to +0.10 and beats baselines (prompting, representation steering), indicating the issue is learned bias needing alignment pressure; intermediate-layer decoding shows increasing drift toward the prompt language's stereotypical culture over the forward pass.}
+
+\medskip
+
+{\small\textbf{Mix, Don't Tune: Bilingual Pre-Training Outperforms Hyperparameter Search in Data-Constrained Settings}} {\scriptsize[\href{https://arxiv.org/abs/2605.13225}{arxiv}]}\\
+{\scriptsize Paul Jeha, Anastasiia Sedova, Louis B\'ethune, Skyler Seto, Jes Frellsen, Pierre Ablin, Natalie Schluter}\\
+
+{\small\textit{In data-constrained pretraining, mixing a high-resource language beats hyperparameter search: ``mix, don't tune.''}}\\[1pt]
+{\footnotesize A large controlled study (\textasciitilde{}1000 runs) showing distribution mixing (Arabic+English) is a stronger lever than regularization/hyperparameter tuning when target-language data must be repeated; includes guidance to transfer hyperparameters via μP and focus tuning on mix ratio. Pretrain decoder-only LMs (150M--1.43B) with limited Arabic, sweeping regularization hyperparameters (esp. weight decay) vs Arabic--English mixing ratios under comparable budgets. Evaluate Arabic validation loss and multiple Arabic downstream tasks; use μP-style scaling to transfer hyperparameters from small proxies. English mixing consistently outperforms aggressive hyperparameter tuning, with gains increasing with model size. Mixing corresponds to \textasciitilde{}2--3× ``effective extra Arabic'' on validation loss but \textasciitilde{}2--13× on downstream accuracy; Arabic-only validation loss underestimates mixing benefits because it misses knowledge/transfer effects.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{WARDEN: Endangered Indigenous Language Transcription and Translation with 6 Hours of Training Data}} {\scriptsize[\href{https://arxiv.org/abs/2605.13846}{arxiv}]}\\
+{\scriptsize Ziheng Zhang, Yunzhong Hou, Naijing Liu, Liang Zheng}\\
+
+{\small\textit{With only 6 hours of labeled audio, WARDEN achieves usable Wardaman transcription and English translation by decomposing the task and adding lightweight, targeted tricks.}}\\[1pt]
+{\footnotesize A low-resource pipeline for an endangered language: speech→phonemes then phonemes→English, plus token initialization for faster ASR adaptation and dictionary grounding for translation. Stage 1 fine-tunes a speech-to-phoneme model, initializing the Wardaman token from Sundanese (phoneme similarity) to speed adaptation. Stage 2 translates phonemes to English using an LLM augmented with an expert-built Wardaman--English dictionary. The two-stage approach outperforms larger open-source and proprietary systems in this 6-hour regime, establishing a strong baseline and showing decomposition + token init + dictionary injection beats ``single big model'' strategies; data/code are released.}
+
+\medskip
+
+{\small\textbf{Vividh-ASR: A Complexity-Tiered Benchmark and Optimization Dynamics for Robust Indic Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2605.13087}{arxiv}]}\\
+{\scriptsize Kush Juvekar, Kavya Manohar, Aditya Srinivas Menon, Arghya Bhattacharya, Kumarmanas Nethil}\\
+
+{\small\textit{Vividh-ASR shows Indic ASR robustness depends heavily on training dynamics and speech complexity tiers, not just data/model size.}}\\[1pt]
+{\footnotesize A difficulty-tiered Hindi/Malayalam benchmark (studio→broadcast→spontaneous→noise) that exposes ``studio-bias'' in Whisper fine-tuning, plus a concrete schedule (R-MFT) to improve robustness across tiers. Controlled Whisper fine-tuning varying (i) when large learning-rate updates occur and (ii) curriculum order (hard→easy). Propose reverse multi-stage fine-tuning (R-MFT). Use CKA/SVD to localize changes, finding effective schedules adapt the decoder while keeping encoder acoustics stable. With the right schedule, a smaller PEFT Whisper (244M) matches/beats a larger 769M model fine-tuned conventionally. Large early updates yield \textasciitilde{}12 absolute WER improvement overall; hard→easy ordering adds gains specifically on spontaneous speech, mitigating studio-bias; representation analysis supports decoder-focused adaptation.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Tracing Persona Vectors Through LLM Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2605.13329}{arxiv}]}\\
+{\scriptsize Viktor Moskvoretskii, Dominik Glandorf, Jorge Medina Moreira, Tanja K\"aser, Robert West}\\
+
+{\small\textit{Persona vectors are early, stable linear features: they emerge almost immediately in pretraining and remain usable for steering through later training.}}\\[1pt]
+{\footnotesize A longitudinal trace of persona directions across pretraining checkpoints, reframing persona vectors as early-learned representational axes that later training refines rather than creates. At many checkpoints, re-derive persona directions via multiple elicitation schemes (contrast prompts/conditions), then test (i) geometric stability across checkpoints and (ii) functional steering by adding/subtracting the direction in activations. Trace through OLMo-3-7B pretraining and test persistence into the final instruction-tuned model; replicate on Apertus-8B. Steerable persona vectors appear by \textasciitilde{}0.22\% of pretraining and remain behaviorally effective, while their geometry/semantics continue to evolve (coarse early axis → refined facets). Different elicitation methods expose different aspects of the same underlying persona; the pattern replicates on a second model.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM/agent post-training and evaluation work: at least \textasciitilde{}25 papers on RL/post-training for reasoning and agents (e.g., RLVR/GRPO variants like GAGPO, ODRPO, F-GRPO; on-/self-distillation like GateKD, STOP, Prefix Teach/Suffix Fade; and test-time scaling/self-training like Query-Conditioned TTT). A second major cluster is agentic systems + tool use + benchmarks/safety, with \textasciitilde{}20+ papers on tool-calling data/workflows (ToolWeave, FlowCompile, MCPShield), long-horizon/interactive agents (MAP, Think Twice Act Once), and benchmark auditing/evaluation (BenchJack, ATBench/AgentLens/RealICU/EVA-Bench), alongside a noticeable safety/jailbreak thread (\textasciitilde{}10+; REALISTA, persuasion-based guardrail override, History Anchors, watermarking as monitoring). Multimodal and multilingual capability gaps are also heavily represented (\textasciitilde{}15+), spanning VLM calibration/token pruning/evidence selection (text-only calibration, PDCR, GRIP-VLM) and multilingual/low-resource datasets (DocAtlas 80+ languages, WARDEN, IndicMedDialog, Vividh-ASR). A somewhat surprising emerging direction is non-autoregressive text generation via diffusion/flow language models (\textasciitilde{}8--10; DLM vs AR comparisons, adaptive steering for DLMs, Orthrus dual-view diffusion, FLM sampling), suggesting renewed interest in alternatives to standard autoregressive decoding.}
+
+
+\end{document}
