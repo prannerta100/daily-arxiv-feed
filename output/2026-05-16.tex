@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-16} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{ML-Embed: Inclusive and Efficient Embeddings for a Multilingual World}} {\scriptsize[\href{https://arxiv.org/abs/2605.15081}{arxiv}]}\\
+{\scriptsize Ziyin Zhang, Zihan Liao, Hang Yu, Peng Di, Rui Wang}\\
+
+{\small\textit{ML-Embed delivers strong, reproducible multilingual embeddings that are cheaper across training/storage/inference and notably better for low-resource languages.}}\\[1pt]
+{\footnotesize Introduces ML-Embed plus 3D Matryoshka Learning (3D-ML) to make one embedding model flexibly efficient (dimension, depth, parameters) and pairs it with a large multilingual dataset and full open release (models/data/code). Extends Matryoshka ideas: MRL (usable truncated vectors), MLL (early-exit depth), and new MEL (parameter-efficient scaling). Trains 140M--8B models on a curated massively multilingual corpus emphasizing low-resource coverage. Evaluated on 430 tasks, models are competitive and set new best results on 9/17 MTEB benchmarks, with especially strong low-resource performance, while enabling practical efficiency via Matryoshka-style flexibility and full reproducibility.}
+
+\medskip
+
+{\small\textbf{ROK-FORTRESS: Measuring the Effect of Geopolitical Transcreation for National Security and Public Safety}} {\scriptsize[\href{https://arxiv.org/abs/2605.14152}{arxiv}]}\\
+{\scriptsize Michael S. Lee, Yash Maurya, Drew Rein, Bert Herring, Jonathan Nguyen, Kyungho Song, Udari Madhushani Sehwag, Jiyeon Cho, Kaustubh Deshpande, Yeongkyun Jang, Jiyeon Joo, Minn Seok Choi, Evi Fuelle, Christina Q Knight, Joseph Brandifino, Max Fenkell}\\
+
+{\small\textit{Multilingual safety isn't ``English safety translated'': Korean vs. English and U.S. vs. ROK geopolitical grounding interact and can mask or reveal harmful behavior.}}\\[1pt]
+{\footnotesize Builds ROK-FORTRESS (English--Korean) to disentangle language effects from geopolitical context via a controlled transcreation matrix, and includes benign dual-use counterparts to measure both unsafe compliance and over-refusal. For each harmful intent, creates variants crossing language (EN/KR) with grounding (U.S.-specific vs. Korea-specific operational details) using transcreation (not literal translation). Uses calibrated LLM-judge panels with expert binary rubrics; repeats on dual-use prompts. Finds a consistent Korean ``suppression effect'' (less harmful assistance in Korean), with model-dependent interactions where Korean grounding can partially offset suppression; translation-only benchmarks can therefore miss vulnerabilities and misread apparent safety.}
+
+\medskip
+
+{\small\textbf{Context Training with Active Information Seeking}} {\scriptsize[\href{https://arxiv.org/abs/2605.13050}{arxiv}]}\\
+{\scriptsize Zeyu Huang, Adhiguna Kuncoro, Qixuan Feng, Jiajun Shen, Lucio Dery, Arthur Szlam, Marc'Aurelio Ranzato}\\
+
+{\small\textit{Post-deployment LLMs improve reliably when trained to actively seek information and *select* among competing contexts, rather than accumulating noisy retrieval in a single prompt trajectory.}}\\[1pt]
+{\footnotesize Shows naive ``add search'' can hurt sequential context optimization, and proposes search-based context training that maintains multiple candidate contexts with pruning/backtracking so tool use helps instead of contaminating the context. Optimizes a reusable textual context (instructions/exemplars/retrieved snippets/notes) without weight updates. Runs a pool-based search where candidates can call Wikipedia/search/browser, are evaluated on task performance, and weak contexts are pruned to prevent retrieval noise from persisting. Naive tool-augmented sequential context optimization can underperform baselines, but the proposed multi-candidate/pruning approach yields consistent gains on Flores+ translation, HealthBench, and reasoning benchmarks (LiveCodeBench, Humanity's Last Exam), with data-efficient, transferable contexts across LLMs.}
+
+\medskip
+
+{\small\textbf{PolitNuggets: Benchmarking Agentic Discovery of Long-Tail Political Facts}} {\scriptsize[\href{https://arxiv.org/abs/2605.14002}{arxiv}]}\\
+{\scriptsize Yifei Zhu}\\
+
+{\small\textit{PolitNuggets benchmarks whether agentic LLMs can discover and synthesize long-tail political facts from scattered sources, not just answer from a fixed context.}}\\[1pt]
+{\footnotesize Releases PolitNuggets: multilingual biographies for 400 global elites with 10k+ facts, plus a standardized agentic evaluation setup and FactNet scoring to compare open-ended discovery systems more fairly. Evaluates systems in an optimized multi-agent configuration to reduce prompt/setup variance. Uses FactNet, an evidence-conditional protocol scoring fact discovery, statement granularity/accuracy, and efficiency, conditioned on retrieved support. Current agentic systems commonly miss fine-grained details despite handling obvious facts, and efficiency varies widely; success correlates with short-context extraction, multilingual robustness, and reliable tool use.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Streaming Speech-to-Text Translation with a SpeechLLM}} {\scriptsize[\href{https://arxiv.org/abs/2605.14766}{arxiv}]}\\
+{\scriptsize Titouan Parcollet, Shucong Zhang, Xianrui Zheng, Rogier C. van Dalen}\\
+
+{\small\textit{A single SpeechLLM can do true streaming speech-to-text translation by learning when to emit tokens (``read vs. write''), reaching \textasciitilde{}1--2s latency with near offline quality.}}\\[1pt]
+{\footnotesize Replaces hand-built streaming policies (fixed chunking/endpoints) with an LLM-centric architecture that learns a per-step read/write decision, making SpeechLLM translation practical at low latency. Speech front-end feeds an ever-growing audio context to an LLM that either outputs the next target token or waits for more audio. Supervision comes from automatic speech--text alignments that label when each target token becomes available, teaching a latency/quality tradeoff. Across language pairs, the learned read/write policy stays close to non-streaming quality while operating at \textasciitilde{}1--2 seconds latency, showing most streaming degradation comes from crude emission rules, not an inherent limit.}
+
+\medskip
+
+{\small\textbf{Does language matter for spoken word classification? A multilingual generative meta-learning approach}} {\scriptsize[\href{https://arxiv.org/abs/2605.13084}{arxiv}]}\\
+{\scriptsize Batsirayi Mupamhi Ziki, Louise Beyers, Ruan van der Merwe}\\
+
+{\small\textit{In few-shot spoken word classification, multilingual training helps only modestly; unique data volume predicts gains better than number of languages.}}\\[1pt]
+{\footnotesize Applies Generative Meta-Continual Learning to multilingual spoken word classification and systematically compares monolingual, bilingual, and multilingual training to test whether language diversity itself drives few-shot performance. Trains GMCL-based models with different language mixes: monolingual (EN/DE/FR/CA), bilingual (EN+DE), and multilingual (all four), using the same meta-learning generative framework. The multilingual model performs best but only slightly; performance tracks hours/uniqueness of audio more than language count, suggesting data quantity/novelty dominates multilinguality in this setup.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Dynamics of the Transformer Residual Stream: Coupling Spectral Geometry to Network Topology}} {\scriptsize[\href{https://arxiv.org/abs/2605.14258}{arxiv}]}\\
+{\scriptsize Jesseba Fernando, Grigori Guitchounts}\\
+
+{\small\textit{Training sculpts Transformers into a depth-wise ``spectral pipeline'': early layers mix via non-normal rotation-like dynamics, later layers stabilize via near-symmetric, compressive dynamics tied to community structure.}}\\[1pt]
+{\footnotesize Computes full Jacobian eigendecompositions of residual-stream updates across depth in real LLMs, revealing a learned monotonic spectral gradient plus a cumulative low-rank bottleneck, and links these to the model's internal graph/community topology. Treats each block as a dynamical update; forms the Jacobian of the residual update at many layers/points and eigendecomposes it to capture non-normality and symmetry. Compares trained vs. initialization, runs interventions removing structured non-normality, and relates amplification/suppression to network communities. Across models, training induces (1) early non-normal, rotation-heavy dynamics shifting to (2) late near-symmetric dynamics, alongside (3) progressive dimensional collapse into a low-rank subspace; these effects are learned and correlate with which graph communities get amplified or damped.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by agentic LLM systems: at least \textasciitilde{}35--45 papers on multi-agent orchestration, tool use, memory, and agent evaluation/benchmarks (e.g., GraphBit/GraphFlow/Orchard/APWA, ClawForge/ClawGym, π-Bench, Herculean, Cattle Trade, TERMS-Bench, SWE-Chain, Workspace-Bench), with a noticeable sub-cluster on long-term/stateful memory and governance/provenance (PREPING, EvolveMem, MemLineage, MeMo, persona consistency). A second major theme is reliability/safety/verification for agents and LLMs---roughly \textasciitilde{}20--30 papers spanning prompt-injection defenses and agent security (WARD, Progent, AgentTrap, OpenClaw security analysis), jailbreak/finetuning/poisoning risks (EVA, ``Great Pretender'', hidden-state poisoning, outlier-injection vs quantization), and formal/runtime verification (transformer verification, conversation verifiers, POMDP policy synthesis/model checking). Efficiency and test-time scaling is another strong cluster (\textasciitilde{}15--25): token pruning and cache/decoding/quantization (OmniDrop, ReasonCache, ECHO, Multi-Scale Dequant, XFP, FP4 training) plus inference-time compute scaling/aggregation (OpenDeepThink, Dual-Dimensional Consistency, TERMINATOR). Somewhat surprisingly, there's also a coherent ``agents for science/medicine'' direction (\textasciitilde{}10--15) combining agentic workflows with domain benchmarks and multimodal clinical/scientific tasks (MathAtlas, Collider-Bench, clinical timeline reconstruction, sepsis/medication recommendation, crystal/materials design), suggesting a shift from generic agents toward audited, domain-grounded autonomy.}
+
+
+\end{document}
