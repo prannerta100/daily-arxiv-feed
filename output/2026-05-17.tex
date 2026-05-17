@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-17} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Knowledge Beyond Language: Bridging the Gap in Multilingual Machine Unlearning Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2605.14404}{arxiv}]}\\
+{\scriptsize Kyomin Hwang, Hyeonjin Kim, Sangyeon Cho, Nojun Kwak}\\
+
+{\small\textit{Multilingual unlearning needs cross-lingual evaluation, since ``forgotten'' facts can persist via other languages.}}\\[1pt]
+{\footnotesize Reframes MMU evaluation around cross-language knowledge leakage and introduces metrics that test forgetting/retention across languages rather than per-language in isolation. Defines Knowledge Separability Score (KSS) for overall multilingual removal quality and Knowledge Persistence Score (KPS) for consistency across language pairs; uses them to compare unlearning methods in multilingual probes. Shows existing per-language evaluations miss multilingual-specific behaviors; KSS/KPS expose cross-lingual persistence patterns and broaden what counts as ``successful'' unlearning (abstract reports no single dominant effect size).}
+
+\medskip
+
+{\small\textbf{ML-Embed: Inclusive and Efficient Embeddings for a Multilingual World}} {\scriptsize[\href{https://arxiv.org/abs/2605.15081}{arxiv}]}\\
+{\scriptsize Ziyin Zhang, Zihan Liao, Hang Yu, Peng Di, Rui Wang}\\
+
+{\small\textit{ML-Embed delivers strong multilingual embeddings that can be ``shrunk'' (dims/layers/params) without retraining, improving accessibility and low-resource coverage.}}\\[1pt]
+{\footnotesize Releases an open multilingual embedding suite and a ``3D Matryoshka'' training scheme that supports multiple efficiency knobs while maintaining quality, especially for low-resource languages. Combines Matryoshka Representation Learning (dimension truncation), Matryoshka Layer Learning (early-exit depth), and Matryoshka Embedding Learning (parameter-efficient submodels); trains 140M--8B models on multilingual data and evaluates broadly. On a large evaluation battery (430 tasks), reports new best results on 9/17 MTEB multilingual benchmarks and strong low-resource gains; nested smaller variants remain usable across operating points.}
+
+\medskip
+
+{\small\textbf{Reinforcement Learning with Semantic Rewards Enables Low-Resource Language Expansion without Alignment Tax}} {\scriptsize[\href{https://arxiv.org/abs/2605.14366}{arxiv}]}\\
+{\scriptsize Zeli Su, Ziyin Zhang, Zhou Liu, Xuexian Song, Zhankai Xu, Longfei Zheng, Xiaolu Zhang, Rong Fu, Guixian Xu, Wentao Zhang}\\
+
+{\small\textit{Semantic-reward RL can add low-resource language ability with less ``alignment tax'' than supervised token-matching fine-tuning.}}\\[1pt]
+{\footnotesize Recasts low-resource expansion as meaning alignment: optimize for semantic equivalence to reduce brittle token imitation that causes destructive interference and forgetting. Uses GRPO with rewards based on embedding-level semantic similarity between output and reference, allowing diverse correct surface forms and stabilizing updates via group-wise comparisons. On Tibetan--Chinese MT and Tibetan headline generation, improves target-language performance while better preserving general capabilities than SFT; outputs may differ lexically from references but are preferred by humans/semantic metrics and transfer better in few-shot use.}
+
+\medskip
+
+{\small\textbf{ROK-FORTRESS: Measuring the Effect of Geopolitical Transcreation for National Security and Public Safety}} {\scriptsize[\href{https://arxiv.org/abs/2605.14152}{arxiv}]}\\
+{\scriptsize Michael S. Lee, Yash Maurya, Drew Rein, Bert Herring, Jonathan Nguyen, Kyungho Song, Udari Madhushani Sehwag, Jiyeon Cho, Kaustubh Deshpande, Yeongkyun Jang, Jiyeon Joo, Minn Seok Choi, Evi Fuelle, Christina Q Knight, Joseph Brandifino, Max Fenkell}\\
+
+{\small\textit{Multilingual safety behavior changes with both language and geopolitical framing; translation-only tests miss their interaction.}}\\[1pt]
+{\footnotesize Introduces ROK-FORTRESS, separating language (EN/KR) from geopolitical grounding (US/ROK) and pairing harmful prompts with benign dual-use counterparts to measure under- and over-refusal. Creates a transcreation matrix crossing language and grounding (not literal translation); evaluates with calibrated LLM-judge panels using expert, prompt-specific binary rubrics; includes benign counterparts to quantify overblocking. Finds a Korean-language ``suppression effect'' (more refusal/less helpfulness) across many models; grounding interacts with language---Korean grounding often reduces Korean suppression; translation-only benchmarks would not reveal these asymmetric interactions.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{From Text to Voice: A Reproducible and Verifiable Framework for Evaluating Tool Calling LLM Agents}} {\scriptsize[\href{https://arxiv.org/abs/2605.15104}{arxiv}]}\\
+{\scriptsize Md Tahmid Rahman Laskar, Xue-Yong Fu, Seyyed Saeed Sarfjoo, Quinten McNamara, Jonas Robertson, Shashi Bhushan TN}\\
+
+{\small\textit{A reproducible pipeline converts verified text tool-calling benchmarks into speech, enabling controlled evaluation of voice agents without relabeling.}}\\[1pt]
+{\footnotesize Provides a dataset-agnostic text→audio conversion and evaluation framework to quantify the text-to-voice tool-calling gap, plus ambiguity stress tests and a validated reference-free LLM-judge option. Synthesizes audio from existing benchmark utterances with controlled speakers/noise while keeping original tool schemas and gold calls; compares text vs audio performance; validates LLM-judge against humans and supports open-model judging. On audio versions of Confetti/When2Call, model rankings differ (Gemini-3.1-Flash-Live best on Confetti; GPT-Realtime-1.5 best on When2Call) and measurable text-to-voice gaps appear; many errors are argument mishearing; open Qwen3 judges (8B+) match proprietary judges >80\%.}
+
+\medskip
+
+{\small\textbf{WARDEN: Endangered Indigenous Language Transcription and Translation with 6 Hours of Training Data}} {\scriptsize[\href{https://arxiv.org/abs/2605.13846}{arxiv}]}\\
+{\scriptsize Ziheng Zhang, Yunzhong Hou, Naijing Liu, Liang Zheng}\\
+
+{\small\textit{With only 6 hours of labeled audio, WARDEN gets usable endangered-language transcription+translation by decomposing into phonemes then dictionary-guided LLM translation.}}\\[1pt]
+{\footnotesize Builds a Wardaman pipeline that avoids data-hungry end-to-end speech translation by (1) phoneme transcription with cross-lingual phoneme transfer and (2) lexicon-anchored LLM translation to reduce hallucinated meanings. Stage 1: ASR to phoneme sequences, warm-started using Sundanese due to phoneme-inventory overlap. Stage 2: translate phonemes to English with an LLM prompted/conditioned on an expert Wardaman--English dictionary. The two-stage design is markedly more data-efficient than end-to-end baselines at 6 hours; phoneme transfer improves convergence, and dictionary conditioning improves translation faithfulness; overall beats larger open and proprietary baselines in this setting.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Probing Persona-Dependent Preferences in Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2605.13339}{arxiv}]}\\
+{\scriptsize Oscar Gilg, Pierre Beckmann, Daniel Paleka, Patrick Butlin}\\
+
+{\small\textit{Persona shifts change outputs, but a largely shared internal preference direction still predicts choices across personas.}}\\[1pt]
+{\footnotesize Identifies an interpretable residual-stream ``preference vector'' that generalizes across contexts/personas and shows behavioral relevance via steering (causal intervention) in at least one model. Elicits pairwise revealed preferences under varied prompts/personas; trains linear probes on residual activations in Gemma-3-27B and Qwen-3.5-122B to predict choices; tests generalization and performs activation steering. A single probe direction continues to predict pairwise choices as prompting shifts preferences; steering along it changes choices in Gemma-3-27B; the representation transfers across personas, including an evil persona with anti-correlated preferences.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{CiteVQA: Benchmarking Evidence Attribution for Trustworthy Document Intelligence}} {\scriptsize[\href{https://arxiv.org/abs/2605.12882}{arxiv}]}\\
+{\scriptsize Dongsheng Ma, Jiayu Li, Zhengren Wang, Yijie Wang, Jiahao Kong, Weijun Zeng, Jutao Xiao, Jie Yang, Wentao Zhang, Bin Wang, Conghui He}\\
+
+{\small\textit{DocVQA models can answer correctly while citing the wrong evidence; CiteVQA makes that failure measurable.}}\\[1pt]
+{\footnotesize Introduces CiteVQA, requiring both an answer and the correct cited page region, and a joint metric (Strict Attributed Accuracy) that penalizes attribution hallucinations. Builds element-level gold bounding boxes via masking-based evidence discovery plus expert validation; evaluates predictions as correct only if answer and cited box match ground truth (SAA). Across 20 multimodal LLMs, attribution hallucination is common; best reported model reaches 76.0 SAA (≈25\% fail evidence), best open model 22.5 SAA---answer-only scores substantially overstate trustworthiness.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM systems and their infrastructure: at least \textasciitilde{}25--35 papers on tool-using agents, harnesses/workflows, long-horizon evaluation, and memory (e.g., tool calling concurrency, web agents, agent benchmarks, memory governance/benchmarks). A second major cluster is reliability/safety for LLMs and multimodal models---roughly \textasciitilde{}20--30 papers on jailbreaks/attacks, backdoors, unlearning, hallucination detection/mitigation, and governance (including quantization-related attack surfaces and safety degradation under fine-tuning). There's also a strong methods trend around post-training and inference efficiency---\textasciitilde{}15--25 papers on RL/RLVR/credit assignment, test-time scaling, speculative decoding, KV-cache/token pruning, and diffusion language models. The most surprising concentration is audio: well over \textasciitilde{}150 papers on speech/audio(-visual) LLMs, ASR/TTS, full-duplex voice agents, audio deepfake detection/watermarking, and audio benchmarks/datasets, suggesting a sharp surge in ``audio-native agent'' and ``trustworthy audio'' research.}
+
+
+\end{document}
