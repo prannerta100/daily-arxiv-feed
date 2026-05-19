@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-19} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{SomaliWeb v1: A Quality-Filtered Somali Web Corpus with a Matched Tokenizer and a Public Language-Identification Benchmark}} {\scriptsize[\href{https://arxiv.org/abs/2605.18232}{arxiv}]}\\
+{\scriptsize Khalid Yusuf Dahir}\\
+
+{\small\textit{SomaliWeb v1 turns noisy ``Somali in web dumps'' into a reproducible Somali-first stack: cleaned corpus, matched tokenizer, and a public LID benchmark.}}\\[1pt]
+{\footnotesize Releases a quality-filtered Somali web corpus (\textasciitilde{}303M tokens), a Somali-trained 16K BPE tokenizer, and a language-ID benchmark, showing upstream duplication/encoding/boilerplate issues can dominate low-resource data quality. Aggregate Somali from HPLT v2, CC100, and Somali Wikipedia; apply a six-stage pipeline targeting exact duplicates, mojibake, and near-duplicates (Jaccard thresholding); train a 16K BPE tokenizer on the cleaned distribution; benchmark multiple production LID systems on Somali. Even ``cleaned'' sources remain heavily flawed: HPLT v2 Somali has 17.3\% exact duplicates, 56.1\% docs with mojibake, and 10.7\% near-duplicates after dedup (τ=0.80). The Somali BPE-16K yields 40.2\% fewer tokens than cl100k\_base on FLORES-200 Somali devtest, indicating much better tokenization efficiency (no downstream gains claimed yet).}
+
+\medskip
+
+{\small\textbf{A Data-Efficient Path to Multilingual LLMs: Language Expansion via Post-training PARAM\$\textbackslash{}Delta\$ Integration into Upcycled MoE}} {\scriptsize[\href{https://arxiv.org/abs/2605.18083}{arxiv}]}\\
+{\scriptsize Hao Zhou, Tianhao Li, Zhijun Wang, Shuaijie She, Linjuan Wu, Hao-Ran Wei, Baosong Yang, Jiajun Chen, Shujian Huang}\\
+
+{\small\textit{You can expand an LLM to new languages without redoing costly alignment by isolating languages in MoE experts and transferring alignment as a post-training parameter delta.}}\\[1pt]
+{\footnotesize Avoids the usual ``CPT then re-align'' cost and merge trade-offs by upcycling a dense model into MoE (reducing cross-language weight conflict) and then grafting an alignment delta onto the multilingual CPT model. Upcycle dense base → MoE; run multilingual continued pre-training to learn new languages; instead of full alignment, expand and integrate a post-training parameter delta (Δ\_post) into the MoE-structured CPT model to transfer instruction-following behavior. Across base models and different post-training deltas, the MoE+Δ approach outperforms compute- or parameter-matched baselines, improving new-language performance while preserving original capabilities---where data-free merging typically degrades one side.}
+
+\medskip
+
+{\small\textbf{Mixture of Experts for Low-Resource LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.17598}{arxiv}]}\\
+{\scriptsize Ori Bar Joseph, Smadar Arvatz, Noam Kayzer, Dan Revital, Sarel Weinberger}\\
+
+{\small\textit{Multilingual MoE LLMs can ``collapse'' expert routing for low-resource languages in deep layers; balanced bilingual continual pre-training restores routing diversity and boosts performance.}}\\[1pt]
+{\footnotesize Identifies a layer-localized, measurable routing pathology (deep-layer entropy collapse) for underrepresented languages and shows it's fixable; proposes routing entropy/specialization as practical diagnostics tied to downstream quality. Probe expert-selection distributions per layer in two MoE models (Qwen3-30B-A3B; Nemotron-3-Nano-30B-A3B) for English vs Hebrew/Japanese; quantify with routing entropy and specialization metrics; compare interventions: balanced bilingual continual pre-training vs supervised fine-tuning. Hebrew shows sharp deep-layer routing collapse (tokens funnel into few experts) unlike English; balanced bilingual CPT substantially reverses collapse (higher entropy, more shared experts) while SFT only partially helps. Similar signatures appear for Japanese, and routing recovery correlates with downstream benchmark gains.}
+
+\medskip
+
+{\small\textbf{Why Do Safety Guardrails Degrade Across Languages?}} {\scriptsize[\href{https://arxiv.org/abs/2605.17173}{arxiv}]}\\
+{\scriptsize Max Zhang, Ameen Patel, Sang T. Truong, Sanmi Koyejo}\\
+
+{\small\textit{Apparent multilingual safety drops often reflect measurement confounds; a multi-group IRT model separates true guardrail weakness from prompt and language effects.}}\\[1pt]
+{\footnotesize Replaces raw Jailbreak Success Rate with a decomposed model of refusals: language-agnostic robustness, prompt difficulty, language-wide difficulty, and prompt×language gaps capturing genuine cross-lingual vulnerabilities. Fit a multi-group Item Response Theory model to refusal/compliance outcomes over (model config, prompt, language); validate near-1D latent ``refusal ability'' via factor analysis; analyze gap outliers with native-speaker checks for mistranslation/concept mismatch; evaluate predictive power on MultiJail (1.9M rows, 61 configs, 10 languages). After decomposition, ``low-resource is always less safe'' fails: for 22 configurations, English is more vulnerable than some low-resource languages once factors are separated. Cross-lingual gaps cluster in categories like physical harm (e.g., Theft/Weapons) and lower-resource languages; severe mistranslations create extreme outliers. The model predicts refusals well (AUC \textasciitilde{}0.94), outperforming simpler baselines.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{WASIL: In-the-Wild Arabic Spoken Interactions with LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.16364}{arxiv}]}\\
+{\scriptsize Zien Sheikh Ali, Hamdy Mubarak, Soon-Gyo Jung, Hunzalah Hassan Bhatti, Firoj Alam, Shammur Absar Chowdhury}\\
+
+{\small\textit{WASIL provides real Arabic spoken-to-LLM interactions with feedback and answerability labels, enabling clean separation of ASR-caused failures from inherently unanswerable turns.}}\\[1pt]
+{\footnotesize Releases an in-the-wild Arabic voice-assistant dataset (audio, ASR, responses, likes/dislikes) plus answerability annotations, addressing the common misdiagnosis that user dissatisfaction is mainly ASR error. Collect spoken turns with audio, ASR hypotheses, and assistant responses; obtain low-cost gold transcripts via multi-ASR agreement + human post-editing; label answerability (answerable/ambiguous/unsupported/not-a-request); propose reference-free evaluation comparing outputs from ASR vs gold transcripts using multiple LLM judges. Releases 8,529 labeled turns (14.2\% dislikes) plus a 2,000-turn test set spanning MSA and four dialects. The dataset design shows dislikes can stem from ambiguity/unsupported/non-request turns even with perfect transcripts, and enables controlled measurement of gains from better ASR vs better dialogue/refusal handling.}
+
+\medskip
+
+{\small\textbf{Sometin Beta Pass Notin (SBPN): Improving Multilingual ASR for Nigerian Languages via Knowledge Distillation}} {\scriptsize[\href{https://arxiv.org/abs/2605.17710}{arxiv}]}\\
+{\scriptsize Sewade Ogun}\\
+
+{\small\textit{SBPN is an open multilingual ASR model for major Nigerian languages, trained with distillation plus pseudo-labeling to cut WER and beat multilingual baselines.}}\\[1pt]
+{\footnotesize Introduces and releases SBPN for Yorùbá, Hausa, Igbo, Nigerian Pidgin, and Nigerian English, with a practical two-stage recipe combining teacher distillation, language-specific LM conditioning, and iterative pseudo-labeled training. Stage 1: distill from monolingual ASR teachers into one multilingual student, guided by language-specific N-gram LMs. Stage 2: iterative self-training---generate pseudo-labels on extra audio and retrain to refine recognition. Achieves \textasciitilde{}29\% average relative WER reduction vs monolingual baselines and outperforms prior multilingual ASR on Common Voice and Fleurs. Releases SBPN-Base (120M) and SBPN-Large (600M) models.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{FishBack: Pullback Fisher Geometry for Optimal Activation Steering in Transformers}} {\scriptsize[\href{https://arxiv.org/abs/2605.17231}{arxiv}]}\\
+{\scriptsize Sihan Wang, Jiayi Zhao}\\
+
+{\small\textit{Activation steering should respect the model's own output-sensitive geometry; pullback Fisher gives a closed-form steering direction with fewer side effects than Euclidean tweaks.}}\\[1pt]
+{\footnotesize Recasts steering as ``minimal output-distribution distortion'' by measuring activation changes with a Fisher metric pulled back from the softmax through downstream layers, unifying prior steering methods as crude metric approximations. Define a desired first-order change in an output-level concept; compute the pullback Fisher metric via the downstream Jacobian; take the metric-preconditioned (closed-form) minimum-distortion direction and apply iteratively. Derive a layer-wise recursive metric decomposition to interpret ActAdd/CAA/ITI as approximations. On GPT-2 the pullback Fisher metric is far from identity (>97\% relative spectral-norm difference) and effectively lower-rank; Fisher-optimal steering achieves the same morphology concept increase with \textasciitilde{}1.3--2.5× lower KL drift than Euclidean gradient ascent and \textasciitilde{}1.5× better than CAA at matched concept probability. A spectral ``cost ratio'' diagnostic predicts when prior methods waste effort.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM systems and their evaluation: at least \textasciitilde{}25--35 papers focus on multi-agent workflows, skill libraries/lifecycles, memory, and realistic agent benchmarks (e.g., CHI-Bench, PROTEA, STT-Arena, SaaS-Bench, ShopGym, SocialMemBench/GroupMemBench/LongMINT, SkillsVote/SkillSmith). A second major cluster is reliability/safety for deployed LLMs---hallucination detection and RAG trustworthiness (HalluScore, PARALLAX, ConflictRAG, TRACE, QuCo-RAG), plus prompt-injection/jailbreak and agent security ("AI Agents May Always Fall for Prompt Injections", multilingual jailbreaking, Trust No Tool, Trojan Hippo/ShadowMerge memory attacks), totaling roughly \textasciitilde{}20+ papers. Systems/efficiency is also heavily represented (\textasciitilde{}15--25): long-context attention/KV-cache management and quantization/pruning/routing (KVDrive, CompactAttention, ProxyKV, TriAxialKV, OSCAR, GAMMA, HyDRA), alongside diffusion language models and RLVR/on-policy distillation for reasoning (\textasciitilde{}10--15; e.g., DACA-GRPO, RLVR in knowledge domains, early-exit/CoT compression). A surprising non-LLM hotspot is audio/music generation and deepfake detection (Stable Audio 3, WavFlow, MusicDET, multiple ASR/TTS and spoofing papers), forming a sizable \textasciitilde{}10--15-paper cluster that rivals some core NLP subtopics.}
+
+
+\end{document}
