@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-20} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Lost in Interpretation: The Plausibility-Faithfulness Trade-off in Cross-Lingual Explanations}} {\scriptsize[\href{https://arxiv.org/abs/2605.19274}{arxiv}]}\\
+{\scriptsize Somnath Banerjee, Pranav Jha, Rima Hazra, Animesh Mukherjee}\\
+
+{\small\textit{English explanations for non-English inputs can look more convincing to humans yet be less causally tied to the model's actual decision, undermining audits.}}\\[1pt]
+{\footnotesize Identifies an ``English-pivot'' failure mode: language-switching boosts plausibility (human-aligned evidence) while reducing faithfulness (evidence that truly drives predictions), shown via both overlap and causal tests. Multilingual LLMs produce (i) extractive evidence spans and (ii) free-form rationales for non-English inputs, either in the input language or in English; evaluate plausibility via human-span agreement and faithfulness via comprehensiveness/sufficiency across tasks, languages, and model families. English-pivot explanations often increase human-span agreement but substantially worsen faithfulness---comprehensiveness up to 5.7× worse---despite similar task accuracy; pragmatic cues can be lost, so English rationales should be treated as communication, not audit-grade evidence.}
+
+\medskip
+
+{\small\textbf{SLoW: Select Low-frequency Words! Automatic Dictionary Selection for Translation on Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2507.18902}{arxiv}]}\\
+{\scriptsize Hongyuan Lu, Zixuan Li, Zefan Zhang, Wai Lam}\\
+
+{\small\textit{Dictionary-augmented LLM translation can be made far cheaper by injecting only automatically selected rare-word entries, retaining most gains with fewer tokens.}}\\[1pt]
+{\footnotesize Formulates Automatic Dictionary Selection under a token budget and shows a simple, model-agnostic rule: prioritize low-frequency source words because they're where LLMs most need lexical help. SLoW ranks dictionary entries by estimated source-word frequency (from public resources) and includes only the low-frequency subset in the translation prompt; evaluated across many languages and LLM families. On FLORES across 100 languages, SLoW outperforms strong selection baselines while using fewer prompt tokens, and can even beat full-dictionary prompting---suggesting reduced prompt clutter plus targeted rare-word help improves translation.}
+
+\medskip
+
+{\small\textbf{Prompting language influences diagnostic reasoning and accuracy of large language models}} {\scriptsize[\href{https://arxiv.org/abs/2605.19173}{arxiv}]}\\
+{\scriptsize Adrien Bazoge, Josselin Corvellec, Sofiane Djillali Sid-Ahmed, Pierre-Antoine Gourraud}\\
+
+{\small\textit{Prompt language changes both diagnostic accuracy and reasoning quality in clinical LLM use, so English-only evaluation can overstate real-world performance.}}\\[1pt]
+{\footnotesize Quantifies language-dependent clinical performance by having physicians grade not just diagnoses but reasoning, showing multilingual models are not clinically equivalent across languages. 180 vignettes (16 specialties) run in English vs French across five LLMs; two physicians score responses with an 18-point rubric covering diagnosis and reasoning dimensions; statistical testing on language effects. 4/5 models perform better in English, with French drops \textasciitilde{}0.37--0.91 points (adjusted p<0.05) across reasoning and accuracy; o3 shows no overall language effect, highlighting safety/equity risks for non-English deployment.}
+
+\medskip
+
+{\small\textbf{m3BERT: A Modern, Multi-lingual, Matryoshka Bidirectional Encoder}} {\scriptsize[\href{https://arxiv.org/abs/2605.19568}{arxiv}]}\\
+{\scriptsize Yaoxiang Wang, Simiao Zuo, Qingguo Hu, Yucheng Ding, Yeyun Gong, Jian Jiao, Jinsong Su}\\
+
+{\small\textit{m3BERT is a multilingual encoder pretrained to be ``sliceable'' by depth and embedding size, enabling cost/latency trade-offs without the usual quality cliff.}}\\[1pt]
+{\footnotesize Makes compression a pretraining objective: trains many sub-models (fewer layers and/or smaller embedding prefixes) to be strong, so one checkpoint serves multiple deployment budgets. Matryoshka training along two axes---embedding-dimension prefixes and intermediate-layer outputs---plus a three-stage curriculum (monolingual pretrain → multilingual adapt → continual web-domain pretrain) to target retrieval distributions. On Bing-Click and public benchmarks, m3BERT beats strong embedding baselines and remains competitive across reduced dimensions/layers, with ``smaller slices'' retaining far more quality than post-hoc truncation.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Can Large Language Models Reliably Correct Errors in Low-Resource ASR? A Contamination-Aware Case Study on West Frisian}} {\scriptsize[\href{https://arxiv.org/abs/2605.19711}{arxiv}]}\\
+{\scriptsize Yun Hao, Reihaneh Amooie, Wietse de Vries, Rik van Noord, Martijn Wieling}\\
+
+{\small\textit{LLMs can reduce ASR errors in low-resource West Frisian, but gains are only credible when tested on non-public text to avoid memorization/contamination.}}\\[1pt]
+{\footnotesize Introduces a contamination-aware evaluation for LLM generative error correction (GER): compare results on a public benchmark vs an offline, non-public test set to separate real correction from leakage. Use an LLM as a text-only post-processor that rewrites ASR hypotheses; evaluate WER on both public and offline datasets and analyze edit types to characterize when corrections help vs over-correct. LLM post-editing typically lowers WER; the best setup (reported GPT-5.1) can even beat an oracle WER baseline, and similar gains on the offline set indicate improvements aren't mainly from memorized references, though over-normalization errors remain.}
+
+\medskip
+
+{\small\textbf{Benchmarking Commercial ASR Systems on Code-Switching Speech: Arabic, Persian, and German}} {\scriptsize[\href{https://arxiv.org/abs/2605.19069}{arxiv}]}\\
+{\scriptsize Sajjad Abdoli (MAD), Ghassan Al-Sumaidaee (MAD), Clayton W. Taylor (MAD),  Ahmad (MAD),  ElShiekh, Ahmed Rashad}\\
+
+{\small\textit{Commercial ASR can fail on real code-switching, and WER can mis-rank systems for Arabic/Persian due to benign spelling/transliteration variation---semantic metrics are needed.}}\\[1pt]
+{\footnotesize Releases a code-switching benchmark (Arabic dialects--English, Persian--English, German--English) and argues for evaluating with both surface and semantic metrics to reflect meaning under script variation. Curate 4×300-utterance datasets via heuristic filtering plus LLM-judge scoring (GPT-4o + Gemini 1.5 Pro), cutting LLM cost \textasciitilde{}91\%; evaluate five providers with WER and BERTScore, plus difficulty slices and embedding visualizations. Provider rankings shift between WER and BERTScore, especially for Arabic/Persian; ElevenLabs Scribe v2 is best overall (WER 13.2\%, BERTScore 0.936; Egyptian Arabic--English WER 13.1\%), and hard-case slices reveal failures hidden by averages and WER-only scoring.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Where Does Authorship Signal Emerge in Encoder-Based Language Models?}} {\scriptsize[\href{https://arxiv.org/abs/2605.19908}{arxiv}]}\\
+{\scriptsize Francis Kulumba, Guillaume Vimont, Laurent Romary, Florian Cafiero}\\
+
+{\small\textit{In encoder-based authorship attribution, the classifier head can shift where authorship information becomes usable inside the encoder, driving large accuracy gaps.}}\\[1pt]
+{\footnotesize Explains up-to-4× performance differences from changing only the scorer: stylistic cues exist across layers, but the head's gradient structure determines where the model must consolidate them into a linearly exploitable signal. Fine-tune the same encoder with different scorers (mean pooling vs late interaction); probe layerwise recoverability of stylistic features, run causal layer interventions/swaps, and relate localization effects to gradient flow and training dynamics. Mean pooling forces earlier/mid-layer consolidation of authorship signal, while late interaction allows postponing consolidation to later layers; big accuracy differences arise from head-induced training dynamics, not from one model ``having'' stylistic cues and the other not.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{The Silent Hyperparameter: Quantifying the Impact of Inference Backends on LLM Reproducibility}} {\scriptsize[\href{https://arxiv.org/abs/2605.19537}{arxiv}]}\\
+{\scriptsize David Pape, Jonathan Evertz, Lea Sch\"onherr}\\
+
+{\small\textit{LLM benchmark scores can shift by double digits solely from changing the inference backend, so evaluations aren't reproducible without reporting the full inference stack.}}\\[1pt]
+{\footnotesize Positions the inference engine as a ``silent hyperparameter'': backend optimizations and defaults subtly change token probabilities, and sequential generation amplifies small numeric/procedural differences into large score swings. Hold model weights, decoding settings, and hardware fixed while swapping backends (e.g., vLLM, SGLang, llama.cpp); measure score deltas/output disagreement and attribute differences to backend behaviors (precision, kernels, caching, graph capture, logit handling). Backend choice alone changes benchmark scores by up to 16.6 points with high output disagreement; identified mechanisms make the divergence systematic, implying leaderboard claims require backend+settings disclosure/standardization.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM *agents* and their reliability/safety: at least \textasciitilde{}25 papers on agentic workflows (computer/web/GUI agents, long-horizon delegation, memory, tool invocation/over-calling, routing/scheduling, and agent benchmarks like DecisionBench/OpenComputer/OmniGUI/CutVerse/RoadmapBench). A second major cluster is *evaluation + trustworthiness* for LLMs/MLLMs (roughly \textasciitilde{}20): new benchmarks/platforms (OpenCompass, HalluWorld, LLMEval-Logic, POLAR-Bench, contamination-resistant datasets), LLM-as-judge/meta-evaluation, calibration/uncertainty, and deception/hallucination audits. There's also a strong *systems/efficiency* thread (≈15) around long-context inference and serving---KV-cache management/quantization, speculative decoding, MoE routing/offload, and training efficiency---often explicitly motivated by agentic long-context use. Notable emerging directions include diffusion-based language modeling and its security (multiple papers on discrete/masked diffusion LMs, backdoors, memorization), plus a visible applied push into healthcare/legal multilingual settings (medical dialogue/history, radiology/ECG, legal chunking/proposition generation) rather than generic English-only NLP.}
+
+
+\end{document}
