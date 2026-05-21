@@ -1,0 +1,88 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-21} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{DiM\textsuperscript{3}: Bridging Multilingual and Multimodal Models via Direction- and Magnitude-Aware Merging}} {\scriptsize[\href{https://arxiv.org/abs/2605.12960}{arxiv}]}\\
+{\scriptsize Zijing Wang, Mingyang Wang, Ercong Nie, Yongkang Liu, Shi Feng, Mengjie Zhao, Daling Wang, Xiaocui Yang, Hinrich Sch\"utze}\\
+
+{\small\textit{DiM³ makes an English-centric multimodal model multilingual with no new multimodal data by merging a multilingual ``delta'' into the language backbone without breaking vision-language skills.}}\\[1pt]
+{\footnotesize Shows multilingual gains can come from injecting the multilingual fine-tuning update into a multimodal model, but only with a merge rule that handles conflicts between multilingual vs multimodal parameter changes; proposes a training-free, per-parameter composition to preserve both. Given a shared base LLM, compute deltas to (a) a multilingual-tuned LLM and (b) a multimodal-tuned LLaVA/Qwen-VL-style model (vision encoder/projector fixed). DiM³ combines deltas per parameter using direction (alignment) and magnitude to reinforce compatible updates and damp/choose between conflicting ones. Across LLaVA-family and Qwen-based multimodal models over 57 languages, DiM³ boosts multilingual text and vision-language performance over the original multimodal model and standard merging baselines, while largely retaining general multimodal ability; even improves already-multilingual multimodal models. Analysis suggests mid-layer representations become more cross-lingually aligned while upper layers keep task structure.}
+
+\medskip
+
+{\small\textbf{Direct Translation between Sign Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.20588}{arxiv}]}\\
+{\scriptsize Zetian Wu, Bowen Xie, Wuyang Meng, Milan Gautam, Stefan Lee, Liang Huang}\\
+
+{\small\textit{Direct sign-to-sign translation is feasible and better than sign→text→sign cascades by creating synthetic sign--sign pairs via back-translation.}}\\[1pt]
+{\footnotesize Addresses the lack of parallel sign-language video pairs by synthesizing sign--sign training data from existing sign--text corpora, enabling a single multilingual model to translate between sign languages without text as an intermediate. Use text→sign models to back-translate text into another sign language, forming pseudo-parallel sign--sign pairs. Jointly train an mBART-style multilingual encoder--decoder for both text→sign and sign→sign across ASL/CSL/DGS. Direct sign→sign beats cascades in quality and latency: \textasciitilde{}20\% lower DTW-aligned MPJPE, \textasciitilde{}50\% higher BLEU-4 via sign→text back-evaluation, and \textasciitilde{}2.3× faster inference; similar trends hold on limited real cross-lingual sign data.}
+
+\medskip
+
+{\small\textbf{Do LLMs Know What Luxembourgish Borrows? Probing Lexical Neology in Low-Resource Multilingual Models}} {\scriptsize[\href{https://arxiv.org/abs/2605.21227}{arxiv}]}\\
+{\scriptsize Nina Hosseini-Kivanani}\\
+
+{\small\textit{Multilingual LLMs poorly detect Luxembourgish borrowings unless given structured lexical evidence; small knowledge-graph prompts sharply improve donor-language classification.}}\\[1pt]
+{\footnotesize Creates LexNeo-Bench for token-level native vs borrowed (French/German/English) labeling and shows failures are largely due to missing structured lexical/morphological context; knowledge-graph prompting supplies that context and closes much of the gap. 3,050 labeled tokens from Luxembourgish news (LuxBorrow). Probe multilingual LLMs on 4-way donor classification and a binary borrowed-vs-native proxy; retrieve an instance-specific subgraph (donor cues, orthography/morphology, related lexemes) and insert it into the prompt. Without context, models are only slightly above chance on 4-way classification (\textasciitilde{}25--35\%); with KG prompting, accuracy jumps to \textasciitilde{}71--81\% and size matters less, implying information access/structure is the bottleneck. The binary ``innovation'' proxy remains sensitive to prompting and still difficult.}
+
+\medskip
+
+{\small\textbf{Dictionary Insertion Prompting for Multilingual Reasoning on Multilingual Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2411.01141}{arxiv}]}\\
+{\scriptsize Hongyuan Lu, Zixuan Li, Wai Lam}\\
+
+{\small\textit{Dictionary Insertion Prompting boosts multilingual reasoning by interleaving English glosses inside non-English prompts, letting English-dominant LLMs reason in their strongest space.}}\\[1pt]
+{\footnotesize Proposes DIP, a minimal prompting trick that outperforms adding the same dictionary content as a separate glossary block, suggesting local grounding of English cues is key for multilingual understanding + reasoning. Select words via a bilingual dictionary and insert English translations inline next to source-language tokens; compare to prepend/append glossary variants. Build multilingual reasoning sets by translating English datasets with NLLB and validating via back-translation plus some manual checks. DIP improves multilingual reasoning across many languages (reported from 10 up to 200 FLORES languages depending on dataset), and inline insertion consistently beats equivalent front/back glossary placement, supporting the claim that context-attached glosses better anchor meaning for downstream reasoning.}
+
+\medskip
+
+{\small\textbf{Building Arabic NLP from the Ground Up: Twenty Years of Lessons, Failures, and Open Problems}} {\scriptsize[\href{https://arxiv.org/abs/2605.20786}{arxiv}]}\\
+{\scriptsize Wajdi Zaghouani}\\
+
+{\small\textit{Two decades of Arabic NLP show the main blockers are often socio-institutional---data, incentives, communities---not just models or linguistic complexity.}}\\[1pt]
+{\footnotesize A practitioner retrospective that distills ``counterintuitive lessons'' and concrete failures, reframing Arabic NLP progress as a socio-technical project shaped by coordination, incentives, and deployment realities. Narrative analysis across two phases: early infrastructure/resource building and later social-media/computational social science work; organizes evidence as lessons learned plus failure case studies. Argues the hardest problems are social/institutional/epistemic, supported by three lessons (dataset building is social; shared-task communities can matter more than tasks; CSS needs skills NLP training omits) and three failures (depression corpus not adopted clinically; spreading effort across too many shared tasks; assuming MSA resources transfer to dialects).}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{SCRIBE: Diagnostic Evaluation and Rich Transcription Models for Indic ASR}} {\scriptsize[\href{https://arxiv.org/abs/2605.20712}{arxiv}]}\\
+{\scriptsize Kavya Manohar, Arghya Bhattacharya, Kush Juvekar, Kumarmanas Nethil}\\
+
+{\small\textit{SCRIBE replaces blunt WER with Indic-aware, user-cost-aligned ASR diagnostics, revealing error types (entities, numerals, punctuation) that matter most.}}\\[1pt]
+{\footnotesize Introduces an evaluation framework that (i) avoids unfair WER penalties from sandhi/agglutination merges/splits and (ii) reports error categories tied to correction effort; releases benchmarks and open ``rich transcription'' ASR models for Hindi, Malayalam, Kannada. Sandhi-tolerant alignment plus categorical scoring (lexical, punctuation, numeral, domain-entity), including domain vocabulary injection to track critical terms; uses an LLM-assisted pipeline to curate/label rich transcripts and benchmarks. SCRIBE's breakdown matches expert notions of impactful errors better than WER, reduces false penalties from valid merges/splits, and exposes cases where similar WER hides severe numeral/entity corruption; released resources enable reproducible, more realistic optimization for Indic ASR.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent post-training and evaluation: at least \textasciitilde{}25--35 papers on RLVR/RLHF/DPO-style alignment (e.g., GRPO variants, token credit assignment, reward hacking, verifier calibration) plus another \textasciitilde{}20+ on agent benchmarks, long-horizon workflows, and memory systems (MemGym, DecisionBench, OpenComputer, Terminal-World, routing/scheduling). A second major cluster is efficiency for deployment---quantization/KV-cache/attention and serving infrastructure---with \textasciitilde{}20+ papers spanning static/mobile quantization, KV-cache compression, speculative decoding, and WebGPU/browser inference. Safety/reliability is also heavily represented (\textasciitilde{}15--25 papers) across jailbreak/prompt-injection defenses, hallucination auditing (including RAG/GraphRAG grounding and evidence tracing), unlearning/privacy, and AI-generated text detection. Notable emerging directions include diffusion/flow-based language modeling and ``one/few-step'' generation (FlowLM, PulseCol) and a surprisingly large audio/spoken-dialogue push (full-duplex speech models, audio LLM attacks, long-form audio understanding), suggesting multimodal agents are becoming a first-class focus rather than an add-on.}
+
+
+\end{document}
