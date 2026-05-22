@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-22} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{DocAtlas: Multilingual Document Understanding Across 80+ Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.12623}{arxiv}]}\\
+{\scriptsize Ahmed Heakl, Youssef Mohamed, Abdullah Sohail, Rania Elbadry, Ahmed Nassar, Peter W. J. Staar, Fahad Shahbaz Khan, Imran Razzak, Salman Khan}\\
+
+{\small\textit{DocAtlas builds high-fidelity multilingual document-understanding supervision via ``rendered truth,'' then adapts models with DPO to improve many languages without hurting generalization.}}\\[1pt]
+{\footnotesize Provides a framework/benchmark suite across 82 languages and 9 tasks with precise OCR/layout labels derived from controlled rendering (DOCX/LaTeX), unified in a DocTag schema; shows safer multilingual adaptation via preference optimization vs supervised fine-tuning. Generate ground truth by differential rendering of native DOCX and a LaTeX pipeline (esp. RTL scripts); normalize to DocTag (text + geometry + component types); evaluate 16 models; adapt using DPO with rendering-derived outputs as preferred targets. Large gaps persist on low-resource scripts across 16 ``multilingual'' models; DPO adaptation improves in-domain (+1.9\%) and out-of-domain (+1.8\%) with no base-language degradation, while supervised fine-tuning can drop OOD up to 21\%; best variant beats strongest baseline by +1.7\%.}
+
+\medskip
+
+{\small\textbf{LANG: Reinforcement Learning for Multilingual Reasoning with Language-Adaptive Hint Guidance}} {\scriptsize[\href{https://arxiv.org/abs/2605.22567}{arxiv}]}\\
+{\scriptsize Yuchun Fan, Bei Li, Peiguang Li, Yilin Wang, Yongyu Mu, Jian Yang, Xin Chen, Rongxiang Weng, Jingang Wang, Xunliang Cai, Jingbo Zhu, Tong Xiao}\\
+
+{\small\textit{LANG gets multilingual RL reasoning gains without the model drifting into English by using temporary, language-aware hint scaffolding that is phased out.}}\\[1pt]
+{\footnotesize Addresses RL's tendency to use English as a high-reward scratchpad; introduces language-adaptive hints plus a weaning schedule so the policy learns to reason in the target language without becoming hint-dependent. During RL on non-English reasoning tasks, inject language-conditioned hints to anchor intermediate steps in the input language; progressively decay/remove hints; use a language-adaptive schedule/switch to match scaffolding removal to language difficulty. Improves multilingual multi-step reasoning accuracy while keeping outputs in the intended language, avoiding the common ``reason in English'' shortcut; reported to generalize beyond math and to strengthen language-alignment signals internally.}
+
+\medskip
+
+{\small\textbf{Hy-MT2: A Family of Fast, Efficient and Powerful Multilingual Translation Models in the Wild}} {\scriptsize[\href{https://arxiv.org/abs/2605.22064}{arxiv}]}\\
+{\scriptsize Mao Zheng, Zheng Li, Tao Chen, Bo Lv, Mingrui Sun, Mingyang Song, Jinlong Song, Hong Huang, Decheng Wu, Hai Wang, Yifan Song, Yanfeng Chen, Guanwei Zhang, Guanghua Yu, Yi Su, Hong Liu, Jinxiang Ou, Keyao Wang, Weile Chen, Haozhao Kuang, Kai Wang, Nuo Chen, Zihao Zheng, Chenhao Wang, Bin Xing, Chengcheng Xu, Tinghao Yu, Binghong Wu, Long Xu, Jiacheng Shi, Yunhao Wang, Baifang Chen, Lei Zhang, Qi Yang, Zhao Wu, Jiacheng Li, Lan Jiang, Lanrui Wang, Kai Zhang, Shuaipeng Li, Zhongzhi Chen, Weixuan Sun, Jiaqi Zhu, An Wang, Wei Li, Jun Xia, Weidong Han, Wutian Yang, Litong Hui, Luoguo Jia, Jiajia Wu, Xinpeng Zhou, Tianxiang Fei}\\
+
+{\small\textit{Hy-MT2 delivers instruction-following MT across 33 languages with models engineered for low-latency, including an extremely quantized on-device option.}}\\[1pt]
+{\footnotesize Introduces a 1.8B/7B/30B-MoE MT family aimed at ``translation in the wild'': multilingual instruction following (tone/constraints/formatting), domain robustness, and a deployment path via ultra-low-bit quantization. Train multilingual instruction-following translation across 33 languages; offer dense and MoE variants; apply AngelSlim 1.25-bit quantization to the 1.8B model for edge deployment while targeting quality retention and higher throughput. 7B/30B outperform strong open baselines (DeepSeek-V4-Pro, Kimi K2.6) in a fast-thinking setting; the 1.8B model is claimed to beat commercial translation APIs overall and, at 1.25-bit, fits \textasciitilde{}440MB and runs \textasciitilde{}1.5× faster.}
+
+\medskip
+
+{\small\textbf{Polite on the Surface, Wrong in Practice: A Curated Dataset for Fixing Honorific Failures in Multilingual Bangla Generation}} {\scriptsize[\href{https://arxiv.org/abs/2605.22487}{arxiv}]}\\
+{\scriptsize Md. Asaduzzaman Shuvo, Mahedi Hasan, Md. Tashin Parvez, Azizul Haque Noman, Md. Shafayet Hossain Ovi}\\
+
+{\small\textit{Bangla LLMs often fail socially (honorific/register) despite fluent text; BLADE makes this failure trainable and measurable.}}\\[1pt]
+{\footnotesize Releases BLADE: 4,196 curated Bangla interaction pairs targeting honorific and pragmatic-formality correctness, turning a culturally specific error mode into a benchmark and instruction-tuning resource. Construct instruction-style prompts that force correct register/honorific choices from context; LoRA fine-tune multilingual open models (e.g., DeepSeek-8B, LLaMA-3.2-3B) with 4-bit NF4 quantization for practical training. Fine-tuning on BLADE improves structural fidelity to the requested interaction and context-appropriate honorific consistency, showing targeted supervision can fix pragmatic failures that generic multilingual instruction tuning leaves unresolved.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Benchmarking Commercial ASR Systems on Code-Switching Speech: Arabic, Persian, and German}} {\scriptsize[\href{https://arxiv.org/abs/2605.19069}{arxiv}]}\\
+{\scriptsize Sajjad Abdoli, Ghassan Al-Sumaidaee, Clayton W. Taylor, Ahmad ElShiekh, Ahmed Rashad}\\
+
+{\small\textit{On real code-switching speech, one WER hides failures; meaning-aware scoring and a new benchmark expose large differences, especially with Arabic/Persian transliteration.}}\\[1pt]
+{\footnotesize Releases a public code-switching benchmark for Egyptian Arabic--EN, Saudi Arabic--EN, Persian--EN, and German--EN; highlights WER's unfairness under script/transliteration variation and adds BERTScore plus difficulty-stratified reporting. Curate 4×300 utterances via a cheap heuristic prefilter plus LLM-ensemble scoring (GPT-4o, Gemini 1.5 Pro), cutting LLM cost \textasciitilde{}91\%; benchmark five commercial ASR systems with both WER and BERTScore. System rankings can flip between WER and BERTScore, most notably for Arabic--EN and Persian--EN; ElevenLabs Scribe v2 is best overall (13.2\% WER, 0.936 BERTScore), and stratification shows hard, heavily code-switched cases fail despite decent averages.}
+
+\medskip
+
+{\small\textbf{SCRIBE: Diagnostic Evaluation and Rich Transcription Models for Indic ASR}} {\scriptsize[\href{https://arxiv.org/abs/2605.20712}{arxiv}]}\\
+{\scriptsize Kavya Manohar, Arghya Bhattacharya, Kush Juvekar, Kumarmanas Nethil}\\
+
+{\small\textit{SCRIBE replaces blunt WER with a correction-effort--oriented diagnostic for Indic ASR, and pairs it with strong open ``rich transcription'' models.}}\\[1pt]
+{\footnotesize Defines an evaluation that better matches human editing cost by (i) sandhi-tolerant scoring for Indic word-boundary phenomena and (ii) error buckets that surface costly failures (entities, numerals, punctuation, lexical). Releases benchmarks, curation pipeline, and open models. Use sandhi-tolerant alignment to avoid over-penalizing valid merges/splits; decompose errors into correction-relevant categories and include domain vocabulary injection; validate against expert human judgments; train/release open models for Hindi, Malayalam, Kannada. SCRIBE aligns with expert judgments where WER misleads, especially under sandhi/agglutination; category rates reveal operationally expensive errors (e.g., entities/numerals) that WER can mask, alongside released open-weight rich-transcription models and benchmarks.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{One prompt is not enough: Instruction Sensitivity Undermines Embedding Model Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2605.22544}{arxiv}]}\\
+{\scriptsize Yevhen Kostiuk, Kenneth Enevoldsen}\\
+
+{\small\textit{Single ``default'' prompts can mis-score instruction-tuned embedding models; small, plausible rephrasings can reshuffle leaderboards.}}\\[1pt]
+{\footnotesize Shows embedding performance is a prompt-dependent distribution, not a single stable number; argues benchmarks should treat prompts as part of the task and report robustness over prompt sets. Evaluate 6 models × 11 datasets × 15 non-adversarial, task-plausible prompts (990 runs); compare default-prompt scores to the prompt distribution and measure how rankings change under different prompt choices (including best-case per model). Default prompts often over/underestimate performance relative to other reasonable prompts, and rankings are fragile---by choosing prompts, any tested model can be made \#1---so current embedding leaderboards can reflect evaluator prompt choice as much as model quality.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM agent post-training and evaluation: at least \textasciitilde{}30 papers on RLVR/RLHF/DPO/GRPO variants (e.g., token-level credit assignment, verifier calibration, collapse/advantage issues, distributed RLVR, reward hacking) plus another \textasciitilde{}25 on agent benchmarks, planning, memory, and tool-use orchestration (DeepWeb-Bench, PlanningBench, AgentAtlas, ProcBench, SpecBench, Mem-π, ACC). A second major cluster is efficiency/inference infrastructure---roughly \textasciitilde{}20 papers on KV-cache/attention optimization, speculative decoding, quantization, and deployment (EntmaxKV, OCTOPUS, Runtime-certified quantized attention, Quant.npu, WebGPU inference, MoE serving/power). Safety/trustworthiness is also heavily represented (\textasciitilde{}15 papers) spanning jailbreak/injection defenses, toxicity/elderly/adolescent safety, privacy/unlearning, and provenance/detection (CR4T, Boiling the Frog, Blind Spots in the Guard, TextSeal, Geometry-Lite, membership inference). Notable emerging directions include multimodal + time-series ``omni'' models and benchmarks (\textasciitilde{}10; Chronicle, LatentOmni, NeuroQA, Flat-Pack Bench) and a surprisingly strong multilingual/Arabic-focused dataset wave (\textasciitilde{}8--10; ArabDiscrim, Cohesion-6K, Arabic Women \& Society, honorific failures in Bangla, Khmer RAG/chunking).}
+
+
+\end{document}
