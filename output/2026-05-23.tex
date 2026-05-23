@@ -1,0 +1,114 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-23} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Tokenisation via Convex Relaxations}} {\scriptsize[\href{https://arxiv.org/abs/2605.22821}{arxiv}]}\\
+{\scriptsize Jan Tempus, Philip Whittington, Craig W. Schmidt, Dennis Komm, Tiago Pimentel}\\
+
+{\small\textit{Tokenizers can be learned via a single convex program (not greedy merges), yielding better tokenization and a near-optimality certificate.}}\\[1pt]
+{\footnotesize Formulates tokenizer/vocabulary design as a global linear program and introduces ConvexTok, a practical convex-optimization approach that also provides a lower bound to quantify suboptimality at a given vocab size. Encode vocabulary choice + segmentation behavior in an LP; solve with convex optimization to obtain the tokenizer. Use the LP's lower bound as an optimality certificate to compare any candidate tokenizer. Improves intrinsic tokenization metrics and LM bits-per-byte; downstream gains are less consistent. Empirically certifies solutions within \textasciitilde{}1\% of optimal (per their objective) at common vocab sizes.}
+
+\medskip
+
+{\small\textbf{Moral Semantics Survive Machine Translation: Cross-Lingual Evidence from Moral Foundations Corpora}} {\scriptsize[\href{https://arxiv.org/abs/2605.22660}{arxiv}]}\\
+{\scriptsize Maciej Skorski}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary says the posts are translated ``into Polish.'' The abstract indicates Polish is the test case for bridging the gap, but does not explicitly state the direction of translation (it could be English→Polish or Polish→English); asserting the direction as into Polish is not supported by the abstract.}}\\[1pt]
+
+{\small\textit{LLM translation can preserve moral-foundations signal well enough to build reliable Polish moral NLP from English-labeled data.}}\\[1pt]
+{\footnotesize Systematic validation that machine-translating a large English moral foundations corpus into Polish largely retains moral semantics, enabling cross-lingual classifier training/evaluation rather than requiring new native annotations. Translate \textasciitilde{}50k labeled posts to Polish; assess preservation via LaBSE similarity, CKA representation alignment, LLM-as-judge checks, and classifier-parity tests comparing performance on original vs translated data. High semantic similarity (mean cosine \textasciitilde{}0.86) and small AUC gaps (\textasciitilde{}0.01--0.02) across foundations; remaining issues concentrate in slang/vulgar/culture-loaded text, and fine-tuning further narrows gaps.}
+
+\medskip
+
+{\small\textbf{Fine-grained Claim-level RAG Benchmark for Law}} {\scriptsize[\href{https://arxiv.org/abs/2605.21071}{arxiv}]}\\
+{\scriptsize Souvick Das, Sallam Abualhaija, Domenico Bianculli}\\
+
+{\small\textit{A new bilingual, claim-level legal RAG benchmark enables finer diagnosis of retrieval vs generation failures beyond coarse QA scores.}}\\[1pt]
+{\footnotesize Introduces ClaimRAG-LAW (English/French) with expert and non-expert questions and diverse legal query types, aimed at claim-level, fine-grained evaluation to better localize hallucinations and pipeline weaknesses. Build the dataset and apply a fine-grained evaluation framework to SOTA legal RAG systems to separate retrieval and generation behavior (abstract emphasizes diagnostic granularity over a single end-to-end metric). Even with RAG, substantial limitations persist: retrieval and generation both fail in ways coarse metrics miss, and existing claim-level analyses are still insufficient---motivating more granular evaluation using ClaimRAG-LAW.}
+
+\medskip
+
+{\small\textbf{DocAtlas: Multilingual Document Understanding Across 80+ Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.12623}{arxiv}]}\\
+{\scriptsize Ahmed Heakl, Youssef Mohamed, Abdullah Sohail, Rania Elbadry, Ahmed Nassar, Peter W. J. Staar, Fahad Shahbaz Khan, Imran Razzak, Salman Khan}\\
+
+{\small\textit{DocAtlas builds trustworthy multilingual document labels from rendering (not model annotation) and shows DPO adapts doc models across 80+ languages without OOD collapse.}}\\[1pt]
+{\footnotesize DocAtlas: 82-language, 9-task document benchmark with high-fidelity ground truth derived from controlled rendering (DOCX differential rendering + LaTeX for RTL), unified as DocTag; demonstrates preference-style adaptation is safer than SFT. Generate exact text/layout/component labels via rendering-based pipelines; benchmark 16 models; adapt using DPO treating rendering-derived outputs as preferences, comparing against supervised fine-tuning. Large drops remain on low-resource scripts. DPO improves in-domain (\textasciitilde{}+1.9\%) and out-of-domain (\textasciitilde{}+1.8\%) without hurting base performance, while SFT can cause up to 21\% OOD degradation; best adapted model is \textasciitilde{}+1.7\% over strongest baseline.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Benchmarking Commercial ASR Systems on Code-Switching Speech: Arabic, Persian, and German}} {\scriptsize[\href{https://arxiv.org/abs/2605.19069}{arxiv}]}\\
+{\scriptsize Sajjad Abdoli, Ghassan Al-Sumaidaee, Clayton W. Taylor, Ahmad ElShiekh, Ahmed Rashad}\\
+
+{\small\textit{Commercial ASR can look fine on aggregate WER yet fail on real code-switching; a new benchmark plus meaning-aware metrics exposes this.}}\\[1pt]
+{\footnotesize Releases a code-switching ASR benchmark (English mixed with Egyptian Arabic, Saudi Arabic, Persian, or German) and argues for WER+semantic metrics (BERTScore) to handle script/transliteration variance and reveal hidden failures. Create 4×300-utterance datasets via heuristic prefiltering + GPT-4o/Gemini scoring (≈91\% LLM-cost reduction vs scoring all). Benchmark five commercial ASR systems; report WER and BERTScore with stratified difficulty analyses. Rankings shift notably between WER and BERTScore, especially for Arabic/Persian code-switching under transliteration variation. ElevenLabs Scribe v2 is best overall (WER 13.2\%, BERTScore 0.936), and stratification shows some systems degrade sharply on harder mixed utterances.}
+
+\medskip
+
+{\small\textbf{RobustSpeechFlow: Learning Robust Text-to-Speech Trajectories via Augmentation-based Contrastive Flow Matching}} {\scriptsize[\href{https://arxiv.org/abs/2605.22083}{arxiv}]}\\
+{\scriptsize Jinhyeok Yang, Hyeongju Kim, Yechan Yu, Joon Byun, Frederik Bous, Juheon Lee}\\
+
+{\small\textit{Flow-matching TTS becomes more robust to skips/repeats by training against synthetic latent misalignment corruptions---no aligners or preference labels needed.}}\\[1pt]
+{\footnotesize RobustSpeechFlow: an augmentation-based contrastive flow-matching recipe that targets alignment-driven content errors by simulating skip/repeat-like, length-preserving latent distortions during training. Use contrastive flow matching with ``negative'' targets created by local repeat/skip latent augmentations that preserve length; penalize similarity between clean and corrupted trajectories to stabilize dynamics against misalignment at inference. Improves intelligibility/content fidelity: Seed-TTS-eval WER drops 1.44→1.38 (0.06B model). On ZERO500, English CER 0.48\%→0.35\% and Korean CER 0.81\%→0.57\% (NFE=24), with gains across speakers/prosody.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Represented Is Not Computed: A Causal Test of Candidate Algorithmic Intermediates in a Transformer}} {\scriptsize[\href{https://arxiv.org/abs/2605.22488}{arxiv}]}\\
+{\scriptsize Ishita Darade, Sushrut Thorat}\\
+
+{\small\textit{Transformers can encode textbook-like intermediates that probes decode, yet those intermediates may be non-causal for the model's actual computation.}}\\[1pt]
+{\footnotesize In a closed-form arithmetic task (extract base-B digit at position D), shows a sharp ``decodable ≠ used'' gap: linear probes recover plausible intermediates, but causal interventions/circuit analysis indicate the model relies on different pathways. Train a Transformer to output ⌊N/B\textasciicircum{}D⌋ mod B; fit linear probes for expected intermediates; run causal tests on information flow (esp. D→output) and perform sparse circuit search to identify minimal causal components/routes. Despite 99.83\% accuracy, the key D→output route is largely independent of N and B, contradicting the probed staged algorithm; sparse circuits suggest mostly separate N/B/D routes that combine late, warning against probe-only mechanistic claims.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Provable Joint Decontamination for Benchmarking Multiple Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2605.21543}{arxiv}]}\\
+{\scriptsize Zhenlong Liu, Hao Zeng, Hongxin Wei}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary repeatedly describes JECS as producing a ``final retained benchmark'' / ``single decontaminated benchmark'' by ``select[ing] which items to flag as contaminated.'' The abstract instead says JECS ``select[s] a benchmark'' (i.e., selects items to keep). This is a directional mismatch about what the selection output represents (kept vs flagged items).; The summary claims the max-p aggregation is conservative because ``a single large p-value can mask small p-values from other models.'' The abstract does not state this rationale; it only says JECS aggregates by per-item maximum and compares to a max-p baseline. This masking explanation materially changes the interpretation of why max-p is conservative.}}\\[1pt]
+
+{\small\textit{A joint, provable way to decontaminate one shared benchmark across many LLMs while controlling a global false-flagging/contamination rate.}}\\[1pt]
+{\footnotesize JECS reframes multi-model decontamination as one conformal-selection problem with a global contamination rate (GCR) guarantee, correcting the conservativeness of per-item max-p aggregation so power isn't lost. Compute per-model conformal p-values per item; aggregate by per-item max p-value; estimate an ``envelope'' null for max-p from the right tail above a data-driven threshold; rescale and apply adaptive BH to flag contaminated items, producing one filtered benchmark. Across model families/benchmarks, JECS meets the target GCR while removing more truly contaminated items than running BH directly on raw max-p, yielding a larger, cleaner shared eval set than naive per-model filtering.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM post-training + agent reliability work: at least \textasciitilde{}25--35 papers on RLVR/GRPO-style credit assignment, self-distillation, planning/test-time search, and ``harness''/workflow engineering (e.g., token-level credit assignment, state-distribution views of post-training, tree/KV-cache management, agent benchmarks like TerminalWorld/WorkstreamBench). A second large cluster is safety/security/evaluation for LLMs and agents (at least \textasciitilde{}15--25): data contamination and decontamination, jailbreak/refusal evasion (including latent-space attacks), prompt-injection/RAG corruption defenses, membership inference, distillation theft/watermarking, and DP auditing/robustness. There's also a noticeable efficiency-systems thread (≥10) around KV-cache compression/decoding, hybrid Mamba/Transformer inference, pruning, and serving infrastructure, alongside a steady stream of uncertainty/OOD/calibration papers (≥10) spanning covariate shift, epistemic/aleatoric decomposition, and test-time adaptation guarantees. A somewhat surprising emerging direction is ``self-evolving'' agents and autonomous research pipelines (≈8--12) that emphasize continual skill/library growth, event-sourced/auditable agent logs, and automated evaluation/CI gates rather than just better base models.}
+
+
+\end{document}
