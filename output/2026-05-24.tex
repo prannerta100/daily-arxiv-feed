@@ -1,0 +1,91 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-24} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{LANG: Reinforcement Learning for Multilingual Reasoning with Language-Adaptive Hint Guidance}} {\scriptsize[\href{https://arxiv.org/abs/2605.22567}{arxiv}]}\\
+{\scriptsize Yuchun Fan, Bei Li, Peiguang Li, Yilin Wang, Yongyu Mu, Jian Yang, Xin Chen, Rongxiang Weng, Jingang Wang, Xunliang Cai, Jingbo Zhu, Tong Xiao}\\
+
+{\small\textit{LANG uses RL with temporary, language-aware hints to boost multilingual reasoning without the common ``drift into English.''}}\\[1pt]
+{\footnotesize Identifies a core multilingual RL failure mode---rewarding reasoning pushes models to use English as an optimization shortcut---and proposes LANG: language-conditioned hint scaffolding during RL that is explicitly faded out so the final policy reasons well in the target language without inference-time hints. RL on multilingual reasoning tasks with an auxiliary hint channel that nudges intermediate reasoning to stay in the target language; hint strength/frequency is decayed over training to prevent dependence; a language-adaptive switch adjusts the effective learning horizon by language difficulty to stabilize training and reduce English-shortcut behavior. Improves multilingual math reasoning accuracy while maintaining target-language outputs, mitigating the usual reasoning-vs-language-alignment trade-off; authors also report evidence of better language consistency beyond the final answer (across internal layers) and claim generalization beyond math.}
+
+\medskip
+
+{\small\textbf{Cross-Lingual Consensus: Aligning Multilingual Cultural Knowledge via Multilingual Self-Consistency}} {\scriptsize[\href{https://arxiv.org/abs/2605.22137}{arxiv}]}\\
+{\scriptsize Andrew Ivan Soegeng, Patrick Sutanto, Tan Sang Nguyen}\\
+
+{\small\textit{Cross-lingual self-consistency can pull culturally specific knowledge into English without human labels.}}\\[1pt]
+{\footnotesize Proposes ``cross-lingual consensus'': when a multilingual LLM answers the same cultural question in multiple languages, agreement across languages is a reliability signal; uses that signal to self-supervise transfer of culture-specific content into a weaker language (notably English), improving retrieval/expression of knowledge the model already has. (1) Multilingual self-consistency: query in several languages, sample answers, select consensus-backed content via cross-lingual agreement. (2) Self-critique transfer: model compares its English answer to consensus answers, critiques cultural gaps/misalignment, then rewrites/distills an improved English response---fully self-supervised. On BLEnD, improves cultural alignment on English queries by \textasciitilde{}5.03\% on average using only self-generated signals, supporting the claim that English prompts under-retrieve culture-specific knowledge that is accessible in other languages.}
+
+\medskip
+
+{\small\textbf{Do LLMs Know What Luxembourgish Borrows? Probing Lexical Neology in Low-Resource Multilingual Models}} {\scriptsize[\href{https://arxiv.org/abs/2605.21227}{arxiv}]}\\
+{\scriptsize Nina Hosseini-Kivanani}\\
+
+{\small\textit{For Luxembourgish borrowings, multilingual LLMs are near-chance unless given structured lexical cues; a small prompt-injected knowledge graph makes them useful.}}\\[1pt]
+{\footnotesize Introduces a focused benchmark for Luxembourgish borrowing detection (native vs borrowed + donor language) and shows scale/pretraining alone doesn't yield reliable lexical-neology judgments; demonstrates that injecting instance-specific structured lexical knowledge can largely close gaps and even let smaller models catch up. LexNeo-Bench: 3,050 labeled tokens from Luxembourgish news (native/French/German/English). Probes three multilingual LLMs with 34 prompt variants on 4-way donor classification and a binary borrowing-vs-native proxy. Builds a linguistic knowledge graph (donor info, morphology, analogues) and injects a small relevant subgraph per instance into the prompt. Without external context, models are only slightly above chance on 4-way classification (\textasciitilde{}25--35\%); with knowledge-graph prompting, accuracy rises to \textasciitilde{}71--81\% and smaller models largely match larger ones. The binary neology proxy remains more prompt-sensitive, suggesting different signals than donor-ID alone.}
+
+\medskip
+
+{\small\textbf{Hy-MT2: A Family of Fast, Efficient and Powerful Multilingual Translation Models in the Wild}} {\scriptsize[\href{https://arxiv.org/abs/2605.22064}{arxiv}]}\\
+{\scriptsize Mao Zheng, Zheng Li, Tao Chen, Bo Lv, Mingrui Sun, Mingyang Song, Jinlong Song, Hong Huang, Decheng Wu, Hai Wang, Yifan Song, Yanfeng Chen, Guanwei Zhang, Guanghua Yu, Yi Su, Hong Liu, Jinxiang Ou, Keyao Wang, Weile Chen, Haozhao Kuang, Kai Wang, Nuo Chen, Zihao Zheng, Chenhao Wang, Bin Xing, Chengcheng Xu, Tinghao Yu, Binghong Wu, Long Xu, Jiacheng Shi, Yunhao Wang, Baifang Chen, Lei Zhang, Qi Yang, Zhao Wu, Jiacheng Li, Lan Jiang, Lanrui Wang, Kai Zhang, Shuaipeng Li, Zhongzhi Chen, Weixuan Sun, Jiaqi Zhu, An Wang, Wei Li, Jun Xia, Weidong Han, Wutian Yang, Litong Hui, Luoguo Jia, Jiajia Wu, Xinpeng Zhou, Tianxiang Fei}\\
+
+{\small\textit{Hy-MT2 is a 33-language translation model family optimized for real-world speed, instruction-following, and even on-device use via extreme quantization.}}\\[1pt]
+{\footnotesize Releases Hy-MT2 models (1.8B, 7B, and 30B-A3B MoE) targeting practical translation settings beyond clean benchmarks, including multilingual instruction-following translation; emphasizes deployability, including an on-device path for the 1.8B model. Train three multilingual translation variants over 33 languages, including a 30B-A3B MoE. Evaluate across general, business, domain-specific, and instruction-following translation; report comparisons in a ``fast-thinking mode'' setting. Apply AngelSlim 1.25-bit quantization to the 1.8B model and measure footprint and speed. Reports strong performance across translation scenarios; 7B/30B outperform open baselines (e.g., DeepSeek-V4-Pro, Kimi K2.6) in the paper's fast-thinking mode. Claims the 1.8B surpasses major commercial translation APIs overall (including Microsoft, Doubao). With 1.25-bit quantization, the 1.8B fits in 440 MB and runs \textasciitilde{}1.5× faster.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{SCRIBE: Diagnostic Evaluation and Rich Transcription Models for Indic ASR}} {\scriptsize[\href{https://arxiv.org/abs/2605.20712}{arxiv}]}\\
+{\scriptsize Kavya Manohar, Arghya Bhattacharya, Kush Juvekar, Kumarmanas Nethil}\\
+
+{\small\textit{SCRIBE argues WER is misleading for Indic ASR and replaces it with sandhi-aware, category-level diagnostics that match expert judgment better.}}\\[1pt]
+{\footnotesize Introduces SCRIBE, a diagnostic ASR evaluation for Indic languages that exposes error types (lexical, punctuation, numerals, domain entities) and avoids WER's pitfalls---especially unfair penalties from valid sandhi/agglutinative word merges---so developers can see what actually fails. Sandhi-tolerant alignment between hypothesis and reference, plus domain vocabulary injection to track entity handling. Computes per-category error rates (lexical/punctuation/numerals/domain entities) to produce a diagnostic report instead of a single WER. Human validation indicates SCRIBE's breakdown aligns with expert judgments where WER misleads. Also releases the SCRIBE framework, an LLM-based curation pipeline, benchmarks, and open-weight ``rich transcription'' ASR models for Hindi, Malayalam, and Kannada.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Check Your LLM's Secret Dictionary! Five Lines of Code Reveal What Your LLM Learned (Including What It Shouldn't Have)}} {\scriptsize[\href{https://arxiv.org/abs/2605.22005}{arxiv}]}\\
+{\scriptsize Hisashi Miyashita}\\
+
+{\small\textit{An SVD of the lm\_head weights exposes an LLM's ``secret dictionary''---semantic clusters, data fingerprints, and glitch/unsafe tokens---without any inference.}}\\[1pt]
+{\footnotesize Shows the output embedding (lm\_head) encodes human-inspectable token groupings: singular directions correspond to hidden-state directions that strongly favor specific token sets. This enables fast, prompt-free, weight-only auditing of vocabulary structure and potentially problematic token clusters. Compute SVD of lm\_head; for each singular direction, rank tokens by logit contribution if the hidden state aligns with that direction, yielding token clusters. Quantify cluster coherence with Vocabulary Cluster Score (VCS) and flag anomalously strong token projections with Weighted Projection Score (WPS) as a static detector for glitch/anomalous tokens. Across GPT-OSS-120B, Gemma-2-2B, and Qwen2.5-1.5B, the spectra/clusters differ in ways consistent with training mix and behavior; Qwen shows ethically concerning subspaces that appear to persist from pretraining even after instruction tuning. WPS recovers a known glitch token (shokubutsu-hyakka-tsu, ID 137606) in GPT-OSS-120B with zero forward passes.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Across the list, the dominant theme is LLM post-training and agentic systems: at least \textasciitilde{}40--60 papers touch RLVR/GRPO-style optimization, self-distillation/self-evolution, planning/search, long-context/KV-cache management, and agent evaluation/benchmarks (e.g., RLVR credit assignment, self-play collapse, workflow compilation, memory agents, ToT/Tree reasoning, sandbox checkpointing). A second, unusually large cluster is audio/speech foundation models and audio generation/security---well over 150 titles---covering large audio-language models, full-duplex spoken dialogue, ASR/TTS, audio diffusion/music generation, and a heavy emphasis on deepfake detection/jailbreaks/watermarking. Safety, security, and governance form another strong throughline (roughly \textasciitilde{}30--50): jailbreak/injection attacks (including multi-agent), political manipulation/bias, medical/legal RAG reliability and certification, and privacy/unlearning/DP auditing. A notable emerging direction is ``evaluation realism'': many new benchmarks target multi-turn, long-horizon, degraded/streaming, or high-stakes settings (clinical, law, spreadsheets/terminal, driving), suggesting a shift from static QA leaderboards toward operational, agent-in-the-loop testing.}
+
+
+\end{document}
