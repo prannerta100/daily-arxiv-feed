@@ -1,0 +1,88 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-25} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{BURMESE-SAN: Burmese NLP Benchmark for Evaluating Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2602.18788}{arxiv}]}\\
+{\scriptsize Thura Aung, Jann Railey Montalan, Jian Gang Ngui, Peerat Limkonchotiwat}\\
+
+{\small\textit{A native-speaker-built Burmese benchmark shows Burmese LLM performance depends more on data coverage and tuning than on sheer model size.}}\\[1pt]
+{\footnotesize Releases BURMESE-SAN, a realistic Burmese evaluation suite (not translation-artifact-heavy) spanning understanding, reasoning, and generation, plus a public leaderboard for consistent tracking. Seven tasks---QA, sentiment, toxicity, causal reasoning, NLI, summarization, MT---curated with native-speaker emphasis on naturalness; evaluate a range of open and commercial LLMs under a unified protocol and report results on the leaderboard. Model size is not the main driver: models with better Burmese/regional data and instruction tuning make large gains even when smaller, implying low-resource progress comes from coverage/adaptation strategy rather than scaling alone.}
+
+\medskip
+
+{\small\textbf{Brain-LLM Alignment Tracks Training Data, Not Typology}} {\scriptsize[\href{https://arxiv.org/abs/2605.23032}{arxiv}]}\\
+{\scriptsize Dongxin Guo, Jikun Wu, Siu Ming Yiu}\\
+
+{\small\textit{Brain--LLM alignment advantages track a model's dominant training language, not an inherent English privilege; remaining gaps reflect typology and tokenization.}}\\[1pt]
+{\footnotesize Multilingual fMRI alignment study (English/Chinese/French) using the same narrative and language-dominant model comparisons, including an architecture-matched Chinese- vs English-dominant pair, to isolate training-language effects; then quantifies residual typology/tokenization impacts. Fit encoding models from layer-wise LLM representations to fMRI responses (112 participants) in the language network while processing Le Petit Prince across languages; compare alignment across models/languages/regions; analyze typological distance effects and tokenizer ``fertility'' effects on best-layer shifts. Alignment reverses with training dominance: a Chinese-dominant model aligns best to Chinese brains and worst to English, opposite an architecture-matched English-dominant model; beyond dominance, typological distance hurts alignment more in syntax-linked regions (e.g., IFG), and tokenization fertility explains \textasciitilde{}60\% of cross-language best-layer shifts.}
+
+\medskip
+
+{\small\textbf{Structure-Guided Entity Resolution: Fine-Tuning LLMs for Robust Name Matching in Complex Linguistic Contexts}} {\scriptsize[\href{https://arxiv.org/abs/2605.23597}{arxiv}]}\\
+{\scriptsize Shivam Chourasia, Hitesh Kapoor, Nilesh Patil}\\
+
+{\small\textit{Name matching becomes far more robust when an LLM is first taught name structure, then trained to decide matches.}}\\[1pt]
+{\footnotesize Introduces Structure-Guided Entity Resolution (SGER), a two-stage curriculum that learns internal name components (given/family/initials/honorifics, ordering, transliteration behavior) before binary entity matching, improving robustness on messy multilingual KYC-style data; validated in a large production setting. Two-phase fine-tuning: (1) supervised name-structure understanding/parsing to induce a structured representation; (2) downstream fine-tune for same-person vs different-person classification on name pairs. On 50k held-out real Indian name pairs, achieves 99.02\% accuracy and 0.994 F1, beating GPT-4o few-shot and single-stage fine-tuning; reported deployed at Dream11 (250M+ users), indicating production-grade stability.}
+
+\medskip
+
+{\small\textbf{Multilingual Knowledge Transfer under Data Constraints via Lexical Interventions}} {\scriptsize[\href{https://arxiv.org/abs/2605.23885}{arxiv}]}\\
+{\scriptsize Anastasiia Sedova, Natalie Schluter, Skyler Seto, Maartje ter Hoeve}\\
+
+{\small\textit{Cross-lingual transfer under data scarcity can be boosted by lightly mixing translated target-language words into English pretraining text---no parallel corpora required.}}\\[1pt]
+{\footnotesize Proposes LINK, a data-only lexical intervention that couples English-learned knowledge to target-language tokens by replacing a small fraction of English words with dictionary translations, creating informative mixed contexts that bind knowledge to low-resource lexical forms. During standard pretraining, randomly substitute selected English words with bilingual-dictionary translations at a chosen ratio; train normally on the resulting code-mixed stream to encourage shared representations and better target-language knowledge access. Across 8 target languages and 5 model sizes, yields consistent target-language gains (notably on knowledge/reasoning tasks) and can reach baseline performance with up to \textasciitilde{}2× less training, supporting the claim that lexical coupling---not more target text---is the key bottleneck.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Convex Low-resource Accent-Robust Language Detection in Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2605.23235}{arxiv}]}\\
+{\scriptsize Miria Feng, William Tan, Mert Pilanci}\\
+
+{\small\textit{Accent-robust language ID in truly low-resource settings can be achieved by replacing fragile fine-tuning with a convex, globally solvable classifier with margin-based stability guarantees.}}\\[1pt]
+{\footnotesize Proposes Convex Language Detection (CLD): a convex language-ID head on frozen speech embeddings that avoids small-data overfitting, trains to a global optimum, and comes with a certified decision-stability interpretation via margin robustness to bounded feature perturbations (accent/dialect shift). Train a convex margin-based classifier on fixed speech representations; solve efficiently with an ADMM optimizer implemented in JAX with multi-GPU support; relate learned margin to provable stability under bounded feature perturbations. Maintains high accuracy in low-resource, dialect-shifted conditions (\textasciitilde{}97--98\%), outperforming typical fine-tuning behavior; robustness is explained/controlled via the margin-based stability certificate and is practical due to fast ADMM training.}
+
+\medskip
+
+{\small\textbf{Benchmarking Commercial ASR Systems on Code-Switching Speech: Arabic, Persian, and German}} {\scriptsize[\href{https://arxiv.org/abs/2605.19069}{arxiv}]}\\
+{\scriptsize Sajjad Abdoli, Ghassan Al-Sumaidaee, Clayton W. Taylor, Ahmad ElShiekh, Ahmed Rashad}\\
+
+{\small\textit{A public code-switching ASR benchmark shows WER can greatly overstate system gaps when transliteration differs but meaning matches; semantic metrics help.}}\\[1pt]
+{\footnotesize Releases a code-switching dataset for Arabic(2 dialect groups)-English, Persian-English, and German-English; demonstrates why WER alone is misleading and pairs it with BERTScore to separate orthography/transliteration variation from semantic errors; includes a cost-efficient data selection pipeline. Select 300 samples per pair via heuristic filtering plus an LLM ensemble (GPT-4o + Gemini 1.5 Pro) to confirm code-switching, cutting LLM costs \textasciitilde{}91\%; evaluate five commercial ASR systems with WER and BERTScore; analyze difficulty strata and embedding-based semantic proximity. WER and BERTScore agree on system ranking for Arabic/Persian pairs (Kendall's τ=1.0) but WER inflates apparent performance gaps by \textasciitilde{}3× due to penalizing meaning-preserving transliterations; ElevenLabs Scribe v2 is best overall (13.2\% WER, 0.936 BERTScore).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by foundation-model engineering and evaluation: at least \textasciitilde{}25--35 papers on LLM/agent reliability (red-teaming \& jailbreaks, influence ops, watermarking/deepfake detection, privacy/unlearning, benchmark gaming/evaluation awareness, and calibration/uncertainty), plus another \textasciitilde{}20--30 on agentic systems (multi-agent coordination, memory/context management, tool-use protocols, self-evolving skills, and long-horizon serving). A second major cluster is retrieval/RAG and structured grounding (≈10--15) spanning chunking/context compaction, KG/LaTeX/document RAG, dense retrieval/embeddings, and law/finance/science benchmarks---often framed as ``verifiability'' and evidence dependence rather than raw accuracy. On the modeling side, there's a noticeable diffusion/flow-matching resurgence beyond images (≈10--15) including diffusion language models, diffusion policies for robotics, and RL post-training for diffusion/flow models, alongside systems work on efficiency (KV-cache compression, quantization/MoE serving, GPU kernel generation, checkpointing). A surprising emerging direction is mechanistic/representation interpretability tied to neuroscience and sparse autoencoders (≈6--10) (brain--LLM alignment, SAE-based steering, attribution contracts), suggesting interpretability is shifting from toy analyses to scalable tooling and cross-lingual/biological validation.}
+
+
+\end{document}
