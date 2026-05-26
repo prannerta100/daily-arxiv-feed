@@ -1,0 +1,96 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-26} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{HiMed: Incentivizing Hindi Reasoning in Medical LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.24635}{arxiv}]}\\
+{\scriptsize Dingfeng Jiang, Han Yan, Chenze Ma, Amit Kumar Jaiswal, Ang Li, Yunxiang Jiang, Xinlei Xiong, Juhao Liang, Hongru Xiao, Xiang Li, Fan Bu, Jiale Han, Ruchir Gupta, Prayag Tiwari, Benyou Wang}\\
+
+{\small\textit{HiMed delivers data, benchmarks, and an 8B model that measurably improves Hindi medical reasoning and narrows the English--Hindi gap.}}\\[1pt]
+{\footnotesize Introduces HiMed: a Hindi medical reasoning corpus and benchmark suite spanning Western and Indian medicine, plus HiMed-8B, a Hindi-focused medical reasoning LLM trained with a decaying scaffolding reward to incentivize reasoning in Hindi. Staged training with a multi-component reward that decays over time (``decaying scaffolding reward''); evaluated on the new benchmark suite with ablations over stages and reward components. HiMed-8B improves Hindi medical reasoning and reduces the English--Hindi accuracy gap; ablations indicate gains come from the full staged training and reward design, not a single tweak.}
+
+\medskip
+
+{\small\textbf{Discovering Lexical Gaps Using Embeddings from Multilingual LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.24310}{arxiv}]}\\
+{\scriptsize Yoonwon Jung, Aaron S. Cohen, Benjamin K. Bergen}\\
+
+{\small\textit{Cross-lingual embedding misalignment in multilingual LLMs provides a scalable signal for detecting lexical gaps.}}\\[1pt]
+{\footnotesize Proposes a taxonomy-free approach: treat ``gapness'' as weak cross-lingual alignment---words lacking a direct counterpart should have systematically poorer nearest-neighbor matches across languages---validated against known gap-word lists. From Korean--English pairs, extract contextual embeddings from bilingual LLMs and construct many embedding spaces by varying model/embedding type/dimensionality/orthogonal mapping across 100 splits. Score each word by nearest-neighbor cross-lingual similarity; also train logistic classifiers on embeddings to separate gap vs non-gap. Known gap words show weaker cross-lingual similarity in most spaces (94\% Ko→En, 97\% En→Ko). Classifiers reach AUC 0.81 (Ko→En) and 0.76 (En→Ko), recovering most known gaps (18/19 Korean; 26/27 English).}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Direct Preference Optimization for English-Mandarin Code-Switching Speech Recognition in Audio LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.23975}{arxiv}]}\\
+{\scriptsize Trung Nguyen Quang, Cheng Yi Lewis Won, Minh Duc Pham, Yingxu He, Shuo Sun, Ai Ti Aw}\\
+
+{\small\textit{Preference training (DPO) fixes code-switch ASR misalignment in Audio LLMs by rewarding exact transcription and penalizing translation, omission, and hallucination.}}\\[1pt]
+{\footnotesize Shows many English--Mandarin code-switch ASR errors are behavioral misalignment (doing translation/summarization-like outputs) rather than missing multilingual knowledge, and corrects this via DPO on targeted chosen/rejected transcript pairs. Define three failure modes (language omission, translation-not-transcription, hallucination). Build \textasciitilde{}100K DPO pairs (\textasciitilde{}570 hours) where chosen = faithful mixed-language transcript and rejected = plausible output exhibiting a failure mode; train to increase likelihood of the chosen over rejected. Large MER drops after DPO: up to 89.6\% reduction in-distribution and up to 20.0\% out-of-distribution, indicating a learned ``transcribe exactly; don't translate/drop/hallucinate'' policy.}
+
+\medskip
+
+{\small\textbf{Raon-Speech Technical Report}} {\scriptsize[\href{https://arxiv.org/abs/2605.23912}{arxiv}]}\\
+{\scriptsize Beomsoo Kim, Changho Choi, Dohyun Kim, Dongki Lee, Ethan Ewer, Eunchong Kim, Gyeongman Kim, Haechan Kim, Hyeonghwan Kim, Inkyu Park, Jihun Yun, Jihwan Moon, Jiyun Kim, Joonghyun Bae, Junhyuck Kim, Minkyu Kim, Sehun Lee, Seungjun Chung, Sungwoo Cho, Dongmin Park, Dongwon Kim, Hara Kang, Jonghyun Lee, Keon Lee, Kangwook Lee, Jaewoong Cho}\\
+
+{\small\textit{Raon-Speech turns a strong text LLM into an English--Korean speech-in/speech-out model and extends it to real-time full-duplex conversation without losing core text ability.}}\\[1pt]
+{\footnotesize Presents Raon-Speech (9B) and Raon-SpeechChat: an end-to-end, large-scale recipe (alignment + distillation-backed pretraining + preference optimization) on a 1.38M-hour bilingual mix, plus a full-duplex extension trained on time-aligned dialogue for overlap/interruptions/turn-taking. Attach speech front/back-end modules to a pretrained LLM; stage training to preserve text competence via distillation during SpeechLM pretraining, then multi-task preference optimization. For full-duplex, add streaming-friendly encoder changes and train on real/synthetic time-aligned dialogues, followed by fine-tuning for voice/role control. On 42 English/Korean speech+text benchmarks, Raon-Speech is strongest overall among similar-size audio foundation baselines while retaining strong text QA. Raon-SpeechChat improves full-duplex behaviors (notably interruption/turn-taking on FDB v1.0) while staying competitive elsewhere; checkpoints and pipeline are released.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{CSP-Atlas: Concept-Specific Neural Circuits in a Sparse Python Transformer}} {\scriptsize[\href{https://arxiv.org/abs/2605.24603}{arxiv}]}\\
+{\scriptsize Piotr Wilam}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary introduces the name ``CSP-Atlas'' for the circuit atlas; the abstract does not mention this term, so attributing that specific name is unsupported by the abstract.}}\\[1pt]
+
+{\small\textit{CSP-Atlas maps Python-concept circuits in a sparse transformer, revealing organization by computational structure, while many builtin-object circuits are mostly token-triggered.}}\\[1pt]
+{\footnotesize Builds CSP-Atlas: scalable circuit extraction for 106 Python concepts in a small sparse transformer, separating concept-specific computation from token-driven activation; finds internal grouping tracks computational form more than semantic meaning. Extract circuits for 43 AST node types + 63 builtins using 63,800 controlled prompts. Use contrastive ``checker'' prompts that keep keyword tokens but remove the construct to decompose each circuit into concept vs token components; analyze across layers and nine parameter settings. All 106 concepts yield non-empty universal circuits across settings with stable concept-specificity rankings. AST constructs show substantial concept-only signal (up to 62.5\% of top-firing neurons mid/late layers), while builtin circuits are largely token-driven. Constructs cluster by shared computational property (e.g., single-statement/no-body nodes like Import/Break/Continue/Pass/Assert), not semantic relatedness.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Faithful or Fabricated? A Causal Framework for Rationalization Bias in LLM Judges}} {\scriptsize[\href{https://arxiv.org/abs/2605.23970}{arxiv}]}\\
+{\scriptsize Riya Tapwal, Abhishek Kumar, Carsten Maple}\\
+
+{\small\textit{LLM judges can produce cue-following, post-hoc rationales even when their final preference looks stable; causal cue interventions are needed to audit faithfulness.}}\\[1pt]
+{\footnotesize Reframes judge bias as explanation faithfulness: if you perturb non-evidential cues (suggested labels, confidence framing, placebo instructions) while holding the compared texts fixed, a faithful judge's decision and rationale should be invariant. Introduces an intervention suite plus tie-aware anchoring metrics that quantify cue-driven outcome shifts and cue-aligned rhetoric in rationales. Run controlled prompt conditions (Blind, Truth, Flip, Placebo, Reveal-After) on identical evaluation instances. Measure outcome anchoring and rationale anchoring (language drift toward the cue), with tie-aware scoring. Also test deliberate ``anchoring attacks'' (verbosity/confidence cues) and mitigations that force evidence-first behavior. Judges often rationalize the provided cue: explanations drift to justify labels/placebos even when inputs are unchanged, so outcome-only checks miss fabrication. A PROOF-BEFORE-PREFERENCE ``evidence lock'' step substantially improves cue invariance, reducing both decision anchoring and rationale drift.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM/agent infrastructure and reliability: at least \textasciitilde{}60--80 papers touch LLM agents, tool use, RAG/memory, and evaluation harnesses (e.g., deep research agents, long-horizon memory/KV-cache eviction, agent benchmarks like GroupTravelBench/SimuWoB/WorldGUI, and multiple ``stop comparing without disclosing the harness''/benchmark-auditing pieces). A second major cluster is alignment/safety/robustness and measurement of faithfulness---roughly \textasciitilde{}40--60 papers on LLM judges, CoT faithfulness, hallucination detection, jailbreak/prompt-injection (including MCP/tooling attacks), unlearning/privacy/memorization, and compliance monitoring. Multimodality is also heavy (≈30--50 papers) spanning LVLM/VLA reasoning, document understanding, audio/speech LMs and TTS, and medical imaging/reporting; a notable emerging direction is ``operational'' concerns---latency/energy costs, runtime governance, and production-grade evaluation/monitoring---showing up repeatedly alongside technical methods rather than as standalone policy work.}
+
+
+\end{document}
