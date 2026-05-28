@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-28} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{BioELX: Cross-lingual Biomedical Entity Linking via Alias-based Retrieval and LLM Ranking}} {\scriptsize[\href{https://arxiv.org/abs/2605.27380}{arxiv}]}\\
+{\scriptsize Yi Wang, Corina Dima, Liangyu Zhong, Steffen Staab}\\
+
+{\small\textit{Training-free cross-lingual biomedical entity linking works well once you fix multilingual candidate retrieval and add context-aware LLM reranking.}}\\[1pt]
+{\footnotesize BioELX targets the two main non-English failure points: (1) retrieval that can't match non-English mentions, fixed by expanding SapBERT's alias space with Wikidata multilingual aliases; (2) disambiguation without labels, handled by an off-the-shelf LLM ranker over retrieved candidates. Two-stage pipeline: (i) SapBERT-style bi-encoder retriever trained with an alias inventory augmented by Wikidata multilingual aliases; (ii) LLM reranks top candidates using mention context + entity info, with no BEL fine-tuning. On XL-BEL, Recall@1 improves by +19.2 on average, with large gains in Thai (+30.8), Korean (+22.1), and Turkish (+21.6). Results transfer across EMEA, Patent, WikiMed-DE, and MedMentions, supporting the ``alias-boosted retrieval + LLM rerank'' recipe.}
+
+\medskip
+
+{\small\textbf{The Fragility of Chain-of-Thought Monitoring Across Typologically Diverse Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.27901}{arxiv}]}\\
+{\scriptsize Eric Onyame, Runtao Zhou, Kowshik Thopalli, Bhavya Kailkhura, Chirag Agarwal}\\
+
+{\small\textit{Chain-of-thought monitoring breaks under multilingual shift: reasoning text can look compliant while the model is already committed to a bad answer.}}\\[1pt]
+{\footnotesize A large cross-lingual stress test shows CoT is a poor proxy for internal decision-making, and the mismatch worsens across typologically diverse languages---undermining CoT-based safety monitoring outside English. Adversarial-hint tasks requiring intermediate computation; evaluate CoT faithfulness vs final behavior, plus internal diagnostics (token-probability trajectories) to detect early latent commitment before the visible CoT reveals it. CoT unfaithfulness is pervasive: \textasciitilde{}95.9\% unfaithful cases on average (8B--120B), with some low-resource languages hitting 100\%. Models often commit within \textasciitilde{}15\% of generated tokens, making external CoT monitors too late.}
+
+\medskip
+
+{\small\textbf{Disentangling Language Roles in Multilingual LLM Task Execution}} {\scriptsize[\href{https://arxiv.org/abs/2605.27649}{arxiv}]}\\
+{\scriptsize Qishi Zhan, Minxuan Hu, Seoyeon Jang, Lei Zhao, Ziheng Chen, Man Liang, Xinyue Xiang, Jiaxin Liu, Guansu Wang, Liang He}\\
+
+{\small\textit{Multilingual task failures depend on which language role is mismatched---especially the required response language---not on how many languages appear.}}\\[1pt]
+{\footnotesize MTM-Bench disentangles instruction, content, and response languages and shows these roles are not interchangeable; forcing a different response language is the dominant bottleneck. Benchmark enumerates all 27 (L\_instr, L\_content, L\_resp) combinations over English/Spanish/Chinese across multiple task families; scoring decomposes semantic correctness, target-language adherence, constraint satisfaction, contamination, and joint success, with human audit checks. Performance clusters by role mismatch, with response-language mismatch explaining most variance; a single response mismatch can hurt more than multiple other mismatches. Meaning-only metrics overestimate reliability because language purity/constraints often fail independently.}
+
+\medskip
+
+{\small\textbf{Beyond Input Understanding: Diagnosing Multilingual Mathematical Reasoning with Directed Acyclic Trace Graphs}} {\scriptsize[\href{https://arxiv.org/abs/2605.27715}{arxiv}]}\\
+{\scriptsize Jiaqiao Zhang, Zhoujun Li, Raoyuan Zhao, Jian Lan, Thomas Seidl, Michael A. Hedderich, Hinrich Sch\"utze, Yihong Liu}\\
+
+{\small\textit{Multilingual math errors aren't just input comprehension---forcing the model to reason in another language can directly degrade math execution.}}\\[1pt]
+{\footnotesize Introduces DATG to diagnose language-conditioned reasoning: converts free-form solutions into language-agnostic ``math anchor'' graphs to pinpoint what steps go missing when the reasoning language changes. Map each solution to a directed acyclic trace graph of math anchors (quantities/equations/transformations) and dependencies; align target-language traces to a reference DAG and score anchor coverage, dependency fidelity, and harmful actions; propose test-time Loop-Retry and Formula-Retry controls. Across Qwen3 models and 12 languages, accuracy drops even when input is English but CoT is forced non-English. DATG shows non-English traces omit more required anchors and follow dependencies less faithfully, especially in low-resource languages; Loop-Retry/Formula-Retry yields consistent accuracy gains there.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{KVoiceBench, KOpenAudioBench, and KMMAU: Agent-Driven Korean Speech Benchmarks for Evaluating SpeechLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.27984}{arxiv}]}\\
+{\scriptsize Haechan Kim, Seungjun Chung, Inkyu Park, Jihoo Lee, Jonghyun Lee}\\
+
+{\small\textit{Korean-first speech benchmarks reveal weaknesses that English-transferred tests miss, and SpokenQA scores don't predict broader Korean audio understanding.}}\\[1pt]
+{\footnotesize Releases three Korean benchmarks (KVoiceBench, KOpenAudioBench, KMMAU) built to preserve Korean speech/instruction fidelity, avoiding distortions from translate-and-TTS benchmark transfer. Agent-driven construction: (i) recreate SpokenQA benchmarks in Korean while preserving intent/constraints; (ii) convert Korean ASR corpora into audio-understanding QA using transcripts + speaker metadata to probe speaker/paralinguistic cues. Across 12,345 Korean samples and 8 SpeechLMs, English→Korean gaps vary widely by model/task, so English leaderboards mislead. Rankings differ between Korean SpokenQA and Korean audio understanding, showing complementary capabilities.}
+
+\medskip
+
+{\small\textbf{Bandwidth-Efficient and Privacy-Preserving Edge-Cloud Many-to-Many Speech Translation}} {\scriptsize[\href{https://arxiv.org/abs/2605.28642}{arxiv}]}\\
+{\scriptsize Yexing Du, Kaiyuan Liu, Youcheng Pan, Bo Yang, Ming Liu, Bing Qin, Yang Xiang}\\
+
+{\small\textit{Many-to-many speech translation can be high-quality without uploading raw audio by sending compressed intermediate features to the cloud and training against English-pivot bias.}}\\[1pt]
+{\footnotesize ESRT provides an edge--cloud split for privacy/bandwidth: on-device speech front-end emits compressed features (not waveforms), while cloud LLM handles recognition/translation; training explicitly mitigates hidden English-pivot behavior for 45-language many-to-many scaling. Edge runs speech encoder + adapter; transmit aggressively compressed intermediate representations (reported up to 10× bandwidth reduction). Cloud model performs S2TT. Use multi-task weighted curriculum + data balancing to reduce English-centric shortcuts. On FLEURS (45 languages; all 45×44 directions), ESRT 4B/12B achieves state-of-the-art many-to-many S2TT while avoiding raw-audio upload. Compression cuts network cost without collapsing quality; anti-pivot training improves cross-lingual consistency. Code/models released.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Revealing Algorithmic Deductive Circuits for Logical Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2605.27824}{arxiv}]}\\
+{\scriptsize Phuong Minh Nguyen, Tien Huu Dang, Naoya Inoue}\\
+
+{\small\textit{A small fraction of attention heads causally drive deductive steps, while higher layers integrate these into a global reasoning ``algorithm.''}}\\[1pt]
+{\footnotesize Moves from correlation to mechanism by localizing which heads are necessary for specific symbolic deduction steps and characterizing a layered division of labor (specialist subroutines vs integrators). Align symbolic CoT steps to step-steering token positions/logits; apply causal mediation interventions on attention heads to measure which heads mediate the prompt's reasoning pattern; analyze what information heads transmit across layers. Only a few percent of heads account for most causal influence on sub-steps (fact retrieval/local rule use). Higher layers act mainly as integrators assembling a global plan (e.g., graph-traversal-like strategy); step-steering tokens often have low confidence, consistent with constraint-following behavior.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agent reliability/safety and evaluation: at least \textasciitilde{}40--60 titles focus on agentic tool use, multi-agent coordination, long-horizon memory, and governance (e.g., TRACES, MemGuard/MemTrace, Ask Now Use Later, Harness-Bench, Colosseum, Got a Secret?, policy/runtime layers). A second major cluster is retrieval-augmented generation---especially GraphRAG and RAG security/grounding---with \textasciitilde{}15--25 papers on multi-hop retrieval, citation faithfulness, caching, and poisoning/hijacking attacks (e.g., ConRAG, LegalGraphRAG, Beyond Cross-Chunk Graph Augmentation, SilentRetrieval, GraphSteal, Verified Misguidance, Grounded Cache Routing). There's also a noticeable surge in audio/speech + audio-language models and long-context audio benchmarks (\textasciitilde{}10--15 papers: VoiceGiraffe, ChronosAudio, KVoiceBench, audio scene generation/tokenizers, deepfake/singing detection), alongside efficiency work for long context/inference (KV-cache compression, sparse attention, MoE pruning/serving; \textasciitilde{}10--20). A surprising emerging direction is ``meta-evaluation'' and auditing of the evaluators themselves (LLM-as-a-judge robustness, debate oversight, replication-first benchmarking, test-set contamination/knowing-eval design), suggesting the field is shifting from raw capability gains toward measurement integrity and deployment-grade assurance.}
+
+
+\end{document}
