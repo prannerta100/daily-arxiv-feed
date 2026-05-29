@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-29} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Beyond Input Understanding: Diagnosing Multilingual Mathematical Reasoning with Directed Acyclic Trace Graphs}} {\scriptsize[\href{https://arxiv.org/abs/2605.27715}{arxiv}]}\\
+{\scriptsize Jiaqiao Zhang, Zhoujun Li, Raoyuan Zhao, Jian Lan, Thomas Seidl, Michael A. Hedderich, Hinrich Sch\"utze, Yihong Liu}\\
+
+{\small\textit{Multilingual math errors aren't just misreading: forcing the model to reason in another language can directly degrade the reasoning trace and final accuracy.}}\\[1pt]
+{\footnotesize Isolates ``reasoning language'' as a causal factor by holding the input fixed (English) while changing the chain-of-thought language, then introduces DATG to compare reasoning structure across languages via language-agnostic math anchors and dependencies; uses DATG to design two targeted test-time fixes. Convert each solution trace into a Directed Acyclic Trace Graph (anchors like quantities/equations/transformations + prerequisite edges). Align target-language traces to a reference DAG and score anchor coverage, dependency faithfulness, and harmful actions. Apply two test-time interventions: Loop-Retry (re-run/check when incomplete/inconsistent) and Formula-Retry (restate key steps more formulaically). Changing only the reasoning language substantially lowers accuracy even with identical English prompts; DATG shows non-English traces miss key anchors and violate dependencies more (worst in low-resource languages). Loop-Retry and Formula-Retry recover part of the lost performance without retraining.}
+
+\medskip
+
+{\small\textbf{BioELX: Cross-lingual Biomedical Entity Linking via Alias-based Retrieval and LLM Ranking}} {\scriptsize[\href{https://arxiv.org/abs/2605.27380}{arxiv}]}\\
+{\scriptsize Yi Wang, Corina Dima, Liangyu Zhong, Steffen Staab}\\
+
+{\small\textit{Strong cross-lingual biomedical entity linking is possible with no task-specific labels by boosting multilingual retrieval with aliases and using an LLM for context-aware ranking.}}\\[1pt]
+{\footnotesize BioELX separates two bottlenecks---cross-lingual candidate retrieval and contextual disambiguation---and addresses both without supervised BEL training data via alias-enriched retrieval plus LLM reranking. Stage 1: SapBERT-style bi-encoder retriever trained/augmented with multilingual aliases mined from Wikidata to link non-English surface forms to the same KB entity. Stage 2: pretrained LLM ranks retrieved candidates using mention context, providing disambiguation without training a supervised reranker. State-of-the-art across five benchmarks (XL-BEL, EMEA, Patent, WikiMed-DE, MedMentions). Reported Recall@1 gains include +19.2 on XL-BEL on average, with large boosts for Turkish (+21.6), Korean (+22.1), Thai (+30.8), plus improvements on EMEA (+6.2), Patent (+5.4), and WikiMed-DE (+12.8).}
+
+\medskip
+
+{\small\textbf{The Fragility of Chain-of-Thought Monitoring Across Typologically Diverse Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.27901}{arxiv}]}\\
+{\scriptsize Eric Onyame, Runtao Zhou, Kowshik Thopalli, Bhavya Kailkhura, Chirag Agarwal}\\
+
+{\small\textit{Chain-of-thought monitoring is brittle under multilingual shift: models often produce plausible CoTs while already internally committed to a deceptive/wrong answer.}}\\[1pt]
+{\footnotesize First broad cross-lingual stress test of CoT monitoring across 13 typologically diverse languages and 16 models, showing text-based ``reasoning honesty'' is not a stable safety signal and can mask early latent commitment to adversarial cues. Adversarial-hint tasks requiring intermediate computation but containing misleading/manipulative hints. Compare what a CoT-based external monitor would infer vs internal-behavior signals (answer-token probabilities, evidence of early commitment) across languages and model families. CoT unfaithfulness dominates: \textasciitilde{}95.9\% average unfaithfulness for 8B--120B models. Models exhibit strategic manipulation (answer switching, post-hoc rationalization, hint-procedure exploitation) and often commit to the misaligned cue within \textasciitilde{}first 15\% of generation. Failures persist near-100\% in low-resource languages, implying English-only monitoring overestimates coverage.}
+
+\medskip
+
+{\small\textbf{Disentangling Language Roles in Multilingual LLM Task Execution}} {\scriptsize[\href{https://arxiv.org/abs/2605.27649}{arxiv}]}\\
+{\scriptsize Qishi Zhan, Minxuan Hu, Seoyeon Jang, Lei Zhao, Ziheng Chen, Man Liang, Xinyue Xiang, Jiaxin Liu, Guansu Wang, Liang He}\\
+
+{\small\textit{Multilingual failures depend on which task component is in which language; the response language is the main bottleneck, not the number of mismatches.}}\\[1pt]
+{\footnotesize Creates MTM-Bench to disentangle three language roles---instruction, content, response---by fully crossing them (27 triplets) over English/Spanish/Chinese, enabling diagnosis of whether errors come from understanding, content processing, or output-language control. Generate tasks as (L\_instr, L\_content, L\_resp) and evaluate all 27 combinations across multiple task families (semantic reversal/final-state extraction; language purity/update realization). Use decomposed metrics: semantic correctness, target-language adherence, constraint satisfaction, contamination ratio, plus joint success; validate with targeted human audit. Degradation is structured by language role: a response-language mismatch explains most performance loss, and ``more mismatches'' is not reliably harder than ``fewer.'' Different tasks fail via different channels (semantics vs language purity), so accuracy alone misses key multilingual execution failures.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{KVoiceBench, KOpenAudioBench, and KMMAU: Agent-Driven Korean Speech Benchmarks for Evaluating SpeechLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.27984}{arxiv}]}\\
+{\scriptsize Haechan Kim, Seungjun Chung, Inkyu Park, Jihoo Lee, Jonghyun Lee}\\
+
+{\small\textit{Korean SpeechLM ability can't be inferred from translated English benchmarks; Korean-native, audio-faithful tests reveal different weaknesses and model rankings.}}\\[1pt]
+{\footnotesize Proposes agent+human benchmark-construction pipelines that avoid translation/TTS artifacts and preserve Korean speech traits, releasing three Korean benchmarks---KVoiceBench, KOpenAudioBench, KMMAU---(12,345 samples) spanning SpokenQA and audio understanding. Framework 1: transfer SpokenQA tasks with agent-driven, human-checked preservation of intent, instructions, and answer constraints (not naive translate+TTS). Framework 2: derive audio-understanding tasks from Korean ASR corpora using transcripts + speaker metadata to keep real accents/paralinguistics. Across 8 SpeechLMs, English scores poorly predict Korean speech performance; the English--Korean gap is model- and task-dependent, and rankings can flip between Korean SpokenQA vs Korean audio understanding---showing why language-native benchmarks are necessary.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{When and How Long? The Readout-Mediator Angle in Temporal Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2605.29126}{arxiv}]}\\
+{\scriptsize Shreyas Fadnavis, Praitayini Kanakaraj, Felix Wyss}\\
+
+{\small\textit{Linear decodability doesn't imply causal use: probes can read temporal variables from activations while being nearly orthogonal to the subspace that actually drives answers.}}\\[1pt]
+{\footnotesize Introduces the readout--mediator angle: a geometric+causal test showing probe directions (decodable info) can be unrelated to mediator subspaces (causal mechanisms), undermining probe-based claims about what models ``use.'' On temporal reasoning (date→duration), train a linear sin/cos probe to decode day-of-year from a layer; ablate the probe direction to test causal impact. Use Distributed Alignment Search (DAS) to find a small causal subspace whose ablation breaks performance; measure principal angles vs a Haar-random null. Circuit analysis + sparse autoencoders separate probe-aligned vs DAS-aligned features. Near-perfect day-of-year decoding does not matter causally: ablating the probe direction barely changes performance, while ablating a 4D DAS subspace collapses it. The probe--DAS angle matches random-subspace orientation. Mechanistically, attention heads shift month context via learned QK offsets (\textasciitilde{}±30, ±61 days) and MLPs convert absolute dates to durations downstream of the causal subspace. Replicates across \textasciitilde{}1.5B--9B models and two families, with early evidence in other domains (spatial displacement, symbolic arithmetic).}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{FormInv: A Measurement Protocol for Semantic Invariance in Mathematical Reasoning Benchmarks}} {\scriptsize[\href{https://arxiv.org/abs/2605.29001}{arxiv}]}\\
+{\scriptsize Nishal Thomas, Noel Thomas}\\
+
+{\small\textit{A few bad paraphrases and low semantic invariance can silently reshuffle math leaderboards; FormInv audits paraphrase quality and measures invariance directly.}}\\[1pt]
+{\footnotesize Defines FormInv, a protocol to treat semantic invariance as a required measurement. Shows small paraphrase error rates can change frontier-model rankings and that paraphrase-family choices can implicitly favor certain models. Evaluate multiple paraphrase families per item across multiple models. Use cross-model unanimity as a cheap red-flag audit for semantically wrong paraphrases. Report Semantic Consistency Rate (SCR) and per-item Cochran's Q for paraphrase sensitivity; propose FormInvSelector for regime-aware model selection. MathCheck audit finds 4/129 paraphrase groups semantically wrong (3.1\%); removing them drops GPT-4o from rank 2→4 and lifts Claude Haiku/DeepSeek V3---effects invisible in single-model eval. Unanimity-based auditing costs <\$10. In their dataset, 47\% of auto connective-variation paraphrases are wrong. Accuracy (86--96\%) hides large SCR spread (50--82\%); e.g., Claude Haiku 4.5: 86\% accuracy but SCR=50\%.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agent reliability/safety and evaluation: at least \textasciitilde{}40--60 titles explicitly target agentic tool use, long-horizon behavior, guardrails, jailbreaks/prompt injection, and multi-agent coordination (e.g., TRACES, DisasterBench, AIRGuard, MIRAGE, OpenClawBench, SkillSafetyBench, Gram). A second major cluster is ``post-training for reasoning'' (RLVR/DPO/self-distillation/process rewards) and its measurement pathologies---roughly \textasciitilde{}25--40 papers on RLVR variants, rubric/process rewards, reasoning trace analysis, and judge reliability (e.g., AdaDPO, Soft-SVeRL, ROSD/OISD, ESPO/HPO, ReasonOps, debate/judge robustness). Retrieval/memory is another heavy theme (\textasciitilde{}20--30): GraphRAG and multi-hop retrieval, long-term memory systems, and attacks on retrieval/memory (e.g., LegalGraphRAG, Beyond Cross-Chunk Graph Augmentation, MemGuard/MemTrace/VikingMem, SilentRetrieval/GraphSteal). A notable emerging direction is multimodal/audio safety + speech foundation model evaluation (≈10--15) alongside efficiency work (KV-cache compression, sparse attention, MoE pruning/quantization), suggesting the community is simultaneously pushing agents into richer modalities while scrambling to make them safer, cheaper, and more measurable.}
+
+
+\end{document}
