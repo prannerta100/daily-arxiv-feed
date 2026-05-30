@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-30} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{CommunityFact: A Dynamic, Multilingual, Multi-domain Benchmark for Misinformation Detection in the Wild}} {\scriptsize[\href{https://arxiv.org/abs/2605.30241}{arxiv}]}\\
+{\scriptsize Sahajpreet Singh, Insyirah Mujtahid, Min-Yen Kan, Kokil Jaidka}\\
+
+{\small\textit{Turns real, multilingual Community Notes fact-checking into a refreshable benchmark and shows web-enabled LLMs fail mainly by choosing the wrong evidence sources, not by lacking reasoning.}}\\[1pt]
+{\footnotesize CommunityFact uses X Community Notes as scalable supervision: labels plus the human-converged set of acceptable citations, enabling evaluation of source selection under fast-moving, multilingual, in-the-wild claims. \textasciitilde{}16k standalone claims across 5 languages and 2 domains; refreshable dataset. Evaluate 10 LLMs in closed-book vs web-enabled settings, varying prompting/thinking and retrieval. Score both veracity accuracy and alignment between model-cited sources and Community Notes--accepted sources. Web access yields the largest performance jump, but even browsing models systematically cite evidence humans wouldn't accept. Model-specific retrieval tweaks (expand/prune sources) reduce the gap; performance varies sharply by language/domain and by each system's ``evidence ecosystem,'' implying progress requires better retrieval/source policies, not just better prompts.}
+
+\medskip
+
+{\small\textbf{Loong: A Human-Like Long Document Translation Agent with Observe-and-Act Adaptive Context Selection}} {\scriptsize[\href{https://arxiv.org/abs/2605.30274}{arxiv}]}\\
+{\scriptsize Yutong Wang, Xuebo Liu, Derek F. Wong, Zhilin Li, Rongqing Jiang, Min Zhang, Shimin Tao, Daimeng Wei, Min Zhang}\\
+
+{\small\textit{Long-document translation improves when the model actively selects the few past details that matter, instead of dumping ever-growing history into the prompt.}}\\[1pt]
+{\footnotesize Loong reframes document translation as an agentic context-selection problem: most context is noise, but the right summaries, exemplars, and entity mappings drive coherence and consistency. Sentence-by-sentence translation with structured 3E memory: Essence (running summaries), Exemplars (selected prior sentence pairs), Entities (entity translation table). An observe-and-act loop chooses which memory items to condition on; context policy trained via RL from preference signals over sampled trajectories. Across EN↔ZH/DE/FR, Loong beats truncation and naive-long-context baselines by up to \textasciitilde{}13 points averaged over three metrics, stays robust to noisy context, and avoids degradation on ultra-long documents---showing ``right tokens'' matter more than ``more tokens.''}
+
+\medskip
+
+{\small\textbf{Multi-Legal-Bench: Evaluating LLMs on Legal Reasoning Across Jurisdictions, Languages, and Legal Traditions}} {\scriptsize[\href{https://arxiv.org/abs/2605.29738}{arxiv}]}\\
+{\scriptsize Volodymyr Ovcharov}\\
+
+{\small\textit{Enables apples-to-apples legal reasoning evaluation across countries/languages and finds cross-border transfer depends more on label/category alignment than language similarity.}}\\[1pt]
+{\footnotesize Multi-Legal-Bench aligns tasks and label spaces across jurisdictions using court-registry metadata, avoiding the confounds that make most multilingual legal benchmarks incomparable. From 134M decisions, derive comparable targets via registry metadata for five tasks (court type, judgment form, outcome, norm extraction, cause category). Sparse but principled matrix: 20/30 task--country cells across six countries. Evaluate frontier and 3--12B models (0-shot/3-shot) plus cross-lingual few-shot transfer; analyze predictors (language family, label alignment, tokenizer fertility). Model rankings shift by task and jurisdiction, so global leaderboards mislead. Few-shot gains are task-dependent but consistent across countries. Cross-lingual transfer can be strong for distant languages (e.g., Ukrainian→French) and weak for closer ones (Ukrainian→Polish); label-set alignment best predicts transfer, while tokenizer fertility doesn't explain accuracy.}
+
+\medskip
+
+{\small\textbf{Evaluating Cross-lingual Knowledge Consistency in Code-Mixed vis-a-vis Indian Languages using IndicKLAR}} {\scriptsize[\href{https://arxiv.org/abs/2605.29637}{arxiv}]}\\
+{\scriptsize Debajyoti Mazumder, Divyansh Pathak, Prashant Kodali, Aditya Joshi, Akshay Agarwal, Jasabanta Patro}\\
+
+{\small\textit{For many Indian languages, apparent LLM knowledge gaps are often access gaps: code-mixed queries can recover near-English accuracy without changing the model.}}\\[1pt]
+{\footnotesize IndicKLAR aligns each query in three forms---English, native Indian language, and code-mixed---so differences isolate language-interface effects rather than factual knowledge differences. Extend KLAR-CLC to 18 scheduled Indian languages; create code-mixed counterparts for 11 pairs with native-speaker verification. Evaluate 9 open-weight LLMs on matched questions; test routing prompts (translate-then-answer, joint translate+answer, Translate-in-Thought). Native-language accuracy can drop by up to \textasciitilde{}0.50 vs English, but code-mixing closes most of the gap, often within \textasciitilde{}0.05 of English, without fine-tuning. A consistent ``flip point'' appears from native→code-mixed (and via forced internal translation), implying representation/access---not missing facts---is often the limiter.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{VoiceGiraffe: A Benchmark for Extreme Long-Context Audio-Language Understanding}} {\scriptsize[\href{https://arxiv.org/abs/2605.27976}{arxiv}]}\\
+{\scriptsize Jashin Ye, Dongxiao Wang, Yixuan Ye, Sashuai Zhou, Weihuang Lin, Mingyang Han, Kunpeng Wang, Zeyu Yuan, Boyu Li, Haoxiang Shi, Jingchen Shu, Jun Song, Bo Zheng}\\
+
+{\small\textit{Provides an hour-long, multilingual audio benchmark showing today's audio-language models mainly fail at long-range memory of sparse facts, not local perception.}}\\[1pt]
+{\footnotesize VoiceGiraffe uses real long-form audio (not short clips/synthetic concatenations) plus a diagnostic question taxonomy to separate perception vs multi-hop reasoning, and it compares inference strategies that can dominate performance at hour scale. 1,500 curated long-audio triplets across languages/scenarios. Questions split into single-hop perception vs multi-hop reasoning. Evaluate open/proprietary audio LMs vs humans under end-to-end long-audio inference, caption/segment aggregation cascades, and cascades augmented with an external LLM. Hour-level understanding is far from solved; humans remain much better on sustained tracking. No single inference paradigm wins: end-to-end helps true long-context models; cascades can rescue smaller ones; external-LLM reasoning helps weaker systems but can bottleneck stronger ones. Models do worse when answers require retaining sparse, far-apart events---highlighting memory persistence as the key gap.}
+
+\medskip
+
+{\small\textbf{Direct Preference Optimization for English-Mandarin Code-Switching Speech Recognition in Audio LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2605.23975}{arxiv}]}\\
+{\scriptsize Trung Nguyen Quang, Cheng Yi Lewis Won, Minh Duc Pham, Yingxu He, Shuo Sun, Ai Ti Aw}\\
+
+{\small\textit{Fixes English--Mandarin code-switching ASR in Audio LLMs by using DPO preference pairs that penalize common failure behaviors (translation, omission, hallucination).}}\\[1pt]
+{\footnotesize Recasts code-switching errors as alignment failures with repeatable bad behaviors, and uses DPO to prefer faithful mixed-language transcription over plausible-but-wrong alternatives. \textasciitilde{}100K preference pairs (\textasciitilde{}570 hours): same audio/prompt, chosen = correct code-switched transcript; rejected = crafted failure mode (drop a language, translate, hallucinate). Apply DPO to existing Audio LLMs (no reward model). Models shift toward faithful transcription and away from ``helpful'' translation. Mixed Error Rate drops sharply: up to 89.6\% reduction in-distribution and 20.0\% out-of-distribution, indicating generalization beyond memorization.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Do Language Models Track Entities Across State Changes?}} {\scriptsize[\href{https://arxiv.org/abs/2605.30233}{arxiv}]}\\
+{\scriptsize Zilu Tang, Qiao Zhao, Gabriel Franco, Derry Wijaya, Aaron Mueller, Sebastian Schuster, Najoung Kim}\\
+
+{\small\textit{LLMs often don't update entity states step-by-step; they reconstruct states at query time, and a brittle global mechanism for REMOVE drives predictable errors that can be mitigated by intervention.}}\\[1pt]
+{\footnotesize Provides a mechanistic account of entity tracking under PUT/MOVE/REMOVE: models defer state computation until the question, and encode REMOVE via a global suppression-like signal that can over-apply. Naturalistic multi-entity state-change narratives with final-state queries; behavioral tests plus probing to see if intermediate representations contain updated state after each operation. Trace REMOVE circuitry; intervene by nullifying the suppression signal and measure error changes. Intermediate activations don't reliably store an incrementally updated world state; instead models aggregate evidence when queried. REMOVE is implemented with a fragile global suppression tag that causes systematic ``bleed''/override errors; nullifying it partially reduces removal-related failures, linking mechanism to behavior.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Nine Judges, Two Effective Votes: Correlated Errors Undermine LLM Evaluation Panels}} {\scriptsize[\href{https://arxiv.org/abs/2605.29800}{arxiv}]}\\
+{\scriptsize Guneet Kohli}\\
+
+{\small\textit{LLM judge panels look robust but aren't: nine frontier judges often amount to \textasciitilde{}two independent votes because their errors are highly correlated.}}\\[1pt]
+{\footnotesize Quantifies judge dependence with effective sample size, showing panel reliability is governed by correlated mistakes, explaining why panels often don't beat the best single judge and why rankings can be unstable. Model votes as noisy measurements of latent truth; compute Kish effective sample size from observed vote correlations; compare to an independence (Condorcet-style) null given individual accuracies. Test on NLI with \textasciitilde{}100 human labels/item; vary prompting, temperature, and CoT. A 9-model panel behaves like \textasciitilde{}2 independent judges; realized accuracy is 8--22 points below what independence would predict. Best single judge matches/beats the panel; more judges and smarter aggregation recover little (≤\textasciitilde{}11\%), even with access to correct answers---diversity of error patterns is the bottleneck.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by LLM/agent work, with at least \textasciitilde{}70--100 titles centered on reasoning/post-training (RLVR/DPO/self-distillation), memory and long-horizon agents (web/GUI/phone agents, memory tracing/policies), and evaluation/benchmarking (LLM-as-a-judge reliability, leaderboard resolution, rubric/meta-judging, contamination audits). A striking second mega-cluster is audio/speech foundation models and audio-language agents---easily 150+ papers---covering full-duplex spoken dialogue, long-context audio understanding, TTS/voice cloning, audio tokenizers/codecs, and a large security/forensics slice (audio jailbreaks, deepfake detection, watermarking). Multimodality/embodied AI is also heavily represented (VLM/VLA token pruning, perception-vs-reasoning post-training, robotics VLA diagnostics and environments), while safety/security threads cut across everything (LoRA backdoors, prompt injection, retrieval-induced safety degradation, scheming/honeypot evals, compliance/finance/medical safety). Emerging directions include ``inference-system auditing'' (token billing fraud, fingerprinting inference stacks/APIs) and a noticeable push toward structured/rubric-based process supervision and stepwise routing to control cost and reliability in long reasoning traces.}
+
+
+\end{document}
