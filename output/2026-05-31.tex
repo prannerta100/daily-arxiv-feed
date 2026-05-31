@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-05-31} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{GRUFF: LLM Pronoun Fidelity, Reasoning, and Biases in German}} {\scriptsize[\href{https://arxiv.org/abs/2605.30214}{arxiv}]}\\
+{\scriptsize Fabian Mewes, Anne Lauscher, Vagrant Gautam}\\
+
+{\small\textit{GRUFF benchmarks German pronoun fidelity and finds models are easily distracted and handle neopronouns unreliably despite strong grammatical cues.}}\\[1pt]
+{\footnotesize Introduces GRUFF, a large German benchmark that disentangles grammatical agreement from discourse-level pronoun fidelity, extends beyond he/she to neopronouns, and uses German case/gender to expose when models follow stereotypes or instructions. Controlled contexts establish a target pronoun for an entity; later the model must produce/select the same pronoun. Vary noun classes, pronoun sets (incl. neopronouns), distractor entities, occupations for bias, and grammatical case to separate agreement, reference tracking, and stereotype defaults. Models do well when the task reduces to simple agreement, but fidelity drops with distractors and neopronouns (xier/en) are inconsistent. Encoder-only models are relatively more distractor-robust in German than English. Occupational stereotype effects vary by case and are weakly correlated across models, making bias estimates morphology- and architecture-sensitive.}
+
+\medskip
+
+{\small\textbf{CommunityFact: A Dynamic, Multilingual, Multi-domain Benchmark for Misinformation Detection in the Wild}} {\scriptsize[\href{https://arxiv.org/abs/2605.30241}{arxiv}]}\\
+{\scriptsize Sahajpreet Singh, Insyirah Mujtahid, Min-Yen Kan, Kokil Jaidka}\\
+
+{\small\textit{CommunityFact is a refreshable multilingual misinformation benchmark showing web-enabled LLMs can score higher yet cite different (often misaligned) sources than humans.}}\\[1pt]
+{\footnotesize Builds a dynamic, redistributable benchmark grounded in Community Notes to better match real-world verification, and diagnoses a key failure mode: models' evidence selection diverges from the sources humans converge on. Collect \textasciitilde{}16k claims across 5 languages and 2 domains; evaluate closed-input vs tool-using (reasoning/web search) settings; compare model-chosen sources under web access to Community Notes source convergence; analyze retrieval strategies (broaden vs prune) and their effect on accuracy and source alignment. Closed-input verification remains difficult; web access yields the largest gains. However, improved accuracy doesn't imply human-like verification: models systematically select different evidence than Community Notes raters, with variation by language/domain. Retrieval strategy can reduce the gap, highlighting source selection as a primary lever.}
+
+\medskip
+
+{\small\textbf{AfriScience-MT: Towards Decolonizing Science in Africa through Text Translation}} {\scriptsize[\href{https://arxiv.org/abs/2605.29741}{arxiv}]}\\
+{\scriptsize Idris Abdulmumin, Tajuddeen Gwadabe, Shamsuddeen Hassan Muhammad, David Ifeoluwa Adelani, Nomonde Khalo, Ibrahim Said Ahmad, Abiodun Modupe, Anina Mumm, Sibusiso Biyela, Michelle Rabie, Johanna Havemann, Marek Rei, Jade Abbott, Vukosi Marivate}\\
+
+{\small\textit{AfriScience-MT releases a scientific translation corpus for six African languages and shows closed models lead, while fine-tuning narrows gaps for open MT.}}\\[1pt]
+{\footnotesize Creates AfriScience-MT, a document-level parallel corpus of scientific plain-language summaries translated into six African languages, including newly coined terminology, enabling realistic training/evaluation for decolonized scientific communication. Professional translators (with science communicators) translate summaries into Amharic, Hausa, Luganda, Northern Sotho, Yorùbá, and isiZulu, creating terms when missing. Benchmark closed LLMs and open MT models in zero-shot, few-shot, and fine-tuned settings; report sentence/document COMET. Closed systems lead overall: GPT-5.4 (68.3) and Gemini-3.1-Flash-Lite (68.0) top sentence COMET; both tie at document COMET 48.3. Best open results vary by setup: fine-tuned NLLB-1.3B reaches 67.3 sentence COMET; TranslateGemma-12B gets 44.0 document COMET with 1-shot. The dataset enables meaningful document-level scientific MT evaluation for these languages.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Dial HEALTHDIAL for Advice: A Multilingual and Multi-Parallel Spoken Dialogue Dataset for Knowledge-Grounded Information Seeking}} {\scriptsize[\href{https://arxiv.org/abs/2605.30107}{arxiv}]}\\
+{\scriptsize Songbo Hu, Yinhong Liu, Ej Zhou, Evgeniia Razumovskaia, Xiaobin Wang, Alexander Fraser, Ivan Vulić, Anna Korhonen}\\
+
+{\small\textit{HEALTHDIAL is a multi-parallel spoken RAG dialogue dataset (4 languages, same WHO grounding) that reveals persistent cross-language performance gaps even under tight controls.}}\\[1pt]
+{\footnotesize Releases a controlled multilingual spoken dialogue benchmark aligned across Arabic/Chinese/English/Spanish and grounded in identical WHO content, plus demographic/dialect annotations to study fairness and dialect effects without dataset confounds. Collect 6,000 info-seeking dialogues (1,500/language) totaling 163 hours from native speakers across dialects; ground each dialogue in WHO passages; provide demographic/sociolinguistic labels; ship a prototype RAG spoken system and standardized toolkit for comparable evaluation/extension. Benchmarks show consistent disparities across languages across retrieval/generation/end-to-end components, even with matched topics and grounding, implying real modeling/speech challenges rather than dataset mismatch. Dialect/demographic variation further motivates analysis beyond language averages.}
+
+\medskip
+
+{\small\textbf{Towards Human-Like Interactive Speech Recognition With Agentic Correction and Semantic Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2605.29430}{arxiv}]}\\
+{\scriptsize Zixuan Jiang, Yanqiao Zhu, Peng Wang, Qinyuan Chen, Xinjian Zhao, Xipeng Qiu, Wupeng Wang, Zhifu Gao, Xiangang Li, Kai Yu, Xie Chen}\\
+
+{\small\textit{Agentic ASR treats recognition as interactive correction and evaluates meaning directly, improving semantic accuracy especially for entities and code-switching.}}\\[1pt]
+{\footnotesize Proposes ``Agentic ASR'': a closed-loop, multi-turn ASR system that can reason, edit, and ask clarifying questions to fix meaning-critical errors, and introduces a sentence-level semantic evaluation target beyond WER/CER. Run a standard ASR pass, then an agent performs semantic evaluation, error-type routing (e.g., entities, code-switching), and reasoning-based sentence edits over multiple turns, optionally querying for clarification. Introduce S\textasciicircum{}2ER, an LLM-judge semantic metric, plus an interactive simulation harness for reproducible benchmarking. Interactive refinement reduces semantic errors in multilingual, entity-heavy and code-switching settings, with larger gains on S\textasciicircum{}2ER than on WER/CER---supporting ``meaning correctness'' as the key benefit. Human-alignment checks and ablations suggest the semantic judge is reasonably consistent and each loop component contributes to robustness.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Do Language Models Track Entities Across State Changes?}} {\scriptsize[\href{https://arxiv.org/abs/2605.30233}{arxiv}]}\\
+{\scriptsize Zilu Tang, Qiao Zhao, Gabriel Franco, Derry Wijaya, Aaron Mueller, Sebastian Schuster, Najoung Kim}\\
+
+{\small\textit{Transformers often don't maintain an updated ``world state'' for entities; they reconstruct state at query time, and REMOVE relies on a brittle global suppression tag that can be causally fixed.}}\\[1pt]
+{\footnotesize Mechanistic analysis of entity tracking with real state updates (PUT/MOVE/REMOVE), showing many LMs defer state computation until the question, and identifying REMOVE as a single global suppression mechanism that explains predictable errors. Create natural-language multi-operation stories, probe representations across tokens/layers to test incremental vs late readout, isolate operation-specific circuits, identify a global REMOVE suppression signal, and causally intervene by nullifying it to test error reduction. Evidence favors late, parallel aggregation at the final token rather than step-by-step state updating. REMOVE is implemented via a fragile global suppression signal whose brittleness predicts failure modes; ablating the signal partially reduces REMOVE-related errors, supporting a causal account.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Nine Judges, Two Effective Votes: Correlated Errors Undermine LLM Evaluation Panels}} {\scriptsize[\href{https://arxiv.org/abs/2605.29800}{arxiv}]}\\
+{\scriptsize Guneet Kohli}\\
+
+{\small\textit{LLM ``judge panels'' add little reliability because errors are highly correlated: 9 judges behave like \textasciitilde{}2 independent votes.}}\\[1pt]
+{\footnotesize Reframes panel evaluation: gains from voting require independent errors, but frontier LLM judges share failure modes. Introduces an ``effective votes'' view that makes redundancy measurable and shows aggregation tweaks can't overcome correlation. Use heavily human-labeled NLI items (\textasciitilde{}100 labels/item) as ground truth, measure judge accuracies and co-failures, compute Kish effective sample size (n\_eff), and compare to an independent-voting (Condorcet-style) null with matched per-judge accuracies. Across datasets, a 9-model panel from 7 families yields \textasciitilde{}2 effective independent votes and underperforms the independence null by \textasciitilde{}8--22 points. The best single judge often matches/beats the panel; more judges or smarter aggregation (even with answer access) barely helps. Effects persist across prompts, temperature, CoT, and RewardBench-style pairwise judging.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by foundation-model engineering and evaluation, with a very large LLM/agent cluster (at least \textasciitilde{}120 titles here) spanning post-training/RL and self-improvement (e.g., rubric/process rewards, DPO variants, self-distillation), agent reliability (memory policies, tool use, web/GUI/phone agents, speculative decoding/KV-cache/quantization), and evaluation/meta-evaluation (LLM-as-judge reliability, benchmark saturation, contamination, calibration/uncertainty). A second unusually large wave is audio-centric foundation modeling (roughly \textasciitilde{}200+ papers) covering audio-LLMs, full-duplex spoken dialogue, long-context audio understanding, TTS/codecs/tokenizers, and a striking concentration on audio deepfake detection/watermarking/jailbreaks and robustness. Multimodal/VLM/VLA work is also prominent (at least \textasciitilde{}50--70), especially embodied vision-language-action for robotics and GUI agents plus efficiency via token pruning/compression and better grounding/perception diagnostics. A notable emerging direction is ``auditing'' as a first-class theme across modalities---auditing data mixtures, inference systems, safety failures (including retrieval-induced safety regressions), and even billing/token inflation---suggesting a shift from pure capability gains toward accountability and deployment realism.}
+
+
+\end{document}
