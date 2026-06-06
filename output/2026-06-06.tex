@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-06} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{When Surface Form Changes Moderation Decisions: A Paired Study of Code-Mixed Workflow Instability}} {\scriptsize[\href{https://arxiv.org/abs/2606.05654}{arxiv}]}\\
+{\scriptsize Suraj Babu Thimma Krishnaram}\\
+
+{\small\textit{Meaning-preserving Tamil--English code-mixing can flip real moderation actions, creating hidden unfairness and extra review load despite good English-only metrics.}}\\[1pt]
+{\footnotesize Evaluates moderation as an action workflow (ALLOW/FLAG/REVIEW) and introduces paired surface-form testing to measure action instability and its operational costs, not just label accuracy. Create paired items: clean English vs Tamil--English code-mix with same intent. Run a thresholded moderation pipeline tuned on English dev data; measure paired action flip rate plus workflow metrics (review rate, false flags). Test a disagreement-based deferral-to-review mitigation. Code-mixing flips the workflow action 26.5\% of the time; review rate roughly doubles (0.138→0.297) and non-hate false-flagging rises (0.069→0.104). Tamil-only degrades further; deferral reduces auto-errors mainly by sending more cases to REVIEW.}
+
+\medskip
+
+{\small\textbf{Better Literary Translation: A Multi-Aspect Data Generation and LLM Training Approach}} {\scriptsize[\href{https://arxiv.org/abs/2606.05924}{arxiv}]}\\
+{\scriptsize Zhihao Lin, Ziqi Zhu, Hao Huang, Guanghui Wang, Peiyang He}\\
+
+{\small\textit{Better literary MT comes from generating multi-aspect synthetic supervision with LLM ``editors'' and using reward-model RL (GRPO) rather than DPO.}}\\[1pt]
+{\footnotesize A data-generation + training recipe that decomposes literary quality into multiple dimensions, iteratively refines translations to create improved references and preferences, and shows stable RM+GRPO RL beats standard preference optimization. Use multiple specialized LLM translators/editors (e.g., fluency vs literary effect) to iteratively upgrade translations, producing (1) stronger references for SFT and (2) preference data for RL. Train with SFT, then compare RL methods; RM+GRPO vs DPO. Synthetic upgraded references improve SFT by +8.65 CEA100. DPO can degrade quality, while RM+GRPO adds +1.51 CEA100. Final LitMT-8B/14B reach 67.25/69.07 CEA100 on MetaphorTrans, roughly matching/exceeding Claude Sonnet 4.5 (68.43) and generalizing to out-of-domain literary text.}
+
+\medskip
+
+{\small\textbf{Multilingual Fine-Tuning via Localized Gradient Conflict Resolution}} {\scriptsize[\href{https://arxiv.org/abs/2606.05613}{arxiv}]}\\
+{\scriptsize Long P. Hoang, Yiran Zhao, Wei Lu, Wenxuan Zhang}\\
+
+{\small\textit{Resolve multilingual negative interference by doing gradient-conflict fixes locally per parameter bucket---scalable for LLMs and better for seen and unseen languages.}}\\[1pt]
+{\footnotesize Bucket-Level multi-objective optimization that avoids full-gradient communication, fits distributed training, and targets a stronger convergence notion (Refined Pareto Stationarity) while encouraging more language-separable representations. Partition parameters into distributed ``buckets.'' For each bucket, compute per-language gradients and apply local MOO conflict-resolution (e.g., projections/compromise directions) before updating. Provide theory that local resolution still enforces refined Pareto-stationary behavior. Reduces the common trade-off where dominant languages improve while others regress; improves multilingual scores on trained and unseen languages across base LLMs. Representation analyses show increased language-specific subspace separation, consistent with reduced interference.}
+
+\medskip
+
+{\small\textbf{Multilingual Coreference Resolution via Cycle-Consistent Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2606.05444}{arxiv}]}\\
+{\scriptsize Adriana-Valentina Costache, Eduard Poesina, Silviu-Florin Gheorghe, Paul Irofti, Radu Tudor Ionescu}\\
+
+{\small\textit{Bootstrap low-resource coreference by translating English-labeled data and weighting synthetic examples by round-trip (cycle) translation consistency.}}\\[1pt]
+{\footnotesize Turns noisy MT supervision into a controllable pipeline: estimate which translated documents preserve meaning/coreference via back-translation similarity, then downweight unreliable synthetic labels during training. Translate English coreference data into target languages; back-translate to English; compute BERT-embedding similarity between original and back-translation as a cycle-consistency score; use it as a per-example loss weight (soft weighting, not hard filtering) when training the target-language coreference model. Across four low-resource languages, cycle-consistency weighting consistently beats training on raw translated data, indicating the score tracks label preservation. Enables usable coreference systems for languages lacking native annotated corpora using only English supervision + MT.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Beyond Waveform Robustness: Robust Feature-Vocoder Adversarial Attacks on Automatic Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2606.05678}{arxiv}]}\\
+{\scriptsize Yifan Liao, Zongmin Zhang, Zhen Sun, Yuhui Sun, Xinhu Zheng, Xinlei He}\\
+
+{\small\textit{``Robust ASR'' breaks under feature-space attacks: perturb SSL speech features, vocode back to audio, and attacks transfer and evade waveform-noise defenses.}}\\[1pt]
+{\footnotesize Introduces a black-box, feature-to-vocoder adversarial pipeline that targets self-supervised representations (more model-agnostic than waveforms), yielding stronger transfer and bypassing waveform-bounded threat models. Optimize targeted perturbations in SSL feature space using a surrogate ASR (Whisper-small), with clean-referenced constraints to keep speech natural; synthesize adversarial audio via a vocoder; evaluate transfer to other black-box ASR and against defended models. Surrogate-optimized examples transfer strongly, outperforming waveform-space baselines by +26.6 WER in transfer; under robustness defenses the margin grows to +36.2 WER. Conclusion: waveform-noise robustness evaluations miss a major, practical attack surface.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Where does Absolute Position come from in decoder-only Transformers?}} {\scriptsize[\href{https://arxiv.org/abs/2606.06160}{arxiv}]}\\
+{\scriptsize Valeria Ruscio, Umberto Nanni, Fabrizio Silvestri}\\
+
+{\small\textit{RoPE decoder-only Transformers encode absolute position via predictable artifacts: causal softmax normalization and a BOS/position-0 residual ``anchor'' other tokens can read.}}\\[1pt]
+{\footnotesize Provides a mechanistic, separable account of absolute-position signals in RoPE models and interventions to remove them, replacing ``emergence'' with testable sources. Analyze two sources: (1) causal mask makes the softmax denominator depend on query index (keys 0..t), inducing position-dependent attention weights even with relative scores; (2) position 0 attends only to itself, so its residual stream evolves as an input-anchored dynamical system that sink heads can query. Compare across RoPE variants and validate with BOS-embedding replacement. Absolute-position sensitivity decomposes into the always-present causal-softmax effect plus a BOS/pos0-anchor effect whose strength varies by architecture. Replacing the BOS embedding removes a substantial portion of the anchor component (\textasciitilde{}40\% reduction for early queries), showing much absolute-position info is injected by pos0 dynamics, not RoPE geometry.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Stability vs. Manipulability: Evaluating Robustness Under Post-Decision Interaction in LLM Judges}} {\scriptsize[\href{https://arxiv.org/abs/2606.05384}{arxiv}]}\\
+{\scriptsize Srimonti Dutta, Akshata Kishore Moharir}\\
+
+{\small\textit{LLM judges can be test--retest stable yet highly ``talkable'' into reversing a verdict after the decision, distorting rankings and alignment claims.}}\\[1pt]
+{\footnotesize Isolates post-decision manipulability as a distinct failure mode from ordinary variance, shows it harms human agreement and benchmark ordering, and proposes Evaluation Robustness Score (ERS) to quantify interaction robustness. Judge makes an initial choice on MT-Bench/AlpacaEval-style tasks, then receives a follow-up challenge. Use (i) overturn-seeking challenges to measure flip rate and (ii) counterbalanced target-validation challenges to detect directional steerability; combine flip frequency + bias into ERS. Large stability--robustness gap: neutral reruns rarely change outcomes, but adversarial follow-ups flip many decisions; flips reduce human-preference agreement and can reshuffle aggregate rankings. Authority-framed challenges are especially destabilizing, and revised high-confidence rationales often look like post hoc justification.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM reliability/safety and the infrastructure to evaluate it: at least \textasciitilde{}25--35 papers on long-horizon agents, tool use, and memory (e.g., SentinelBench, SubtleMemory, TokenMizer, ``Memory is Reconstructed...'', tool-menu filtering, dynamic replanning), plus another \textasciitilde{}15--25 on evaluation/benchmarks and LLM-as-judge pitfalls (e.g., ``Stability vs. Manipulability...'', ``Benchmark Everything...'', ADK Arena, TensorBench, search-time contamination). A second major cluster is post-training and efficiency for frontier models---roughly \textasciitilde{}15--25 papers on RLVR/GRPO variants, distillation, and test-time scaling/implicit reasoning, alongside \textasciitilde{}10--15 on quantization/serving/long-context systems (KV reuse, sparse attention, low-bit PTQ, NVFP4 distillation). Notable emerging directions include governance/assurance mechanisms (e.g., zero-knowledge verification of training compute, data-flow control/policy, insurance of agentic AI) and a smaller but visible push toward world models and embodied/VLA agents (UAV navigation, autonomous driving world models, multimodal spatial planning), suggesting convergence between agent evaluation, safety monitoring, and deployment constraints.}
+
+
+\end{document}
