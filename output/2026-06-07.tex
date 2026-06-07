@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-07} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Reinforcement Learning Elicits Contextual Learning of Unseen Language Translation}} {\scriptsize[\href{https://arxiv.org/abs/2606.06428}{arxiv}]}\\
+{\scriptsize Hanxu Hu, Zdeněk Šnajdr, Pinzhen Chen, Jannis Vamvas, Rico Sennrich}\\
+
+{\small\textit{Reinforcement learning can teach an LLM a reusable ``read the grammar in the prompt, then translate'' skill for truly unseen languages.}}\\[1pt]
+{\footnotesize Frames unseen-language translation with in-prompt linguistic descriptions as a meta-skill and shows RL elicits that strategy more reliably than SFT or vanilla in-context learning, which tend to memorize or ignore the description. RL over translation episodes where prompts include rich linguistic context (morphology/syntax/lexicon); reward is only final-output chrF, pushing the model to exploit the description to maximize outcomes across tasks. RL-trained models outperform strong ICL and SFT baselines on completely unseen languages despite a lightweight reward, with analyses indicating behavior shifts toward consistently using the provided grammar/vocabulary.}
+
+\medskip
+
+{\small\textbf{A Komi-Yazva--Russian Parallel Corpus and Evaluation Protocol for Zero- and Few-Shot LLM Translation}} {\scriptsize[\href{https://arxiv.org/abs/2606.06420}{arxiv}]}\\
+{\scriptsize Petr Parshakov}\\
+
+{\small\textit{A first Komi‑Yazva--Russian parallel corpus plus a leakage-aware protocol that makes zero/few-shot LLM MT evaluation credible with only hundreds of sentences.}}\\[1pt]
+{\footnotesize Releases 457 aligned sentence pairs from 74 narratives with story IDs and an evaluation recipe (story-level CV, deterministic few-shot retrieval, strict failure handling, multiple metrics + judges) to avoid leakage and fragile conclusions. Split by story (not sentence) for cross-validation; run zero-shot prompts and deterministic retrieval-based few-shot prompts from the training fold; explicitly count wrong-language/refusal/malformed outputs; report reference metrics and human/judge assessments with story-level uncertainty. LLMs can translate Komi‑Yazva→Russian meaningfully, but results are highly model/prompt sensitive; retrieval-based few-shot reliably beats zero-shot with diminishing returns beyond a small context, and metric/failure accounting can change rankings---motivating the protocol as much as the data.}
+
+\medskip
+
+{\small\textbf{"Chi nas dal soch el sent de legn" -- Auditing Text Corpora for Lombard}} {\scriptsize[\href{https://arxiv.org/abs/2606.06349}{arxiv}]}\\
+{\scriptsize Edoardo Signoroni, Pavel Rychlý}\\
+
+{\small\textit{Most ``Lombard web data'' is mislabeled or boilerplate, and the usable remainder is dialect/orthography-skewed---so scraping more can worsen bias.}}\\[1pt]
+{\footnotesize Manual, variety-aware audit of popular Lombard corpora showing dataset size and language-ID labels are unreliable proxies for usable, representative training data in a dialect continuum. Human-in-the-loop inspection of monolingual/parallel corpora to quantify mis-ID (e.g., Italian), templated boilerplate, and junk; then analyze the valid subset's orthographies and regional variety coverage. Headline corpus volumes shrink sharply after filtering; remaining Lombard is dominated by Western varieties and competing spelling conventions with Eastern underrepresented, implying that naive scaling entrenches the wrong distribution and misleads evaluation.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{OpenSTBench: Beyond Semantic Evaluation for Speech Translation}} {\scriptsize[\href{https://arxiv.org/abs/2605.30792}{arxiv}]}\\
+{\scriptsize Yanjie An, Yuxiang Zhao, Yichi Zhang, Qixi Zheng, Yujie Tu, Keqi Deng, Kai Yu, Xie Chen}\\
+
+{\small\textit{A single benchmark to compare speech translation systems across meaning, speech quality, and timing---even when outputs differ (text vs speech; offline vs streaming).}}\\[1pt]
+{\footnotesize OpenSTBench standardizes formats and protocols so heterogeneous ST systems can be evaluated side-by-side on semantic, acoustic, and temporal dimensions instead of via incompatible pipelines. Unifies S2TT and S2ST, offline and streaming outputs, then jointly scores translation quality, speech quality, speaker/emotion/paralinguistic fidelity, temporal consistency, and latency to produce a multi-axis system profile. Across representative systems, strong translation scores often coexist with large deficits in speech quality and/or temporal behavior, exposing trade-offs that semantic-only evaluation hides and making comparisons reproducible across paradigms.}
+
+\medskip
+
+{\small\textbf{Benchmarking Speech-to-Speech Translation Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.03241}{arxiv}]}\\
+{\scriptsize Alkis Koudounas, Hayato Futami, Quentin Jodelet, Osamu Take, Shinji Watanabe, Emiru Tsunoo}\\
+
+{\small\textit{COMPASS makes speech-to-speech translation evaluation reproducible and shows single-metric rankings can be badly wrong.}}\\[1pt]
+{\footnotesize Introduces COMPASS: an offline S2ST benchmark with 46 metrics across eight dimensions, enabling comparable, multi-dimensional evaluation and revealing architecture-dependent trade-offs. Compute 46 metrics over 1,248 model--language configs (FLEURS/CVSS; cascaded and end-to-end; 10 language pairs); use correlation filtering to select 10 metrics per direction (X→EN vs EN→X) to cut cost while preserving rankings. Naturalness/speaker preservation can vary by >30\% while translation quality shifts only a few points, so leaderboards can mis-rank systems; 10-metric subsets preserve rankings well (Spearman ρ>0.80) with \textasciitilde{}2.5× speedup, and human studies show generic MOS predictors miss preferences while best domain metrics correlate strongly (ρ≥0.90).}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Where does Absolute Position come from in decoder-only Transformers?}} {\scriptsize[\href{https://arxiv.org/abs/2606.06160}{arxiv}]}\\
+{\scriptsize Valeria Ruscio, Umberto Nanni, Fabrizio Silvestri}\\
+
+{\small\textit{Decoder-only RoPE models still encode absolute position because of two ``leaks'': causal-mask softmax normalization and a position-0 residual anchor read by sink heads.}}\\[1pt]
+{\footnotesize Provides a mechanistic, predictive account of absolute-position signals in ostensibly relative-position RoPE decoders, attributing them to mask-induced normalization effects plus a BOS/position-0 residual trajectory broadcast forward. Derives how the causal mask makes the softmax denominator depend on absolute query index; analyzes position-0 residual dynamics (self-only attention) and sink-reading heads; validates via attention-variant comparisons and BOS-swapping interventions. Most absolute-position behavior decomposes into (i) guaranteed mask/normalization dependence and (ii) a model-dependent position-0 residual fingerprint; NTK scaling dampens the residual component, sliding-window amplifies it, and swapping BOS removes \textasciitilde{}40\% of that residual component early---supporting causality.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{LLMs Can Leak Training Data But Do They Want To? A Propensity-Aware Evaluation of Memorization in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2606.06286}{arxiv}]}\\
+{\scriptsize Gianluca Barmina, Peter Schneider-Kamp, Lukas Galke Poech}\\
+
+{\small\textit{Memorization risk should measure not just what an LLM can be forced to leak, but what it tends to leak under normal prompts.}}\\[1pt]
+{\footnotesize PropMe converts existing memorization detectors into propensity-aware metrics (typical-prompt leakage) alongside capability metrics (prefix-attack extractability), paired with SimpleTrace for deterministic corpus attribution. Evaluate the same memorization scoring under (1) adversarial prefix continuation prompts to maximize extraction and (2) non-adversarial prompt distributions to estimate everyday leakage; SimpleTrace attributes verbatim/near-verbatim spans via indexed matching. On Comma and DFM Decoder over Common Pile and Dynaword (two languages), capability is high under prefix attacks but propensity remains low under ordinary prompts; continued pretraining (DFM from Comma) can reduce both, so audits should report both numbers.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by foundation-model work, especially LLM agents, memory, and evaluation: at least \textasciitilde{}25--35 papers focus on long-horizon agents (persistent memory, tool planning/replanning, collaboration benchmarks, agent safety/guardrails, and agent-serving systems like KV-cache/sparse attention). A second major cluster is audio/speech foundation models and audio generation: well over \textasciitilde{}150 titles cover speech/audio LLMs, tokenizers/codecs, TTS/music/audio-video generation, and a parallel surge in audio deepfake detection/jailbreaks/watermarking (dozens of papers). Reinforcement learning for post-training and test-time scaling is another clear hotspot (at least \textasciitilde{}15--25 papers on GRPO/RLVR variants, credit assignment, rollout budgeting, and reward hacking/judge issues), often explicitly tied to agent reliability. Notable emerging directions include diffusion language models (multiple papers on masked/diffusion LMs and decoding) and a surprisingly dense set of ``agent infrastructure'' papers (routing, speculative decoding, KV reuse, compression) treating deployment constraints as first-class research problems.}
+
+
+\end{document}
