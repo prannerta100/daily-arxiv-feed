@@ -1,0 +1,90 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-08} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Improving Cross-Lingual Factual Recall via Consistency-Driven Reinforcement Learning}} {\scriptsize[\href{https://arxiv.org/abs/2606.06586}{arxiv}]}\\
+{\scriptsize Jonathan von Rad, Louis Arts, George Burgess, Eleftheria Kolokytha, Harry O'Donnell, Ektor Oikonomidis Doumpas, Eduardo Sanchez, Yao Lu, Pontus Stenetorp}\\
+
+{\small\textit{GRPO-based RL makes multilingual LLMs recall the same facts more consistently across languages, backed by a new parallel factual QA benchmark.}}\\[1pt]
+{\footnotesize Defines and measures the ``knows it in English, fails elsewhere'' problem with PolyFact: 100K parallel Wikidata-grounded factual QA pairs across 12 diverse languages; compares continual pretraining, SFT, and GRPO on two 7B models and links gains to internal cross-lingual routing changes. Train/evaluate Qwen-2.5-7B and OLMo-2-1124-7B on PolyFact; apply (i) light continual pretraining on parallel data, (ii) QA SFT, or (iii) GRPO RL; then run mechanistic analyses of attention/MLP language specialization vs sharing. GRPO is the most reliable winner: higher cross-lingual factual recall than SFT, better cross-lingual consistency, and improved transfer to unseen languages; continual pretraining yields only small gains. Mechanistically, GRPO reduces language-specialized heads/MLPs, promoting more shared representations that support consistent multilingual recall.}
+
+\medskip
+
+{\small\textbf{The Masked Advantage: Uncovering Local-Language Access to Cultural Knowledge in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2606.07422}{arxiv}]}\\
+{\scriptsize Yang Zhang, Xiao Fei, Amr Mohamed, Sarah Almeida Carneiro, Mersin Konomi, Mingmeng Geng, Ahmed Asaad, Guokan Shang, Michalis Vazirgiannis}\\
+
+{\small\textit{Local-language prompts often unlock more local cultural knowledge than English---but raw accuracy hides this behind general English fluency advantages.}}\\[1pt]
+{\footnotesize Introduces a proficiency-controlled test for ``which language accesses culture better'' by pairing culture-specific with culture-agnostic questions and using IRT to factor out baseline language skill, revealing a masked local-language advantage across locales/models. Collect non-templated cultural questions from regional benchmarks/local sources; evaluate \textasciitilde{}80 models across 13 locales in English vs local language on culture-specific and culture-agnostic items; fit a shared 1PL IRT model to separate ability from item difficulty and isolate the effect of query language on cultural access. Raw accuracy favors English on culture-agnostic items (reflecting higher English proficiency), but after IRT control the effect flips: in nearly all locale--model settings, the local language yields a positive advantage for cultural knowledge access, especially in regionally aligned/language-adapted frontier models.}
+
+\medskip
+
+{\small\textbf{Translate-R1: Cost-Aware Translation Tool Use via Reinforcement Learning}} {\scriptsize[\href{https://arxiv.org/abs/2606.06835}{arxiv}]}\\
+{\scriptsize Pratik Jayarao, Chaitanya Dwivedi, Himanshu Gupta, Neeraj Varshney, Adithya M Devraj, Meet Vadera, Priyanka Nigam, Bing Yin}\\
+
+{\small\textit{RL can teach an LLM to call translation only when it's worth the cost, instead of guessing in weak languages or translating everything.}}\\[1pt]
+{\footnotesize Frames translation as cost-sensitive tool use learned end-to-end: reward task success while penalizing unnecessary translation, letting the model learn when it doesn't understand well enough and should pay to translate. Create answer-preserving multilingual task instances via translation; RL-train a post-trained Qwen3-4B with an action to solve directly or invoke a translation tool; use a task+cost reward and ``confidence-gated GSPO'' to prevent collapse to always/never translating; learn language/domain-specific thresholds. The learned policy boosts reward most in low/extra-low-resource languages while avoiding ``translate everything'': it matches near-always-translate reward at \textasciitilde{}63\% of the translation cost and is Pareto-optimal over most tested cost sensitivities; transfers zero-shot to held-out and synthetic unseen languages, increasing tool use when inputs are incomprehensible.}
+
+\medskip
+
+{\small\textbf{Modular Monolingual Adaptation using Pretrained Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.06738}{arxiv}]}\\
+{\scriptsize Nalin Kumar, Ond\v{r}ej Du\v{s}ek}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary says they "only" freeze embeddings for the newly replaced tokens. The abstract states they "replace the tokens, freeze the corresponding embeddings" without specifying that only newly replaced tokens are frozen (vs. all corresponding embeddings after replacement). This added specificity could misrepresent what is frozen.}}\\[1pt]
+
+{\small\textit{You can build better low-resource monolingual models by swapping in a language-specific vocab and freezing only the new token embeddings while tuning the rest.}}\\[1pt]
+{\footnotesize Proposes a modular adaptation recipe: change tokenization to fit the target language, but avoid full embedding/model relearning by freezing embeddings for replaced tokens and fine-tuning remaining parameters; validated on Scottish Gaelic, Irish, and very low-resource Quechua. Start from a pretrained LM; replace tokenizer/vocabulary with target-language tokens; freeze embedding vectors for the replaced tokens (not the whole embedding matrix); fine-tune the rest on target-language data; analyze effects of training strategy, embedding init, and model variants. Improves multiple NLU tasks (mask filling, NER, POS) over standard adaptation baselines across all three languages, with the biggest practical benefit in extreme low-resource Quechua (8.5k training instances), supporting the claim that full-model tuning is often unnecessary.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Contrastive Training with LLM-generated Near-Misses for Robust Code-Switching Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2606.06985}{arxiv}]}\\
+{\scriptsize Tung X. Nguyen, Hieu Minh Truong, Giang-Son Nguyen, Nhu Vo, Wray Buntine, Dung D. Le}\\
+
+{\small\textit{Code-switching ASR improves when trained to rank the correct transcript above realistic ``near-miss'' alternatives concentrated at switch spans.}}\\[1pt]
+{\footnotesize Targets systematic CS errors by generating hard negatives that specifically corrupt code-switch regions, then training the model to prefer the gold transcript---teaching it to reject plausible confusions rather than just fit the reference. Detect code-switch points-of-interest (POIs); generate near-miss transcripts by perturbing POIs from N-best hypotheses and expanding with an LLM; filter with acoustic/phonemic/text constraints; LoRA-tune Whisper-small with POI-weighted cross-entropy plus multi-negative contrastive ranking loss. On CS-FLEURS (Zh--En) and ViMedCSS (Vi--En), POI-aware contrastive tuning beats standard LoRA fine-tuning, cutting overall and CS-focused error metrics by >2\%, showing targeted near-miss negatives add value beyond loss reweighting.}
+
+\medskip
+
+{\small\textbf{VoxCPM2 Technical Report}} {\scriptsize[\href{https://arxiv.org/abs/2606.06928}{arxiv}]}\\
+{\scriptsize Yixuan Zhou, Guoyang Zeng, Xin Liu, Xiang Li, Renjie Yu, Jiancheng Gui, Jiaheng Wu, Ziyang Wang, Xudong Shen, Runchuan Ye, Zhisheng Zhang, Jiuyang Zhou, Bingsong Bai, Weiyue Sun, Mengyuan Deng, Qundong Shi, Zhiyong Wu, Zhiyuan Liu}\\
+
+{\small\textit{VoxCPM2 is a fully open, single multilingual TTS backbone that supports voice design, cloning, continuation, and style control without discrete speech tokenizers.}}\\[1pt]
+{\footnotesize Unifies many TTS ``modes'' (multilingual TTS, dialects, natural-language voice design, style-controlled cloning, continuation) as one sequence-modeling framework via input re-organization, and argues continuous-latent (VAE) modeling can scale without external discrete codecs. Hierarchical diffusion + autoregressive modeling in continuous latent space; ``asymmetric AudioVAE'' encodes at 16 kHz and decodes at 48 kHz for efficient prediction with high-fidelity reconstruction; represent different tasks as different arrangements of shared conditioning blocks in a single sequence/objective. A 2B model trained on >2M hours covers 30 languages + 9 Chinese dialects and supports zero-shot cloning/continuation and instruction-like control; reports SOTA/competitive results on public zero-shot/instruction-following TTS benchmarks and \textasciitilde{}1.68\% average WER on an internal 30-language intelligibility eval; released under Apache 2.0.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM-centric work, especially agentic systems and their evaluation: at least \textasciitilde{}25--35 papers on web/GUI/research/coding agents (e.g., long-horizon web agents, MacArena, SWE-Explore, agent planning/monitoring benchmarks, multi-agent debate/coordination, tool-calling optimization, memory/experience management). A second heavy cluster is reliability/alignment/measurement for LLMs---roughly \textasciitilde{}20--30 papers on hallucination detection and evidence grounding (multiple RAG diagnostics/citation methods/benchmarks), reasoning failures and test-time compute scaling (inhibitory deliberation, ThinkBooster, DyCon), and preference/value pluralism (preference plurality, cultural coherence, moral credences, sycophancy). Multilinguality is unusually prominent (≈10+ papers/benchmarks on cross-lingual reasoning/translation and low-resource evaluation like mmPISA-bench, UrduMMLU, cross-lingual factual recall/translation RL), alongside a notable audio/speech surge (≈15--25 papers on TTS/voice cloning/audio codecs/audio editing, ASR hallucinations, deepfake/anonymization risk, emotion reasoning). Surprising direction: multiple papers explicitly target ``auditable/governed'' agent infrastructures and protocols (MCP/OAN/enterprise orchestration, certified collaboration), suggesting a shift from pure capability gains toward operational trust and deployment constraints.}
+
+
+\end{document}
