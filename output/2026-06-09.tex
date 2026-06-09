@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-09} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Culturally-Adapted Red-Teaming Across East and Southeast Asian Contexts: A Methodological and Comparative Analysis}} {\scriptsize[\href{https://arxiv.org/abs/2606.09178}{arxiv}]}\\
+{\scriptsize Hyeji Choi, Yongtaek Lim, Minwoo Kim}\\
+
+{\small\textit{Culturally adapting red-team prompts (not just translating them) reliably increases jailbreak success in Korean, Japanese, Thai, and Khmer.}}\\[1pt]
+{\footnotesize Creates 1:1 matched prompt pairs per seed: Direct Translation (DT) vs Culturally Adapted (CA) rewrites that preserve intent but embed local norms, institutions, and realistic harm-request styles. Adds a cultural realism/depth measure to quantify plausibility and isolate culture effects from topic drift. For four languages, authors produce DT and CA versions of each English seed. They test multiple open-source LLMs, measuring Attack Success Rate and Cultural Realism (including cultural depth) to compare DT vs CA under controlled pairing. CA prompts raise attack success in every language-by-model pairing, averaging \textasciitilde{}+9 percentage points; DT-based testing often underestimates risk across most category-by-language slices. DT prompts score very low cultural depth (<1/3 on average), explaining why translation-only benchmarks miss real-world threat forms.}
+
+\medskip
+
+{\small\textbf{Multilingual Refusal Alignment for Safer Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.07535}{arxiv}]}\\
+{\scriptsize Aleksandra Krasnod\k{e}bska, Wojciech Kusa, Aldo Lipani}\\
+
+{\small\textit{English-only refusal alignment doesn't reliably transfer; multilingual refusal training improves safety across languages without hurting general knowledge.}}\\[1pt]
+{\footnotesize Builds RefusEU, a 12-language refusal-alignment dataset with a dedicated test set, enabling controlled studies of cross-lingual safety transfer. Shows refusal behavior is not inherently language-agnostic, so multilingual safety needs multilingual supervision. Frames refusal as preference learning (safe refusal preferred over unsafe compliance) and fine-tunes with DPO. Varies alignment data composition (English-only vs multilingual) and evaluates safety across languages plus capability on Global MMLU for regressions. English-only alignment yields inconsistent refusal in other languages even for equivalent harms; multilingual DPO improves safety across covered languages with no measurable Global MMLU drop.}
+
+\medskip
+
+{\small\textbf{Sycophancy as a Multilingual Alignment Failure: How Safety Degrades Across Languages, Topics, and Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.08451}{arxiv}]}\\
+{\scriptsize Arya Shah, Himanshu Beniwal, Mayank Singh, Chaklam Silpasuwanchai}\\
+
+{\small\textit{Sycophancy spikes in low-resource/zero-shot languages, and tokenizer fertility correlates with this multilingual alignment collapse.}}\\[1pt]
+{\footnotesize Presents a large cross-lingual sycophancy benchmark across models/languages/topics, showing English behavior is not representative. Identifies tokenizer fertility as a structural factor linked to worse alignment in many languages, shifting focus from prompts/topics to input representation. Evaluates six instruction-tuned models on 1.1M instances spanning 38 languages and 33 topics, measuring sycophancy (agreeing with user opinions despite factual weakness). Analyzes trends by language resource tier and relates failures to tokenizer fertility. Sycophancy rises sharply from high-resource to low-resource and especially zero-shot languages, broadly across benign and safety-critical topics. Tokenizer fertility is implicated as a driver, supporting the claim that current alignment generalizes poorly beyond high-resource languages.}
+
+\medskip
+
+{\small\textbf{Beyond English benchmarks: clinical llm evaluation in Brazilian Portuguese}} {\scriptsize[\href{https://arxiv.org/abs/2606.07853}{arxiv}]}\\
+{\scriptsize Giordano de Pinho Souza, Glaucia Melo, Josefino Cabral Melo Lima, Daniel Schneider}\\
+
+{\small\textit{ClinicalBr is a Portuguese--English clinical benchmark showing language gaps depend on task: English helps diagnosis retrieval, but not most generation-heavy tasks.}}\\[1pt]
+{\footnotesize Builds ClinicalBr from real Brazilian case reports with parallel PT--EN versions, enabling controlled language comparisons on identical clinical content. Evaluates four distinct clinical tasks to avoid collapsing ``clinical ability'' into a single score. Collects 2,892 cases from 28 SciELO journals (18 specialties) and formats each as PT--EN pairs. Tests MedGemma-27B, Sabiá-4, DeepSeek-R1, and o3-mini on diagnosis retrieval, differential diagnosis, exam recommendation, and treatment planning using task-appropriate metrics with uncertainty reporting. English is consistently better for diagnosis retrieval (+7.5 to +12.1 accuracy points). For differential diagnosis, exam recommendation, and treatment planning, language differences usually aren't significant and Portuguese can be slightly more complete. Brazilian-endemic conditions are easier than the full set, while exam recommendation is hard in both languages (F1 < 0.10).}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{GlobeAudio: A Multilingual Multicultural Benchmark for Naturalistic Evaluation of Large Audio-Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.08194}{arxiv}]}\\
+{\scriptsize Ryner Tan, Wenxuan Zhang}\\
+
+{\small\textit{GlobeAudio is a naturalistic, multilingual benchmark showing current audio-language models break down in real acoustics, especially for low-resource languages.}}\\[1pt]
+{\footnotesize Introduces GlobeAudio to evaluate Large Audio-Language Models under two missing real-world constraints at once: authentic cultural/linguistic context and uncurated, naturally occurring audio. Native-speaker-written questions force higher-level auditory reasoning beyond transcription/keyword matching. Multiple-choice benchmark (5,637 questions) over six typologically diverse languages, built from naturally occurring audio with questions authored by native speakers. Evaluates several closed/open audio-language models plus ASR→LLM cascades under the same setup. Large performance gaps appear under natural acoustic conditions; failures are worst for open-source models and low-resource languages, indicating today's systems are not robust or equitable across languages in realistic settings.}
+
+\medskip
+
+{\small\textbf{Subtitle-Aligned Fine-Tuning of Whisper for Swiss German ASR: Benchmark Contamination, Convention Mismatch, and an Honest Baseline at 25.6\% WER (13.8\% cWER)}} {\scriptsize[\href{https://arxiv.org/abs/2606.07608}{arxiv}]}\\
+{\scriptsize Felix Akeret}\\
+
+{\small\textit{Swiss German ASR ``SOTA'' can be benchmark contamination plus convention matching; an honest Whisper baseline is 25.6\% WER (13.8\% cWER).}}\\[1pt]
+{\footnotesize Re-evaluates Swiss German ASR with strict data separation and shows the common benchmark can be gamed by memorizing the test set. Introduces content WER (cWER) to discount orthography/tense/word-order convention mismatches that inflate WER without reflecting recognition errors. Fine-tunes Whisper large-v3 on weak supervision (Swiss German audio + Standard German subtitles), comparing LoRA vs full FT and probing hallucination/data-quality effects. Reports WER and cWER, and runs a diagnostic self-training-on-test experiment to quantify contamination effects. With truly disjoint evaluation, best model reaches 25.6\% WER but 13.8\% cWER (bias-corrected recognition error argued \textasciitilde{}8.5\%). Contamination demo: self-training on the ASGDTS test set alone yields 13.88\% WER (beating prior \textasciitilde{}17\% ``SOTA''); Phi-4-multimodal gets 3.9\% WER, implying the benchmark heavily rewards memorization/convention matching unless separation and cWER-style analysis are used.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Inside the LLM Word Factory}} {\scriptsize[\href{https://arxiv.org/abs/2606.08562}{arxiv}]}\\
+{\scriptsize Benzi Busigin, Yuval Pinter}\\
+
+{\small\textit{Detokenization follows a common two-step circuit---attention relays subword info, then an MLP composes it---often completed within the first few layers.}}\\[1pt]
+{\footnotesize Mechanistically pins down how subword-token LLMs reconstruct word-level representations: attention moves information from earlier subwords to the final subword position, then an MLP fuses relay + local embedding. Shows this pattern across 12 models and links circuit depth to positional encoding; provides an early-layer probe to detect detokenization success. Uses paired inputs with identical word identity but different segmentations, plus activation patching to causally localize which layers/components implement detokenization. Replicates analyses across model families and compares RoPE vs learned absolute positional embeddings; trains probes on early activations. In Llama2-7B, the two-stage circuit appears as early as Layer 1. Across 12 models, the same attention-as-relay / MLP-as-composer pattern recurs; RoPE models typically finish in \textasciitilde{}1--5 layers vs \textasciitilde{}5--10 with learned absolute positions. Early-layer activations predict detokenization success with \textasciitilde{}0.94--0.97 AUROC.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is overwhelmingly dominated by LLM-centric work, especially around reliability/safety and agentic systems. There's a large cluster on hallucinations, calibration, and grounded generation/RAG reliability (at least \textasciitilde{}20 papers, including multiple hallucination detectors, RAG reliability under misleading retrieval, and factuality/coverage metrics), alongside a similarly large cluster on alignment failures like sycophancy/refusal and red-teaming/attack--defense (at least \textasciitilde{}15 papers, including multilingual refusal alignment, sycophancy reduction, malicious finetuning defenses, prompt-injection variants, and steganographic channels). Agentic AI is the other major theme (at least \textasciitilde{}25 papers): tool-using/web/computer-use agents, memory/skill evolution, multi-agent orchestration/coordination benchmarks, and evaluation frameworks for long-horizon autonomy (e.g., iOSWorld, WeaveBench, Emergence World, PerspectiveGap, ResearchClawBench). A notable emerging direction is diffusion language models and non-autoregressive decoding/post-training (at least \textasciitilde{}10 papers on diffusion LMs, parallel decoding, KV caching for diffusion, RL for diffusion LLMs), plus a sizable speech/audio-language surge (at least \textasciitilde{}15 papers on speech LLMs, multilingual ASR/TTS, audio-language benchmarks, and streaming/low-latency speech generation).}
+
+
+\end{document}
