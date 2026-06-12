@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-12} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{AfroScope: A Framework for Studying the Linguistic Landscape of Africa}} {\scriptsize[\href{https://arxiv.org/abs/2601.13346}{arxiv}]}\\
+{\scriptsize Sang Yun Kwon, AbdelRahim Elmadany, Muhammad Abdul-Mageed}\\
+
+{\small\textit{AfroScope provides a single, scalable African language ID framework that targets the hardest failure mode: confusions among closely related varieties.}}\\[1pt]
+{\footnotesize Introduces AfroScope: (1) AfroScope-Data, an LID training/eval resource spanning 640 African languages; (2) AfroScope-Models, strong LID systems over this large label space; and (3) an explicit focus on measuring and reducing ``confusable-group'' errors, not just aggregate accuracy. Train a broad-coverage base LID model, then apply hierarchical classification for confusable sets: coarse prediction followed by targeted within-group disambiguation. Use AfroScope-Mirror, a specialized embedding model, to better separate near-neighbor languages. Analyze transfer/domain effects via language-family structure, script compatibility, and train--test domain match. On the most-confusable language subset, the hierarchy + AfroScope-Mirror improves macro-F1 by 1.57 over the best base model, directly reducing the confusions that most damage real-world African LID pipelines.}
+
+\medskip
+
+{\small\textbf{AfriSUD: A Dependency Treebank Collection for Evaluating Models on African Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.12708}{arxiv}]}\\
+{\scriptsize Happy Buzaaba, Cheikh Mouhamadou Bamba Dione, David Ifeoluwa Adelani, Sylvain Kahane, Kim Gerdes, Bruno Guillaume, Kevin Guan, Aremu Anuoluwapo, Naome A. Etori, Shamsuddeen Hassan Muhammad, Utitofon Inyang, Peter Nabende, David Sabiiti Bamutura, Andiswa Bukula, Chinedu Uchechukwu, Rooweither Mabuya, Idris Akinade, Christiane Fellbaum}\\
+
+{\small\textit{AfriSUD releases native-speaker verified SUD treebanks for nine African languages and shows a persistent syntactic performance gap in current models.}}\\[1pt]
+{\footnotesize Presents AfriSUD, a community-led, large-scale SUD dependency treebank collection for nine diverse Sub-Saharan African languages, with annotations designed to reflect key typological properties (including agglutination and tone), plus a standardized evaluation of tagging/parsing. Create SUD-formatted treebanks with community annotation and native-speaker verification. Benchmark POS tagging and dependency parsing across non-transformer baselines, multilingual pretrained encoders, and LLMs to compare syntactic generalization on the same data. Across all nine languages, even strong multilingual encoders and LLMs show clear limitations on POS and dependency parsing, indicating a substantial ``syntax gap'' rather than robust transfer from high-resource languages.}
+
+\medskip
+
+{\small\textbf{ChiKhaPo: A Large-Scale Multilingual Benchmark for Evaluating Lexical Comprehension and Generation in Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2510.16928}{arxiv}]}\\
+{\scriptsize Emily Chang, Niyati Bafna}\\
+
+{\small\textit{ChiKhaPo shows ``multilingual'' LLMs often lack basic word-level competence across languages and provides a large-scale benchmark to measure it.}}\\[1pt]
+{\footnotesize Introduces ChiKhaPo, an 8-task benchmark targeting lexical comprehension and generation (word-level meaning/form mapping). Pushes coverage to 2,700+ languages for two subtasks, enabling analysis by language family, resource level, and comprehension vs generation. Construct controlled lexical tasks from heterogeneous resources (lexicons, monolingual text, bitext). Separate comprehension from generation to expose different failure modes, and design tasks spanning easier lexical mapping to harder lexical knowledge settings. Across six SOTA LLMs, performance is broadly weak and varies systematically by language family and resource level; generation is often worse than comprehension, indicating multilingual capability is bottlenecked by unstable word-level mappings rather than smoothly transferring across languages.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{UR-BERT: Scaling Text Encoders for Massively Multilingual TTS Through Universal Romanization and Speech Token Prediction}} {\scriptsize[\href{https://arxiv.org/abs/2606.11681}{arxiv}]}\\
+{\scriptsize Sangmin Lee, Eekgyun Ahn, Woongjib Choi, Hong-Goo Kang}\\
+
+{\small\textit{UR-BERT scales one TTS text encoder to \textasciitilde{}500 languages by universal romanization plus speech-token prediction, avoiding per-language G2P bottlenecks.}}\\[1pt]
+{\footnotesize Introduces a massively multilingual TTS text encoder (495 languages) that treats script diversity as the main scaling barrier: romanize all text into a shared alphabet, then anchor representations to pronunciation via a speech-grounded training objective. Convert input text to a universal romanization and encode with a BERT-like model. Train with a speech token prediction objective (predict discrete audio-derived tokens) to force phonetic/speech alignment so romanization remains pronunciation-relevant for downstream TTS. UR-BERT improves over recent text-encoder baselines across many languages and data regimes (including low-resource), and shows meaningful transfer to unseen languages; speech-token prediction is key to turning romanization into speech-aligned representations rather than mere orthographic normalization.}
+
+\medskip
+
+{\small\textbf{PiDA: Phonetically-Informed Data Augmentation for Robust Vietnamese Speech Translation}} {\scriptsize[\href{https://arxiv.org/abs/2606.12911}{arxiv}]}\\
+{\scriptsize Giang Son Nguyen, Tung X. Nguyen, Hieu Minh Truong, Nhu Vo, Wray Buntine, Dung D. Le}\\
+
+{\small\textit{Vietnamese ST errors largely come from predictable phonetic ASR confusions; training NMT on phonetically realistic corruptions yields robust gains.}}\\[1pt]
+{\footnotesize Provides a taxonomy of Vietnamese ASR substitution errors by phonetic cause and quantifies their downstream harm, then proposes PiDA: phonetically informed augmentation that injects ASR-like substitutions into NMT training to improve robustness. Analyze cascaded Vietnamese→English ST focusing on substitution errors; group substitutions by phonetic similarity and estimate their translation impact with Linear Mixed-Effects Models. PiDA uses phonetic word embeddings to sample phonetically similar substitutes, then fine-tunes NMT on mixed clean + PiDA-corrupted data. PiDA improves robustness on corrupted-input evaluation (FLEURS vi-en), boosting BLEU by up to 2.04 over standard fine-tuning, while also slightly improving clean-input translation---suggesting realistic, phonetics-matched corruption acts as effective regularization.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Observable Patterns Are Not Explanations: A Causal-Geometric Analysis of Latent Reasoning Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.12689}{arxiv}]}\\
+{\scriptsize Darpan Aswal, Thomas Palmeira Ferraz, Yongxin Zhou, Maxime Peyrard}\\
+
+{\small\textit{Decodable ``reasoning-like'' latent patterns often aren't causal; mechanism claims for latent-reasoning models require matched controls and interventions.}}\\[1pt]
+{\footnotesize Argues that observing structured, decodable latent states is insufficient evidence of an internal algorithm. Proposes a causal-geometric evaluation recipe: matched control models, interventions on latent thoughts, and graded ``utilization'' measured by causal effect size. Study Coconut and CODI alongside carefully matched controls that remove purported mechanism ingredients. Intervene on latent thought states and measure output changes to quantify utilization. Identify low-dimensional subspaces concentrating causal influence and track how their geometry evolves across steps. Reasoning-like latent patterns appear in both target models and matched controls, undermining pattern-as-mechanism narratives; interventions show utilization is graded (some structured thoughts have little effect), with causal influence concentrated in low-rank subspaces whose stepwise organization increases with effect.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Measuring Semantic Progress in Multi-turn Dialogue via Information Gain}} {\scriptsize[\href{https://arxiv.org/abs/2606.12332}{arxiv}]}\\
+{\scriptsize Paul He, Shiva Kasiviswanathan, Dominik Janzing}\\
+
+{\small\textit{Dialogue ``progress'' can be measured as question-conditioned information gain in embedding space---no LLM judge and no sampling needed at eval time.}}\\[1pt]
+{\footnotesize Recasts multi-turn semantic progress as uncertainty reduction about the user's question, capturing relevance and non-redundancy over turns. Provides a closed-form, reproducible estimator with desirable properties (e.g., diminishing returns under repetition). Model turn-level evidence embeddings with a Gaussian approximation and compute incremental information gain via log-determinant covariance updates. Each new turn adds evidence; novel directions yield larger gains, redundant content yields smaller gains. Motivates log-det via a max-entropy/second-order-statistics argument. On MT-Bench, Chatbot Arena, and UltraFeedback, the metric correlates competitively with human judgments and can match/beat several LLM-judge baselines on MT-Bench and UltraFeedback, while remaining fully reproducible and lightweight (works with small embedding models on CPU).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM systems and their evaluation: at least \textasciitilde{}25--35 papers on tool-using/search/OS/GUI agents, long-horizon planning, and agent benchmarks (e.g., LoHoSearch, EvoBrowseComp, DailyReport, Workflow-GYM, Claw-SWE-Bench, GeoNatureAgent, TerraBench, AgentBeats), often paired with training methods like RL/RLHF/RLVR/DPO and routing (another \textasciitilde{}15--25 papers). A second major cluster is reliability/safety/robustness---especially hallucination detection/mitigation, bias audits, prompt-injection/peer-review attacks, and monitoring (at least \textasciitilde{}20 papers spanning RAG conflict handling, hallucination onset detection, political/cultural bias, multi-turn safety, memory poisoning, and ``gaming'' AI review). RAG and long-context infrastructure is a recurring subtheme (roughly \textasciitilde{}10--15 papers) including fine-grained RAG benchmarking, long-document retrieval (finance/annual reports), cache/prefill work, and on-device/efficient RAG. A notable emerging direction is ``agents for science'' and scientific workflows (at least \textasciitilde{}10 papers: lab VLA grounding, wet-lab robotics platforms, molecular design harnesses, epigenomics benchmarks, automated peer review/scientific discovery agents), alongside a smaller but visible multimodal/audio wave (speech-to-speech, TTS emotion control, audio generation, deepfake/voice cloning) that suggests growing attention to real-time interactive agents beyond text.}
+
+
+\end{document}
