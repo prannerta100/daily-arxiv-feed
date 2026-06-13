@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-13} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{AfriSUD: A Dependency Treebank Collection for Evaluating Models on African Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.12708}{arxiv}]}\\
+{\scriptsize Happy Buzaaba, Cheikh Mouhamadou Bamba Dione, David Ifeoluwa Adelani, Sylvain Kahane, Kim Gerdes, Bruno Guillaume, Kevin Guan, Aremu Anuoluwapo, Naome A. Etori, Shamsuddeen Hassan Muhammad, Utitofon Inyang, Peter Nabende, David Sabiiti Bamutura, Andiswa Bukula, Chinedu Uchechukwu, Rooweither Mabuya, Idris Akinade, Christiane Fellbaum}\\
+
+{\small\textit{Releases AfriSUD, a native-speaker--verified SUD dependency treebank suite for nine African languages, and shows today's models still lag on their syntax.}}\\[1pt]
+{\footnotesize First large, community-led, high-quality syntactic treebank collection spanning nine diverse Sub-Saharan African languages; uses it to quantify a persistent African-language ``syntax gap'' in POS tagging and parsing. Builds SUD dependency treebanks with native-speaker verification, targeting typological phenomena (e.g., agglutination, tone); benchmarks POS tagging and dependency parsing across baselines, multilingual encoders, and LLMs. Across all nine languages, multilingual encoders and LLMs remain notably weak on POS/parsing, indicating current architectures do not reliably capture the structural diversity in these languages even with high-quality annotations.}
+
+\medskip
+
+{\small\textbf{PolyAlign: Conditional Human-Distribution Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2606.13227}{arxiv}]}\\
+{\scriptsize L. D. M. S. Sai Teja, Ufaq Khan, Sathira Silva, Xiao Wu, Muhammad Haris Khan}\\
+
+{\small\textit{Alignment should match the right human response distribution per language/context, not force one global assistant style; PolyAlign trains for conditional naturalness.}}\\[1pt]
+{\footnotesize Recasts multilingual post-training as conditional distribution matching: different languages/settings have different acceptable answer ``families,'' lengths, and tones; PolyAlign preserves this variation instead of homogenizing it. Buckets bilingual data by language, interaction track, response family, and length; applies bucket-aware SFT to avoid dominance by large buckets; then HDPO preference learning with a critic that penalizes drifting outside each bucket's human support. On EN/ZH single- and multi-turn evals, PolyAlign better matches context-specific human patterns while maintaining task utility, recovering cross-lingual variation that standard post-training tends to erase.}
+
+\medskip
+
+{\small\textbf{ArogyaSutra: A Multi-Agent Framework for Multimodal Medical Reasoning in Indic Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.13572}{arxiv}]}\\
+{\scriptsize Tanmoy Kanti Halder, Akash Ghosh, Subhadip Baidya, Arijit Roy, Sriparna Saha}\\
+
+{\small\textit{Provides a multimodal medical QA dataset in Indic languages and a multi-agent training loop that improves non-English multimodal clinical reasoning.}}\\[1pt]
+{\footnotesize Introduces ArogyaBodha (multilingual, image+text medical QA for Indic settings) and ArogyaSutra, a structured multi-agent framework whose deliberation is distilled into a single deployable model. Actor--critic multi-agent rollouts plan and execute steps (image interpretation, retrieval/tool use, questioning, answering); dual-memory tracks short-term state and reusable experience; trajectories are distilled to reduce inference-time cost. Baselines degrade sharply outside English; training with ArogyaSutra on ArogyaBodha improves accuracy across seven Indic languages, with ablations showing gains from the actor--critic loop, grounding/tools, memory, and distillation.}
+
+\medskip
+
+{\small\textbf{When Similar Means Different: Evaluating LLMs on Arabic--Hebrew Cognates}} {\scriptsize[\href{https://arxiv.org/abs/2606.13218}{arxiv}]}\\
+{\scriptsize Junhong Liang, Noor Abo Mokh, Bashar Alhafni}\\
+
+{\small\textit{Multilingual LLMs often over-trust Arabic--Hebrew word-form similarity; SemCog Bench isolates this false-friend failure mode.}}\\[1pt]
+{\footnotesize Creates SemCog Bench: 1,858 Arabic--Hebrew pairs labeled to distinguish true cognates, false friends, and loanwords, plus sentence-level meaning disambiguation---targeting form--meaning conflicts standard benchmarks miss. Evaluates multiple LLMs on cognate/false-friend classification and contextual meaning selection; varies representation (script, diacritics, romanization, phonetic) to test reliance on superficial overlap. Models perform well on true cognates but drop sharply on false friends/loanwords; accuracy shifts with representation and context helps only modestly, indicating weak robustness when surface similarity contradicts meaning.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{UR-BERT: Scaling Text Encoders for Massively Multilingual TTS Through Universal Romanization and Speech Token Prediction}} {\scriptsize[\href{https://arxiv.org/abs/2606.11681}{arxiv}]}\\
+{\scriptsize Sangmin Lee, Eekgyun Ahn, Woongjib Choi, Hong-Goo Kang}\\
+
+{\small\textit{UR-BERT scales TTS text encoding to 495 languages by universal romanization plus speech-token prediction, avoiding per-language G2P and improving transfer.}}\\[1pt]
+{\footnotesize Replaces language-specific phoneme/G2P pipelines with a shared romanized text space and adds a speech-aware objective (predicting discrete speech tokens) to improve pronunciation and cross-lingual generalization. BERT-style encoder over universal romanization (all scripts mapped to Latin characters); multi-task training includes speech-token prediction from paired audio (codec/tokenizer units) to tie text representations to acoustics without phoneme labels. In multilingual TTS, UR-BERT outperforms recent text-encoder baselines across languages/resource levels and transfers well to unseen languages, suggesting romanization + speech-token supervision yields more speech-faithful text representations.}
+
+\medskip
+
+{\small\textbf{PolySpeech-100: A Large-Scale Benchmark for Speech Understanding Across 100+ Languages and Dialects}} {\scriptsize[\href{https://arxiv.org/abs/2606.01016}{arxiv}]}\\
+{\scriptsize Sicheng Yang, Shulan Ruan, Shiwei Wu, Yu Liu, Lu Fan, Zhi Li, You He}\\
+
+{\small\textit{PolySpeech-100 benchmarks speech understanding (not just ASR) across 110 language variants, exposing dialect/low-resource failures in speech-LLMs.}}\\[1pt]
+{\footnotesize Builds a large, realistic audio benchmark spanning 110 variants (incl. 19 Chinese dialects, 80+ low-resource languages) focused on semantic understanding and reasoning from speech, capturing prosody/paralinguistics lost in text-only evals. Hybrid data pipeline combining human recordings with instruction-driven synthetic speech to scale coverage; evaluates 22 end-to-end speech-LLMs and ASR+LLM cascades (commercial and open-source) on audio-to-meaning tasks. End-to-end audio models can beat cascades on heavy dialects; commercial systems are far more robust than open-source on low-resource languages; chain-of-thought prompting often hurts zero-shot speech understanding, suggesting modality-specific misalignment.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Unstable Features, Reproducible Subspaces: Understanding Seed Dependence in Sparse Autoencoders}} {\scriptsize[\href{https://arxiv.org/abs/2606.12138}{arxiv}]}\\
+{\scriptsize Gleb Gerasimov, Timofei Rusalev, Nikita Balagansky, Daniil Laptev, Vadim Kurochkin, Daniil Gavrilov}\\
+
+{\small\textit{SAE features can be seed-unstable yet recover the same underlying low-rank subspaces; stable features carry most useful signal and pooling across seeds improves reliability.}}\\[1pt]
+{\footnotesize Defines scalable feature-level reproducibility for sparse autoencoders and shows seed variance often reflects different bases within reproducible subspaces; links stability to functional importance and offers a practical pooling mitigation. Trains many SAEs across seeds/models/layers/dictionary sizes; scores each feature by cross-seed match probability via representation/decoder-direction similarity; analyzes ties to reconstruction, predictive signal, activation stats, and triggers; validates with a low-rank synthetic setup. Stable features explain most reconstruction/predictive value; unstable ones are typically low-impact and surface-triggered, yet cluster into reproducible low-dimensional subspaces. Pooling unique features across seeds yields a more stable dictionary without losing explained variance.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{From Uncertain Judgments to Calibrated Rankings: Conformal Elo Estimation for LLM Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2606.13221}{arxiv}]}\\
+{\scriptsize Bora Kargi, David Salinas}\\
+
+{\small\textit{Turns noisy LLM-judge pairwise wins into Elo rankings calibrated to humans, with conformal uncertainty intervals that remain valid under judge bias.}}\\[1pt]
+{\footnotesize Two-layer fix for LLM-judge Elo: (1) convert judge margins into calibrated win probabilities for Bradley--Terry/Elo; (2) add split conformal prediction to output intervals that cover human Elo with distribution-free guarantees. Calibrates judge score differences into soft human-win probabilities (small margins ≈ coin flips, large margins ≈ confident wins) and fits Bradley--Terry/Elo on these; learns judge→human Elo residuals on models with both ratings and applies split conformal to new models. Soft-probability Elo substantially reduces misranking vs hard labels; on LMArena reports \textasciitilde{}17.9 Elo MAE over 55 held-out models, and conformal bands flag when apparent gaps are indistinguishable given judge--human disagreement.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM systems and their evaluation/training: at least \textasciitilde{}40--60 papers touch LLM agents, tool use, long-horizon planning, memory (e.g., EvoArena/MemRefine/G-Long/Organize-then-Retrieve), and agent benchmarks/harnesses (BrowseComp variants, LoHoSearch, DailyReport, Claw-SWE-Bench, AgentBeats, WorldReasoner, TerraBench/GeoNatureAgent/EpiBench). A second major cluster is retrieval/RAG and grounding reliability---roughly \textasciitilde{}20--30 papers on RAG design, multilingual retrieval, long-document retrieval, and failure modes like evidence conflict and dilution (e.g., Uncertainty-Aware Hybrid Retrieval, X-MADAM-RAG, When More Documents Hurt RAG, hierarchical RAG benchmark generation). The most striking ``surprising'' concentration is audio/speech: well over \textasciitilde{}200 papers on Speech-LLMs, TTS/voice conversion, audio tokenizers/codecs, streaming/low-latency dialogue, and deepfake/anti-spoofing benchmarks (e.g., dots.tts, VoxCPM2, CleanCodec/HoliTok/EntangleCodec, PolySpeech-100, ESDD2, SpeechJBB). Across themes, safety/robustness/interpretability is a persistent through-line (\textasciitilde{}30--50 papers) spanning hallucination detection/mitigation, prompt-injection and agent containment, bias/fairness, and mechanistic interpretability (e.g., Goal-Autopilot, PI-Hunter, SMSR, Polar, ICA Lens/SAE reproducibility, ``Did you lie?'').}
+
+
+\end{document}
