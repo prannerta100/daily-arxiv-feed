@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-20} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Code-Switching Reveals Language Anchoring in Multilingual LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2606.19668}{arxiv}]}\\
+{\scriptsize Jeonghyun Park, Seunghyun Yoon, Yonghyun Jun, Hwanhee Lee}\\
+
+{\small\textit{Code-switched QA failures in multilingual LLMs track a measurable ``language anchoring'' of hidden states, and CANVAS steers anchoring at inference to recover accuracy without training.}}\\[1pt]
+{\footnotesize Introduces Anchor Bias, a geometric diagnostic showing code-switched representations are pulled toward one monolingual ``anchor'' (not intermediate), linking this to predictable QA degradation and making anchoring an inference-time control target. Use grammar-forced code-switching to control the sentence frame; compare hidden states for source-only, target-only, and code-switched inputs and define Anchor Bias by relative proximity; apply CANVAS by extracting a source-side ``canvas'' and nudging target-language hidden states toward the source anchor during prefill. Finds a consistent grammar-frame effect across multilingual LLMs (source-framed inputs stay source-anchored and degrade less; target-framed shift to target and degrade more); CANVAS reliably recovers QA F1 across models/conditions, showing anchoring is actionable at inference time.}
+
+\medskip
+
+{\small\textbf{Disentangling Linguistic Relatedness from Task Alignment in Cross-Lingual Transfer}} {\scriptsize[\href{https://arxiv.org/abs/2606.19346}{arxiv}]}\\
+{\scriptsize Ahmed Haj Ahmed, Ruochen Zhang, Alvin Grissom II}\\
+
+{\small\textit{Arabic fine-tuning boosts cross-lingual reading comprehension mainly by teaching the task format, not by transferring Semitic-specific linguistic knowledge.}}\\[1pt]
+{\footnotesize Disentangles linguistic relatedness from task alignment: shows ``transfer'' gains attributed to related languages often generalize equally to unrelated controls and mirror inference-time task-help signals (CoT). Fine-tune seven LLMs (dense + MoE, varied sizes) on Arabic reading-comprehension data; evaluate zero-shot RC across Semitic targets and non-Semitic controls; compare to a chain-of-thought prompting ablation as an alternative way to improve task adherence without weight updates. No Semitic-specific advantage: improvements (when present) appear broadly across languages, including unrelated controls; gains depend on baseline strength (weak models improve most, strong models little). CoT helps the same models similarly, supporting task-format alignment---not Arabic-derived linguistic transfer---as the main driver.}
+
+\medskip
+
+{\small\textbf{CATCH-ME if you RAG: a dataset of Contextually Annotated multi-Turn Counterspeech against Hate and Misinformation Exchanges}} {\scriptsize[\href{https://arxiv.org/abs/2606.20369}{arxiv}]}\\
+{\scriptsize Helena Bonaldi, Genoveffa Martone, Marco Guerini}\\
+
+{\small\textit{CATCH-ME if you RAG provides expert-curated, multilingual, multi-turn counterspeech dialogues grounded in verified sources, designed for retrieval-augmented counterspeech against hate plus misinformation.}}\\[1pt]
+{\footnotesize Introduces a large dataset (not a new model) targeting the realistic intersection of hate and misinformation in multi-turn conversation, with grounding in fact-checking/NGO sources and document/chunk span annotations to support RAG workflows across languages and target groups. Construct multi-turn harmful-claim ↔ counterspeech dialogues anchored to verified external documents; include document-level and chunk-level span annotations over the sources (abstract does not claim turn-level evidence alignment). Claims the first large-scale, expert-curated multilingual dataset of multi-turn counterspeech grounded in verified knowledge, covering five languages and hate targeting seven marginalized groups, with span annotations intended to make it directly usable for RAG training/evaluation.}
+
+\medskip
+
+{\small\textbf{REDACT: A Systematically Controlled Multilingual Benchmark for Personal Information Detection}} {\scriptsize[\href{https://arxiv.org/abs/2606.19881}{arxiv}]}\\
+{\scriptsize Guneesh Vats, Anubha Agrawal, Shikha Singhal, Ajita Dash, Praison Selvaraj, Vidhan Jhawar, Ranga Prasad Chenna, Bharadwaj Y M G}\\
+
+{\small\textit{REDACT is a controlled multilingual PII benchmark that systematically varies disclosure conditions so you can pinpoint when detectors fail on high-risk, non-obvious PII.}}\\[1pt]
+{\footnotesize Moves beyond aggregate F1 by generating controlled variations across 25 languages/9 scripts and attaching metadata (disclosure presence/form, GDPR-aligned sensitivity) to isolate failure modes like implied/paraphrased/code-switched PII. Generate 13,427 records with dense annotation (324,078 spans) over 51 PII types using 4,127 patterns; use a strength-2 covering-array sampler to cover pairwise interactions across nine variation axes (e.g., domain, format, difficulty, length, density, code-switching, language, adjacency, co-occurrence); add entity metadata: disclosed?, disclosure type (verbatim/non-verbatim), sensitivity tier. On a locked, language-stratified 1,000-record eval of five detectors (Presidio, GLiNER, OpenAI Privacy Filter, GPT-4.1, Claude Sonnet 4.6), shows similar overall F1 can hide very different risk: rule-based recall on HIGH-sensitivity is 0.07 and degrades on non-verbatim disclosures, while LLM detectors are more robust and perform best on the HIGH tier. A reference-free LLM-judge check suggests sensitivity-tier assignment is the hardest axis, motivating REDACT's stratified design.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{ReNikud: Audio-Supervised Hebrew Grapheme-to-Phoneme Conversion}} {\scriptsize[\href{https://arxiv.org/abs/2606.20179}{arxiv}]}\\
+{\scriptsize Maxim Melichov, Yakov Kolani, Morris Alper}\\
+
+{\small\textit{ReNikud trains Hebrew G2P from massive audio-derived phoneme pseudo-labels and a per-character IPA predictor, beating nikud-dependent baselines.}}\\[1pt]
+{\footnotesize Replaces scarce manual nikud supervision with speech-derived phoneme supervision, while enforcing Hebrew-appropriate character alignment (abjad structure) instead of free-form seq2seq translation. Run a phoneme-based ASR pseudo-labeling pipeline on thousands of hours of unlabeled Hebrew speech to get phonemic transcripts; train a character-aligned ``pseudo-vocalization'' model that predicts IPA phonemes at each grapheme position, capturing nikud-like structure without nikud data (and better matching spoken norms, incl. stress not encoded by vocalization conventions). Outperforms prior SOTA Hebrew G2P on existing benchmarks and on their new MILIM benchmark aimed at spoken Hebrew, supporting that large-scale audio pseudo-labels + character alignment are effective and reduce reliance on labor-intensive vocalization resources.}
+
+\medskip
+
+{\small\textbf{FlowEdit: Associative Memory for Lifelong Pronunciation Adaptation in Flow-Matching TTS}} {\scriptsize[\href{https://arxiv.org/abs/2606.20518}{arxiv}]}\\
+{\scriptsize Harshit Singh, Ayush Pratap Singh, Nityanand Mathur}\\
+
+{\small\textit{FlowEdit fixes recurring proper-noun mispronunciations in a frozen flow-matching TTS by learning small text-embedding edits and retrieving them later from associative memory.}}\\[1pt]
+{\footnotesize Shows ``lifelong'' pronunciation adaptation without weight updates: learn localized conditioning edits for a word once, store them, and reuse them for future similar contexts/spellings while preserving overall speech quality. Optimize an additive perturbation to the token-span text embedding to match desired pronunciation (model weights frozen); store (context embedding → edit) in a Modern Hopfield Network; at inference retrieve a gated soft mix of past edits for fuzzy matching and apply only when similarity is high. On 312 multilingual proper nouns (18 language families), achieves a 92.7\% relative reduction in target-word Phoneme Error Rate vs zero-shot baseline with no quality drop; each new correction takes \textasciitilde{}15s on one GPU and then works via retrieval rather than retraining.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Leverage Is Not Reach: A Control-Window Law for Single-Neuron Steering in Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.19831}{arxiv}]}\\
+{\scriptsize Hongliang Liu}\\
+
+{\small\textit{A forward-pass ``control-window'' law predicts when single-neuron MLP steering will change behavior coherently versus collapse generation, and explains why gradients can miss true controller neurons.}}\\[1pt]
+{\footnotesize Reframes neuron steering as budgeted controllability: success depends on whether the behavior's trigger threshold fits under a predictable collapse ceiling (not just neuron ``leverage''), and distinguishes superficial bypass from genuine ``reach'' (e.g., refusal flipping vs producing actionable content). Model intervention as adding a scaled neuron write vector to the residual stream; show effective movement is governed by alignment between residual and write direction and saturates, with a coherence/collapse ceiling ≈ residual norm / write norm computable from weights + one generic forward pass; declare neurons ``open'' if trigger < ceiling; use this to motivate forward-only screens and critique gradient attribution (controllers may be weakly aligned with readout so gradients look small). Predicted collapse ceilings match observed ceilings on held-out neurons (MAE \textasciitilde{}0.14, often lower mid-layers) and the open/closed controllability test beats a majority baseline; failures when ``closed'' are interpretable (collapse before trigger, shallow propagation, normalization caps). Also shows forward-only screening can find controller neurons gradients miss, and that refusal steering often yields fluent bypass without actionable reach except for a subset of audited pivots.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Reliability without Validity: A Systematic, Large-Scale Evaluation of LLM-as-a-Judge Models Across Agreement, Consistency, and Bias}} {\scriptsize[\href{https://arxiv.org/abs/2606.19544}{arxiv}]}\\
+{\scriptsize Justin D. Norman, Michael U. Rivera, D. Alex Hughes}\\
+
+{\small\textit{LLM judges can appear reliable under common checks yet be biased or non-portable; chance-corrected agreement, consistency, and bias audits are needed before trusting judge-based leaderboards.}}\\[1pt]
+{\footnotesize Large-scale audit separating agreement, consistency, and bias shows exact-match agreement inflates perceived judge quality; proposes a practical Minimum Viable Validation Protocol to avoid ``reliability without validity.'' Evaluate 21 judge models (9 providers) on MT-Bench, JudgeBench, RewardBench; measure agreement via exact match vs Cohen's kappa; measure test--retest consistency; audit position bias and verbosity bias in pairwise judging. Exact-match agreement overstates quality: kappa drops by 33--41 points on MT-Bench; judge rankings shift up to 14 positions across benchmarks; some judges are highly consistent (>0.95) yet strongly position-biased (>0.10); verbosity bias is small under their rubric (<0.011), making position effects the bigger practical risk.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent engineering and trustworthiness: at least \textasciitilde{}40--60 papers touch LLM agents, tool use, RAG, long-horizon behavior, and agent evaluation (e.g., multi-agent deliberation/memory/orchestration, agent benchmarks like ORAgentBench/ShoppingBench/RetailBench/StaminaBench, and agentic security/governance like prompt injection defenses, privilege control, runtime policies). A second major cluster is efficiency + scaling for long context and deployment---roughly \textasciitilde{}20--30 papers on MoE/long-context models (e.g., DeepSeek-V4), KV-cache/quantization/FP4, attention alternatives, caching, and inference optimization. Safety, bias, and reliability form another dense theme (\textasciitilde{}20+): hallucination detection, uncertainty/calibration, LLM-as-a-judge auditing, bias (gender/social/stylistic), privacy/PII detection, and red-teaming. Notable emerging directions include diffusion language models and diffusion-style reasoning (multiple papers on diffusion LMs/decoding dynamics/self-speculation) and a strong ``agents in regulated domains'' thread (clinical, finance, legal, security) where grounding, auditability, and policy adherence are treated as first-class requirements rather than afterthoughts.}
+
+
+\end{document}
