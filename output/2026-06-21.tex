@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-21} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Code-Switching Reveals Language Anchoring in Multilingual LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2606.19668}{arxiv}]}\\
+{\scriptsize Jeonghyun Park, Seunghyun Yoon, Yonghyun Jun, Hwanhee Lee}\\
+
+{\small\textit{Code-switched QA fails because multilingual LLMs ``anchor'' their hidden states to one language frame; this anchoring is measurable and can be corrected at inference to recover F1.}}\\[1pt]
+{\footnotesize Defines Anchor Bias, a geometric diagnostic linking internal language anchoring to code-switching degradation, and shows anchoring is a controllable failure mode rather than just data coverage noise. Create controlled, grammar-forced code-switched inputs; compute Anchor Bias by comparing code-switched hidden states to monolingual source/target counterparts; apply CANVAS steering during prefill to nudge states toward the source anchor direction. Across models, source-framed code-switching stays source-anchored and degrades less, while target-framed shifts target-ward and degrades more; CANVAS consistently restores QA F1 without retraining.}
+
+\medskip
+
+{\small\textbf{Enhancing Multilingual Reasoning via Steerable Model Merging}} {\scriptsize[\href{https://arxiv.org/abs/2606.19002}{arxiv}]}\\
+{\scriptsize Zhuoran Li, Rui Xu, Jian Yang, Junnan Liu, Zhijun Chen, Qianren Mao, Hongcheng Guo, Jiaheng Liu, Likang Xiao, Ming Li, Xiaojie Wang}\\
+
+{\small\textit{Steerable model merging adaptively blends a multilingual model and a reasoning model per input, improving multilingual reasoning over fixed merges.}}\\[1pt]
+{\footnotesize ST-Merge addresses conflicts in standard merges by making the mixture input-dependent, so different queries can lean more on multilingual competence or reasoning skill as needed. A gated cross-attention module attends to signals from both source models and gates their contributions, producing a context-appropriate blend instead of a single static parameter merge. On four multilingual reasoning benchmarks covering 21 languages, ST-Merge consistently outperforms strong merging baselines, showing steerability yields better cross-lingual reasoning.}
+
+\medskip
+
+{\small\textbf{REDACT: A Systematically Controlled Multilingual Benchmark for Personal Information Detection}} {\scriptsize[\href{https://arxiv.org/abs/2606.19881}{arxiv}]}\\
+{\scriptsize Guneesh Vats, Anubha Agrawal, Shikha Singhal, Ajita Dash, Praison Selvaraj, Vidhan Jhawar, Ranga Prasad Chenna, Bharadwaj Y M G}\\
+
+{\small\textit{REDACT is a controlled multilingual PII benchmark that varies ``surface conditions'' so you can pinpoint which contexts and disclosure forms break detectors, especially for high-sensitivity PII.}}\\[1pt]
+{\footnotesize Introduces a designed (not scraped) benchmark spanning 25 languages/9 scripts with explicit control over conditions that drive PII failures, plus metadata to evaluate risk by disclosure form and GDPR-aligned sensitivity, not just entity type. Generate texts via a schema with nine axes (e.g., domain, density, code-switching, adjacency); use a strength-2 covering array to cover all pairwise condition combinations; annotate entities with disclosure status, disclosure form, and sensitivity tier. Evaluations show aggregate F1 can hide dangerous gaps: rule-based detection has extremely low recall on HIGH-sensitivity and non-verbatim disclosures, while LLM-based detectors are more robust; sensitivity-tier assignment is itself hardest, validating stratified evaluation.}
+
+\medskip
+
+{\small\textbf{When English Isn't the Best Teacher: Source Language Effects in Cross-Lingual In-Context Learning}} {\scriptsize[\href{https://arxiv.org/abs/2606.18033}{arxiv}]}\\
+{\scriptsize Fred Philippy, Siwen Guo, Jacques Klein, Tegawendé F. Bissyandé}\\
+
+{\small\textit{In cross-lingual in-context learning, the ``best source language'' heuristics from fine-tuning often fail, and language confusion becomes a key blocker for generative tasks.}}\\[1pt]
+{\footnotesize Large-scale evidence that supervised transfer predictors don't reliably forecast cross-lingual ICL success, reopening source-language selection as an ICL-specific problem and highlighting language confusion as a practical failure mode. Systematic study varying tasks, models, and demo/eval language pairs: 7 tasks × 6 multilingual models × diverse languages; measure both task performance and language confusion (wrong/mixed output language). Fine-tuning-era rules of thumb do not consistently transfer to ICL; language confusion recurs, especially for generation, motivating new ICL-tailored heuristics for choosing demonstration languages.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{UR-BERT: Scaling Text Encoders for Massively Multilingual TTS Through Universal Romanization and Speech Token Prediction}} {\scriptsize[\href{https://arxiv.org/abs/2606.11681}{arxiv}]}\\
+{\scriptsize Sangmin Lee, Eekgyun Ahn, Woongjib Choi, Hong-Goo Kang}\\
+
+{\small\textit{A single TTS text encoder can scale to hundreds of languages by Romanizing all scripts into one space and training the encoder to predict speech tokens, learning pronunciation without per-language G2P.}}\\[1pt]
+{\footnotesize UR-BERT removes the main long-tail bottleneck in multilingual TTS---missing G2P/lexicons---via universal Romanization plus a speech-grounded objective, yielding one reusable encoder that transfers even to unseen languages. Map all input text to a shared Romanized form; train a BERT-like encoder with standard text objectives plus an auxiliary task that predicts discrete speech tokens from paired audio, forcing phonetic/alignment-relevant representations. Plugged into multilingual TTS, UR-BERT beats strong text-encoder baselines across languages and data regimes (notably low-resource) and generalizes to unseen languages, showing Romanization + speech-token prediction scales phonetic fidelity.}
+
+\medskip
+
+{\small\textbf{IndicContextEval: A Benchmark for Evaluating Context Utilisation in Audio Large Language Models Across 8 Indic Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.19157}{arxiv}]}\\
+{\scriptsize Sakshi Joshi, Dhruv Subhash Rathi, Sanskar Singh, Eldho Ittan George, R J Hari, Kaushal Bhogale, Mitesh M. Khapra}\\
+
+{\small\textit{IndicContextEval tests whether AudioLLMs truly use provided text context (including wrong context) rather than just transcribing, across 8 Indic languages.}}\\[1pt]
+{\footnotesize A benchmark that treats context as an intervention: by including adversarial incorrect entity prompts, it can distinguish context-following from context-ignoring behavior, which standard ASR accuracy can't reveal. \textasciitilde{}56 hours of natural speech from hundreds of speakers; evaluate with a 7-level prompting ladder from minimal hints to rich metadata and entity lists (English/native script), plus adversarial prompts with incorrect entities; compare transcript shifts across prompt levels. Across five AudioLLMs, context sensitivity varies widely; adversarial prompts expose whether models are controllable (pulled toward provided entities) or largely invariant, showing single-prompt accuracy can mask lack of context utilization.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Output Vector Editing for Memorization Mitigation in Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.18767}{arxiv}]}\\
+{\scriptsize Ahmad Dawar Hakimi, Kaiwei Lei, Isabelle Augenstein, Hinrich Schütze}\\
+
+{\small\textit{Mitigate memorization by editing a few MLP neurons' output vectors (what they write into the residual stream) instead of zeroing activations, sharply reducing regurgitation with less collateral damage.}}\\[1pt]
+{\footnotesize Proposes output-vector editing as a more surgical privacy mitigation: redirect neuron write-directions that drive memorized continuations, and characterizes a boundary where some memorization requires attention-based interventions. Mine memorized sequences (notably on open OLMo-7B); attribute continuations to a small set of MLP neurons; solve a constrained optimization to minimally edit only those neurons' output vectors to steer away from memorized next tokens; for failures, ablate key attention heads. Across 360M--7B models (incl. OLMo-7B, Llama2-7B), achieves up to 87.9\% suppression and 2.7× better than activation ablation; an edit-mode ensemble covers 96.5\% (single mode 81.5\%); \textasciitilde{}14\% need attention-head ablation, recovering 60--64\% of those cases.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by LLM agent systems and their deployment realities: at least \textasciitilde{}25 papers on tool-using/long-horizon agents (memory systems like AtomMem/CoreMem/GateMem, multi-agent coordination/leadership, agent benchmarks like CEO-Bench/EComAgentBench/ORAgentBench, and agent governance such as prompt-injection defenses and policy-aware control planes). A second major cluster is inference/training efficiency for large models (roughly \textasciitilde{}15 papers) spanning KV-cache/speculative decoding/quantization (UltraQuant, JetFlow, token-ops optimization) and long-context attention variants (HydraHead, ConSA, Dual Dimensionality, Variable-Width Transformers). Safety, evaluation, and reliability is another heavy theme (≈15--20): LLM-as-a-judge validity/bias, calibration/uncertainty, privacy \& memorization/unlearning, and red-teaming/jailbreak/pseudoscience resistance (PseudoBench, FFinRED, Anthropic red-team). The most surprising concentration is sheer volume in speech/audio foundation models and audio-language systems (well over 100 titles) covering full-duplex spoken agents, TTS/voice conversion, watermarking/deepfake detection, multilingual/low-resource ASR, and clinical speech biomarkers---suggesting ``audio-first agents'' and audio forensics are rapidly heating up alongside text-centric agent work.}
+
+
+\end{document}
