@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-22} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{REDACT: A Systematically Controlled Multilingual Benchmark for Personal Information Detection}} {\scriptsize[\href{https://arxiv.org/abs/2606.19881}{arxiv}]}\\
+{\scriptsize Guneesh Vats, Anubha Agrawal, Shikha Singhal, Ajita Dash, Praison Selvaraj, Vidhan Jhawar, Ranga Prasad Chenna, Bharadwaj Y M G}\\
+
+{\small\textit{Controlled multilingual slices show PII detectors fail under specific disclosure conditions and sensitivity tiers that overall F1 can hide.}}\\[1pt]
+{\footnotesize REDACT: a diagnostic (not just large) PII benchmark spanning 25 languages/9 scripts and 51 entity types, with per-entity metadata for disclosure form/status and GDPR-style sensitivity so evaluation can ask ``do we miss high-stakes PII, and when?''. Systematically generate records by crossing 9 factors (e.g., domain/format, length/density, code-switching, adjacency/co-occurrence) via a strength-2 covering array; annotate spans plus disclosure-form tags (e.g., verbatim vs implied) and sensitivity tier to enable stratified error analysis. On a locked 1k-record eval, aggregate F1 is risk-misleading: a rule-based system looks OK overall but has \textasciitilde{}0.07 recall on HIGH-sensitivity and struggles most on non-verbatim disclosures; LLM detectors are more robust and often strongest on HIGH-sensitivity. A reference-free LLM-judge check suggests sensitivity-tier assignment itself is hard, validating the need for the benchmark's metadata.}
+
+\medskip
+
+{\small\textbf{G-IdiomAlign: A Gloss-Pivoted Benchmark for Cross-Lingual Idiom Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2606.18989}{arxiv}]}\\
+{\scriptsize Fengying Ye, Yanming Sun, Runzhe Zhan, Zheqi Zhang, Lidia S. Chao, Derek F. Wong}\\
+
+{\small\textit{A gloss-pivoted benchmark cleanly tests idiom matching by meaning (not literal overlap) and shows LLMs still default to literal-translation errors, especially in low-resource targets.}}\\[1pt]
+{\footnotesize G-IdiomAlign anchors idioms to Wiktionary English glosses as a shared semantic pivot, enabling reproducible cross-lingual idiom alignment evaluation and a high-confidence reference alignment set. Two protocols: (1) multiple-choice alignment with typed distractors (e.g., literal translations, near-miss meanings) to diagnose failure modes; (2) gloss-contrastive generation (with vs without gloss) to isolate whether an explicit meaning anchor improves target-idiom production. Across LLMs, literal-translation bias dominates and worsens for low-resource languages. Providing glosses improves generation under embedding-based semantic scoring, but absolute performance remains modest. Mechanistic probing (Qwen3-8B) suggests gains correlate with attention-head ``anchoring'' to the gloss more than layer-level changes.}
+
+\medskip
+
+{\small\textbf{CATCH-ME if you RAG: a dataset of Contextually Annotated multi-Turn Counterspeech against Hate and Misinformation Exchanges}} {\scriptsize[\href{https://arxiv.org/abs/2606.20369}{arxiv}]}\\
+{\scriptsize Helena Bonaldi, Genoveffa Martone, Marco Guerini}\\
+
+{\small\textit{A multilingual, multi-turn counterspeech dataset with evidence links enables training/evaluating RAG systems that rebut hate+mispinfo with grounded facts instead of generic or hallucinated replies.}}\\[1pt]
+{\footnotesize CATCH-ME if you RAG: expert-written multi-turn dialogues across five languages where effective counterspeech must both address targeted hate and correct factual claims, paired with vetted external documents and span-level grounding links. Curate realistic multi-turn exchanges; attach verified sources (fact-checks, NGO reports); annotate document- and chunk/span-level links from dialogue claims to evidence to support retrieval and grounding evaluation in RAG pipelines. Delivers the first large-scale resource combining multilingual + multi-turn counterspeech with explicit evidence grounding. The design targets common zero-shot LLM failures (vague, repetitive, unsupported rebuttals) and enables evaluation beyond tone/stance to ``used the right evidence for the right claim.''}
+
+\medskip
+
+{\small\textbf{Code-Switching Reveals Language Anchoring in Multilingual LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2606.19668}{arxiv}]}\\
+{\scriptsize Jeonghyun Park, Seunghyun Yoon, Yonghyun Jun, Hwanhee Lee}\\
+
+{\small\textit{Code-switched QA fails partly because hidden states ``anchor'' to one language frame; steering representations toward the better anchor at inference recovers performance without retraining.}}\\[1pt]
+{\footnotesize Introduces Anchor Bias to quantify whether code-switched representations sit closer to source- or target-language monolingual states (driven by grammatical frame), links it to QA degradation, and proposes an inference-time fix (CANVAS). Use grammar-forced code-switching to create matched monolingual and code-switched variants; compute layerwise representational proximity to define Anchor Bias. CANVAS nudges target-language hidden states during prefill toward a ``source-side canvas'' vector extracted from context. Across multilingual LLMs, source-framed code-switching stays source-anchored and degrades less; target-framed inputs shift target-ward and degrade more. CANVAS consistently improves QA F1 across models and switching conditions, turning anchoring from diagnosis into a controllable mitigation.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{IndicContextEval: A Benchmark for Evaluating Context Utilisation in Audio Large Language Models Across 8 Indic Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.19157}{arxiv}]}\\
+{\scriptsize Sakshi Joshi, Dhruv Subhash Rathi, Sanskar Singh, Eldho Ittan George, R J Hari, Kaushal Bhogale, Mitesh M. Khapra}\\
+
+{\small\textit{A controlled ``prompting ladder'' reveals whether AudioLLMs truly use provided context---and how easily bad context can mislead them---across 8 Indic languages.}}\\[1pt]
+{\footnotesize IndicContextEval separates transcription quality from context utilisation by systematically varying context strength and adding adversarial (wrong) context, exposing limits of standard ASR-style evaluation. \textasciitilde{}56 hours of speech from 555 speakers across 8 languages and 23 domains. Evaluate models over 7 prompt levels: minimal → metadata/domain descriptions → entity lists (English and native script) → adversarial incorrect entities; compare output shifts across levels. Five AudioLLMs show large differences in conditioning on context despite similar baseline transcription performance. Adversarial prompts are most diagnostic: some models ignore context, others are pulled toward wrong entities---showing ``promptable ASR'' needs explicit context-variation and adversarial evaluation.}
+
+\medskip
+
+{\small\textbf{UR-BERT: Scaling Text Encoders for Massively Multilingual TTS Through Universal Romanization and Speech Token Prediction}} {\scriptsize[\href{https://arxiv.org/abs/2606.11681}{arxiv}]}\\
+{\scriptsize Sangmin Lee, Eekgyun Ahn, Woongjib Choi, Hong-Goo Kang}\\
+
+{\small\textit{Universal Romanization plus a speech-token prediction objective enables a single TTS text encoder to scale to hundreds of languages without per-language G2P pipelines.}}\\[1pt]
+{\footnotesize UR-BERT: a massively multilingual TTS text encoder that standardizes all scripts into a shared Romanized input and learns speech-aligned representations via auxiliary speech-token prediction, covering 495 languages. Romanize text into a unified alphabet; train a BERT-like encoder with MLM plus an auxiliary objective to predict discrete speech tokens for the utterance, injecting phonetic/alignment pressure into text representations. UR-BERT-conditioned TTS outperforms recent text-encoder baselines across languages and resource levels and generalizes well to unseen languages, indicating Romanization + speech-token supervision yields more transferable pronunciation-relevant features than text-only pretraining.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{How Transparent is DiffusionGemma?}} {\scriptsize[\href{https://arxiv.org/abs/2606.20560}{arxiv}]}\\
+{\scriptsize Joshua Engels, Callum McDougall, Bilal Chughtai, Janos Kramar, Senthoran Rajamanoharan, Cindy Wu, Arthur Conmy, Asic Q Chen, Jean Tarbouriech, Min Ma, Brendan O'Donoghue, João Gabriel Lopes de Oliveira, Rohin Shah, Neel Nanda}\\
+
+{\small\textit{Diffusion LLMs can be nearly as inspectable as autoregressive ones if inter-step information is forced through an interpretable token bottleneck.}}\\[1pt]
+{\footnotesize Defines variable vs algorithmic transparency and shows diffusion's apparent opacity largely comes from where ``interpretable state'' boundaries are drawn; a token bottleneck can expose step-to-step messages without degrading performance. Measure variable transparency via opaque serial depth (sequential compute between human-interpretable states). Insert/learn a projection so what passes between denoising steps is readable as tokens; then run diffusion-specific interpretability case studies and evaluate monitorability using intermediate signals. Naively, DiffusionGemma's opaque serial depth is \textasciitilde{}28.6× Gemma 4; with the token bottleneck it drops to \textasciitilde{}1.1× with no downstream loss. Case studies reveal diffusion-specific dynamics (e.g., non-chronological reasoning, token ``smearing''), yet monitorability is comparable to Gemma 4.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by speech/audio + LLM work: at least \textasciitilde{}150--200 papers on ASR/TTS/audio-language models, including full‑duplex spoken dialogue, code-switching/low-resource ASR, neural codecs, speech enhancement, and a very large cluster on audio deepfakes/anti-spoofing/watermarking/source tracing (dozens of titles explicitly on deepfake detection, attribution, or watermark robustness). The second biggest theme is agentic LLM systems (roughly \textasciitilde{}60--90): tool-calling/state \& memory (AtomMem/CoreMem/GateMem), multi-agent coordination and evaluation (CEO-Bench, EComAgentBench, ORAgentBench, StaminaBench), RAG efficiency/grounding/security (CacheWeaver, SproutRAG, prompt-injection defenses, vendor-agnostic grounding), and governance/control-plane ideas (deontic policies, certificate-bound authority, probabilistic verification). A third strong trend is ``reasoning/post-training + evaluation reliability'' (≈40--70): RLVR/GRPO variants, test-time scaling/revision/overthinking control, diffusion language models (multiple DLM/UDLM papers), plus many papers critiquing LLM-as-a-judge, calibration, uncertainty, and mechanistic steering/interpretability (SAEs, activation directions, single-neuron control). Notable emerging clusters include domain-heavy safety/ethics in deployment (legal/medical benchmarks, PII redaction, hiring/cultural bias) and a surprising amount of diffusion-style modeling beyond text (audio/TTS and even reasoning-focused diffusion LMs), suggesting diffusion is becoming a cross-modal alternative to autoregressive generation.}
+
+
+\end{document}
