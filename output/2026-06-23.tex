@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-23} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Are Multilingual Models Actually Improving? Isolating True Cross-Lingual Transfer}} {\scriptsize[\href{https://arxiv.org/abs/2606.21954}{arxiv}]}\\
+{\scriptsize Prasoon Bajpai, Eleftheria Briakou, Colin Cherry, Preethi Jyothi, Vihari Piratla}\\
+
+{\small\textit{Many reported ``multilingual gains'' mostly reflect better source-language accuracy; HAT isolates genuine cross-lingual transfer.}}\\[1pt]
+{\footnotesize Shows standard transfer metrics are confounded by source-language difficulty and introduces Hardness Adjusted Transfer (HAT) to factor that out, revising claims about scaling and small-model transfer. Estimate each item's source-language hardness and normalize target-language performance against it, so transfer is measured as doing unusually well in the target given how hard the same content is in the source; apply across models/sizes/benchmarks. With HAT, small models no longer look inherently bad at transfer; scaling yields smaller true transfer gains than raw curves suggest; nonetheless, model generations still show real transfer progress over time.}
+
+\medskip
+
+{\small\textbf{Beyond 'One Language, One Script': Quantifying Orthographic Bias in Multilingual VLMs with PuMVR}} {\scriptsize[\href{https://arxiv.org/abs/2606.20770}{arxiv}]}\\
+{\scriptsize Prabhjot Singh, Bhushan Pawar, Madhu Reddiboina}\\
+
+{\small\textit{Multilingual VLMs can fail the same language when written in a different script; PuMVR makes this orthographic bias measurable.}}\\[1pt]
+{\footnotesize Introduces PuMVR (Punjabi visual reasoning) with parallel items in Gurmukhi/Shahmukhi/Roman and proposes Script Consistency Rate (SCR) to expose script-specific brittleness hidden by average accuracy. 375 image-reasoning tasks replicated across three scripts; evaluate 10 VLMs with accuracy, Script Gap (between-script deltas), and SCR (requires consistent success across scripts); compare reasoning traces across scripts. Models show Script Gaps up to 16 points and SCR as low as 24.8\%; images raise absolute accuracy but don't remove relative script bias, and reasoning trajectories can diverge purely due to orthography.}
+
+\medskip
+
+{\small\textbf{First-Token Broadcasters: Mechanistic Origins of Language Identity and Distributed Robustness in Transformers}} {\scriptsize[\href{https://arxiv.org/abs/2606.22361}{arxiv}]}\\
+{\scriptsize Arjun Pillai, Christian Hoang, Anjelo Jann Laroza}\\
+
+{\small\textit{Language choice is often controlled by a few attention heads that lock onto the first prompt token and broadcast language identity forward.}}\\[1pt]
+{\footnotesize Defines LIHA to causally locate language-identity control; finds ``first-token broadcaster'' heads with outsized influence and shows structured, layer-wise redundancy; instruction tuning can relocate/localize this circuit. Ablate each attention head and measure language switch rate on 2,700 prompt--language pairs (7 languages); inspect attention patterns for persistent first-token focus; test compensation by re-running ablations and tracking which heads take over; compare base vs instruct models. In GPT-2, a small set of heads (notably L6H1) strongly drives switching and matches the broadcaster pattern; compensation comes predictably from higher layers; in Qwen2.5-1.5B, instruction tuning concentrates control early (layer 0) versus diffuse control in the base model, with similar early localization for non-Latin scripts.}
+
+\medskip
+
+{\small\textbf{Phonemes to the Rescue: Multilingual Tokenization Based on International Phonetic Alphabet}} {\scriptsize[\href{https://arxiv.org/abs/2606.20993}{arxiv}]}\\
+{\scriptsize Milan Mileti\'c, Julie Kallini, Ekaterina Shutova}\\
+
+{\small\textit{IPA-based tokenization reduces script-driven inequities by mapping languages into a shared phonetic symbol space before subword learning.}}\\[1pt]
+{\footnotesize Argues the tokenizer is a key source of multilingual unfairness and shows that phonemizing into IPA before training subword vocabularies improves segmentation quality and cross-script/language transfer. Train matched subword tokenizers on (a) raw multilingual text vs (b) IPA-converted text across 24 languages/14 scripts; compare segmentation quality and generalization to unseen languages/scripts. IPA tokenizers consistently improve tokenization quality---largest on non-Latin scripts---and generalize better to unseen languages and even unseen scripts due to reusable merges over a compact shared inventory.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Adding Robust Code-Switching Capabilities to High Performance Multilingual ASR}} {\scriptsize[\href{https://arxiv.org/abs/2606.21990}{arxiv}]}\\
+{\scriptsize Enes Yavuz Ugan, Alexander Waibel}\\
+
+{\small\textit{You can add strong code-switching ASR without hurting monolingual accuracy via a constrained, parameter-efficient adaptation.}}\\[1pt]
+{\footnotesize Proposes Bayesian factorized adaptation to integrate code-switching behavior into a high-quality multilingual ASR model while avoiding catastrophic interference from standard fine-tuning. Learn a small ``code-switching add-on'' (factorized update) under a Bayesian prior that anchors parameters near the pretrained solution unless code-switched evidence demands change; train with limited (synthetic) code-switched data. Cuts errors on code-switched words by 32.87\% and improves overall WER by 5.31\% while keeping monolingual performance essentially unchanged.}
+
+\medskip
+
+{\small\textbf{Interleaved Speech Language Models Latently Work In Text}} {\scriptsize[\href{https://arxiv.org/abs/2606.22473}{arxiv}]}\\
+{\scriptsize Talia Sternberg, Gallil Maimon, Yossi Adi}\\
+
+{\small\textit{Interleaved speech--text LMs often internally form a latent transcript---briefly ``thinking in text''---while processing speech.}}\\[1pt]
+{\footnotesize Mechanistically shows that, even without explicit ASR training, interleaved SLMs make the correct written word decodable at intermediate layers, suggesting an implicit transcription step used for next-token prediction. Logit-lens probing across layers at speech positions to see when the correct text token becomes high-probability; track subsequent shift to text-like next-word prediction then back to speech-token generation; compare training/initialization variants. For up to 77\% of analyzed data, the correct written word appears among top text-token candidates at some intermediate layer; interleaving data and text-LM initialization strengthen this effect, which correlates with better spoken-knowledge performance.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Factual Retrieval in LLMs Is a Redundant, Distributed and Non-Contiguous Process}} {\scriptsize[\href{https://arxiv.org/abs/2606.21345}{arxiv}]}\\
+{\scriptsize Hail Hochman, Natalie Shapira, Yoav Goldberg}\\
+
+{\small\textit{Factual recall is implemented by redundant, non-contiguous layer subsets, so ``where a fact lives'' is not a single localized block.}}\\[1pt]
+{\footnotesize Introduces ``attribute-computation paths'' and an iterative patching procedure to find minimal layer sets sufficient for entity→attribute transformation, showing multiple alternative routes for the same fact. Activation patching between clean (correct) and corrupted runs; iteratively search/shrink to minimal layer subsets that restore the correct attribute; analyze contiguity and multiplicity of sufficient subsets across many queries. In LLaMA 3.1 8B and Qwen3 8B, paths often skip layers (non-contiguous) and multiple distinct minimal layer subsets can recover the same fact, evidencing true redundancy and explaining why localized editing often fails.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by agentic LLM systems and their failure modes: at least \textasciitilde{}40--60 papers cluster around long-horizon agents (memory/compaction, tool use, routing, harnesses, and benchmarks like PlanBench-XL, EnterpriseClawBench, MacAgentBench, ChainWorld, CLI-Universe), plus a similarly large safety/governance/security cluster (jailbreak detection, prompt injection, memory poisoning, guardrails, privacy, citation hallucinations, legal/medical reliability). A second major theme is efficiency/serving/compression for deployment (KV-cache/quantization/speculative decoding/edge inference/energy costs)---roughly \textasciitilde{}25--40 papers spanning prompt/RAG compression, low-rank/quantization, scheduling, and energy modeling. Two notable ``surprising'' concentrations: (1) a very large audio/speech wave (TTS, codecs, ASR hallucinations, deepfake detection/watermarking, audio-language models)---easily \textasciitilde{}40+ papers; and (2) a strong push toward verifiable evaluation and process-level rewards (PRMs/RLVR, conformal/OOD rejection, deterministic eval replacements for LLM-as-judge), suggesting the community is shifting from raw capability gains to measurement, auditing, and controllable reliability.}
+
+
+\end{document}
