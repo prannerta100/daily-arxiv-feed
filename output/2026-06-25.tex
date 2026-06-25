@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-25} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{AI translation of literary texts is "fine", but readers still prefer human translations}} {\scriptsize[\href{https://arxiv.org/abs/2606.26040}{arxiv}]}\\
+{\scriptsize Yves Ferstler, Adam Podoxin, Ty Brassington, Roman Grundkiewicz, Maite Taboada, Marzena Karpinska}\\
+
+{\small\textit{LLM literary translations often look ``good enough,'' but readers still prefer published human translations---and common automatic/LLM-judge metrics miss that preference gap.}}\\[1pt]
+{\footnotesize Proposes a reader-centered evaluation for literary MT that targets immersion, readability, clarity, and literary effect via both long-form ``immersive reading'' and passage-level ``close reading.'' Releases LAIT: a dataset+interface with preferences plus rich comments and span annotations explaining where MT disrupts experience. 15 novels (French/Polish/Japanese) with two English versions: published human vs agentic LLM MT. 15 avid readers do (i) \textasciitilde{}8K-word continuous excerpt comparisons (overall preference) and (ii) 386 aligned HT--MT chunk pairs (772 comparisons) with span annotations/comments; order is counterbalanced and readers guess which is human to test detectability/bias. Humans are preferred despite MT being rated ``fine'': HT wins 19/30 excerpt comparisons and 522/772 chunk comparisons, mainly on ease/clarity/immersion. Readers can't reliably identify the human version (17/30 correct), yet tend to prefer what they believe is human (expectation effect). Automatic metrics and LLM judges often favor MT and fail to match reader preferences, implying current eval pipelines can be misleading for literary quality.}
+
+\medskip
+
+{\small\textbf{Riazi-8B: An Urdu Large Language Model for Mathematical Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2606.25568}{arxiv}]}\\
+{\scriptsize Azher Ali, Ibtsam Haider, Raja Khurram Shahzad, Seemab Latif, Mehwish Fatima}\\
+
+{\small\textit{An Urdu math LLM improves when you combine Urdu language adaptation with explicit Urdu chain-of-thought fine-tuning.}}\\[1pt]
+{\footnotesize Introduces Riazi-8B, an 8B Urdu LLM targeted at multi-step math reasoning, showing that targeted Urdu adaptation plus reasoning-focused training materially improves Urdu math performance and solution quality vs Urdu instruction-tuned baselines. Two-stage training: (1) continued pretraining on Urdu Wikipedia for better Urdu coverage/fluency; (2) supervised fine-tuning on Urdu chain-of-thought derived from GSM8K to teach step-by-step reasoning in Urdu. Evaluated on MGSM-Urdu against existing Urdu instruction-tuned models. Riazi-8B shows consistent gains on MGSM-Urdu: higher answer accuracy plus better reasoning completeness/coherence and improved Urdu generation quality, supporting the claim that language adaptation + reasoning SFT is an effective recipe for low-resource math reasoning.}
+
+\medskip
+
+{\small\textbf{The Tatoxa System for Text Detoxification in Low-Resource Languages: The Case of Tatar}} {\scriptsize[\href{https://arxiv.org/abs/2606.26015}{arxiv}]}\\
+{\scriptsize Ilseyar Alimova, Bogdan Monogov, Artyom Mazur, Daniil Antonov, Vsevolod Karimov, Vitaliy Egorov, Bulat Khakimov, Alexander Panchenko}\\
+
+{\small\textit{A strong Tatar detoxification system is feasible, and naïve transfer from Russian can underperform badly despite linguistic/cultural proximity.}}\\[1pt]
+{\footnotesize Releases Tatoxa (a Tatar detoxification system) plus a new Tatar detoxification dataset for training/evaluation, and provides clear evidence of negative transfer: Russian (and other) cross-lingual data can be worse than native Tatar training. Treat detoxification as detect+rewrite while preserving meaning. Train/fine-tune with Tatar-specific data and compare against cross-lingual transfer setups (including Russian) and against open-source and commercial LLM baselines under the same evaluation criteria. Tatoxa outperforms both open-source and proprietary LLM baselines on Tatar detoxification metrics. Transfer from Russian/other languages is significantly worse than training on native Tatar data, implying toxicity cues/categories don't reliably map across languages and targeted Tatar annotation can be higher leverage than cross-lingual scaling.}
+
+\medskip
+
+{\small\textbf{SARA: Unlocking Multilingual Knowledge in Mixture-of-Experts via Semantically Anchored Routing Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2606.25821}{arxiv}]}\\
+{\scriptsize Tianyu Dong, Yangyang Liu, Jiang Zhou, Xinwei Wu, Xiaohu Zhao, Hao Wang, Heng Liu, Linlong Xu, Longyue Wang, Weihua Luo, Shaolin Zhu, Deyi Xiong}\\
+
+{\small\textit{Multilingual MoE LLMs can fail because low-resource inputs route to different experts; aligning routing across languages improves low-resource performance.}}\\[1pt]
+{\footnotesize Introduces SARA, which uses semantically matched high-resource ``anchors'' to explicitly align MoE router distributions across languages, enabling low-resource inputs to reuse experts specialized by high-resource training. For paired low-resource input and semantically equivalent high-resource anchor, compute router expert-prob distributions in MoE layers and minimize symmetric Jensen--Shannon divergence between them (routing-level alignment), applied on top of instruction tuning. Tested on MoE models including Qwen3-30B-A3B and Phi-3.5-MoE-instruct across multilingual benchmarks. SARA yields consistent low-resource gains (e.g., +0.8\% to +1.2\% on Global-MMLU) across two MoE LLMs and multiple benchmarks, supporting the diagnosis that routing divergence limits cross-lingual expert sharing and that directly reducing it improves transfer.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Does Translation-Enhanced Speech Encoder Pre-training Affect Speech LLMs?}} {\scriptsize[\href{https://arxiv.org/abs/2606.25444}{arxiv}]}\\
+{\scriptsize Tomoya Mizumoto, Yusuke Fujita}\\
+
+{\small\textit{Pretraining the speech encoder with a translation objective makes Speech LLMs more multilingual by aligning encoder features with the LLM's language-agnostic space.}}\\[1pt]
+{\footnotesize Identifies encoder--LLM representational mismatch as a key bottleneck and argues (with experiments) that translation-enhanced speech-encoder pretraining is a targeted fix: it pushes the encoder toward language-agnostic semantic features rather than language-specific ASR features. Augment speech-encoder pretraining beyond same-language transcription by adding speech-to-translation objectives (speech in one language → text in another). Then plug the encoder into a standard Speech LLM pipeline and evaluate downstream performance, especially cross-lingual/multilingual tasks. Translation-enhanced pretraining consistently improves downstream Speech LLM performance, with strongest benefits in multilingual/cross-lingual settings, supporting the claim that translation acts as an alignment signal that makes encoder representations more compatible with a shared semantic space.}
+
+\medskip
+
+{\small\textbf{IndicContextEval: A Benchmark for Evaluating Context Utilisation in Audio Large Language Models Across 8 Indic Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.19157}{arxiv}]}\\
+{\scriptsize Sakshi Joshi, Dhruv Subhash Rathi, Sanskar Singh, Eldho Ittan George, R J Hari, Kaushal Bhogale, Mitesh M. Khapra}\\
+
+{\small\textit{IndicContextEval measures whether AudioLLMs actually use provided context (domain/entity hints) across 8 Indic languages, not just baseline transcription skill.}}\\[1pt]
+{\footnotesize Creates a benchmark and protocol to isolate context utilisation: the same audio is transcribed under progressively richer prompts plus adversarial context, distinguishing true prompt grounding from reliance on pretrained priors. 56-hour dataset (555 speakers, 8 Indic languages, 23 domains) with a 7-level prompting ladder: metadata → domain descriptions → entity lists (English and native script), plus adversarial entity injections. Evaluate models by how transcripts improve with correct context and degrade under adversarial context. Across five AudioLLMs, context sensitivity varies widely: some improve substantially with richer prompts, others barely change. Adversarial prompts reveal whether models truly condition on entity lists (sensitive models get measurably misled). Conclusion: standard ASR metrics can hide lack of controllability; explicit context-grounding eval is necessary.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Natural Ungrokking: Asymmetric Control of Which Rules Survive Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2606.26050}{arxiv}]}\\
+{\scriptsize Juliana Li, Diya Sreedhar}\\
+
+{\small\textit{During standard pretraining, models can learn a true rule and later lose it (``natural ungrokking''); a simple corpus statistic predicts which rules survive, and once lost they're hard to restore.}}\\[1pt]
+{\footnotesize Characterizes ``natural ungrokking'' as competition between a general rule and a surface heuristic, showing survival is predicted by a simple support-frequency statistic (how often the rule beats the competitor in the stream). Demonstrates asymmetric control: it's easy to kill a rule via data edits, but hard to resurrect after collapse. Track interpretable rules with probe sets throughout pretraining; monitor log-prob margins between rule-consistent vs competitor-consistent continuations. Relate outcomes to corpus support frequency. Perform controlled data edits: flip supportive instances to counter-evidence (favor competitor) or inject extra supportive instances (favor rule). Validate patterns in public checkpointed runs (e.g., Pythia) and preregister predictions/thresholds. Rules can peak at strong generalization (e.g., \textasciitilde{}0.94 probe accuracy) then drop to near chance with no warning in loss and with evidence still present. Collapse coincides with the rule's log-prob advantage flipping sign within \textasciitilde{}100 steps. Support frequency predicts survival; changing data/parameter ratio affects collapse depth more than occurrence. Data edits reliably destroy rules, but adding even massive support often fails to restore them post-collapse (hysteresis/path dependence).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Across today's list, the dominant trend is agentic LLM systems and their reliability/safety: at least \textasciitilde{}25--35 papers touch agents, tool use, harnesses/memory, RL post-training, or guardrails (e.g., tool-use collapse, unreliable tools, memory consolidation/contagion, GUI/phone agents, safety kernels, red-teaming/jailbreak judging). A second large cluster is efficiency and scaling for LLMs---roughly \textasciitilde{}15--20 papers on speculative decoding/verification, KV/memory compression, sparsity/quantization, long-context architectures, and test-time scaling (e.g., Dustin/JetSpec/SplitZip, BitNet embeddings, ATMA, EPTS). There's also a noticeable multimodal/audio surge (\textasciitilde{}15--25) spanning real-time voice agents, TTS expressiveness/accent control, audio-language benchmarks, and speech robustness/low-resource dialects, alongside a steady stream of RAG-focused work (\textasciitilde{}8--12) emphasizing retrieval optimization plus security/privacy/poisoning defenses. Some surprising emerging directions are ``LLM-for-science/workflows'' and meta-research (peer review, research harnesses, measuring paper difficulty, AI research agents) appearing as a coherent mini-cluster (\textasciitilde{}8--12), suggesting growing attention to end-to-end scientific automation and governance rather than just model capability.}
+
+
+\end{document}
