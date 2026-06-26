@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-26} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Multilingual Reasoning Cascades Need More Context}} {\scriptsize[\href{https://arxiv.org/abs/2606.27306}{arxiv}]}\\
+{\scriptsize Arnav Mazumder, Dengjia Zhang, Shuyue Stella Li, Yulia Tsvetkov, Niyati Bafna}\\
+
+{\small\textit{Multilingual translate→reason→translate pipelines lose key meaning by dropping the original question; keeping it for the final translation recovers much of the quality.}}\\[1pt]
+{\footnotesize Identifies an information-flow failure in reasoning cascades: the back-translation step lacks original-language cues (ambiguity, cultural/formality signals). Proposes a training-free fix: preserve and pass the original question into the final translation module. Context-aware cascade: translate Q→EN, reason in EN, then translate answer back while conditioning on a context bundle (original Q + EN Q and/or EN reasoning). Ablations show most gains come from including the original-language question. On 9 multilingual benchmarks, 3 backbones, and 285 languages, conditioning the final translation on the original question consistently improves open-ended generation vs the standard cascade, showing many errors are avoidable context loss---not inherent limits of reasoning-in-English.}
+
+\medskip
+
+{\small\textbf{Mapping Political-Elite Networks in Europe with a Multilingual Joint Entity-Relation Extraction Pipeline}} {\scriptsize[\href{https://arxiv.org/abs/2606.27347}{arxiv}]}\\
+{\scriptsize Kirill Solovev, Jana Lasser}\\
+
+{\small\textit{An open-weight pipeline turns multilingual news into a time-stamped, signed political knowledge graph with Wikidata-grounded entities, enabling scalable elite-network analysis beyond co-mentions.}}\\[1pt]
+{\footnotesize Delivers an end-to-end extraction system tailored to political networks: entity linking to stable Wikidata IDs plus directed, signed (support/conflict) relations with time, producing mergeable cross-lingual graphs rather than noisy co-occurrence networks. Span NER + a 3-stage Wikidata linking cascade for cross-lingual entity resolution; ontology-constrained relation extraction via a mixture-of-experts model with guided decoding to enforce allowed relation types and signed, directed edges backed by text evidence. Against a 3,491-relation gold set: 68.2\% strict and 93.7\% lenient correctness. Case studies show historically plausible graphs: Austria's party lifecycle (splits, personnel moves, later convictions) and Poland's separation of patronage vs polarized conflict, yielding a structurally balanced two-bloc signed network (PO vs PiS).}
+
+\medskip
+
+{\small\textbf{Soft Token Alignment for Cross-Lingual Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2606.26466}{arxiv}]}\\
+{\scriptsize Jiayi He, Jungsoo Park, Wei Xu, Alan Ritter}\\
+
+{\small\textit{Cross-lingual reasoning diverges partly due to discrete token choices; aligning continuous ``soft token'' representations makes reasoning more consistent, especially in low-resource languages.}}\\[1pt]
+{\footnotesize Proposes SOLAR: an auxiliary SFT objective that aligns language pairs at the level of soft, vocabulary-mixture token representations, reducing language-specific generation quirks that push models onto different reasoning trajectories. During SFT with English as pivot, compute per-position soft tokens (probability-weighted mixtures of vocabulary embeddings from next-token distributions) and add a position-wise alignment loss between English and non-English soft tokens; analyze representation clustering by language. On 4 multilingual reasoning benchmarks, SOLAR improves accuracy up to +17.7 over the base model and up to +3.8 over standard SFT, with largest gains in low-resource languages; final-layer states become less separable by language, consistent with more language-agnostic reasoning.}
+
+\medskip
+
+{\small\textbf{MinGram: A Minimalist Unigram Tokenizer with High Compression and Competitive Morphological Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2606.27019}{arxiv}]}\\
+{\scriptsize Sander Land}\\
+
+{\small\textit{MinGram simplifies Unigram tokenizer training with a minimum-token objective, achieving better compression than BPE/standard Unigram while retaining strong morphological alignment.}}\\[1pt]
+{\footnotesize Introduces a minimalist Unigram-style training recipe that avoids heavy Unigram machinery by prioritizing compression (fewest tokens) and using Unigram probabilities mainly for tie-breaking, while keeping an editable token list. Seed vocab from BPE; Hard-EM-like training that repeatedly selects the minimum-token segmentation (probabilistic scores break ties), collects usage stats, then performs a single flat pruning step instead of iterative prune/retrain with forward--backward lattices. Across 6 languages, MinGram compresses better than BPE and standard Unigram; a more compression-focused variant matches top token-count compressors on compression while preserving substantially better morphological alignment. In LM training, Unigram-family tokenizers beat BPE in bits-per-byte, with MinGram among the best.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{RedVox: Safety and Fairness Gaps in Speech Models Across Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.26968}{arxiv}]}\\
+{\scriptsize Beatrice Savoldi, Sara Papi, Wafa Aissa, Matteo Negri, Luisa Bentivogli}\\
+
+{\small\textit{Speech-capable models that seem safer in English text can become less safe and less fair with real audio and non-English languages; RedVox benchmarks this gap.}}\\[1pt]
+{\footnotesize Introduces RedVox, a multilingual, voice-based safety+fairness benchmark using real human speech and non-adversarial prompts, highlighting that language and audio modality materially change failure modes and are underreported in prior evaluations. Survey of speech-model reporting practices, then evaluation of 8 speech-capable models on RedVox across English/French/Italian/Spanish/German, comparing audio vs non-audio versions of the same intents to isolate modality and language effects. Models exhibit safety and fairness failures under ordinary prompts; issues worsen outside English and are amplified by spoken input, indicating uneven cross-lingual transfer of guardrails and modality-specific degradation. The paper also flags privacy/participant-risk constraints for realistic speech safety data collection.}
+
+\medskip
+
+{\small\textbf{SamaVaani: Auditing and Debiasing Multilingual Clinical ASR for Indian Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.26901}{arxiv}]}\\
+{\scriptsize Subham Kumar, Prakrithi Shivaprakash, Abhishek Manoharan, Astut Kurariya, Diptadhi Mukherjee, Prabhat Chand, Pratima Murthy, Koustav Rudra, Lekhansh Shukla, Animesh Mukherjee}\\
+
+{\small\textit{Clinical ASR in India shows large language and demographic disparities; SamaVaani debiasing improves both transcription quality and equity on psychiatric interview speech.}}\\[1pt]
+{\footnotesize Provides a real-world audit of multilingual clinical ASR (Kannada, Hindi, Indian English) across 8 systems, revealing uneven performance and role/gender-linked error gaps; proposes SamaVaani as a unified debiasing approach to improve accuracy and reduce disparities. Benchmark eight ASR systems on psychiatric interview recordings; select strong open-source models (Gemma3n, OmniLingual) for fine-tuning with multiple methods; analyze errors by language, speaker role, and gender; apply fairness-aware fine-tuning via SamaVaani. ASR quality varies sharply by model and language (some strong on Indian English but weak on regional speech). Fine-tuning exposes systematic role/gender gaps, and fairness-aware tuning mitigates them; SamaVaani is reported to jointly raise overall transcription performance and improve fairness in this clinical setting.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Localizing RL-Induced Tool Use to a Single Crosscoder Feature}} {\scriptsize[\href{https://arxiv.org/abs/2606.26474}{arxiv}]}\\
+{\scriptsize Andrii Shportko, Shubham Bhokare, Ahmed Zeyad A Alzahrani, Bowen Cheng, Gustavo Mercier, Jessica Hullman}\\
+
+{\small\textit{Dedicated Feature Crosscoders isolate a compact set of RL-induced internal features for tool use, enabling runtime steering and partial transfer of tool-calling without retraining.}}\\[1pt]
+{\footnotesize Presents DFC to partition representations into shared vs RL-specific components between a base model and its RL-tuned version, yielding a small, steerable feature set that mediates structured tool-call capability. Train crosscoders between Qwen2.5-3B and its RL-tuned tool-using variant; use encode--decode reconstruction to isolate RL-specific signals, then test whether injecting reconstructed representations improves tool calls and transfers behavior to the frozen base model. Over 48 hyperparameter settings, reconstruction boosts the RL model's tool correctness by +31.1 ± 9.7 points on average; applying the reconstructed signal to the frozen base model yields +6.8 ± 5.0 points, supporting that RL-added tool use concentrates into a minimal, controllable feature subset.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM-centric work, especially evaluation/benchmarks and reliability: at least \textasciitilde{}20 papers on new benchmarks/metrics and evaluation pitfalls (e.g., Know2Guess, ConflictScore, ProvenAI, DualEval, CORE-Bench, Capability Frontier, MKG-RAG-Bench, HarmVideoBench, MedBench v5, NuclearQAv2, OpenFinGym, CyberChainBench). A second major cluster is agentic systems and their failure modes/governance---roughly \textasciitilde{}20 papers on long-horizon memory/RAG/time (Context Recycling, Temporal Validity, ConvMemory v3, PersistentKV, ProfileFoundry, EvoEmbedding, Experience Compression Spectrum) plus prompt-injection/poisoning/red-teaming and control planes (Adaptive defenses, MIRROR, ShareLock, Eyes-on-Me, resume screening injection, deterministic control plane). Efficiency and systems for serving/training are also heavily represented (\textasciitilde{}15 papers) with KV-cache compression/eviction, speculative decoding, quantization/sparsity, and GPU kernel optimization (CAT-Q, SharQ, Information-Aware KV compression, Epiphany-aware eviction, PersistentKV, JetSpec, KernelPro/EGG). A notable emerging direction is mechanistic interpretability via sparse autoencoders and feature-level control (Discovering Millions of Interpretable Features, Beyond the Hard Budget SAEs, Localizing RL-induced tool use to a single feature, sycophancy/refusal/persona directions), alongside a sizable multimodal/audio wave (TTS/ASR fairness and tokenization, audio tokenizers/codecs, singing evaluation) that suggests speech+multimodal safety/fairness is becoming a parallel hotspot.}
+
+
+\end{document}
