@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-27} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Soft Token Alignment for Cross-Lingual Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2606.26466}{arxiv}]}\\
+{\scriptsize Jiayi He, Jungsoo Park, Wei Xu, Alan Ritter}\\
+
+{\small\textit{Aligning continuous ``about-to-generate'' token states (not discrete words) makes multilingual LLM reasoning more consistent across languages.}}\\[1pt]
+{\footnotesize Introduces SOLAR, an SFT add-on targeting cross-lingual reasoning divergence: semantically equivalent prompts in different languages trigger different internal trajectories because the model commits to language-specific tokens early. SOLAR aligns pre-token soft representations across languages (English pivot) without dictionaries or exact lexical matches. At each generation position, form a ``soft token'' by taking the output distribution's probability-weighted average of vocabulary embeddings. During SFT, add an auxiliary loss that pulls non-English soft tokens toward the aligned English soft tokens position-by-position in embedding space, encouraging similar meaning trajectories despite different surface forms. Across four multilingual reasoning benchmarks, SOLAR yields up to +17.7 accuracy over the base model and up to +3.8 over standard SFT, with largest gains in low-resource languages. Representation analyses show increased cross-lingual similarity in late layers and weaker language clustering, consistent with more language-agnostic generation-time states.}
+
+\medskip
+
+{\small\textbf{Mapping Political-Elite Networks in Europe with a Multilingual Joint Entity-Relation Extraction Pipeline}} {\scriptsize[\href{https://arxiv.org/abs/2606.27347}{arxiv}]}\\
+{\scriptsize Kirill Solovev, Jana Lasser}\\
+
+{\small\textit{An open, multilingual IE pipeline can turn news into time-stamped political elite networks with resolved entities and signed, directed relations.}}\\[1pt]
+{\footnotesize Builds a fully open-weight, end-to-end pipeline for comparative politics: multilingual entity extraction + cross-lingual entity linking to Wikidata + ontology-constrained relation extraction with direction/polarity and temporal grounding---going beyond co-mentions to analyzable political ties. Span-based NER finds mentions; a 3-stage entity-linking cascade maps mentions to Wikidata QIDs to unify variants across languages. Relation extraction uses a high-throughput mixture-of-experts model constrained by a domain ontology, with guided decoding to output only valid directed/signed relations; edges are grounded to text and aggregated over time. On a 3,491-relation gold standard, relation correctness ranges from 68.2\% (strict) to 93.7\% (lenient). Case studies show substantive validity: Austria graph reconstructs party lifecycle (splits, personnel flows, later legal outcomes); Poland networks reveal patronage around state enterprises and a signed conflict structure matching polarized two-party dynamics.}
+
+\medskip
+
+{\small\textbf{The African Language Tax: Quantifying the Cost, Latency, and Context Penalty of Tokenizing African Languages in Frontier LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2606.24460}{arxiv}]}\\
+{\scriptsize Olaoye Anthony Somide}\\
+
+{\small\textit{Tokenizers impose an ``African language tax'': many African languages cost more tokens, run slower, and fit less context than English in frontier LLMs.}}\\[1pt]
+{\footnotesize Quantifies tokenization ``fertility'' penalties for 20 African languages as a deployment issue (cost/latency/context), not a preprocessing quirk. Measures premiums across datasets and 11 tokenizers, identifies hardest-hit scripts, and releases an open tool + leaderboard to track and pressure improvements. Use parallel corpora so content is controlled across languages (FLORES-200+, SIB-200; plus Nigerian Pidgin via MAFAND-MT). Compute token premium vs English per tokenizer, then translate premiums into cost, latency, and effective context-window loss. Compare 11 tokenizers and release afri-fertility code, data, and leaderboard. All tested African languages are more token-expensive than English across all 11 tokenizers: median premium \textasciitilde{}1.88× on GPT-5 o200k\_base, with extremes near 9× for N'Ko. Biggest penalties occur for Ethiopic (Ge'ez) and N'Ko scripts. Premiums are highly stable across corpora (Pearson r ≈ 0.9998). In deployment terms, some languages get \textasciitilde{}11\% of English's usable context under the same token limit; Gemma 4 reduces but does not eliminate the gap.}
+
+\medskip
+
+{\small\textbf{Multilingual Reasoning Cascades Need More Context}} {\scriptsize[\href{https://arxiv.org/abs/2606.27306}{arxiv}]}\\
+{\scriptsize Arnav Mazumder, Dengjia Zhang, Shuyue Stella Li, Yulia Tsvetkov, Niyati Bafna}\\
+
+{\small\textit{Translate→reason→translate pipelines improve if the final translator can still see the original-language question; this training-free change boosts multilingual results broadly.}}\\[1pt]
+{\footnotesize Identifies a systems-level failure in multilingual reasoning cascades: early translation discards information needed later (ambiguity, entities, register). Proposes a simple, training-free fix---feed the original question (and other context) into the final translate-back step---and validates it at large scale. Modify only the final stage of a standard cascade: when translating the English answer back, provide extra context such as the original-language question, the English question translation, and optionally the English reasoning trace. Run ablations to isolate which context matters; the original-language question is the main driver. Across nine benchmarks, three backbones, and 285 languages, adding context yields consistent gains, especially on open-ended generation. Keeping the original-language question available to the final translation step mitigates error propagation and improves answer faithfulness/style without retraining or new data.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{SamaVaani: Auditing and Debiasing Multilingual Clinical ASR for Indian Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.26901}{arxiv}]}\\
+{\scriptsize Subham Kumar, Prakrithi Shivaprakash, Abhishek Manoharan, Astut Kurariya, Diptadhi Mukherjee, Prabhat Chand, Pratima Murthy, Koustav Rudra, Lekhansh Shukla, Animesh Mukherjee}\\
+
+{\small\textit{Clinical ASR that looks strong overall can be unsafe in India: performance and errors vary sharply by language and demographics, and fairness-aware tuning can improve both.}}\\[1pt]
+{\footnotesize Audits modern ASR on real psychiatric interviews in Kannada, Hindi, and Indian English, revealing large language/model gaps plus systematic disparities by gender and speaker role. Proposes SamaVaani, a practical fine-tuning approach aimed at improving accuracy while reducing subgroup gaps rather than trading them off. Evaluate eight ASR systems on in-the-wild clinical audio; slice results by language, gender, and role (clinician vs patient). Select strong open models (Gemma3n, OmniLingual) and compare fine-tuning strategies, explicitly tracking both average error and disparity changes. SamaVaani is the fairness-aware adaptation procedure that optimizes to shrink subgroup underperformance while improving overall transcription. ASR quality drops sharply from Indian English to regional languages (Kannada/Hindi) for some systems, and errors correlate with gender and speaker role---creating documentation fairness/safety risks. Fairness-aware fine-tuning mitigates these gaps while improving overall performance, whereas naive adaptation can leave disparities intact.}
+
+\medskip
+
+{\small\textbf{STEB: A Speech-to-Speech Translation Expressiveness Benchmark for Evaluating Beyond Translation Fidelity}} {\scriptsize[\href{https://arxiv.org/abs/2606.25529}{arxiv}]}\\
+{\scriptsize Sitong Cheng, Weizhen Bian, Songjun Cao, Jin Li, Bei Liu, Chunyang Jiang, Yike Zhang, Weihao Wu, Yiming Li, Chi-Min Chan, Long Ma, Wei Xue}\\
+
+{\small\textit{STEB enables scalable evaluation of speech-to-speech translation expressiveness (emotion/style/nonverbals), not just meaning, without expressive reference recordings.}}\\[1pt]
+{\footnotesize Introduces STEB (Chinese--English) to measure expressive transfer alongside fidelity and speaker similarity, and proposes a reference-free scoring approach that converts audio into structured expressive attributes and compares them in a way that matches human ratings. Benchmark scores standard S2ST metrics plus three expressiveness axes: emotion, scenario style, and nonverbal vocalizations (laughter/sighs). For expressiveness, use a caption-then-summarize pipeline: generate structured attribute captions from source and hypothesis audio, then have an LLM judge compare attribute sets. Validate by correlating automatic scores with human listener judgments. Across six S2ST systems, semantic fidelity can be strong while expressiveness lags: best emotion preservation is \textasciitilde{}3.82/5 and nonverbal preservation \textasciitilde{}2.31/5, indicating frequent flattening/dropping of paralinguistic cues. The reference-free LLM-based expressiveness scores correlate significantly with human ratings, making the benchmark practical at scale.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{LMs as Task-Specific Knowledge Bases: An Interpretability Analysis}} {\scriptsize[\href{https://arxiv.org/abs/2606.27237}{arxiv}]}\\
+{\scriptsize Amit Elhelo, Amir Globerson, Mor Geva}\\
+
+{\small\textit{LM ``knowledge'' is not a single shared database: the same fact can be stored/accessed via different task-specific parameter pathways.}}\\[1pt]
+{\footnotesize Challenges the ``LMs as knowledge bases'' analogy by showing that asking for the same fact via different tasks does not reliably yield consistent access, and ties this inconsistency to task-dependent parameter usage---so ``what is known'' is entangled with ``how you query.'' (1) Behavioral training-time tests: check whether learning a fact in one task transfers/emerges in other tasks; often it doesn't. (2) Parameter localization: identify which parameters support a fact under different tasks and compare overlap. Also analyzes chain-of-thought prompting as potentially activating different task-specific parameter subsets. Facts learned in one task frequently fail to appear in other tasks, contradicting a unified source-of-truth view. Localization suggests different tasks rely on distinct parameter subsets for the same fact. Chain-of-thought gains are partly explained by engaging additional task-specific parameters beyond those tied to the evaluation task.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{How Reliable Is Your Jailbreak Judge? Calibration and Adversarial Robustness of Automated ASR Scoring}} {\scriptsize[\href{https://arxiv.org/abs/2606.25487}{arxiv}]}\\
+{\scriptsize Yang Gao}\\
+
+{\small\textit{Jailbreak ASR ``judges'' are often miscalibrated and manipulable, so ASR numbers can be unreliable without validation and robustness checks.}}\\[1pt]
+{\footnotesize Provides an apples-to-apples evaluation of common automated ASR judges (safety classifiers vs. LLM-as-judge) against human labels, then adversarially probes them. Shows complementary failure modes that can swing reported ASR, and offers reporting recommendations to prevent misleading claims. Use 596 HarmBench validation completions with human majority labels as ground truth. Evaluate multiple judges and report precision/recall (not just ASR). Test robustness with benign ``wrapper'' transformations that preserve harmful content (e.g., prepend a refusal). Run a white-box GCG-style attack on the classifier to flip confident harmful predictions; audit flips with annotators. Classifier judges tend to over-flag (high recall, lower precision); LLM-judges keep precision but have unstable/low recall, yielding widely different ASR on the same outputs. LLM-judges are brittle to benign wrappers---especially a prefixed refusal---despite unchanged harmful content. Classifiers resist wrappers but are highly vulnerable to white-box GCG flips, which humans confirm remain harmful.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by foundation-model engineering and evaluation, with a particularly large audio/speech surge: well over 150 papers on TTS/ASR/audio-language models (streaming/full‑duplex voice agents, neural audio codecs, speech enhancement, deepfake detection, watermarking, and audio benchmarks). A second major cluster centers on LLM agents and their infrastructure---roughly 60--90 papers on tool use/RL for agents, memory (temporal validity, stale facts, long-running consolidation), RAG/GraphRAG, prompt injection/jailbreaks, and agent evaluation harnesses/benchmarks (e.g., workplace docs, coding, finance). Efficiency and scaling is another strong theme (≈30--50 papers) spanning KV-cache compression/eviction, quantization/pruning, speculative decoding, diffusion language models/non-autoregressive generation, and optimizer work (Muon variants), often tied to long-context reasoning. Notable emerging directions include ``time-aware'' memory/RAG to prevent stale-fact errors, systematic auditing of LLM-as-judge reliability/calibration, and a visible push toward real-time interactive multimodal systems (voice-first agents and streaming generation) rather than offline chat-style models.}
+
+
+\end{document}
