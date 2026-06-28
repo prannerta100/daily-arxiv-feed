@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-28} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{SARA: Unlocking Multilingual Knowledge in Mixture-of-Experts via Semantically Anchored Routing Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2606.25821}{arxiv}]}\\
+{\scriptsize Tianyu Dong, Yangyang Liu, Jiang Zhou, Xinwei Wu, Xiaohu Zhao, Hao Wang, Heng Liu, Linlong Xu, Longyue Wang, Weihua Luo, Shaolin Zhu, Deyi Xiong}\\
+
+{\small\textit{Multilingual MoE models under-serve low-resource languages partly because they route them to different experts; aligning routing to high-resource ``anchors'' unlocks cross-lingual expert sharing.}}\\[1pt]
+{\footnotesize Identifies routing mismatch as a mechanistic bottleneck: semantically equivalent inputs in different languages hit different experts, so low-resource inputs miss experts that learned the skill. Proposes SARA, which transfers *routing behavior* across languages to force shared expert utilization. Create semantically matched cross-lingual pairs/groups with a high-resource anchor. During fine-tuning, add a symmetric Jensen--Shannon divergence loss between the anchor's and low-resource router distributions at each MoE layer, encouraging ``same meaning → same experts'' without hard routing constraints. On two MoE LLMs (incl. Qwen3-30B-A3B, Phi-3.5-MoE-instruct), SARA yields consistent low-resource gains across benchmarks (e.g., +0.8\% to +1.2\% on Global-MMLU vs standard instruction tuning) and reduces measured routing divergence, supporting the diagnosis that misrouting blocks multilingual transfer in sparse architectures.}
+
+\medskip
+
+{\small\textbf{Soft Token Alignment for Cross-Lingual Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2606.26466}{arxiv}]}\\
+{\scriptsize Jiayi He, Jungsoo Park, Wei Xu, Alan Ritter}\\
+
+{\small\textit{Aligning continuous ``soft-token'' representations (not discrete tokens) to English improves cross-lingual reasoning consistency and accuracy, especially in low-resource languages.}}\\[1pt]
+{\footnotesize Introduces SOLAR: a supervised objective to reduce cross-lingual drift by aligning internal soft-token representations across languages using English as a pivot, avoiding brittle token-level matching while preserving shared semantics during generation. During SFT, compute per-position soft tokens as probability-weighted mixtures over vocabulary embeddings, then add an auxiliary alignment loss that pulls non-English soft-token representations toward the corresponding English representations in a shared space (representation alignment rather than forcing identical wording/reasoning text). Across four multilingual reasoning benchmarks, SOLAR improves accuracy by up to +17.7 points over the base model and up to +3.8 over standard SFT, with largest gains in low-resource languages. It also increases cross-lingual similarity in final-layer representations and reduces language separability, consistent with the intended mechanism.}
+
+\medskip
+
+{\small\textbf{Multilingual Reasoning Cascades Need More Context}} {\scriptsize[\href{https://arxiv.org/abs/2606.27306}{arxiv}]}\\
+{\scriptsize Arnav Mazumder, Dengjia Zhang, Shuyue Stella Li, Yulia Tsvetkov, Niyati Bafna}\\
+
+{\small\textit{Translate→reason-in-English→translate-back cascades improve if you keep the original-language question in context until the final step---no training required.}}\\[1pt]
+{\footnotesize Diagnoses an information-flow bug: discarding the source-language question early loses disambiguation, cultural cues, and register needed for a good final answer. Shows quality can be recovered by changing what the final translation stage conditions on, not by changing models. Modify only stage (3): the final translator receives extra context---original question, its English translation, and the English reasoning trace/intermediate output---alongside the English answer to be translated, enabling faithful, audience-appropriate rendering. Prompting-only, model-agnostic. Across nine multilingual benchmarks, three backbones, and hundreds of languages, the context-aware cascade yields strong gains on open-ended generation. Most benefit comes specifically from retaining the original-language question (more than adding the English question or reasoning trace), supporting the claim that cascades fail partly by deleting pragmatic/linguistic signals.}
+
+\medskip
+
+{\small\textbf{The African Language Tax: Quantifying the Cost, Latency, and Context Penalty of Tokenizing African Languages in Frontier LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2606.24460}{arxiv}]}\\
+{\scriptsize Olaoye Anthony Somide}\\
+
+{\small\textit{Tokenization alone can impose a large ``African language tax'': higher cost/latency and a much smaller effective context window than English for the same content.}}\\[1pt]
+{\footnotesize Quantifies tokenizer-driven inequity for 20 African languages using parallel corpora, translating token inflation into deployment penalties (billing, latency, effective context). Releases afri-fertility tooling, a leaderboard, and mitigation guidance to measure and compare tokenizers. Use parallel corpora to control for content: run the same sentences across 20 African languages (multiple families/scripts incl. Latin, Ethiopic/Ge'ez, N'Ko) through 11 frontier/open tokenizers; compute tokenization premium vs English and map it to cost/latency/context penalties. Validate stability across FLORES-200+ and SIB-200 (near-identical premiums). All tested African languages cost more tokens than English under every tested tokenizer, often dramatically. On GPT-5's o200k\_base, median premium ≈1.88×; worst cases reach ≈8.92× (N'Ko) and \textasciitilde{}7--9× for Ethiopic-script languages (e.g., Amharic \textasciitilde{}7.4×), implying up to \textasciitilde{}9× cost/latency and \textasciitilde{}11\% effective context vs English. Premiums are highly corpus-invariant (Pearson r≈0.9998), indicating a structural tokenizer issue; even the best identified tokenizer (Gemma 4) reduces but doesn't eliminate the penalty.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{RedVox: Safety and Fairness Gaps in Speech Models Across Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.26968}{arxiv}]}\\
+{\scriptsize Beatrice Savoldi, Sara Papi, Wafa Aissa, Matteo Negri, Luisa Bentivogli}\\
+
+{\small\textit{Speech interfaces expose multilingual safety/fairness failures that English-text evaluations miss, and risks often worsen in non-English spoken audio.}}\\[1pt]
+{\footnotesize Shows multilingual safety reporting is rare (only \textasciitilde{}8\% of SOTA speech model releases report multilingual analysis) and introduces RedVox, a real-voice, multilingual benchmark for unsafe and stereotype-laden requests across five languages to probe these gaps under realistic spoken conditions. Collect natural spoken audio from real speakers (not just synthetic/text), covering unsafe and unfair prompts in English, French, Italian, Spanish, and German. Evaluate eight speech-capable models on these inputs; also survey voice contributors to document privacy/personal burdens of collecting realistic safety data. Models exhibit unsafe/unfair behavior even without adversarial prompting; vulnerabilities are generally worse outside English and are amplified when delivered as spoken audio, implying speech deployment can widen safety/fairness gaps. Contributor feedback highlights distinct privacy/consent challenges in building real-voice safety benchmarks.}
+
+\medskip
+
+{\small\textbf{SamaVaani: Auditing and Debiasing Multilingual Clinical ASR for Indian Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.26901}{arxiv}]}\\
+{\scriptsize Subham Kumar, Prakrithi Shivaprakash, Abhishek Manoharan, Astut Kurariya, Diptadhi Mukherjee, Prabhat Chand, Pratima Murthy, Koustav Rudra, Lekhansh Shukla, Animesh Mukherjee}\\
+
+{\small\textit{Clinical ASR in India shows large accuracy and equity swings by language, speaker role, and gender; a fairness-aware fine-tuning recipe can improve both WER and disparities.}}\\[1pt]
+{\footnotesize Audits multilingual clinical ASR on real Indian psychiatric interviews and surfaces subgroup harms (clinician vs patient; gender) that aggregate metrics hide. Proposes SamaVaani, a unified debiasing fine-tuning approach aimed at raising overall transcription quality while shrinking demographic gaps. Benchmark eight ASR systems on the same Kannada/Hindi/Indian-English clinical dataset; slice results by language, role, and gender. Fine-tune top open models (highlighted: Gemma3n, OmniLingual) with a debiasing objective that targets consistently worse-served groups, tracking both overall WER and subgroup gaps. Strong systems can look good on Indian English yet degrade sharply on regional languages (e.g., Kannada), with systematic error disparities by role and gender---high risk for clinical documentation. SamaVaani-style fairness-aware fine-tuning improves overall ASR while reducing these gaps, showing fairness need not trade off against accuracy when optimized and evaluated on the right slices.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{When Does Combining Language Models Help? A Co-Failure Ceiling on Routing, Voting, and Mixture-of-Agents Across 67 Frontier Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.27288}{arxiv}]}\\
+{\scriptsize Josef Chen}\\
+
+{\small\textit{You can upper-bound any selection-based multi-LLM scheme (routing/voting/cascades/MoA) by measuring how often all candidate models fail on the same queries.}}\\[1pt]
+{\footnotesize Defines the ``co-failure ceiling'': if the system must output one member model's answer, it cannot be correct when every model is wrong, so best-case accuracy ≤ 1−β where β is the empirical all-wrong rate. Shows pairwise error correlation/diversity proxies don't determine this all-wrong tail and can wildly overstate ensemble gains. Compute β on a benchmark by scoring each model correct/incorrect and counting queries where all are incorrect; wrap β with a Clopper--Pearson CI to ``certify'' the maximum achievable improvement before training a router. Demonstrates non-identifiability: same per-model accuracies and average pairwise correlation can imply very different β. Tests latent-factor/copula dependence models (e.g., tetrachoric single-factor, Gaussian copula) and finds they still underpredict the tail that sets the ceiling. Across 67 frontier models (21 providers), observed co-failure is much larger than dependence models predict, so ensemble headroom is smaller than expected. Example: open-ended math β≈0.052 vs 67-model Gaussian-copula prediction ≈0.023 (\textasciitilde{}2.5× underprediction; 90\% CI \textasciitilde{}1.7--3.4×; effective dimension k\textasciitilde{}17); code β≈0.079. Re-asking GPQA-Diamond as free-response (vs MCQ) ``reopens the tail'' (β≈0.127), with multi-judge agreement suggesting format drives co-failure. Practical upshot: gains require strong query-level routing signal; adding more models/self-ensembling helps only if failures are on different questions.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by foundation-model engineering and evaluation, with a heavy skew toward speech/audio: at least \textasciitilde{}120--180 papers are on ASR/TTS/audio-language models, audio generation/editing, diarization, and deepfake/watermarking (e.g., multiple new TTS systems, streaming/full‑duplex voice agents, codec/tokenization, and many anti-spoofing/watermark robustness benchmarks). A second major cluster is LLM agents + RAG + memory + tool use (at least \textasciitilde{}50--80 papers), including long-horizon agent RL/distillation, prompt-injection defenses, temporal validity/stale-fact mitigation, provenance/faithfulness/conflicting-evidence metrics, and ``agent harness/control plane'' infrastructure. Safety and evaluation methodology is another clear throughline (at least \textasciitilde{}30--50 papers) spanning jailbreak measurement/judges, moderation/guardrails, uncertainty calibration, and benchmark design (including multimodal order-sensitivity/robustness and ``benchmarks miss capability'' critiques), while a smaller but noticeable emerging direction is diffusion/non-autoregressive language modeling and inference acceleration (roughly \textasciitilde{}10--20 papers) alongside KV-cache compression/serving optimizations.}
+
+
+\end{document}
