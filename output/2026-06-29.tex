@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-29} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Copy First, Translate Later: Interpreting Translation Dynamics in Multilingual Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2604.17633}{arxiv}]}\\
+{\scriptsize Felicia K\"orner, Maria Matveev, Florian Eichin, Gitta Kutyniok, Barbara Plank, Michael A. Hedderich}\\
+
+{\small\textit{Multilingual pretraining yields ``translation'' in stages: early behavior is mostly copying/surface overlap, with genuine cross-lingual mapping emerging later.}}\\[1pt]
+{\footnotesize Provides a time-resolved, mechanistic account of how translation ability forms, separating copy-driven pseudo-translation from later abstract translation via targeted probes and causal ablations. Pretrain a 1.7B, 9-language model with many close checkpoints; evaluate on a word-level translation testbed designed to disentangle copying (cognates/script/subword overlap) from true mapping; link phases to specific components via analyses and parameter ablations. Translation follows a clear two-phase trajectory: early checkpoints look good mainly by copying/orthographic cues and generalize poorly; later checkpoints shift to a more overlap-robust translation mechanism while copying becomes more selective---implying early cross-lingual gains can be misleading without copy controls.}
+
+\medskip
+
+{\small\textbf{ToxiREX: A Dataset on Toxic REasoning in ConteXt}} {\scriptsize[\href{https://arxiv.org/abs/2606.27981}{arxiv}]}\\
+{\scriptsize Stefan F. Schouten, Ilia Markov, Piek Vossen}\\
+
+{\small\textit{ToxiREX turns toxicity detection into multilingual, context-dependent reasoning with structured explanations, not keyword spotting.}}\\[1pt]
+{\footnotesize Introduces a schema-labeled dataset for implicit, thread-dependent toxicity across six languages, enabling evaluation of *why/whom/how* toxicity is implied rather than just toxic/not. Collect Reddit threads tied to major events in EN/AR/TR/ES/DE/NL; annotate each target comment with a hierarchical ``toxic reasoning'' structure; scale with \textasciitilde{}125k LLM-labeled training items and a \textasciitilde{}3k native-speaker test set; use structured/partial-credit evaluation; report prompting and fine-tuning baselines. Current models achieve measurable but clearly insufficient structured reasoning accuracy, especially when toxicity depends on thread context; annotator disagreement often reflects genuinely ambiguous implicatures, highlighting a large gap between model behavior and realistic moderation-grade interpretation.}
+
+\medskip
+
+{\small\textbf{MultiHashFormer: Hash-based Generative Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2606.28057}{arxiv}]}\\
+{\scriptsize Huiyin Xue, Atsuki Yamaguchi, Nikolaos Aletras}\\
+
+{\small\textit{MultiHashFormer removes vocabulary-sized embeddings/softmax by generating hash signatures, enabling constant-parameter vocabulary growth (e.g., new languages).}}\\[1pt]
+{\footnotesize Replaces token IDs with multi-part hash codes so autoregressive LMs can add tokens without expanding embedding/output matrices, while keeping generation unambiguous. Map each token to a unique signature from multiple hash functions; Hash Encoder converts the signature to an input vector; Hash Decoder predicts the next-token signature (multiple small categorical predictions) instead of a vocab softmax; decode signature back to token. At 100M/1B/3B scales, the hash-signature LM matches or outperforms standard Transformers on benchmarks, and supports vocabulary expansion with no growth in embedding/softmax parameters---showing vocab-sized layers aren't essential for high-quality generation.}
+
+\medskip
+
+{\small\textbf{Ko-WideSearch: A Korean Breadth-Search Benchmark for Exhaustive Set Enumeration by Web Agents}} {\scriptsize[\href{https://arxiv.org/abs/2606.27595}{arxiv}]}\\
+{\scriptsize Minbyul Jeong}\\
+
+{\small\textit{Ko-WideSearch exposes a key web-agent weakness: agents can find the right items but fail to correctly populate per-item tables in Korean breadth tasks.}}\\[1pt]
+{\footnotesize Creates a Korean ``breadth search'' benchmark for exhaustive set enumeration with table filling, plus metrics (Item/Column/Row-F1) that isolate the hard alignment problem depth-style QA misses. Tasks specify a set-parent entity (e.g., season/region/election) and require complete membership plus attributes; difficulty varies by table width and composite (2-D) keys; normalization-aware matching; gold tables built via synthesize-and-verify to ensure completeness; evaluate 20 agents. Across agents, Item-F1 can be high while Row-F1 collapses (e.g., 92.8 vs 53.7), showing a consistent ``list found, rows wrong'' gap; performance degrades with wider tables/composite keys, and extra steps/compute don't fix it---errors mainly come from extracting the right values, not formatting.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Measuring the Redundancy of Decoder Layers in SpeechLLMs}} {\scriptsize[\href{https://arxiv.org/abs/2603.05121}{arxiv}]}\\
+{\scriptsize Adel Moumen, Guangzhi Sun, Philip C Woodland}\\
+
+{\small\textit{SpeechLLMs inherit decoder-layer redundancy from their base LLMs, allowing large decoder pruning with minimal ASR/speech-translation loss.}}\\[1pt]
+{\footnotesize Empirically maps which decoder layers are redundant for speech and shows the pattern largely matches text-only redundancy, yielding a reusable pruning recipe across encoders, tasks, and languages. Layer-prune decoder blocks and measure performance (not just proxies) across two LLM families and \textasciitilde{}1B--8B sizes; compare redundancy under text vs speech inputs; test post-pruning ``healing''; validate across ASR vs speech translation, multiple encoders, and languages. Redundant layers under speech align with redundant layers under text; in \textasciitilde{}7--8B models, \textasciitilde{}40\% of decoder layers can be removed while keeping strong ASR, with similar redundancy structure holding across translation, encoders, and languages (smaller models tolerate less pruning).}
+
+\medskip
+
+{\small\textbf{Do Speech Emphasis Models Generalize across Languages and Emotions?}} {\scriptsize[\href{https://arxiv.org/abs/2606.27717}{arxiv}]}\\
+{\scriptsize Megan Wei, Deepali Aneja, Jiaqi Su, Yunyun Wang, Haonan Chen, Zeyu Jin}\\
+
+{\small\textit{Emphasis detection doesn't reliably transfer across languages/emotions; MMEE benchmarks what training actually yields robust prosody-based emphasis models.}}\\[1pt]
+{\footnotesize Releases MMEE: a professionally recorded, 7-language, multi-emotion corpus with perceptual (3-level) emphasis labels, enabling systematic cross-lingual and cross-emotion generalization tests. Multi-annotator perceptual labeling; evaluate two emphasis models under cross-lingual, cross-emotion, multilingual-training, cross-dataset transfer, and varying data-scale settings to test whether emphasis cues learned are language-agnostic or language/style-specific. Monolingual models transfer poorly to distant languages; multilingual training substantially improves cross-lingual robustness. Cross-emotion transfer is somewhat more stable (notably across arousal levels) but still condition-dependent; transfer between synthetic and perceptual benchmarks suggests shared prosodic structure, and diversity of conditions can matter as much as dataset size.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{The Curse of Multiple Mediators: Hidden Interaction Effects in Activation Patching}} {\scriptsize[\href{https://arxiv.org/abs/2606.27510}{arxiv}]}\\
+{\scriptsize Sankaran Vaidyanathan, David Arbour, Aaron Mueller, Scott Niekum, David Jensen}\\
+
+{\small\textit{Activation patching conflates component effects with hidden interactions, explaining why ``importance'' scores can be unstable and misleading.}}\\[1pt]
+{\footnotesize Shows patching's estimand includes mediator interaction terms in multi-mediator causal settings, so one-component patching is not a clean measure of standalone causal contribution. Formalize patching as causal mediation with multiple mediators; derive decomposition into direct, mediated, and interaction terms; analyze when interactions grow (nonlinear/non-affine regions, large clean--corrupt gaps) and how they decompose into pairwise/higher-order effects. On GPT-2 IOI, interaction terms explain observed patching failures: conditional components can be missed, others over-credited, and prompt-to-prompt instability arises from varying interactions; measuring interactions becomes a diagnostic and motivates group/combinatorial searches for faithful mechanisms.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{CELEUS: Certifiable and Efficient LLM Evaluation via E-Processes}} {\scriptsize[\href{https://arxiv.org/abs/2606.20820}{arxiv}]}\\
+{\scriptsize Zhijian Zhou, Zesheng Ye, Zhaorun Chen, Bo Li, Feng Liu}\\
+
+{\small\textit{CELEUS enables anytime-valid LLM evaluation with optional stopping, cutting human-graded samples roughly in half while keeping guaranteed coverage.}}\\[1pt]
+{\footnotesize Combines e-process (optional-stopping-safe) confidence intervals with adaptive sampling and surrogate assistance, preserving statistical validity under repeated peeking and data-dependent stopping. Online evaluation: choose which items to label; use uncertainty-guided sampling to reduce variance; incorporate surrogate predictions for unlabeled items; construct conditionally unbiased per-step signals feeding an e-process to maintain always-valid CIs. Achieves target CI precision with \textasciitilde{}54--62\% fewer gold evaluations than prior certifiable baselines while maintaining anytime-valid coverage; theory shows near-parametric CI shrinkage (log factors) and motivates variance-optimal sampling.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent reliability and infrastructure: at least \textasciitilde{}25 papers touch LLM agents, memory/world models, planning, and evaluation (e.g., memory-update gaps, clarification-aware search, long-horizon multimodal memory, world-model planning, agent benchmarks like Ko-WideSearch/DiscoBench/NormAct). A second dense cluster is efficiency/serving for large models---roughly \textasciitilde{}15 papers on inference acceleration and deployment (KV-cache compression/eviction, sliding-window/full-attention hybrids, dynamic sparsity, MoE pruning, routing/scheduling, checkpointing). Safety/security/privacy is also unusually prominent (≈12--15): jailbreak/prompt-injection theory and attacks, guardrails, ``unlearning'' critiques and methods, tool-privacy benchmarks, and ecosystem-level risk for agentic coding. Outside core LLM work, there's a noticeable time-series foundation/forecasting wave (≈10--12) plus a parallel audio/speech surge (≈10) spanning TTS, robustness, deepfake detection, and long-audio QA---suggesting multimodal reliability and deployment constraints are converging as a key emerging direction.}
+
+
+\end{document}
