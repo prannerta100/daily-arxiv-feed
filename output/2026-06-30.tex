@@ -1,0 +1,112 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-06-30} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Field Order Should Not Matter: Permutation-Invariant Embedding Model Fine-Tuning for Structured Metadata Retrieval}} {\scriptsize[\href{https://arxiv.org/abs/2606.30473}{arxiv}]}\\
+{\scriptsize Aivin V. Solatorio, Olivier Dupriez, Rafael Macalaba}\\
+
+{\small\textit{Embedding models fine-tuned on serialized metadata can overfit to field order; permutation-invariant fine-tuning makes retrieval robust to reordering.}}\\[1pt]
+{\footnotesize Identifies field-order brittleness in structured-metadata retrieval and introduces permutation-invariant fine-tuning (PI-FT)---a minimal training tweak---plus DevDataBench, a multilingual benchmark to measure robustness under schema/order changes. During fine-tuning, randomly permute field order each time a record is seen and apply field dropout, forcing reliance on field labels/content rather than absolute positions; then evaluate retrieval under different index serialization orders and across languages. A standard fine-tune loses 7.4 nDCG@10 when field order changes; PI-FT cuts the penalty to \textasciitilde{}0.2 with similar in-order performance. A 118M encoder with PI-FT beats zero-shot baselines and a proprietary embedding model (0.707 vs 0.556 nDCG@10), with strong gains in low-resource languages.}
+
+\medskip
+
+{\small\textbf{Can OCR-VLMs Read Devanagari? A Stress-Test Benchmark and Post-Correction Study}} {\scriptsize[\href{https://arxiv.org/abs/2606.29213}{arxiv}]}\\
+{\scriptsize Aditya Pratap Singh}\\
+
+{\small\textit{Devanagari OCR looks ``solved'' on clean renders but fails badly on degraded/real scans; robustness and catastrophic-tail reporting are essential.}}\\[1pt]
+{\footnotesize Creates a Devanagari OCR stress-test (synthetic+controlled degradations + 300 real scans), introduces median + catastrophic-failure-rate reporting, provides a Devanagari-specific error taxonomy, and studies lightweight post-correction transfer limits. Evaluate 10 systems (classic OCR, open VLMs, OCR-VLMs, and closed models) on clean synthetic, four degradation settings, and real printed scans; score with chrF++; track catastrophic behaviors (e.g., extreme repetition); train a byte-level ByT5 post-corrector on one engine's errors and test cross-engine generalization. Clean synthetic data barely separates models, but degradations/real scans cause sharp collapses for 9/10 systems and reveal rare catastrophic repetition failures that distort means---making median+catastrophic-rate crucial. ByT5 post-correction gives small gains in-engine but transfers poorly across OCR sources.}
+
+\medskip
+
+{\small\textbf{The Heterogeneous Safety Impacts of Benign Multilingual Fine-Tuning}} {\scriptsize[\href{https://arxiv.org/abs/2606.28843}{arxiv}]}\\
+{\scriptsize Will Hawkins, Kaivalya Rawal, Jonathan Rystr\{\textbackslash{}o\}m, Stratis Tsirtsis, Zihao Fu, Greta Warren, Ryan Brown, Eoin Delaney, Sandra Wachter, Brent Mittelstadt, Chris Russell}\\
+
+{\small\textit{Benign multilingual fine-tuning can unpredictably degrade safety, and the effect depends on both training language and user language---English-only checks miss it.}}\\[1pt]
+{\footnotesize Systematically measures cross-lingual safety drift from harmless fine-tuning, showing safety is language- and model-dependent and not tightly coupled to capability; releases a multilingual benign fine-tuning set and multilingual safety eval to expose these failures. Fine-tune Llama-3.2, Qwen3, and Gemma-3 on benign data translated into 9 languages; evaluate with multilingual adversarial prompting while varying evaluation language; measure adversarial compliance and compare to capability metrics; analyze internal representational drift vs refusal/compliance behavior. Adversarial compliance can increase \textasciitilde{}4× depending on fine-tuning and evaluation language, with weak correlation to capability metrics. Non-English fine-tuning often yields smaller representation shifts yet can still trigger brittle over-refusal or over-compliance---showing English-only post-tune safety evaluation is insufficient.}
+
+\medskip
+
+{\small\textbf{SEATauBench: Adapting Tool-Agent-User Evaluation Into Low-Resource Southeast Asian Languages}} {\scriptsize[\href{https://arxiv.org/abs/2606.28715}{arxiv}]}\\
+{\scriptsize My Chiffon Nguyen, Aulia Adila, Saksorn Ruangtanusak, Kittiphat Leesombatwathana, Vissuta Gunawan Lim, Patomporn Payoungkhamdee, Samuel Cahyawijaya}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The abstract says ``We also the limits of English-only agent assessment...''. The summary states they ``demonstrate a practical limitation of English-only agent assessment'' and that it ``can substantially overestimate'' capability. The ``substantially overestimate'' claim is stronger than what's explicitly stated in the abstract (which only claims there are limits), and could mislead if taken as a quantified or demonstrated overestimation rather than a general limitation.}}\\[1pt]
+
+{\small\textit{SEATauBench shows tool-agent evaluations in English overestimate performance; localization of language, tools, and domains in SEA languages reveals steep failures.}}\\[1pt]
+{\footnotesize Introduces SEATauBench, adapting TauBench into five SEA-relevant languages (Mandarin, Vietnamese, Thai, Indonesian, Filipino) and providing an adaptation pipeline that disentangles mere language transfer from deeper tool/domain localization effects. Evaluate agents under a staged localization ladder: vary (1) conversation language, then (2) tool specs language/content, then (3) fully localized domains; compare performance across stages to isolate where failures arise; test three recent models. Performance transfers reasonably when only the chat language changes, but drops sharply as tool specs and especially domains are localized; the largest degradation appears under full domain adaptation, demonstrating that ``speaks the language'' ≠ ``can reliably use tools in localized SEA settings.''}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{DialogPII: A multilingual dataset of synthetic dialog transcripts to detect personal information}} {\scriptsize[\href{https://arxiv.org/abs/2606.30312}{arxiv}]}\\
+{\scriptsize Roland Roller, Vera Czehmann, Derya Erman, Luke Flanagan, Ibrahim Baroud, Fr\'ed\'eric Blain, Viviana Cotik, Eletta Giusto, Akhil Juneja, Mariana Neves, Maria S\{\textbackslash{}l\}owi\'nska, Christine Hovhannisyan, Aaron Louis Eidt, Lisa Raithel, Sebastian M\"oller, Maija Poikela}\\
+
+{\small\textit{DialogPII is a multilingual synthetic dialog benchmark for detecting personal/sensitive info, with aligned written and ASR-style transcripts.}}\\[1pt]
+{\footnotesize Releases DialogPII: plausible, curated synthetic conversations across 8 scenarios, 19 PII entity types, and 11 languages, including paired written transcripts and speech-derived (ASR) transcripts plus baseline multilingual NER models and dataset validation. LLM-assisted dialog generation + manual curation/localization; sequence-label annotations for 19 entity types; TTS to audio then Whisper transcription; automatic label projection from written→ASR text with manual correction; train/evaluate transformer NER baselines. Delivers an aligned written+speech-derived multilingual PII dataset with quality checks (IAA, translation quality, projection analysis) and baseline results/models to benchmark de-identification on both clean text and ASR-like inputs.}
+
+\medskip
+
+{\small\textbf{GigaSpeechBench: A Real-World Multilingual Speech-to-Text Benchmark}} {\scriptsize[\href{https://arxiv.org/abs/2606.28884}{arxiv}]}\\
+{\scriptsize Yujie Tu, Yifan Yang, Tianrui Wang, Yanqiao Zhu, Guodong Lin, Mingchen Shao, Haoran Wang, Junzhe Liu, Yuxiang Fu, Yizhou Peng, Changsong Liu, Peng Wang, Zhikang Niu, Yunchong Xiao, Haolong Zheng, Xiuwen Zheng, Xulin Fan, Wei-Qiang Zhang, Lei Xie, Longbiao Wang, Eng-Siong Chng, Jiajun Zhang, Kele Xu, Jianwei Yu, Binbin Zhang, Jiayu Du, Wupeng Wang, Zhigao Chen, Yunlong Wu, Guoguo Chen, Xipeng Qiu, Mark Hasegawa-Johnson, Kai Yu, Zhifu Gao, Xiangang Li, Xie Chen}\\
+
+{\small\textit{GigaSpeechBench is a single in-the-wild multilingual ASR/AST benchmark designed to expose real deployment failures (languages, dialects, accents, terminology, age).}}\\[1pt]
+{\footnotesize Provides a unified stress-test suite that bundles multiple under-evaluated brittleness axes---low-resource languages (Middle East/SE Asia), Chinese dialects, English accents, domain terminology, and age---plus consistent human annotation and translation for speech translation evaluation. Construct 680 hours of human-annotated data in five modules (low-resource languages incl. hard Japanese/Korean; 6 Chinese dialects; 6 English accents; 12 terminology-heavy domains in zh/en; older adults + children); add human translations into Chinese/English for 11 languages; evaluate foundation models and commercial APIs per slice. Strong models/APIs show large accuracy drops on low-resource languages, dialects/accents, terminology-heavy speech, and non-adult speech---demonstrating that ``good WER on standard sets'' misses major robustness gaps and that the benchmark reliably surfaces these blind spots.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Smooth Scaling Laws Hide Stepwise Token Learning}} {\scriptsize[\href{https://arxiv.org/abs/2606.29858}{arxiv}]}\\
+{\scriptsize Pingjie Wang, Zechen Hu, Peiru Yang, Fu Guo, Debing Zhang}\\
+
+{\small\textit{Smooth scaling curves can be explained as averages of many discrete token-level ``learning events,'' which can be exploited to speed training.}}\\[1pt]
+{\footnotesize Introduces a token-level mechanistic account of scaling laws: many contextualized tokens show step-like loss drops (sigmoid transitions); the distribution of transition times (``learning-time spectrum'') predicts global scaling-law derivatives and provides a control signal for training. Track token-level loss over training; fit each trajectory with a sigmoid to estimate learning time and sharpness; aggregate midpoints into a spectrum; show integrating the spectrum reconstructs validation-loss derivatives across steps/data/model scale; reshape training distribution using learnability estimates. Across 100+ pretraining runs (up to \textasciitilde{}6B params, \textasciitilde{}300B tokens), token losses often drop in localized transitions; the learning-time spectrum quantitatively reconstructs scaling-derivative shapes, and spectrum-based data reshaping yields \textasciitilde{}11\% faster validation-loss reduction.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Correct codes for the wrong reasons? validating LLMs as measurement instruments for theoretical constructs}} {\scriptsize[\href{https://arxiv.org/abs/2606.28574}{arxiv}]}\\
+{\scriptsize Manuel Pita}\\
+
+{\small\textit{LLMs can match human codes yet be invalid ``measurement instruments''; grain calibration checks whether they use theory-required components, not shortcuts.}}\\[1pt]
+{\footnotesize Proposes ``grain calibration,'' separating reliability (agreement) from validity (theory-faithful measurement) by decomposing constructs into theory-derived components with grounded evidence and an explicit aggregation rule, making ``right label for wrong reasons'' detectable. Replace one-shot coding with a pipeline: (1) decompose construct into clause-level components, (2) require extractive evidence spans for each component decision, (3) compute the final code via a pre-specified rule over components; inspect component/evidence traces to diagnose validity failures. Shows how correct top-level labels can still be invalid when component evidence doesn't support theory-required ingredients, and how errors become diagnosable (missed component, hallucinated evidence, proxy/adjacent construct), enabling auditable construct measurement beyond label agreement.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent reliability and infrastructure work: at least \textasciitilde{}40--60 papers touch Retrieval-Augmented Generation (multi-turn RAG, adaptive retrieval budgets, citation/attribution, KG/graph RAG, and RAG evaluation) plus hallucination detection/mitigation (including clinical and multimodal hallucinations). A second major cluster is agentic systems and long-horizon behavior---roughly \textasciitilde{}30--50 papers on memory (KV-cache eviction/compression, external memory, memory evaluation/``context rot''), tool use/policy adherence, multi-agent coordination/routing/debate, and RLHF/RLVR/on-policy distillation for reasoning. There's also a noticeable multimodal + speech surge (≈20--30 papers) spanning ASR benchmarks/robustness, speech SSL/codecs, audio deepfakes/anonymization, and VLM safety/moderation, alongside several domain-heavy tracks in medicine/clinical NLP and evaluation (≈15--25) and in tabular foundation models/generalization (≈10+). A slightly surprising emerging direction is ``measurement and auditing of evaluators'' (LLM-as-a-judge reliability, evaluator drift, calibration/uncertainty, and formal guarantees like conformal risk control), suggesting the community is shifting from raw capability gains toward trustworthy evaluation and deployment constraints.}
+
+
+\end{document}
