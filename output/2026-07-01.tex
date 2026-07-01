@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-01} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Measuring \& Mitigating Over-Alignment for LLMs in Multilingual Criminal Law Courts}} {\scriptsize[\href{https://arxiv.org/abs/2606.23375}{arxiv}]}\\
+{\scriptsize Arthur Wuhrmann, Gaetan Stein, Daniel Brunner, Andrei Kucharavy}\\
+
+{\small\textit{Safety guardrails often over-trigger on legitimate multilingual criminal-law translation/summarization; the paper introduces a benchmark and mitigations that keep outputs usable without hurting quality.}}\\[1pt]
+{\footnotesize Defines and operationalizes ``over-alignment'' in real legal workflows, where refusals and safety-prefaced hedging can block or distort valid tasks. Releases TF-RefusalBench: 5,200 multilingual (FR/DE/IT/EN) criminal-law translation and short summarization prompts from public Swiss Supreme Court rulings, intentionally containing refusal-triggering passages. Argues refusal rate alone is insufficient because disclaimers can reduce faithfulness/usefulness, and evaluates practical on-prem mitigation. Builds TF-RefusalBench and evaluates models on multiple failure modes: outright refusals plus disclaimer/safety-preface behaviors that dilute translations/summaries. Analyzes interaction effects across model choice and prompt/text language. Tests mitigations: prompting strategies vs ``abliteration'' (ablating refusal directions) while monitoring task quality. Over-alignment is multi-modal: even compliant answers can be harmed by disclaimer injection, and refusal/disclaimer behavior varies by model and language pair so a single global refusal rate misleads. Prompting reduces refusals inconsistently, while abliteration can remove refusals with minimal task-performance loss, enabling on-prem LLMs for criminal-law translation/summarization.}
+
+\medskip
+
+{\small\textbf{Bridging Scientific Heritage: An Arabic--Russian Parallel Corpus and LLM Benchmark for Sustainable Knowledge Transfer}} {\scriptsize[\href{https://arxiv.org/abs/2606.30943}{arxiv}]}\\
+{\scriptsize M. K. Arabov}\\
+
+{\small\textit{Introduces an Arabic--Russian scientific translation benchmark and shows domain fine-tuning---not few-shot prompting---drives real quality gains.}}\\[1pt]
+{\footnotesize Releases an Arabic--Russian parallel corpus (\textasciitilde{}27k sentence pairs) targeting scientific translation (with added general-domain material) plus benchmark, fine-tuned models, and eval code to support sustainable cross-community knowledge transfer. Evaluates mT5-base, NLLB-200-distilled-1.3B, and Qwen2.5-7B-Instruct using parameter-efficient tuning (LoRA ranks 8/16/32/64; QLoRA for 7B). Compares against zero-shot and 3-shot in-context prompting baselines. Fine-tuning is necessary; 3-shot prompting does not improve performance. Best system is Qwen2.5-7B-Instruct + QLoRA (rank 8): BLEU 23.15, chrF 43.89, BERTScore 0.906, COMET 0.758, improving over zero-shot by +4.36 BLEU and +0.051 COMET.}
+
+\medskip
+
+{\small\textbf{Beyond Clean Text: Evaluating Encoder and Decoder Robustness for Bangla Event Detection in Noisy Text}} {\scriptsize[\href{https://arxiv.org/abs/2606.30914}{arxiv}]}\\
+{\scriptsize Tanvir Ahmed Sijan, S. M Golam Rifat, Nayeemul Islam, Md. Musfique Anwar}\\
+
+{\small\textit{Bangla event detection models that excel on clean news can collapse on ASR/spelling-noisy text; robustness depends strongly on architecture and training choices.}}\\[1pt]
+{\footnotesize Creates a robustness benchmark for Bangla event detection with a 40-subtype ontology and 9,979 annotated sentences across clean news, real ASR transcripts, and orthographically corrupted text. Highlights architecture-specific failure modes: encoder-only models are strong on clean text but brittle under trigger corruption; instruction-tuned decoder LLMs degrade less under noise. Compares encoder-only BanglaBERT and XLM-R (supervised fine-tuning) vs decoder-only Llama 3 and Gemma 3 (prompted/instruction-tuned) across clean/ASR/corrupted regimes. Tests adding annotation guidelines to prompts/tuning, training on clean+noisy mixtures, and scaling effects for decoder LLMs. Encoders lead on clean text but drop sharply on ASR/corruption; decoder-only instruction-tuned LLMs start lower/comparable yet are markedly more resilient, especially when trigger tokens are damaged. Guidelines help noisy baselines but don't prevent degradation across noise types. Two actionable levers emerge: larger decoder LLMs are more robust, and mixing clean+noisy training data substantially improves encoder robustness, narrowing the gap.}
+
+\medskip
+
+{\small\textbf{Indi-RomCoM: Code-Mixed Benchmark for Evaluating LLMs on Romanized Indic-English Instructions}} {\scriptsize[\href{https://arxiv.org/abs/2606.30790}{arxiv}]}\\
+{\scriptsize Avisha Das, Mihir Parmar, Mohana Ramnath, Pulkit Verma}\\
+
+{\small\textit{LLMs that seem multilingual can still fail on real-world Romanized, code-mixed Indic-English instructions; Indi-RomCoM makes this brittleness measurable.}}\\[1pt]
+{\footnotesize Introduces Indi-RomCoM, a Romanized Indic--English code-mixed instruction-following benchmark spanning four Indic languages (Roman script), seven tasks, and three controlled code-mixing intensity levels to isolate degradation due to code-mixing rather than task/domain shifts. Creates parallel instruction-following items with systematically varied mixing density (three levels). Evaluates proprietary, open-weight, and Indic-focused models in zero-shot and few-shot settings, and compares robustness across task types (reasoning vs detection/classification such as toxicity). Across models, performance drops on Romanized code-mixed inputs and degrades further as mixing intensity increases, despite strong monolingual/native-script results. Reasoning tasks degrade less than detection tasks (e.g., toxicity), likely because generated explanations provide implicit self-translation/context. Conclusion: Romanized code-mixing is a distinct robustness gap missed by standard evals, and Indi-RomCoM quantifies it.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Tone-Conditioned Curriculum Learning for Low-Resource Bantu Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2606.31642}{arxiv}]}\\
+{\scriptsize Kesego Mokgosi, Vukosi Marivate, Sitwala Mundia, Unarine Netshifhefhe, Tsholofelo Hope Mogale, Thapelo Sindane}\\
+
+{\small\textit{Low-resource tonal Southern Bantu ASR improves with tone-aware curriculum training, and the best backbone differs by language family---validated via cross-corpus transfer.}}\\[1pt]
+{\footnotesize Proposes a tone-conditioned curriculum framework that treats tone as a core difficulty signal and adds tone-conditioned gated adapters. Uses cross-corpus evaluation (train on one community corpus, test on NCHLT) to measure real transfer rather than dataset-specific gains, and shows architecture choice interacts with language family. Assigns per-utterance difficulty scores to schedule curriculum training; adds tone-conditioned gated adapters modulated by simple tonal statistics; trains in stages following the curriculum. Compares backbones (notably W2V-BERT vs Whisper) across language groups and evaluates transfer to NCHLT. Tone-aware training helps, but no single backbone wins universally: W2V-BERT outperforms Whisper on Nguni languages by \textasciitilde{}3--4 WER points, while Whisper is better on Sotho-Tswana. With tone conditioning, W2V-BERT reaches \textasciitilde{}28.41\% average WER and 23.79\% WER on Xitsonga in NCHLT transfer, supporting genuine robustness and motivating per-language (and per-corpus) model selection.}
+
+\medskip
+
+{\small\textbf{Building an ASR Solution for Training and Assessing Children's Reading}} {\scriptsize[\href{https://arxiv.org/abs/2606.31508}{arxiv}]}\\
+{\scriptsize Yacouba Diarra, Nouhoum Souleymane Coulibaly, Mamadou Dembele, Aymane Dembele, Michael Leventhal}\\
+
+{\small\textit{Delivers a classroom-tested Bambara children's reading ASR pipeline and benchmark, showing which adaptation choices materially cut errors in low-resource deployment.}}\\[1pt]
+{\footnotesize Builds an end-to-end, open-source Bambara reading-assessment ASR system grounded in real classroom use: collects 55 hours of children reading via a mobile app, releases a benchmark tailored to reading assessment, compares practical model/adaptation choices, and analyzes errors by age to guide future data collection. Collects and curates mobile recordings into an evaluation benchmark. Compares Soloni (Bambara-adapted Fast-Conformer; TDT and CTC decoding) vs QuartzNet. Tests effects of repeated readings and SpecAugment, and disaggregates performance by age; validates usability via ten classroom trials. Best Soloni model reduces WER from 0.42→0.22 and CER from 0.15→0.08, clearly outperforming QuartzNet. Repeated readings help QuartzNet substantially but only marginally help Soloni (suggesting stronger models need more diverse data). SpecAugment regularizes but doesn't beat the best unaugmented setup. Most remaining errors come from children under 10; classroom trials indicate the app is usable for continued deployment and targeted data collection.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Explicit Fuzzy Logic in the Feed-Forward Layer: Self-Forgetting Quantifiers Discover Legible Grammatical-Licensing Detectors}} {\scriptsize[\href{https://arxiv.org/abs/2606.31845}{arxiv}]}\\
+{\scriptsize Mark Oskin}\\
+
+{\small\textit{Replaces transformer FFNs with explicit fuzzy-logic units plus soft sequence quantifiers, matching baseline perplexity while yielding readable grammatical-licensing detectors.}}\\[1pt]
+{\footnotesize Introduces an interpretable-by-construction, parameter-neutral FFN: hidden units compute fuzzy set operations over [0,1] memberships, including explicit bounded negation (A·(1−B)). Diagnoses that purely local two-input logic erodes with depth and that remaining deficits concentrate in licensing/quantification; adds a small learned-forgetting quantifier block (soft existential + soft proportion) to restore these behaviors and keep units legible. Constrains activations via sigmoids; defines FFN units as fuzzy intersection (A·B) and set-difference (A·(1−B)). Adds sequence quantifiers with per-unit learned forgetting rates to carry decaying traces across tokens. Trains at 125M scale and evaluates perplexity plus targeted phenomena (e.g., LAMBADA) and internal unit behavior. Fuzzy-logic FFNs with negation match a standard GELU transformer's perplexity at 125M on OpenWebText, showing interpretability needn't cost LM quality. Without sequence quantifiers, clean logic concentrates in early layers and licensing/quantifier dependencies suffer; adding soft quantifiers recovers much of the deficit early (about halving the later gap by epoch one), modestly improves LAMBADA, and yields higher-layer units that explicitly track licensors (comparatives/passives/negative polarity) and maintain decaying traces to predict licensed continuations (e.g., ``than,'' ``by,'' ``nor'').}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM/agent reliability and governance: at least \textasciitilde{}40--60 papers touch hallucination detection/verification (e.g., CORTEX, test-time verification, table referencing errors), calibration/uncertainty/metacognition (calibration ranking reversals, BayesBench, metacognitive feedback, Visual Semantic Entropy), and safety/compliance/security (over-refusal, prompt-injection tradeoffs, backdoors, watermarking, containment/agent governance). A second major cluster is ``agentic systems'' and long-horizon tool use---roughly \textasciitilde{}30--50 papers on computer-use/GUI agents, workflow generation, orchestration/benchmarks (PPT-Eval, ClawArena-Team, DigitalCoach, InfiniteWeb, QVal, ECHO/TRIAGE), plus multiple works on memory/world-model stability and collapse. Multimodal + speech/audio is unusually heavy (≈20--30 papers) spanning ASR for atypical/low-resource speech, spoken dialogue evaluation, audio-language models, and deepfake/spoofing detection; alongside this, there's a clear efficiency trend in inference (KV-cache compression/quantization/speculative decoding/early exits; ≈10--20 papers like SeKV, RaBitQCache, BlockPilot). Emerging directions include formal/verified agent behavior (runtime guards, certified speculative execution, autoformalization/Lean/Dafny) and domain-grounded agent benchmarks in healthcare/finance/law, suggesting a shift from ``can the model answer?'' to ``can an agent act safely, audibly, and cheaply in real environments?''}
+
+
+\end{document}
