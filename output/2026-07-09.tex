@@ -1,0 +1,88 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-09} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{LLMs Silently Correct African American English: Auditing and Mitigating Dialect Bias via Activation Steering}} {\scriptsize[\href{https://arxiv.org/abs/2607.06845}{arxiv}]}\\
+{\scriptsize Huan Wu, Ali Emami, Muhammad Furquan Hassan, Osaretin Igbinoba, Osakpolor Idusuyi, Osamede Igbinoba, Faiza Khan Khattak, Laleh Seyyed-Kalantari}\\
+
+{\small\textit{Instruction-tuned LLMs often continue African American English (AAE) prompts in Standard American English (SAE), effectively ``correcting'' dialect; activation steering can curb this without retraining.}}\\[1pt]
+{\footnotesize Defines and audits unsolicited dialect normalization, localizes which AAE features trigger SAE continuations, and provides a training-free mitigation plus a large real-world parallel resource (REAL-AAE) for reliable evaluation. Audit with conditional Dialect Group Invariance (cDGI) on meaning-matched AAE/SAE contexts to avoid translation artifacts; localize triggers (feature-level analysis). Mitigate by extracting a dialect direction via causal tracing, selecting controllable layers, and injecting that direction at inference (activation steering) to preserve AAE continuations. Across six 14B--70B instruction-tuned LLMs, AAE contexts systematically elicit SAE continuations; negative concord is a consistent trigger. Activation steering cuts measured bias by \textasciitilde{}5--20× vs prompting while preserving SAE fluency; REAL-AAE enables more credible, naturalistic audits (validated automatically and by AAE speakers).}
+
+\medskip
+
+{\small\textbf{MTEB-BR: A Text Embedding Benchmark for Brazilian Portuguese}} {\scriptsize[\href{https://arxiv.org/abs/2607.04581}{arxiv}]}\\
+{\scriptsize Tardelli Ronan Coelho Stekel}\\
+
+{\small\textit{MTEB-BR provides a Portuguese-native embedding benchmark and shows multilingual leaderboard rank only moderately predicts Brazilian Portuguese performance.}}\\[1pt]
+{\footnotesize Introduces MTEB-BR: 22 non-translated Brazilian Portuguese tasks across 7 categories, plus statistical reporting (uncertainty, significance, task separability) to distinguish real wins from ties and reveal ranking shifts vs multilingual MTEB. Curate Portuguese-origin datasets (no English-to-PT translations) for classification, multilabel, pair classification, STS, clustering, retrieval, reranking; evaluate many embedding models under unified protocols. Report bootstrap CIs, paired-bootstrap tests, and an IRT-inspired discrimination analysis; compute cross-leaderboard correlations with multilingual MTEB. Benchmark separates models into \textasciitilde{}dozen tiers, but the top six are statistically indistinguishable. A strong open, self-hostable model reaches the top tier. Multilingual rank only moderately predicts PT rank (Spearman \textasciitilde{}0.75) with notable mismatches, showing Portuguese-specific evaluation changes conclusions.}
+
+\medskip
+
+{\small\textbf{DiaLLM: An Investigation into the Robustness-Generation Gap in English Dialect Adaptation}} {\scriptsize[\href{https://arxiv.org/abs/2607.07669}{arxiv}]}\\
+{\scriptsize Jordan Painter, Dipankar Srirag, Adarsh Kappiyath, Diptesh Kanojia, Aditya Joshi, Lu Yin}\\
+
+{\small\textit{Dialect understanding and dialect generation diverge: methods that boost robustness don't necessarily make LLMs write in dialect, and alignment can change ``dialect style'' while hurting human preference.}}\\[1pt]
+{\footnotesize DiaLLM testbed cleanly separates dialectal robustness (interpretation) from dialectal generation (production) and shows standard adaptation stages affect them differently; warns that reward-optimizing for dialect markers can misalign with human quality. Controlled pipeline across three open model families and multiple dialects (Australian, Indian, Northern British): continual pretraining on ICE, then SFT with implicit vs explicit variety targeting, then alignment (preference/reward-based). Evaluate with robustness benchmarks plus human and linguistic analyses of dialect recognizability and preference. Establishes a robustness--generation gap: continual pretraining/SFT drive benchmark robustness, while alignment can strongly reshape dialectal voice without benchmark movement. Explicit variety targeting improves dialect recognizability and is preferred over generic alignment, but the most aggressively reward-optimized dialect approach is not most preferred---evidence of reward--quality mismatch.}
+
+\medskip
+
+{\small\textbf{Zoom In Disparities in Healthcare LLM Q\&A}} {\scriptsize[\href{https://arxiv.org/abs/2510.17476}{arxiv}]}\\
+{\scriptsize Ipek Baris Schlicht, Burcu Sayin, Zhixue Zhao, Frederik M. Labont\'e, Cesare Barbera, Marco Viviani, Paolo Rosso, Lucie Flek}\\
+
+{\small\textit{For non-English health Q\&A, LLMs often default to English-centric facts; adding non-English retrieval context shifts answers toward local-language sources.}}\\[1pt]
+{\footnotesize Operationalizes cross-lingual inequity by measuring whether answers in German/Turkish/Chinese/Italian align with same-language vs English Wikipedia health content; introduces MultiWikiHealthCare and a grounding-based mitigation. Collect healthcare Wikipedia content in five languages; analyze coverage differences and compute factual alignment of LLM outputs to each language's reference. Intervene at inference by supplying non-English snippets (and a RAG case study) to re-ground answers in the target language's knowledge base. Finds compounded disparity: non-English Wikipedias differ/thin vs English, and LLM answers in non-English often align more with English Wikipedia than the same-language articles. Providing non-English context measurably shifts alignment toward the target language, indicating grounding/retrieval choices can improve equity.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Gradient-Based Speech-to-Text Alignment for Any ASR Model: From CTC to Speech LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2607.06831}{arxiv}]}\\
+{\scriptsize Albert Zeyer, Ralf Schl\"uter, Hermann Ney}\\
+
+{\small\textit{Word timings can be recovered for nearly any ASR model---including speech LLMs---by using input gradients as a universal alignment signal, with no retraining or alignment heads.}}\\[1pt]
+{\footnotesize Proposes model-agnostic speech--text alignment from sensitivity: frames that most affect a token's probability indicate where it was spoken; converts this into token/word boundaries via a simple monotonic decode. Teacher-force on a known transcript; for each output token compute ∂ log p(token) / ∂ input frames, reduce to a 1D saliency curve per token, stack into a token×time matrix, then use dynamic programming to find a monotonic path and aggregate token spans into word start/end times. Works across all tested ASR families, including models lacking native alignments. Typically slightly worse than strong native aligners (CTC/transducer/attention) but can outperform where native signals degrade (e.g., streaming). Provides finer boundary resolution (input-grid) but is compute-heavy (often one backward pass per token).}
+
+\medskip
+
+{\small\textbf{Simulstream: Open-Source Toolkit for Evaluation and Demonstration of Streaming Speech-to-Text Translation Systems}} {\scriptsize[\href{https://arxiv.org/abs/2512.17648}{arxiv}]}\\
+{\scriptsize Marco Gaido, Sara Papi, Mauro Cettolo, Matteo Negri, Luisa Bentivogli}\\
+
+{\small\textit{Simulstream standardizes evaluation and demos for streaming speech-to-text translation, making latency--quality tradeoffs comparable across systems and papers.}}\\[1pt]
+{\footnotesize Open-source, end-to-end toolkit covering real deployment modes---incremental output and re-translation---on long-form continuous audio, plus an interactive web UI to inspect stability vs responsiveness. Defines a unified streaming interaction loop and explicit output protocols (incremental vs revision-allowed). Logs fine-grained events to compute protocol-appropriate latency and quality on continuous streams; provides a web interface to visualize evolving hypotheses and revisions over time. Reduces apples-to-oranges StreamST comparisons by unifying key assumptions (continuous audio, revision policy, latency definitions) and exposing detailed logs. The demo/UI makes real-time behavior (revision frequency, delay sources) directly observable, improving reproducibility and diagnosis beyond aggregate metrics.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent work: at least \textasciitilde{}25--35 papers on agentic LLMs (tool use, multi-agent coordination, memory, evaluation, and safety), including several clusters on self-evolving agents/skill libraries and on red-teaming/monitoring (e.g., memory poisoning, multi-agent attacks, deployment-rule evaluation). A second major theme is efficiency/scaling for transformers and multimodal models (roughly \textasciitilde{}15--25 papers) spanning speculative decoding, KV-cache compression/archiving, pruning/quantization, routing/MoE, and serving/communication bottlenecks. There's also a noticeable multimodal/audio+speech surge (\textasciitilde{}10--15 papers) around speech LLMs, alignment, AVSR, turn-taking/full-duplex dialogue, and music datasets/benchmarks, alongside a steady stream of healthcare/biomed applications and datasets (\textasciitilde{}10--15) including RAG for public health QA, radiology labeling, ECG/wearables, and multimodal medical data scaling. A somewhat surprising emerging direction is ``mechanistic/geometry-first'' analysis of model internals (several papers on circuits, spectral/positional effects like RoPE, Riemannian geometry, and grokking metrics), suggesting interpretability is increasingly being treated as a first-class systems/safety tool rather than a purely explanatory add-on.}
+
+
+\end{document}
