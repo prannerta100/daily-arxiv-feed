@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-11} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{PLURAL: A Global Dataset for Value Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2607.08034}{arxiv}]}\\
+{\scriptsize Dhruv Agarwal, Anya Shukla, Tanya Goyal, Aditya Vashistha}\\
+
+{\small\textit{Turns a nationally representative values survey into scalable preference data so LLMs can be aligned to different countries' value profiles instead of a single default norm set.}}\\[1pt]
+{\footnotesize PLURAL: a large preference dataset for value pluralism, anchored in the Integrated Values Survey (IVS) and converted into trainable preference comparisons that preserve cross-country differences and within-country diversity. Use IVS response distributions as the target cultural signal, then a two-stage pipeline generates (1) realistic scenarios + candidate replies and (2) preference orderings constrained to match the intended country value profile, yielding synthetic preference triplets for standard preference learning. PLURAL preserves IVS-like between/within-country structure; PLURAL-trained models better match target country profiles (up to 27.7\% MAE reduction vs baselines); and blind human eval (176 raters in India/Brazil/Japan) more often prefers PLURAL-aligned outputs as representative of national values.}
+
+\medskip
+
+{\small\textbf{ICDAR 2026 HIPE-OCRepair Competition on LLM-Assisted OCR Post-Correction for Historical Documents}} {\scriptsize[\href{https://arxiv.org/abs/2607.08143}{arxiv}]}\\
+{\scriptsize Maud Ehrmann, Emanuela Boros, Juri Opitz, Andrianos Michail, Florian Wagner, Simon Clematide}\\
+
+{\small\textit{Establishes a multilingual, retrieval-oriented benchmark for LLM OCR post-correction and highlights over-correction/hallucinated edits as the main practical risk on already-clean text.}}\\[1pt]
+{\footnotesize ICDAR 2026 HIPE-OCRepair competition report: a community evaluation framework (dataset + scorer + pipeline) for LLM-assisted OCR correction on historical documents (EN/FR/DE) without page images, scored for downstream access/search utility rather than purely diplomatic fidelity. Given OCR text segments, systems output corrected text across languages/centuries with no image access; evaluation uses retrieval-oriented scoring that rewards useful corrections and penalizes meaning drift and invented changes; compares approaches from prompting to continued pretraining/fine-tuning. LLMs can substantially improve OCR, but gains vary by language/dataset/noise; a dominant failure mode is harmful over-correction on low-noise inputs, which retrieval-style scoring exposes; heavier adaptation can help on noisy cases but doesn't eliminate hallucinated edits---while the released benchmark/tooling enables reproducible progress tracking.}
+
+\medskip
+
+{\small\textbf{Infinity-Parser2 Technical Report}} {\scriptsize[\href{https://arxiv.org/abs/2607.07836}{arxiv}]}\\
+{\scriptsize Zuming Huang, Jun Huang, Kexuan Ren, Baode Wang, Weizhen Li, Jianming Feng, Yu Wang, Yichen Yao, Shijun Lin, Yige Tang, Cheng Peng, Weidi Xu, Wei Chu, Yinghui Xu, Yuan Qi}\\
+
+{\small\textit{Shows a single multilingual document-parsing model can reliably emit structured end-to-end parses by combining high-fidelity synthetic supervision with verifiable multi-task RL.}}\\[1pt]
+{\footnotesize Infinity-Parser2 couples (i) a controllable rendering/refinement pipeline producing a large synthetic corpus (Infinity-Doc2-5M) with ground-truth structure and (ii) unified, verifiable reward optimization across diverse document-understanding tasks, targeting checkable structured outputs (not just OCR). Synthesize documents with known layout/reading order and canonical targets (Markdown/HTML/LaTeX, SMILES, charts, etc.), refine data iteratively, then train a multimodal model with joint RL over eight objectives using programmatically verifiable rewards (string/structure matches, alignment checks) to align perception + structure + reasoning. Infinity-Parser2-Pro reports strong cross-benchmark generalization with SOTA numbers including 87.6\% on olmOCR-Bench and 74.3\% on ParseBench (beating DeepSeek-OCR-2, PaddleOCR-VL-1.5, MinerU2.5), with gains extending to charts/chemistry/VQA; a ``Flash'' variant claims 3.68× throughput over Infinity-Parser-7B for a speed/quality tradeoff.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Best-of-\$N\$ TTS Evaluation is Confounded by ASR Family Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2607.08256}{arxiv}]}\\
+{\scriptsize Taehyung Yu, Seongjae Kang}\\
+
+{\small\textit{Best-of-N TTS gains can be an artifact of using the same ASR family to select and evaluate---rankings flip across ASR lineages, so robust reporting needs multi-family evaluation or ensembling.}}\\[1pt]
+{\footnotesize Identifies ASR family alignment as a confound in BoN TTS (ASR-based verifier selects, ASR-based evaluator scores): ``best'' verifiers depend on evaluator lineage; proposes simple cross-family rank-ensemble selection to reduce coupling. On LibriSpeech-PC with F5-TTS, vary which ASR model is the verifier and which is the evaluator (Whisper vs wav2vec 2.0 vs HuBERT), measure ranking reversals; test representational similarity (linear CKA) and show it doesn't explain the mismatch; propose rank-averaging and conjunctive max-rank ensembles across verifiers. Verifier rankings reverse across ASR families; same-family verifier--evaluator pairings yield 2--3× more oracle headroom than cross-family even with very high CKA (\textasciitilde{}0.978), implying lineage coupling; cross-family rank ensembles achieve the best mean WER across three evaluators (≈1.61\% at N=10, \textasciitilde{}12\% relative vs baseline) without degrading SIM-o/UTMOS.}
+
+\medskip
+
+{\small\textbf{PS4: Proxy-Supervised Joint Training for Real Target Speaker Extraction}} {\scriptsize[\href{https://arxiv.org/abs/2607.08111}{arxiv}]}\\
+{\scriptsize Wanyi Ning, Wei Zhou, Yingpeng Li, Yinshang Guo, Haitao Qian, Yiming Cheng}\\
+
+{\small\textit{Trains target-speaker extraction on real conversational overlaps without clean targets by supervising with proxies (transcript, VAD timing, speaker similarity), reaching near-top leaderboard performance.}}\\[1pt]
+{\footnotesize PS4 reframes ``no clean target audio'' as solvable: build real-mixture training data with obtainable weak labels (enrollment audio, transcript, frame VAD) and jointly optimize extraction to satisfy content, identity, and timing constraints. Fine-tune a pre-trained BSRNN-based TSE model (updating only the separator) with four losses: ASR cross-entropy for transcript match, speaker-embedding similarity to enrollment, frame-level VAD alignment, and a perceptual quality term to limit artifacts---no clean reference waveform required. On the REAL-T challenge, PS4 ranks 2nd overall and achieves best speaker similarity and best timing F1, matching its proxy objectives; demonstrates complementary weak constraints can substitute for missing clean targets and still yield large real-mixture gains.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Towards Mechanistically Understanding Why Memorized Knowledge Fails to Generalize in Large Language Model Finetuning}} {\scriptsize[\href{https://arxiv.org/abs/2607.08393}{arxiv}]}\\
+{\scriptsize Lu Dai, Ziyang Rao, Yili Wang, Hanqing Wang, Hao Liu, Hui Xiong}\\
+
+{\small\textit{Explains why fine-tuned facts can be recalled yet not used: the knowledge may exist but be routed to the wrong internal locations for downstream reasoning.}}\\[1pt]
+{\footnotesize Formalizes the Knowing--Using Gap and introduces ``self-patching'' interventions to test whether generalization failures stem from missing knowledge vs misaligned internal routing/circuits; shows the diagnosis can guide practical fixes. Fine-tune to inject new facts; measure (1) direct recall vs (2) downstream use in reasoning; apply self-patching by transplanting activations from successful contexts into failed ones at specific layers/positions to localize where routing breaks, tracking how knowledge permeates through layers over training. Memorization emerges early while use lags, creating a persistent accuracy/time gap; patching often flips failures, indicating knowledge is present but not accessed at the right depth/location (supporting circuit misalignment); a simple heuristic inspired by patching recovers \textasciitilde{}58--75\% of the oracle patching improvement across domains.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Theoria: Rewrite-Acceptability Verification over Informal Reasoning States}} {\scriptsize[\href{https://arxiv.org/abs/2607.01223}{arxiv}]}\\
+{\scriptsize Michael Saldivar, Ben Slivinski}\\
+
+{\small\textit{Makes LLM verification auditable by rewriting solutions into explicit typed state transitions, exposing hidden premises and fake citations that holistic LLM judges miss.}}\\[1pt]
+{\footnotesize Theoria: a middle ground between proof assistants and opaque LLM judging---forces ``completeness of change'' so every semantic/state change must be justified, turning smuggled assumptions/citations into detectable unlicensed mutations with step-level auditability. Convert a candidate solution into a proof-like trace of typed reasoning states; require each transition to cite an explicit warrant (given fact, computation, citation); enforce that any difference between consecutive states must be explained, enabling targeted checking of specific steps. High-precision certifications with audit trails: on HLE-Verified Gold, 105 certified at 91.4\% strict precision; on GPQA Diamond, 97.1\% certified precision; on poisoned proofs, structured judging catches 94.7\% of attacks vs 83.2\% for holistic judging, with biggest gains on hidden-premise and fabricated-citation attacks and low overlap in failures (complementary signal).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM systems and their evaluation/operations: at least \textasciitilde{}15--20 papers on enterprise/web agents, long-horizon memory/workflows, and multi-agent orchestration (e.g., proactive enterprise agents, web RAG over graphs, web-swarm search, workflow persistence, failure localization, agent scheduling). A second dense cluster is safety/alignment and auditing---roughly \textasciitilde{}12--15 papers---covering LLM-as-judge reliability, self-consistency as confidence, jailbreak/CoT-monitoring attacks, privacy firewalls/prompt-injection containment, unlearning, and mechanistic interpretability (SAEs, internal attribution graphs, ``overthinking'' for secret extraction). Efficiency for deployment is also heavily represented (\textasciitilde{}8--10 papers) with long-context extensions and serving optimizations (KV-cache compression/optimization, speculative decoding, linear attention, quantization/pruning, low-rank regularization). A notable emerging direction is domain-grounded agent benchmarks/simulators in high-stakes settings---especially healthcare/psychiatry and autonomous driving/energy markets---at least \textasciitilde{}8--10 papers spanning clinical reasoning surveys/frameworks, virtual psychiatric encounters, dashcam/VQA driving benchmarks, and physics-constrained economic-agent evaluation.}
+
+
+\end{document}
