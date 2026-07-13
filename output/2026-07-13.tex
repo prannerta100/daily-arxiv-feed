@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-13} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{A Sovereign, Open-Source Foundation Model for German and English}} {\scriptsize[\href{https://arxiv.org/abs/2607.09424}{arxiv}]}\\
+{\scriptsize The Soofi-Team,  :, Benedikt Droste, David Fitzek, Ruben H\"arle, Lukas Helff, Maximilian Idahl, Alex Jude, Abbas Goher Khan, Maurice Kraus, Timm Ruland, Richard Rutmann, Sebastian Sztwiertnia, Markus Frey, Daniil Gurgurov, Jan Pfister, Tom R\"ohr, Sebastian von Rohrscheidt, J\"org Bienert, Nicolas Flores-Herr, Simon Gottschalk, Andreas Hotho, Kristian Kersting, Joachim K\"ohler, Alexander L\"oser, Wolfgang Nejdl, Simon Ostermann, Jan Plogsties, Patrick Putzky, Mehdi Ali, Michael Fromm, Max L\"ubbering}\\
+
+{\small\textit{Soofi S shows a fully open, ``sovereign'' DE/EN foundation model can stay competitive while being cheap at long context via sparse MoE plus a Mamba-style component.}}\\[1pt]
+{\footnotesize Releases Soofi S 30B-A3B, a bilingual German--English model built under European sovereignty constraints (infrastructure + data accounting) and optimized for long-context serving cost by combining MoE sparsity with state-space modeling; commits to unusually complete artifacts (weights/checkpoints/code + provenance/accounting). 30B params with \textasciitilde{}3B active/token via MoE routing; hybrid MoE-Transformer augmented with a Mamba-like state-space module to avoid attention KV-cache growth and keep inference memory near-constant with context. Pretrained on \textasciitilde{}27T tokens with German up-weighting on the German Industrial AI Cloud; release includes recipe and per-source accounting when licensing allows (else aggregates). Matches strong dense open 14B--27B models on combined EN+DE benchmarks while using far less per-token compute (3B active). Reports best aggregate code performance (DE+EN) among 17 open base models, top results among evaluated European ``sovereign'' models, and leading aggregate EN/DE scores among fully open models (ahead of OLMo 3 32B, Apertus 70B), with long-context throughput gains from sparse compute + minimal cache growth.}
+
+\medskip
+
+{\small\textbf{Estimating Uncertainty from Reasoning: A Large-Scale Study of Multi- and Crosslingual MCQA Performance in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2607.06327}{arxiv}]}\\
+{\scriptsize Andrea Bacciu, Andrea Alfarano, Saab Mansour, Amin Mantrach, Marcello Federico}\\
+
+{\small\textit{Multilingual uncertainty estimation improves markedly when reasoning is generated in English, and the best UE signal shifts from probabilities (small models) to self-reports (large models).}}\\[1pt]
+{\footnotesize Large, controlled evaluation of nine uncertainty-estimation methods across 22 languages on two human-curated long-form reasoning MCQA datasets (no LLM-judge/embedding scoring), isolating how reasoning language and model scale change what UE signals work in multilingual deployment. Compare open-box probability-based and closed-box self-verbalized UE across model sizes/architectures with elicited long-form reasoning. Key manipulation: question stays in target language while reasoning is forced to either the same language or English; evaluate selective prediction/abstention, calibration, and thresholding. Reasoning language dominates UE: forcing English reasoning substantially boosts UE for low-resource languages and largely closes low- vs high-resource gaps, suggesting generation/self-monitoring is the bottleneck more than input understanding. Also finds a scale crossover: probability-based UE is stronger for smaller models, while self-verbalized uncertainty is more reliable at larger scales, with concrete abstention-threshold guidance.}
+
+\medskip
+
+{\small\textbf{Conceptual Networks for Cross-Linguistic Idiomatic Expressions:A Feature-Based Graph Approach}} {\scriptsize[\href{https://arxiv.org/abs/2607.09576}{arxiv}]}\\
+{\scriptsize Kiran Pala, Punam Silu, Lixun Yu}\\
+
+{\small\textit{Interpretable conceptual-feature graphs align idioms across languages better than embeddings, improving translation-equivalent idiom matching and aiding detection.}}\\[1pt]
+{\footnotesize Builds a cross-lingual ``conceptual network'' of idioms using cognitively motivated binary features (schemas/roles/valence), showing meaning-based (not language-based) clustering that improves cross-lingual idiom matching and complements embeddings for idiom detection. Annotate 160 idioms in 8 languages with binary features across schemas, roles, and valence; compute Jaccard similarity to form a weighted graph; run community detection and use neighbor/community signals for downstream tasks. Explore LLM-assisted annotation for scale and robustness via adding corpus frequency. Graph communities cluster by shared conceptual schema rather than language. Conceptual proximity yields substantial gains over embedding baselines for finding acceptable translation equivalents across five language families; combining conceptual/graph features with embeddings improves idiom detection. Ablations show schemas/roles/valence contribute non-redundantly, with neighbor/community cues especially predictive.}
+
+\medskip
+
+{\small\textbf{QQ: A Language Metadata Toolkit for Multilingual NLP}} {\scriptsize[\href{https://arxiv.org/abs/2603.00620}{arxiv}]}\\
+{\scriptsize Wessel Poelman, Yiyi Chen, Miryam de Lhoneux}\\
+
+{\small\textit{QQ unifies messy language IDs/names/scripts into a versioned metadata graph, enabling reproducible multilingual audits, linking, and reporting.}}\\[1pt]
+{\footnotesize Introduces QQ, a practical metadata layer that resolves inconsistent language identifiers by integrating multiple sources into a single graph over languages/varieties/scripts/regions/names/ID systems, exposed via Python, CLI, and a browser explorer. Graph representation with nodes for varieties, scripts, regions, names, and external identifiers; edges encode relations (identifier↔variety, variety↔macrolanguage, language↔scripts, etc.). Supports traversal from arbitrary tags/codes/names to normalized IDs and related resources; emphasizes open formats and versioning for stable lookups. Shows reduced friction in three workflows: (1) auditing large repositories (e.g., HuggingFace Hub) by normalizing tags to surface inconsistencies, (2) bridging resources across incompatible identifier systems via graph links, and (3) generating reproducible language-reporting tables traceable to a specific QQ version and relation set.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{FreyaTTS Technical Report}} {\scriptsize[\href{https://arxiv.org/abs/2607.09530}{arxiv}]}\\
+{\scriptsize Ahmet Erdem Pamuk, \"Omer Yent\"ur, Ahmet Tunga Bayrak, Yavuz Alp Sencer \"Ozt\"urk, Mustafa Yavuz}\\
+
+{\small\textit{Freya-TTS achieves fast Turkish conversational TTS with a compact model by skipping phonemizers/tokenizers and using post-training to stabilize short-utterance behavior.}}\\[1pt]
+{\footnotesize Introduces Freya-TTS, a Turkish-first production TTS that maps directly from a 92-character Turkish alphabet to speech (no phonemizer, no discrete speech tokens) and uses two-stage post-training (voice locking + short-utterance focus) for consistency/robustness; releases code/weights/benchmark. 183.2M-parameter non-autoregressive conditional flow-matching Diffusion Transformer predicting continuous latents of a frozen AudioVAE2 (16 kHz encode, 48 kHz decode), with parallel denoising conditioned on text and predicted durations. Post-training: (1) single-speaker voice locking, (2) extra training on short utterances. On Freya-TR-Eval: 8.0\% band-matched WER and 3.0\% CER, claimed better than much larger open systems. Runs at RTF 0.11 on consumer GPUs and faster-than-real-time on a laptop CPU; post-training improves speaker consistency and short-input robustness; released under Apache-2.0.}
+
+\medskip
+
+{\small\textbf{Tokenizer Transplantation: Mitigating Autoregressive Collapse in Edge-Efficient Bengali ASR}} {\scriptsize[\href{https://arxiv.org/abs/2607.09598}{arxiv}]}\\
+{\scriptsize Sanjid Hasan, Md. Abdur Rahman}\\
+
+{\small\textit{Small Bengali ASR can ``collapse'' because English byte tokenization makes sequences too long; transplanting a Bengali WordPiece vocab fixes decoding without heavy retraining.}}\\[1pt]
+{\footnotesize Identifies autoregressive collapse in edge-efficient Moonshine-style Bengali ASR as tokenizer-driven: English byte-level tokenization inflates Bengali into long token chains that destabilize decoding. Proposes tokenizer transplantation: swap in a Bengali WordPiece vocabulary (BanglaBERT) and resize embeddings while keeping the model otherwise unchanged. Replace decoder byte-level vocab with BanglaBERT WordPiece; resize/reinitialize token embeddings (and tied output projection if present). Shorter sequences reduce exposure bias and error accumulation, preventing repetitive/nonsensical autoregressive collapse while preserving the lightweight acoustic/decoder stack. Tokenization fertility drops 9.16→1.30 tokens/word (85.8\% shorter), and decoding collapse disappears. On the 882-hour Lipi-Ghor dataset: 21.54\% WER at RTF 0.0053, enabling stable on-device Bengali ASR without expensive multilingual pretraining and highlighting tokenizer choice as a primary cross-script failure source.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Neural Collapse Is Forbidden: Information Floors in Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2607.09487}{arxiv}]}\\
+{\scriptsize Bruno Abrahao}\\
+
+{\small\textit{Full neural collapse is impossible in LMs: within-category spread is required to store context information, with a lower bound tied to conditional mutual information.}}\\[1pt]
+{\footnotesize Reframes within-category dispersion as necessary information storage rather than failed collapse; derives an ``information floor'' converse (proved cleanly for binary categories) linking minimal within-category spread to I(token; context | category). Also corrects prior neural-collapse-style claims via a centering identity and analyzes how token-level weight decay induces type-count--driven category imbalance. Empirical variance decomposition (dimensionless shares) across 14 LMs spanning \textasciitilde{}100× scale and multiple partitions, tracking training dynamics. Theory: study weight-decay effects on category weight norms and prove a lower bound on within-category dispersion proportional to conditional mutual information (binary case). Across models, category structure explains only \textasciitilde{}4--12\% of representation variance, while \textasciitilde{}79--91\% remains within-token/context, stable across scale. ``Identity dispersion'' tracks estimated conditional mutual information strongly enough that one model's information estimate predicts another's dispersion; during training, category share overshoots then decays and partially recovers but never drops below the information-imposed floor.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Deceptive Grounding: Entity Attribution Failure in Clinical Retrieval-Augmented Generation}} {\scriptsize[\href{https://arxiv.org/abs/2607.09349}{arxiv}]}\\
+{\scriptsize Cedric Caruzzo, Donggeun Yoo, Tae Soo Kim}\\
+
+{\small\textit{Clinical RAG can cite real evidence yet be wrong by attributing it to the wrong drug; an entity-attribution verifier catches this reliably, including in production.}}\\[1pt]
+{\footnotesize Defines deceptive grounding (DG): retrieved/cited text is real but misattributed to the wrong entity. Shows standard citation/faithfulness checks miss DG and proposes entity-attribution verification to ensure cited evidence actually applies to the queried entity. Create a controlled factorial benchmark that induces wrong-entity-but-cited answers; ablate by removing entity-specific evidence from retrieval to test dependence on ``tempting'' context. Implement entity-attribution verification that checks entity alignment for each cited span; evaluate on benchmark and a production RAG system. DG occurs at 8--87\% across 13 models; medically tuned models can be worst (up to 86.7\%). Removing entity-specific evidence eliminates DG, implicating entity misbinding rather than pure hallucination. In production: 7.8\% DG over 740 drug--disease pairs (13.6\% for recently approved drugs). Entity-attribution verification detects DG with \textasciitilde{}97.0\% precision and 98.7\% recall (IPW-adjusted human gold), beating citation/faithfulness-only frameworks.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM systems work---especially agentic workflows and long-horizon evaluation---alongside efficiency/serving for large models. There's a noticeable cluster of at least \textasciitilde{}12 papers on agents, multi-agent coordination/debate, and long-horizon benchmarks/memory (e.g., Long-Horizon-Terminal-Bench, LongMedBench, ARCANA, Agora, Scoped Verification, Shared Selective Persistent Memory, Git-Assistant, OpenProver/ProofCouncil), plus another \textasciitilde{}10+ on inference/serving efficiency and MoE/sparsity/long-context infrastructure (Sticky Routing, Director, BlockServe, COBS, early exits, KV-cache compression, context parallelism, vLLM energy tradeoffs). Reliability/safety/steering is also heavily represented (at least \textasciitilde{}8 papers) spanning emergent misalignment, jailbreak/monitoring, unlearning, watermarking, backdoors, and activation/ITI-style steering (Emergent Mirage, Optimizing Against Safety Representations, Hair-Trigger Alignment, Refused in Chat/Written in Code, Forget Narrowly Retain Broadly, RaMark, Statistically Undetectable Backdoors, Present but Rescaled). A smaller but clear multimodal/healthcare direction appears (at least \textasciitilde{}8 papers) combining medical RAG/benchmarks and medical VLM robustness/segmentation (Deceptive Grounding in clinical RAG, PhysAssistBench/LongMedBench/MedRealMM, ALICE, TCLA, CAPRA, text-guided medical segmentation), and a somewhat surprising audio/music mini-cluster (\textasciitilde{}6) including audio LLM spatial perception and music-to-dance/generation (Dual-BEATs, Clean2FX, AVSR alignment, Wan-Dancer, music-game level modeling).}
+
+
+\end{document}
