@@ -1,0 +1,112 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-14} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{MET: Theory-Grounded and Culture-Aware Multilingual Moral Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2607.11736}{arxiv}]}\\
+{\scriptsize Ayoung Lee, Ryan Kwon, Yunxiang Zhang, Yuxuan Liu, Peter Railton, Lu Wang}\\
+
+{\small\textit{MET shows multilingual moral reasoning breaks under naive translation and improves via theory-grounded, culture-conditional ``moral grounds'' selection plus self-distillation.}}\\[1pt]
+{\footnotesize (1) MCLASH: culturally situated (not just translated) multilingual moral benchmark. (2) MET: prompt pipeline that forces explicit selection of expert-curated moral grounds before justification in the target language. (3) MET-D: self-distillation to improve MET-style reasoning without human labels or stronger teachers. Two-step prompting: choose moral grounds from a curated menu conditioned on scenario/culture, then decide/justify explicitly using those grounds in the user's language. MET-D trains on the model's own MET outputs to stabilize second-step reasoning and reduce ``think in English then translate.'' Across Qwen3-4B/8B and Gemma3-4B, MET-D improves macro-F1 by \textasciitilde{}+3.7 on MCLASH and \textasciitilde{}+4.2 on MMoralExceptQA (e.g., +12.94 for Malay on Qwen3-8B) and boosts native-language reasoning by +62.13 on average; optimal grounds vary by culture.}
+
+\medskip
+
+{\small\textbf{Q-BridgeNet: A Quantization Network for Cross-Lingual Sign Language Translation}} {\scriptsize[\href{https://arxiv.org/abs/2607.11215}{arxiv}]}\\
+{\scriptsize Liqian Feng, Lintao Wang, Xiaochen Liu, Anusha Withana, Ken-Tye Yong, Dehui Kong, Zhiyong Wang, Kun Hu}\\
+
+{\small\textit{Q-BridgeNet discretizes sign videos into shared-and-residual Q-units and uses a multilingual LLM to translate from that token space, reducing cross-lingual interference and improving transfer.}}\\[1pt]
+{\footnotesize A unified multilingual SLT system that explicitly separates shared cross-lingual sign semantics (shared codebook) from language-specific variation (residual per-language codebooks), then bridges Q-units to text via an LLM decoder---targeting negative transfer in multilingual SLT. Adaptive temporal segmentation; residual vector quantization to produce Q-units: first stage shared codebook, later stages language-specific residual codebooks. Fine-tune a multilingual LLM to condition on Q-unit sequences and generate spoken-language text. On PHOENIX14T, How2Sign, and CSL-Daily, Q-BridgeNet improves over prior multilingual SLT on native pairs and generalizes better to non-native sign--spoken pairs, supporting Q-units as a cleaner, more transferable interface than continuous video features.}
+
+\medskip
+
+{\small\textbf{Direct Image-to-Modern Vietnamese Translation of Han-Nom Manuscripts via Multimodal RLHF Preference Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2607.11434}{arxiv}]}\\
+{\scriptsize Thi Kim Trang Vo, Nghia Hieu Nguyen, Ha Minh Tan}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary claims the key idea is ``not to replace an OCR-plus-translation pipeline,'' but the abstract does not mention OCR or any comparison to/positioning against an OCR+translation pipeline. This adds an unsupported framing that could mislead readers about what the paper argues.}}\\[1pt]
+
+{\small\textit{Multimodal preference alignment (RLHF-style) on top of SFT improves direct image+text conditioned translation of Han-Nom manuscript pages into modern Vietnamese.}}\\[1pt]
+{\footnotesize A preference-optimization framework for low-resource historical translation that conditions generation on both degraded manuscript images and aligned Han-Nom text, showing RLHF-style alignment can add measurable gains beyond supervised fine-tuning in this multimodal setting. Fuse CLIP ViT-L/14@336 image features, bert-base-chinese Han-Nom features, PhoBERT Vietnamese features, and T5-small encoder states; concatenate to 2048-d then project/fuse to 512-d for Vietnamese generation. Starting from the same SFT policy, compare PPO, DPO, and KTO preference optimization. All preference methods improve BLEU-4 and semantic similarity vs SFT; DPO is best overall across BLEU-4, ROUGE-L, BERTScore, semantic similarity, CER, WER, and token accuracy. PPO yields highest precision/recall/F1; KTO remains competitive via its desirable/undesirable utility objective.}
+
+\medskip
+
+{\small\textbf{A Sovereign, Open-Source Foundation Model for German and English}} {\scriptsize[\href{https://arxiv.org/abs/2607.09424}{arxiv}]}\\
+{\scriptsize The Soofi-Team,  :, Benedikt Droste, David Fitzek, Ruben H\"arle, Lukas Helff, Maximilian Idahl, Alex Jude, Abbas Goher Khan, Maurice Kraus, Timm Ruland, Richard Rutmann, Sebastian Sztwiertnia, Markus Frey, Daniil Gurgurov, Jan Pfister, Tom R\"ohr, Sebastian von Rohrscheidt, J\"org Bienert, Nicolas Flores-Herr, Simon Gottschalk, Andreas Hotho, Kristian Kersting, Joachim K\"ohler, Alexander L\"oser, Wolfgang Nejdl, Simon Ostermann, Jan Plogsties, Patrick Putzky, Mehdi Ali, Michael Fromm, Max L\"ubbering}\\
+
+{\small\textit{Soofi S is a fully open, sovereign German--English foundation model that stays competitive while cutting per-token compute via sparse MoE and a cache-friendly Mamba--Transformer hybrid.}}\\[1pt]
+{\footnotesize Soofi S 30B-A3B: a bilingual sovereign model designed for practical long-context deployment, pairing sparse MoE (few active params/token) with a Mamba--Transformer hybrid to avoid attention KV-cache growth. Openness is treated as a deliverable: weights, checkpoints, code, evals, and detailed data-mixture accounting. 30B-parameter MoE with \textasciitilde{}3B active params/token; hybrid Mamba--Transformer backbone for near-constant inference cache with context length. Pretrain on \textasciitilde{}27T tokens with German up-weighting; release artifacts plus per-source data accounting (including non-redistributable sources). Matches strong dense 14B--27B baselines on English+German benchmarks while activating \textasciitilde{}3B params/token; particularly strong on code in both languages; reported best English/German scores among fully open models in their suite, ahead of open releases like OLMo 3 32B and Apertus 70B, and stronger than compared European sovereign baselines.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Unified Gradient Projection: Language-Balanced Continual Learning for Multilingual Low-Resource ASR}} {\scriptsize[\href{https://arxiv.org/abs/2607.11163}{arxiv}]}\\
+{\scriptsize Ziang Ren, Guodong Lin, Yuchen Ai, Kaize Tan, Wei-Qiang Zhang}\\
+
+{\small\textit{UGP lets Whisper keep learning new low-resource languages while avoiding forgetting by projecting each update to satisfy a language-balanced ``do no harm'' gradient constraint.}}\\[1pt]
+{\footnotesize Unified Gradient Projection (UGP) reframes multilingual forgetting as gradient interference: updates for the current language can actively oppose gradients that preserve others. UGP makes the constraint language-balanced so high-resource/easy languages can't dominate what ``preserve performance'' means. Maintain a small replay buffer; compute reference gradients from replay with equal per-language weighting; project the current batch gradient into a single unified space so it does not conflict with the balanced reference gradients. Replay supplies memory; projection enforces it geometrically. Across low-resource language groups and Whisper sizes, UGP improves stability vs replay-only and prior gradient-constraint baselines while still adapting to new languages; on Whisper-large-v3 it reports near-zero average forgetting under their evaluation.}
+
+\medskip
+
+{\small\textbf{GigaAM Multilingual: Foundation Model for Underrepresented Languages}} {\scriptsize[\href{https://arxiv.org/abs/2607.10371}{arxiv}]}\\
+{\scriptsize Andrei Kuzmenko, Alexandr Maximenko, Aleksandr Kutsakov, Georgii Gospodinov, Dmitrii Bolotov, Oleg Kutuzov, Pavel Bogomolov, Fyodor Minkin}\\
+
+{\small\textit{GigaAM Multilingual builds a strong Central-Asian-focused speech foundation model by making imbalance mitigation central in both pretraining and fine-tuning.}}\\[1pt]
+{\footnotesize Release of a large-scale (\textasciitilde{}2M hours) Conformer/HuBERT-style multilingual speech encoder aimed at underrepresented Central Asian languages, plus a concrete recipe---cluster-level balancing in SSL pretraining and domain-aware sampling in ASR fine-tuning---to prevent head-language/domain domination. HuBERT-style self-supervised pretraining on raw audio with cluster-balanced sampling; supervised ASR fine-tuning with domain-aware sampling to avoid overfitting to easy/common domains and retain performance on harder ones (e.g., spontaneous speech). Compare against Whisper Large v3 and Omnilingual-1B. Outperforms strong open pretrained alternatives (Whisper Large v3, Omnilingual-1B) on target Central Asian languages, with especially strong gains on spontaneous speech; improvements come from balancing/sampling dynamics rather than heavy adaptation.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{One mechanism for many mental spaces: a shared router over a value slot in language models}} {\scriptsize[\href{https://arxiv.org/abs/2607.10248}{arxiv}]}\\
+{\scriptsize Oliver Steele, Jiangtao Wen, Yuxing Han}\\
+
+{\small\textit{Transformers appear to implement many ``mental spaces'' (belief, counterfactual, fiction, time) via one shared router signal that selects context for a common value-slot representation.}}\\[1pt]
+{\footnotesize Mechanistic evidence for a unified ``router + value slot'' circuit rather than separate modules per discourse context. The same internal slot holds attributed content, while a manipulable router determines which mental space it's read as coming from, aligning Fauconnier-style mental spaces with an intervenable transformer mechanism. Use Distributed Alignment Search to find a low-dim control subspace for one space type, test transfer to others, then localize the circuit (few late-layer attention heads; low-rank router signal additive with entity identity). Perform causal interventions and compositional tests by combining space-building operations. A control subspace learned on one space type transfers far above random across three model families; belief is not mechanistically special. The router is low-rank, head-mediated, and compositional; interventions can flip inferred content while dissociating it from surface report.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{CAFE: A Compound-AI Factorial Evaluation Framework}} {\scriptsize[\href{https://arxiv.org/abs/2607.10380}{arxiv}]}\\
+{\scriptsize Fabian Lukassen, Christoph Weisser, Thomas Kneib, Alexander Silbersdorff}\\
+
+{\small\textit{CAFE turns LLM pipeline evaluation into a designed experiment, attributing quality changes to specific components with statistical credibility rather than leaderboard noise.}}\\[1pt]
+{\footnotesize A factorial evaluation framework for compound AI systems that models pipelines as factors (retriever/model/prompt/etc.) and uses mixed-effects attribution to estimate main effects and interactions while accounting for item difficulty, rater/judge noise, and other nuisance variance. Register components as factors with discrete levels; generate a factorial design of configurations; run pipelines, score with an LLM judge (optionally humans), then fit mixed-effects models to estimate effect sizes, significance, interactions, and cost/latency trade-offs, including judge--human reliability checks. On HotpotQA RAG, CAFE recovers planted factor effects (sanity check) and stays calibrated under permutation nulls (doesn't invent significance), enabling reliable identification of which components and interactions truly drive quality.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM/agent infrastructure, evaluation, and reliability: at least \textasciitilde{}40--60 titles center on tool-using agents (benchmarks like SETA, MM-ToolSandBox, MAG, Opti-Agent-Bench; harnesses like ToFu and AgentCheck; routing/skills/memory like Agentic Routing, ToolAtlas, MemDecay, LightMem-Ego; and multi-agent orchestration/safety like Norm Enforcement, distributed backdoors, and prompt-injection benchmarks). A second major cluster is ``reasoning efficiency + post-training'' (roughly \textasciitilde{}20--30) spanning RLVR/on-policy distillation (EasyOPD, Diagnosing Thinking Collapse, ARMOR, SCOPE-RL), chain-of-thought pruning/monitoring (OS-Pruner, Structured Thoughts, Calibrated e-CUSUM Decoding), and inference acceleration/quantization/KV-cache work (speculative decoding papers, RDQ, Silent Failures in Quantized LLM Reasoning, KV-cache compression/eviction). There's also a noticeable surge in multimodal/audio and provenance/watermarking (≈15--25): multiple music/audio generation and evaluation reports (Qwen-Music, Qwen-Audio-VAE, OpenBEATs, SFX evaluation), deepfake/spoofing detection (VoxENES 2026, evidence subspace projection), plus watermarking/fingerprinting/model lineage (MusicMark, LLM watermarking survey, modelDNA, single-token fingerprinting). Finally, applied high-stakes domains form smaller but coherent pockets---health/clinical NLP \& EHR agents (CLIR-Bench, clinical trial summaries, LongMedBench, medical agent autonomy), legal/finance reliability (legal citation fabrication benchmarks, financial hallucination detection, merger-arb forecasting)---suggesting a trend toward domain-grounded agent evaluation rather than generic QA.}
+
+
+\end{document}
