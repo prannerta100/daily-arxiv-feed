@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-18} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Expanding the Lexicon of Ge'ez Based African Languages: A Comparative Study of Amharic and Tigrinya}} {\scriptsize[\href{https://arxiv.org/abs/2607.15209}{arxiv}]}\\
+{\scriptsize Hailay Kidu Teklehaymanot, Debela Desalegn Yadeta, Wolfgang Nejdl}\\
+
+{\small\textit{Large gains for Ge'ez-script languages come from fixing XLM-R's tokenizer/vocab, not building a new model.}}\\[1pt]
+{\footnotesize VEXMLM: extend XLM-R with 30k Ge'ez-script subwords from curated Amharic/Tigrinya text, showing tokenizer mismatch (fragmentation/OOV) is a primary bottleneck and that script-aware vocab expansion transfers to related African languages. Train a Ge'ez-focused SentencePiece model; insert 30k new subwords into XLM-R's vocab; initialize each new embedding by averaging embeddings of its original XLM-R decomposition; continue MLM pretraining; fine-tune on QA/NER/sentiment; track coverage, fertility, and OOV to link tokenization to task gains. QA jumps to 87.0 EM / 90.0 F1 vs 66.0 / 78.0 for XLM-R; sentiment reaches 80\% (vs 77\%); OOV-entity accuracy rises 81.4\%→94.3\%; improvements transfer to 17 additional low-resource African languages.}
+
+\medskip
+
+{\small\textbf{In-Place Tokenizer Expansion for Pre-trained LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2607.15232}{arxiv}]}\\
+{\scriptsize Jimmy T. H. Smith, Tarek Dakhran, Alberto Cabrera, Simon S. Lee, Paul Pak, Aditya Tadimeti, Tim Seyde, Maxime Labonne, Alexander Amini, Mathias Lechner}\\
+
+{\small\textit{You can expand a pretrained LLM's tokenizer in place---keeping old tokens intact---while gaining major token-efficiency and net decode speedups for new languages.}}\\[1pt]
+{\footnotesize A practical recipe to extend an existing BPE tokenizer (not replace it), preserving backward compatibility and enabling principled initialization of new token embeddings so the model adapts without losing original quality. Continue BPE training by appending merges; guarantee each new token decomposes into old tokens; expand embedding/LM-head by copying old rows and initializing new rows as the mean of constituent old embeddings; staged adaptation: train embeddings first, then continue pretraining full model. On LFM2-8B-A1B → LFM2.5-8B-A1B (128K vocab), token counts drop \textasciitilde{}2.4× (Hindi), 2.6× (Vietnamese), up to 4.0× (Thai); accounting for per-token overhead, estimated net per-character decode speedups are \textasciitilde{}2.2×--3.7× while recovering source-checkpoint quality.}
+
+\medskip
+
+{\small\textbf{DeltaMerge-LowRes: Composing Language and Task Deltas for Low-Resource Adaptation}} {\scriptsize[\href{https://arxiv.org/abs/2607.13967}{arxiv}]}\\
+{\scriptsize Son Ha Xuan, Xuan-Bach Le, Phat T. Tran-Truong}\\
+
+{\small\textit{Low-resource adaptation can be done by learning separate language and task deltas and merging them---merge rule choice materially changes accuracy and calibration.}}\\[1pt]
+{\footnotesize DeltaMerge-LowRes separates adaptation into an unlabeled target-language delta and an English task delta, then composes them in weight space; introduces cross-axis TIES to reduce destructive interference between language and task updates. Train Δ\_L on monolingual text and Δ\_T on English labeled data; at deployment, merge deltas with rules including cross-axis TIES (trim small weights, enforce sign agreement, then merge) to keep high-signal, non-conflicting updates. With deltas fixed, changing merge rules yields large swings; cross-axis TIES wins on 3/4 African-language summarization settings (+\textasciitilde{}4--7 chrF vs task-only), improves QA by \textasciitilde{}+2.3 F1 and +2.9 EM, and can sharply reduce ECE without hurting macro-F1.}
+
+\medskip
+
+{\small\textbf{LLM Evaluators are Biased across Languages}} {\scriptsize[\href{https://arxiv.org/abs/2607.14480}{arxiv}]}\\
+{\scriptsize Ej Zhou, Lucas Resck, Zheng Hui, Anna Korhonen}\\
+
+{\small\textit{Multilingual LLM judges can look accurate yet still shift score scales by language, causing big cross-language differences in accept/reject behavior.}}\\[1pt]
+{\footnotesize Shows pairwise preference accuracy can mask language-dependent score miscalibration: semantically identical content scored in different languages yields systematically different score distributions, breaking global-threshold safety/quality gates. Create meaning-preserving instruction--response pairs across 23 languages; evaluate with reward models and prompted LLM judges; compare pairwise accuracy vs acceptance rates under a single threshold; analyze uncertainty (e.g., NLL/proxies) and control for difficulty to isolate language effects. Despite >90\% pairwise accuracy, acceptance rates can swing by up to 43\% across languages under one threshold; lower-resource languages are often scored more leniently, partly correlated with uncertainty but not fully explained---language remains predictive after controls.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Do LLMs Need Architectural Changes for Simultaneous Speech Translation? A Prefix-to-Prefix Data Driven Approach}} {\scriptsize[\href{https://arxiv.org/abs/2607.13158}{arxiv}]}\\
+{\scriptsize Junkun Chen, Jian Xue, Ming Tang, Abdel Heba, Hoda Gholami, Ruchao Fan, Jinyu Li}\\
+
+{\small\textit{Simultaneous speech translation can be learned via prefix-to-prefix supervision---no new architecture or hand-built read/write policy required.}}\\[1pt]
+{\footnotesize Reframes SimulST as a supervision problem: train a decoder-only LLM system to output the correct translation prefix given partial audio, using bounded-waiting targets plus a commit/rewind streaming protocol. Chunked streaming pipeline (CSSEL): re-decode after each audio chunk, commit a stable prefix while allowing a small rewind window; generate teacher prefix-to-prefix labels under a bounded waiting constraint; fine-tune on these incremental targets to learn when to delay vs commit. On in-house conversational speech, P2P training improves streaming quality by +1.54 COMETKiwi at essentially the same latency, with only +0.15s Average Lagging versus a streaming baseline.}
+
+\medskip
+
+{\small\textbf{Audio-Native Speech Recognition with a Frozen Discrete-Diffusion Language Model}} {\scriptsize[\href{https://arxiv.org/abs/2607.13013}{arxiv}]}\\
+{\scriptsize Harsha Vardhan Khurdula, Abhinav Kumar Singh, Yoeven D Khemlani, Vineet Agarwal}\\
+
+{\small\textit{A frozen discrete-diffusion text model can do fast parallel ASR with a small audio adapter---if trained with CTC to force audio grounding.}}\\[1pt]
+{\footnotesize Audio-native ASR on top of frozen DiffusionGemma (26B MoE): add a small Whisper-based audio interface (\textasciitilde{}42M trainable params) and show standard diffusion training can ignore audio; a CTC loss fixes this by providing alignment-friendly supervision. Whisper encoder → projector into LM space + LoRA-style attention adapters; discrete diffusion denoising over tokens in a few steps; add CTC loss through the frozen output head to drive early audio conditioning and prevent text-only shortcut learning. With \textasciitilde{}42M trainable params (0.16\% of backbone), achieves 6.6\% WER on LibriSpeech test-clean; inference uses \textasciitilde{}8 parallel denoising steps independent of utterance length; one adapter trained across six languages transfers (highlighted: English, Hindi, Mandarin).}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{A Shared Subcircuit Lets LLMs Count Down Across Tasks}} {\scriptsize[\href{https://arxiv.org/abs/2607.12279}{arxiv}]}\\
+{\scriptsize Jacob Dunefsky, Wes Gurnee, Emmanuel Ameisen}\\
+
+{\small\textit{Llama-3.1-70B appears to reuse a single internal ``countdown'' circuit to meet length goals across diverse tasks.}}\\[1pt]
+{\footnotesize Identifies a mechanistic subcircuit that computes remaining steps to a goal length and argues it generalizes across superficially unrelated behaviors; links the motif to prior findings in another frontier model, suggesting a recurring solution. Isolate the circuit on a fixed-length sentence task ending with a specified word; analyze low-dimensional representation geometry consistent with compare-to-goal countdown dynamics; probe natural data to find other contexts that recruit the same internal signal. Finds evidence of a reusable compare-to-goal countdown mechanism that activates beyond the discovery task, matches a previously reported motif in another model, and appears in multiple natural behaviors where length targets are implicit.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by LLM/agent post-training and evaluation reliability: at least \textasciitilde{}40 papers on RLVR/on-policy distillation/credit assignment (e.g., OPD/GRPO/PPO variants, compute allocation, long-context RL) plus agent harnesses, memory, and tool-use benchmarks (OmniaBench, DevicesWorld, MemOps, MCPEvol-Bench, MemoHarness, Proof-or-Stop, permission/governance frameworks). A second major cluster is ``LLM-as-a-judge / rubric / benchmark validity'' with \textasciitilde{}20 papers probing judge bias, multilingual unfairness, no-reference generosity, synthetic judge corpora pathologies, and rubric generation/meta-evaluation (e.g., Inside the Unfair Judge, LLM Evaluators are Biased across Languages, Test Oracle Problem, Can LLMs Write Reliable Rubrics?). The most surprising volume is audio/speech: well over 150 papers spanning speech LLMs, ASR robustness, TTS/voice conversion, audio deepfake detection/spoofing benchmarks, and audio-language judging (e.g., VoxENES 2026, REAL-TSE, GigaSpeechBench, multiple TTS/flow-matching/diffusion works), suggesting a strong shift toward ``omni-modal'' and security/robustness in audio. Across domains, safety/security and manipulation risks recur (pretraining poisoning, memory/prompt injection, refusal/jailbreak mechanics, privacy leakage in FL, watermarking), indicating a trend from capability gains toward auditing, governance, and deployment-grade robustness.}
+
+
+\end{document}
