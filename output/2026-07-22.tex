@@ -1,0 +1,101 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-22} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{LatentMT: Machine Translation with Latent Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2607.18618}{arxiv}]}\\
+{\scriptsize Wei-Rui Chen, Samar M. Magdy, Chiyu Zhang, Wenhui Zhu, Zhipeng Wang, Muhammad Abdul-Mageed}\\
+
+{\small\textit{Translation quality can be boosted by extra hidden-state ``reasoning'' loops instead of bigger models or chain-of-thought text.}}\\[1pt]
+{\footnotesize LatentMT: a systematic study of latent-reasoning LoopLMs for MT, showing a compute-vs-parameters tradeoff that works across many language pairs, with clear step-scaling saturation and a representation-level correlate of that saturation. Convert a 2.6B backbone into a LoopLM that iteratively updates hidden states for multiple recurrent steps without emitting intermediate tokens. Vary loop steps at inference and evaluate across 32 translation directions (high/mid/low resource); analyze how hidden-state changes shrink over steps. Matches models \textasciitilde{}3--5× larger across 32 directions; competitive in high-resource and reported SOTA in mid/low-resource settings. Gains rise in early recurrent steps then quickly saturate; hidden-representation differences contract across steps, aligning with saturation. Efficiency analysis argues similar quality with less training/inference compute than scaling to much larger models.}
+
+\medskip
+
+{\small\textbf{Inference-Time Steering for Cross-Lingual Factual Consistency in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2607.19243}{arxiv}]}\\
+{\scriptsize Alexander Manev}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary states there are ``four distinct intervention strategies'' and then lists persona prompting, CAA, and two separate DPO adapters (factual vs conceptual). The abstract describes four strategies as: persona prompting, CAA, and DPO trained on (a) benchmark-derived factual data and (b) conceptual generalization data---i.e., DPO is one intervention strategy with two training data variants, not clearly two distinct strategies/adapters. Presenting them as two separate interventions/adapters may misrepresent how the paper counts/frames the four strategies.}}\\[1pt]
+
+{\small\textit{Cross-lingual factual inconsistency can be reduced at inference time, and simple persona prompting is often the most robust fix.}}\\[1pt]
+{\footnotesize A controlled comparison of four steering strategies to make an English-prompted multilingual LLM match target-language (DE/ES/BG) factual answer distributions, plus a curated multilingual factual set and a new conceptual-generalization benchmark for culturally rooted queries. Test (1) persona prompting (target-language perspective, answer in English), (2) Contrastive Activation Addition (add a learned activation direction), (3) DPO adapter trained on factual benchmark data, and (4) DPO adapter trained on conceptual-generalization data. Evaluate both factual consistency and transfer to the generalization benchmark. On Gemma 3 12B Instruct, persona prompting gives the best overall tradeoff: improved cross-lingual factual consistency, preserved safety, and strongest out-of-domain generalization. CAA can yield large benchmark shifts but is configuration-sensitive and can harm knowledge. DPO adapters are more persistent than prompting but narrower and less transferable---supporting the view that inconsistency is partly a selection problem solvable by inference-time nudges.}
+
+\medskip
+
+{\small\textbf{OntoBook: Ontology-Grounded Synthetic Textbooks for Medical Encoder Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2607.18927}{arxiv}]}\\
+{\scriptsize Rian Touchent (ALMAnaCH), \'Eric de la Clergerie (ALMAnaCH)}\\
+
+{\small\textit{Ontology-derived ``synthetic textbooks'' can improve a French clinical encoder---if MLM and relation learning are trained on the same examples.}}\\[1pt]
+{\footnotesize OntoBook: turns medical ontologies (CIM-10, CCAM, ATC) into LLM-rewritten French textbook snippets for encoder pretraining, and isolates a key training constraint: MLM and relation-prediction must be aligned on identical passages or performance collapses. Sample random walks over ontology graphs to encode relations, rewrite walks into fluent French via an LLM, then pretrain ModernCamemBERT (149M) with joint MLM + relation prediction computed on the same generated snippets. On FRACCO, Cantemist-FR, and Distemist-FR, ontology-grounded pretraining beats MLM-only on similar data (e.g., +2.5 micro-F1 on FRACCO, +8.0 micro-F1 on Distemist-FR). If MLM and relation prediction use different datasets, performance drops \textasciitilde{}30 points, showing objective alignment is crucial. Releases \textasciitilde{}1.3M French synthetic snippets plus checkpoints.}
+
+\medskip
+
+{\small\textbf{Enabling Multilingual Privacy Policy Audits: Large-Scale Analysis of Spanish Mobile Apps}} {\scriptsize[\href{https://arxiv.org/abs/2607.18424}{arxiv}]}\\
+{\scriptsize Marcos Moran, David Rodriguez, Luka Nenadic, Norman Sadeh, Jose M. Del Alamo}\\
+
+{\small\textit{LLMs can audit privacy policies reliably across EU languages, revealing transparency gaps that English-only audits miss.}}\\[1pt]
+{\footnotesize Builds and validates a 24-language benchmark by translating two expert-labeled privacy-policy datasets (OPP-115, MAPP) with legal-meaning checks, then uses it to show stable multilingual LLM classification and to run a large Spanish-market Android audit. Translate OPP-115 and MAPP into all 24 EU languages; verify fidelity via similarity metrics plus legal-expert review. Evaluate an LLM classifier for personal-data collection categories without per-language fine-tuning. Audit 2,611 Spanish Google Play apps by triangulating policy text, Play privacy labels, and observed network traffic. Classifier performance is nearly language-invariant: macro-F1 \textasciitilde{}0.91--0.94 across all 24 EU languages. In the Spanish app audit, public-sector apps more often publish Spanish-only policies while popular commercial apps more often use English; cross-checking policies, labels, and traffic reveals systematic disclosure/behavior mismatches, especially for public-sector apps---showing English-only audits can miss major parts of the ecosystem.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{From a Multilingual Streaming ASR Backbone to Kenyan-Language Systems: Data-Centric Adaptation of Nemotron 3.5 for Kikuyu, Dholuo, and Kalenjin}} {\scriptsize[\href{https://arxiv.org/abs/2607.18912}{arxiv}]}\\
+{\scriptsize Mark Gatere}\\
+
+{\small\textit{Low-resource Kenyan streaming ASR improves most from rigorous data/eval hygiene, not new architectures.}}\\[1pt]
+{\footnotesize A data-centric, deployment-faithful adaptation playbook for turning Nemotron 3.5 Streaming into Kikuyu/Dholuo/Kalenjin systems: corpus audits, Unicode/orthography normalization, split-leakage checks, filtering, checkpoint selection by validation behavior, and strict true-streaming evaluation---plus a candid catalog of failure modes (label policies, non-speech tags, short-utterance over-generation, infra issues). Start from a Kenyan Swahili--adapted Nemotron 3.5 Streaming (cache-aware FastConformer RNN-T) and full-parameter fine-tune while preserving streaming machinery (cache behavior, streaming decoder, prompt conditioning). Engineer the dataset (audits, normalization, split integrity, duration/artifact filtering), pick checkpoints via validation signals, and report metrics under strict streaming (no future-audio peeking). With careful data handling and streaming-faithful fine-tuning, they obtain usable systems on internal eval sets (excluded from gradient updates): Kikuyu 42.97\% WER, Dholuo 33.98\% WER (also low CER under a frozen historical label policy, incl. a no-space CER variant). Kalenjin remains hard (68.74\% WER on a cleaned diagnostic subset) and is explicitly flagged as not a clean generalization estimate because checkpoint selection used a validation manifest contaminated with test-origin rows---underscoring how normalization, split integrity, and streaming-mode evaluation can make results ``promising'' vs. ``misleading.''}
+
+\medskip
+
+{\small\textbf{Transcription Policy as a Latent Variable: Activating Controllable Verbatim ASR with Word-Level Timing}} {\scriptsize[\href{https://arxiv.org/abs/2607.18934}{arxiv}]}\\
+{\scriptsize Laurin Wagner (nyra labs), Mario Zusag (nyra labs), Bernhard Thallinger (nyra labs)}\\
+
+{\small\textit{ASR often contains both intended and verbatim transcript behaviors; making the ``transcription policy'' controllable stabilizes WER and improves word timings.}}\\[1pt]
+{\footnotesize Treats transcript style (clean intended vs. disfluent verbatim) as a latent variable that destabilizes decoding and timing; introduces an inference-time control mechanism to explicitly select the policy, reducing evaluation confusion and improving alignment. Train decoder control/task tokens on parallel intended+verbatim transcripts for the same audio, with coverage-aware conditioning so the policy affects which words are emitted (not just formatting). Further fine-tune cross-attention with alignment supervision to improve word-level timestamps on disfluent speech. Control tokens ``activate'' the desired style and generalize cross-lingually: trained on English parallel data, German disfluency detection F1 jumps from \textasciitilde{}10\% to 79\% zero-shot. With full English fine-tuning, verbatim accuracy/disfluency detection improve without degrading intended-mode quality. Supervised cross-attention yields better word-level timestamps on disfluent speech than forced-alignment baselines.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Reasoning Fine-Tuning Induces Persistent Latent Policy States}} {\scriptsize[\href{https://arxiv.org/abs/2607.18532}{arxiv}]}\\
+{\scriptsize Abir Harrasse, Michael Lan, Hunar Batra, Fateme Hashemi Chaleshtori, Chaithanya Bandi}\\
+
+{\small\textit{Reasoning fine-tuning appears to install persistent, switch-like internal ``policy states'' that can be manipulated to change reasoning performance.}}\\[1pt]
+{\footnotesize A switching-dynamical-systems account of chain-of-thought: recover discrete, persistent latent regimes from activation trajectories, show stage-like specialization, and demonstrate causal control via regime swaps/transplants and prefix pruning guided by the inferred state. Fit an SDS to activation sequences using time-aware contrastive representation learning plus discrete regime discovery/segmentation and transition modeling. Validate persistence/structure, then run interventions (swap regime assignments; transplant reasoning dynamics into base models) and use regime signals to prune failure-prone prefixes. Reasoning-tuned models (≈1.5B--32B) show richer, more structured latent regimes than base models; regimes align with recognizable reasoning stages and are not explained away by simple artifacts. Causally, swapping regimes degrades predictive fit, while transplanting reasoning dynamics improves harder-task performance. SDS-guided prefix pruning beats self-consistency in 11/12 model--dataset settings, with gains up to \textasciitilde{}12.5 points.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM-centric work, especially around agent reliability/safety and evaluation: at least \textasciitilde{}25--35 papers on agentic systems (tool use, memory, debugging/observability, workflow runtimes, multi-agent coordination) and another \textasciitilde{}20--30 on evaluation/benchmarks (e.g., Relay-Bench, GAMUT, FindStatBench, QuArch, PathReportEval/PathAgentBench, MedDDC-Eval, MIRA-Ev, SciHazard, BioSecBench). A second major cluster is post-training and inference-time control for reasoning (roughly \textasciitilde{}15--25 papers) featuring RLVR/GRPO variants, faithfulness/CoT audits, steering, and cost--quality tradeoffs (e.g., CASE, RRPO, Off-Context GRPO, ISO, ``Price of Reasoning,'' ``Copy Less, Ground More''). Multimodality and speech/audio are also unusually prominent (at least \textasciitilde{}15--25), spanning multilingual ASR/TTS, audio QA benchmarks, and brain-signal decoding (EEG/ECoG-to-text/semantics), alongside several multimodal VLM evaluation and safety papers (ToM in meetings, hateful illusions, pathology WSIs). A notable emerging direction is ``enterprise/production realism'' (local/on-prem RAG, latency-aware routing, structured-output brittleness, privacy policy audits, CI/CD attack surfaces), suggesting the field is shifting from capability demos toward deployment-grade robustness, governance, and measurement.}
+
+
+\end{document}
