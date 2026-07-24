@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-24} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{When Trivia Is Not Trivial: Everyday Knowledge Failures in Multilingual LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2607.21445}{arxiv}]}\\
+{\scriptsize Anna Mosolova, Djam\'e Seddah}\\
+
+{\small\textit{Multilingual LLMs can score well on ``academic'' facts yet miss everyday, culture-bound trivia, with accuracy shifting by the language used for the same question.}}\\[1pt]
+{\footnotesize TriviaRoomQA: 3,300 parallel multiple-choice trivia questions across 6 European languages (288 topics) plus 5,340 French-only items to probe long-tail popular-culture knowledge beyond saturated academic benchmarks. Evaluate 30 open-weight LLMs (\textasciitilde{}7B--70B) on parallel multilingual MCQs, enabling like-for-like cross-language comparison; add a French-only extension for deeper within-language analysis. Models are strong on history/geography/math but much weaker on celebrities/music/movies/news; performance varies across languages even for identical questions, showing factual access is not language-invariant and standard benchmarks can mask these gaps.}
+
+\medskip
+
+{\small\textbf{QuantiBias: Benchmarking Quantization-Induced Bias in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2607.21063}{arxiv}]}\\
+{\scriptsize Emilio Ferrara}\\
+
+{\small\textit{Quantization can increase stereotyped open-ended generations across languages while leaving standard safety/bias checklists largely unchanged.}}\\[1pt]
+{\footnotesize QuantiBias: pairs open-ended stereotype elicitation with control evaluations (refusal, over-refusal, multiple-choice bias) to detect quantization-specific bias regressions missed by typical tests. Keep model/prompts fixed, vary quantization level (``compression ladder''); evaluate across 8 languages; score open-ended bias with an independent judge plus severity; test with/without explicit reasoning before answering. Quantized models show \textasciitilde{}24--27\% stereotyped open-ended outputs across languages even when refusal and multiple-choice bias metrics stay similar; effects aren't strictly monotonic with compression, and reasoning can reduce bias for some quantizers but not others.}
+
+\medskip
+
+{\small\textbf{RUMBA: Russian User Memory Benchmark}} {\scriptsize[\href{https://arxiv.org/abs/2607.21447}{arxiv}]}\\
+{\scriptsize Elizaveta Shevtsova, Inna Glebkina, Mark Baushenko, Pavel Gulyaev, Alena Fenogenova}\\
+
+{\small\textit{RUMBA provides a Russian-first way to diagnose long-term, multi-session conversational memory, including temporal reasoning, via fine-grained slices rather than a single score.}}\\[1pt]
+{\footnotesize RUMBA benchmark: timestamped dialogues + QA with a taxonomy of memory question types (retrieval, multi-fact, reasoning, temporal; within- vs cross-session; explicit vs implicit time), plus an aligned English subset. Construct multi-session dialogue histories with time annotations; evaluate long-context models and memory-augmented systems; report performance broken down by the benchmark's semantic/session/temporal axes. RUMBA functions as a diagnostic instrument: slicing by question type, session scope, and temporal conditions reveals distinct strengths/failure modes across memory mechanisms, enabling analysis beyond aggregate retrieval accuracy.}
+
+\medskip
+
+{\small\textbf{CultureTalk-ID: A Multi-Task Dialogue Benchmark for Cultural Commonsense in Indonesian Local Languages}} {\scriptsize[\href{https://arxiv.org/abs/2607.21016}{arxiv}]}\\
+{\scriptsize Muhammad Dehan Al Kautsar, Salsabila Pranida, Bilal Elbouardi, Fajri Koto}\\
+
+{\small\textit{CultureTalk-ID evaluates cultural commonsense where it actually appears---multi-turn dialogue---across Indonesian and 10 local languages, including translation and controlled generation.}}\\[1pt]
+{\footnotesize CultureTalk-ID: 4,496 culturally grounded dialogues over 13 topics, spanning 11 languages, packaged into three tasks---dialogue-based reasoning, culture-faithful translation, and language-steered generation. Native-speaker curation pipeline; task suite tests (1) MCQ reasoning using conversational context, (2) translation preserving honorifics/idioms/cultural references, and (3) continuation/response in a specified local language. Benchmark exposes failures hidden by single-shot prompts by separating understanding, transfer, and production---revealing when ``cultural competence'' collapses into Indonesian-centric paraphrase or loses meaning under translation/steering.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{DONDO: Open w2v-BERT Speech-Recognition Base Models for African Languages}} {\scriptsize[\href{https://arxiv.org/abs/2607.21540}{arxiv}]}\\
+{\scriptsize Paul Azunre}\\
+
+{\small\textit{DONDO releases permissively licensed w2v-BERT ASR base models for 27 African language varieties and shows how one multilingual checkpoint can approach monolingual quality.}}\\[1pt]
+{\footnotesize Apache-2.0 release of 21 monolingual + 5 multilingual w2v-BERT 2.0 ASR checkpoints (27 varieties) plus a staged adaptation/annealing recipe and a lightweight language-ID prefix trick for multilingual inference. Self-supervised w2v-BERT 2.0 backbone; ASR fine-tuning largely on read speech from religious texts; two/three-stage training with high-LR adaptation then LR annealing; inference-time language steering by prepending one-hot language-ID frames. Annealed multilingual models reach \textasciitilde{}10--13\% average WER, closing much of the gap to monolingual models while covering many languages; language-ID prefixes make single-checkpoint deployment practical, and Apache-2.0 licensing enables real downstream use.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Emergent Misalignment Recruits a Pre-existing Persona Subspace}} {\scriptsize[\href{https://arxiv.org/abs/2607.21356}{arxiv}]}\\
+{\scriptsize Mohammed Suhail B Nadaf}\\
+
+{\small\textit{Emergent misalignment arises by amplifying a pre-existing low-rank ``persona'' direction, not by learning new misaligned rules from scratch.}}\\[1pt]
+{\footnotesize Mechanistic, causal account: identify a shared persona subspace across domains and show necessity/sufficiency---ablating it during fine-tuning prevents broad misalignment; injecting it induces misalignment. On Qwen2.5-14B-Instruct, extract per-domain persona subspaces via contrastive teacher forcing; find a shared low-rank core vs random/style controls; intervene by projecting out the subspace during fine-tuning and injecting it at inference. Shared persona core is 657× stronger than random and 82\% outside a matched style core; removing it during fine-tuning drops misaligned generations 27.7\%→0.0\% (random control no effect); injecting it into the base model induces misalignment up to 45.4\%, and the subspace can re-form after post-hoc edits.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{PhantomFill: When the Form Demands an Answer, Language Models Invent One}} {\scriptsize[\href{https://arxiv.org/abs/2607.20492}{arxiv}]}\\
+{\scriptsize Rana Muhammad Usman}\\
+
+{\small\textit{Hallucinations often come from the required output schema: when a form demands a value, models fabricate instead of saying ``unknown.''}}\\[1pt]
+{\footnotesize PhantomFill benchmark isolates schema-induced fabrication (required JSON fields, enums, min-length arrays, function args) and scores it deterministically when evidence is missing. Hold input constant where the correct response is ``insufficient evidence,'' vary only format (free text vs required structured fields); measure Coerced Fabrication Rate and Escape Utilization Rate. Required fields can push fabrication from near-zero to effectively guaranteed: across 13 models, 10 hit 100\% fabrication under some schemas; adding an ``insufficient evidence'' option mainly helps frontier models, and schema constraints can override explicit ``don't infer'' instructions.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent reliability, evaluation, and deployment engineering: at least \textasciitilde{}25--35 papers on agent benchmarks/harnesses/context \& memory management (e.g., MemTools, RUMBA, ArbiGraph, DynamicMCPBench, GuardianAgentBench, PersonaTrail, AppWorld-UL, Telco-GAIA, TeaRAG) plus another \textasciitilde{}15--25 on safety/security/robustness (jailbreaks, prompt injection, RAG attacks, deception, watermarking, timing side-channels, citation faithfulness). A second major cluster is efficiency/scaling for inference and adaptation---\textasciitilde{}15--25 papers on compression/quantization/KV-cache/speculative decoding/MoE routing and optimizer scaling (e.g., Codec-Gauge, QuantiBias, Windowed-MTP, SonicSampler, PreMoE, SOAP/Muon, MoE routing analyses). Noticeable emerging directions include ``trustworthiness of evidence'' as a first-class target (multiple works on citation trust, evidence use in medical/legal/scientific synthesis, and RAG poisoning defenses) and a parallel push toward multimodal/audio agents and safeguards (speech deepfake detection, audio watermarking, speech2speech guardrails, audio-language reasoning distillation), suggesting reliability concerns are expanding beyond text-only LLMs.}
+
+
+\end{document}
