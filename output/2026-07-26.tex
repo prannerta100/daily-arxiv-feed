@@ -1,0 +1,90 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-26} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{When Does Knowledge Distillation Hurt? Reliability-Aware Distillation for Low-Resource Language Summarization}} {\scriptsize[\href{https://arxiv.org/abs/2607.19956}{arxiv}]}\\
+{\scriptsize Dipto Sumit, Ankan Kumar Roy Srizon, Sadia Khair Rodela, Atia Haque Asha, Mourchona Afrin, Niloy Farhan, Farig Sadeque}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary claims CHAD and EWAD+CPDP ``both revolve around the same mechanism'' / ``decide when the teacher signal is reliable, and reduce its influence when it is not.'' This accurately describes CHAD, but the abstract does not state that EWAD+CPDP performs per-sample (or explicit) reliability gating/selection; it describes entropy-weighted adaptive distillation plus a capacity-proportional geometric constraint from a second teacher. Framing EWAD+CPDP as using the same reliability-decision mechanism as CHAD is not supported by the abstract.}}\\[1pt]
+
+{\small\textit{In low-resource summarization, vanilla knowledge distillation often harms learning; reliability-aware distillation helps by trusting the teacher only when it's useful.}}\\[1pt]
+{\footnotesize Shows KD is not uniformly beneficial per example (many samples push the student the wrong way) and proposes two reliability-aware strategies to downweight harmful teacher signals; validates that gains vary by language. CHAD estimates whether KD gradients help validation loss and trains a gating model to predict helpful vs. harmful samples; EWAD+CPDP adaptively weights KD by token entropy and adds a capacity-proportional constraint using a second, vocab-incompatible teacher to add complementary signal. On BanSum (Bangla), standard KD is essentially zero gain over CE (+0.0003 ROUGE-L) and \textasciitilde{}51.3\% of samples are estimated harmful; CHAD and EWAD+CPDP improve ROUGE-L over standard KD by +0.0173 and +0.0219, with a 60M student outperforming a fine-tuned Qwen2.5-3B; across 15 XL-Sum languages, EWAD+CPDP beats CE in 10/15 (not universal).}
+
+\medskip
+
+{\small\textbf{CultureTalk-ID: A Multi-Task Dialogue Benchmark for Cultural Commonsense in Indonesian Local Languages}} {\scriptsize[\href{https://arxiv.org/abs/2607.21016}{arxiv}]}\\
+{\scriptsize Muhammad Dehan Al Kautsar, Salsabila Pranida, Bilal Elbouardi, Fajri Koto}\\
+
+{\small\textit{CultureTalk-ID evaluates cultural commonsense where it actually appears---multi-turn dialogue---across Indonesian and 10 local languages.}}\\[1pt]
+{\footnotesize Introduces the first dialogue-based cultural commonsense benchmark spanning 11 Indonesian/local languages, with 4,496 culturally grounded dialogues over 13 topics and three tasks covering reasoning, transfer, and culturally appropriate generation. Human-curated, native-speaker pipeline to create authentic culturally situated dialogues; tasks include dialogue-based MC cultural reasoning, culturally faithful MT, and language-steering generation/continuation in the intended variety while staying culturally appropriate. Delivers a new 11-language, dialogue-centric benchmark designed to expose cultural failure modes missed by prompt-only tests, via complementary tasks for understanding, cross-lingual transfer, and controlled culturally grounded generation.}
+
+\medskip
+
+{\small\textbf{QuantiBias: Benchmarking Quantization-Induced Bias in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2607.21063}{arxiv}]}\\
+{\scriptsize Emilio Ferrara}\\
+
+{\small\textit{Quantization can increase stereotyped generations in multilingual, open-ended settings while leaving standard refusal/MC safety metrics largely unchanged.}}\\[1pt]
+{\footnotesize Identifies quantization-induced bias as a deployment risk and introduces QuantiBias to disentangle open-ended stereotype generation from control safety tasks (refusal, over-refusal, MC), attributing changes specifically to quantization. Evaluate the same model pre/post quantization with identical prompts across eight languages; measure refusals/over-refusals, MC unbiased choice, and open-ended stereotype generation; vary quantization families/levels and ``reasoning before answer.'' Across quantization ladders, models can still pass typical safety gates yet show higher stereotype generation in open-ended answers (\textasciitilde{}24--27\% flagged by an independent judge across settings); compression monotonicity depends on judge, and adding reasoning can reduce bias for some quantizers but not others---so bias must be re-evaluated on the shipped quantized build.}
+
+\medskip
+
+{\small\textbf{MIRA-Ev:A Benchmark for Granular Evidence Detection and Relational Reasoning in Clinical Exams}} {\scriptsize[\href{https://arxiv.org/abs/2607.19201}{arxiv}]}\\
+{\scriptsize Iker De la Iglesia, Johanna Ramirez-Romero, Jose Maria Villa-Gonzalez, Irune Urroz García, Ander Barrena, Aitziber Atutxa}\\
+
+{\small\textit{MIRA-Ev benchmarks clinical reasoning by checking whether models can extract and relate the evidence behind answers, not just choose an option.}}\\[1pt]
+{\footnotesize Creates a clinician-annotated argument-mining benchmark from Spanish MIR exam cases, capturing premises/claims and support/attack relations to expose evidence-use failures hidden by MCQA accuracy. Expert clinicians annotate span-level premises and claims plus directed support/attack links; released in Spanish, English, and Basque (including a first Basque clinical argumentation resource); evaluation is tiered: evidence sentence retrieval, component extraction, relation classification. Releases MIRA-Ev: multilingual (ES/EN/EU) MIR-based cases with expert span and relation annotations and a three-level task hierarchy for granular evidence detection and relational reasoning evaluation.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Transcription Policy as a Latent Variable: Activating Controllable Verbatim ASR with Word-Level Timing}} {\scriptsize[\href{https://arxiv.org/abs/2607.18934}{arxiv}]}\\
+{\scriptsize Laurin Wagner, Mario Zusag, Bernhard Thallinger}\\
+
+{\small\textit{ASR models implicitly learn a ``verbatim vs. intended'' transcription mode that skews WER and timestamps; simple control tokens can reliably switch modes, even cross-lingually.}}\\[1pt]
+{\footnotesize Frames transcription policy as a latent variable learned from mixed supervision, explaining unstable decoding, misleading WER under policy mismatch, and broken word timing; makes the policy explicitly controllable and links it to better disfluency handling and timing. Train decoder control tokens on parallel intended/verbatim transcripts for the same audio, with a coverage-aware objective to force verbatim outputs to include disfluencies; add supervised cross-attention fine-tuning to improve word-level alignment/timestamps under disfluency. Policy mismatch can explain up to \textasciitilde{}60\% of apparent WER differences; control tokens reliably steer outputs and greatly improve disfluency recovery, including zero-shot transfer to German (disfluency F1 \textasciitilde{}10\%→\textasciitilde{}79\% from English-only supervision), and attention tuning improves word timestamps beyond forced alignment on disfluent speech.}
+
+\medskip
+
+{\small\textbf{DONDO: Open w2v-BERT Speech-Recognition Base Models for African Languages}} {\scriptsize[\href{https://arxiv.org/abs/2607.21540}{arxiv}]}\\
+{\scriptsize Paul Azunre}\\
+
+{\small\textit{DONDO releases Apache-2.0 w2v-BERT ASR base models for 27 African language varieties and shows how to get multilingual convenience with near-monolingual accuracy.}}\\[1pt]
+{\footnotesize Provides openly licensed monolingual and multilingual ASR checkpoints plus a reproducible recipe to bootstrap from license-clear read speech; shows staged fine-tuning and lightweight language conditioning reduce the usual multilingual accuracy penalty. Fine-tune w2v-BERT 2.0 on read speech from religious texts; use two-stage (annealed learning-rate) multilingual fine-tuning to recover accuracy; condition language by prepending one-hot language-ID prefix frames to acoustic features. Annealed multilingual checkpoints reach \textasciitilde{}10--13\% average WER across model families, closing most of the multilingual--monolingual gap; all weights are released under Apache-2.0 on Hugging Face, enabling real reuse and commercial adaptation.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by LLMs/agents and their reliability, with at least \textasciitilde{}120 titles centered on agentic systems (memory, context management, tool use, multi-agent RAG, benchmarks like DocOps/GuardianAgentBench/ARBIGRAPH, and safety for long-horizon action). A second major cluster is efficiency/inference engineering for foundation models (roughly \textasciitilde{}40 papers) covering KV-cache management/eviction/compression, speculative decoding, quantization and its side effects (bias, safety, routing), and edge/on-device runtimes. The most striking ``surprising'' concentration is audio/speech+LLMs: well over \textasciitilde{}200 papers on ASR, speech LLMs, TTS, audio-language models, deepfake detection/watermarking, and streaming/full-duplex voice agents---far denser than typical daily mixes---suggesting a strong push toward production-grade voice interaction and provenance/security. Across these clusters, evaluation/benchmarking and auditing is unusually prominent (at least \textasciitilde{}60 papers) spanning hallucination/citation trust, cultural/value alignment, bias, prompt sensitivity, and domain-specific reliability (finance, legal, medical), indicating a shift from capability demos toward measurement, governance, and deployment constraints.}
+
+
+\end{document}
