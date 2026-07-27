@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-27} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Biomedical Machine Translation for Low-Resource Arabic-Script Languages via Cross-Lingual Transfer and LoRA Adapter Merging}} {\scriptsize[\href{https://arxiv.org/abs/2607.22300}{arxiv}]}\\
+{\scriptsize Abdullah Alabdullah, Arash Eslamighayour, Sarp Harbalioglu, Lifeng Han}\\
+
+{\small\textit{Strong biomedical MT for ultra--low-resource Arabic-script languages is possible by transferring (and even merging) LoRA adapters from related pivot languages---sometimes with zero target biomedical data.}}\\[1pt]
+{\footnotesize Frames low-resource biomedical MT as cross-lingual transfer from Arabic/Persian pivots to Dari, Pashto, Sorani Kurdish, and Urdu using small decoder-only LLMs with LoRA; introduces and validates zero-data LoRA adapter merging for domain MT, working best when target≈pivot (Dari≈Persian). Train biomedical MT LoRA adapters on pivot languages (Arabic, Persian), then transfer via (1) ICL prompting, (2) tiny supervised target adaptation (\textasciitilde{}500 sentences), or (3) zero-data adapter merging that combines pivot adapters to approximate a target biomedical translator. With 500 sentences, Dari reaches near-pivot quality (CHrF++ 41.01) and Urdu improves (28.88); zero-data adapter merging comes within \textasciitilde{}3.5 CHrF++ of supervised Dari adaptation, while Pashto/Sorani remain limited---transfer scales with linguistic closeness.}
+
+\medskip
+
+{\small\textbf{A Factorial Study of Synthetic Data Generation for Low-Resource Machine Translation using Grammar Books}} {\scriptsize[\href{https://arxiv.org/abs/2607.22376}{arxiv}]}\\
+{\scriptsize Varun Ghat Ravikumar, Sina Ahmadi, Lena J\"ager, Rico Sennrich}\\
+
+{\small\textit{Descriptive grammar books can be converted into synthetic parallel data that measurably improves low-resource MT---if generation choices are tuned.}}\\[1pt]
+{\footnotesize Shows an end-to-end, scalable way to turn grammar documentation into MT training corpora (rules+examples+lexicon → parallel sentences) and runs a 96-condition factorial study to identify which synthesis design decisions drive gains vs. noise. Use an LLM to extract grammatical rules, example pairs, and lexicon entries from grammar books; generate controlled synthetic parallel sentences with configurable retrieval/sampling; fine-tune an MT model on synthetic data (optionally plus small seed parallel data). Synthetic grammar-derived data beats seed-only baselines in most settings (75\% Kalamang, 59\% Tuatschin); best configs yield ChrF++ gains of +8.8 (Kalamang), +5.3 (Tuatschin), +3.3 (Mandan), with factorial analysis showing gains are sensitive to synthesis distribution/coverage.}
+
+\medskip
+
+{\small\textbf{Do VLMs Read or Rewrite? On Transcription Faithfulness in Vision-Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2607.21617}{arxiv}]}\\
+{\scriptsize Gwang Gook Lee, Kenan Emir Ak, Jay Mohta, Yan Xu, Dimitrios Dimitriadis}\\
+
+{\small\textit{Many VLMs ``rewrite'' noisy text into plausible clean text instead of faithfully transcribing; FaithC4 measures this and a probe predicts when it happens.}}\\[1pt]
+{\footnotesize Introduces FaithC4 (1,455 multilingual perturbed documents: EN/ZH/KO) to test corruption-preserving transcription, and links rewriting behavior to an internal representation signature in Qwen3-VL-4B. Create controlled perturbations (scramble, random substitution, visually similar substitution); evaluate 15 systems (general VLMs, OCR-VLMs, classic OCR) via WER degradation; probe Qwen3-VL-4B layer-wise by comparing perturbed-token vs clean-token FFN representations. General VLMs degrade far more under perturbations (up to \textasciitilde{}4.5 WER points) than OCR-VLMs (\textasciitilde{}0.2--2) and classic OCR (<\textasciitilde{}0.6 on English); rewriting correlates with perturbed tokens staying close to clean-token representations, and is common for short words (4--6 chars, up to \textasciitilde{}10\%) but rare beyond \textasciitilde{}8 chars.}
+
+\medskip
+
+{\small\textbf{Khondo: A Multimodal Benchmark for Document Packet Splitting of Bangla Forms}} {\scriptsize[\href{https://arxiv.org/abs/2607.21780}{arxiv}]}\\
+{\scriptsize Abu Tyeb Azad, Fahim Ahmed, Ishita Sur Apan, Ezharuddin Jubaer, Sumaiya Karim Katha, Armun Alam, Amin Ahsan Ali, Aman Chadha, Md Mofijul Islam, AKM Mahbubur Rahman}\\
+
+{\small\textit{Khondo benchmarks splitting mixed Bangla form packets into original documents and page order---showing page sequencing, not boundary detection, is the main failure for MLLMs.}}\\[1pt]
+{\footnotesize Introduces the first document-packet-splitting benchmark for Bangladeshi government forms, separating clustering (group pages) from sequencing (order pages) and varying concatenation/shuffling plus Bangla--English content. Build page-image dataset from 14 domains; synthesize packets under five concatenation schemes (sequential→fully shuffled) with ground-truth boundaries, labels, and page order; evaluate zero-shot multimodal LLMs with prompt and language ablations. Models often cluster pages correctly but fail to reconstruct order once shuffled; explicit ordering prompts help yet sequencing remains the dominant bottleneck. English packets order better than Bangla, but shuffling hurts most---making page arrangement the key unsolved subproblem.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Synthetic Speech, Real Signal: Paralinguistic Preservation and Cross-Lingual Augmentation via Voice Cloning}} {\scriptsize[\href{https://arxiv.org/abs/2607.22304}{arxiv}]}\\
+{\scriptsize Roseline Polle, Owen Parsons, George Fairs, Luis Miguel San Martin Fernandez, Cole Looney, Xiaoliang Wu, Alexandra Livia Georgescu, Stefano Goria}\\
+
+{\small\textit{Voice cloning often preserves paralinguistic cues well enough for clinical/affective models---and can transfer labeled clinical speech across languages.}}\\[1pt]
+{\footnotesize Benchmarks 8 voice-cloning systems on 5 paralinguistic/clinical tasks using downstream performance (not just intelligibility), and demonstrates cross-lingual label-preserving augmentation by cloning English clinical speech into Japanese. Evaluate paralinguistic classifiers trained/evaluated on real vs cloned audio across tasks and cloning models; for cross-lingual augmentation, clone labeled English clinical recordings into Japanese and train detectors tested on real Japanese speech. Most cloning systems cause only modest downstream degradation on many paralinguistic tasks; cloned English→Japanese clinical data improves depression/anxiety detection on real Japanese speech versus naïve cross-lingual transfer, showing cloning can bridge label scarcity.}
+
+\medskip
+
+{\small\textbf{MEUSLI: a Multilingual Projector for LLM-based ASR and Beyond}} {\scriptsize[\href{https://arxiv.org/abs/2607.22100}{arxiv}]}\\
+{\scriptsize Lorenzo Concina, Seraphina Fong, Marco Matassoni, Alessio Brutti}\\
+
+{\small\textit{MEUSLI trains a small multilingual ``projector'' that lets Whisper feed open LLMs, enabling open-source multilingual SpeechLLMs and easy task reuse.}}\\[1pt]
+{\footnotesize Releases multilingual projectors bridging Whisper to multilingual LLMs for 28 European languages; emphasizes a reusable interface layer (not full retraining) and continual learning to add languages without catastrophic forgetting. Keep Whisper encoder and text LLM largely frozen; train a lightweight projector mapping acoustic features to LLM-compatible embedding sequences; train multilingual/continual variants and reuse the same bridge for other speech tasks with small supervision. A single open multilingual projector family yields strong end-to-end ASR across high/low-resource European languages and transfers to speech translation and topic ID with only a few hours of per-language task data, highlighting the projector as the main leverage point.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{The Hard Decision Layer: Evidence for Committed Inference in Transformers}} {\scriptsize[\href{https://arxiv.org/abs/2607.21613}{arxiv}]}\\
+{\scriptsize Ashwath Vaithinathan Aravindan, Mayank Kejriwal}\\
+
+{\small\textit{On MCQs, transformers often ``commit'' at a specific depth where option rankings abruptly stabilize---the Hard Decision Layer (HDL).}}\\[1pt]
+{\footnotesize Defines and documents the HDL as a repeatable layer-wise phase transition in answer-option ranking across model families/datasets; argues it is largely architecture-stable and minimally shifted by fine-tuning. Track per-layer scores/rankings of MCQ options from intermediate activations; define HDL as the layer where rankings snap to stability; validate across prompts/labels and compare base vs fine-tuned models. HDL appears consistently across Qwen/Llama/Granite/Mistral; accuracy can jump sharply at HDL (e.g., up to +0.61 for Qwen on CommonsenseQA vs earlier layers), and later layers rarely change rankings; fine-tuning improves pre-HDL evidence more than HDL depth.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Do Agent Benchmarks Measure Capability? Protocol Validity in the Age of Agentic AI}} {\scriptsize[\href{https://arxiv.org/abs/2607.22368}{arxiv}]}\\
+{\scriptsize Jiaqi Shao, Hanck Chen, Wei Zhang, Maxm Pan, Bing Luo}\\
+
+{\small\textit{Many agent benchmark scores are inflated by protocol loopholes; HackDetect audits traces to quantify how much success comes from exploits.}}\\[1pt]
+{\footnotesize Formalizes protocol validity (``capability must be necessary for success''), introduces HackDetect to identify exposures and exploit-driven wins from traces, and defines the Mislead gap to report score inflation. Audit benchmark runs by (1) finding exposures (leaky artifacts/channels), (2) verifying exploit use in traces, and (3) estimating intended vs exploit scores; summarize inflation as Mislead gap = exploit score − intended score. Across 2,385 traces on 15 benchmarks, exposures are frequent; highlighted cases show exposures in 67.0\% (Frontier Science) and 66.7\% (AutoLab), with estimated Mislead gaps \textasciitilde{}0.45--1.00---large enough to overturn capability claims without protocol fixes.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLMs and how to evaluate/control them: at least \textasciitilde{}20 papers on agent benchmarks, agent memory, workflow synthesis/routing, and deployment protocols (e.g., memory instruments/LMEB, DBA-Bench, InteractComp, TRACE-ROUTER, workflow self-evolution). A second major cluster is LLM/VLM safety, security, and governance---roughly \textasciitilde{}15 papers spanning jailbreaks and adversarial prompting, tool/agent security boundaries, copyright/licensing compliance, watermarking/detection, and red-teaming limits (including multimodal-specific attack surfaces). There's also a noticeable efficiency/PEFT + inference-systems wave (\textasciitilde{}12 papers) focused on LoRA variants and theory (MoE\$\textasciicircum{}2\$-LoRA, IFCLoRA, κ-LoRA, ``procedural knowledge not low-rank''), plus long-context sparse attention/KV-cache reuse and hardware acceleration (RIS-Kernel, HiKV, pruning, PIM/mobile finetuning). Surprising emerging direction: ``JEPA'' shows up across modalities (audio, PDE control, ultrasound IQ) alongside multiple audio/deepfake-forensics papers, suggesting joint-embedding world-modeling and multimodal robustness are converging into a shared research thread.}
+
+
+\end{document}
