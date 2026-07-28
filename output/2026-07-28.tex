@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-28} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{ADAGE: A Language-Agnostic Pipeline for Analogical Reasoning Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2607.23058}{arxiv}]}\\
+{\scriptsize Ahmed Haj Ahmed, Alvin Grissom II}\\
+
+{\small\textit{Translation-based ``multilingual reasoning'' benchmarks can inflate performance; ADAGE builds native, culture-grounded analogy tests that reveal real cross-cultural gaps.}}\\[1pt]
+{\footnotesize ADAGE replaces the standard ``translate an English benchmark'' recipe with a language-agnostic pipeline where native speakers author culturally valid analogies (e.g., proverb-like abstractions) from scratch, using LLMs only for drafting/scale and humans as the authority. They release new non-translated benchmarks in Arabic, Amharic, and Japanese. Native speakers curate source cultural material and define valid analogical mappings; LLMs generate candidate questions/options; native review filters unnatural phrasing, ambiguity, and culturally off analogies. The result is translation-free, difficulty-controlled analogy evaluation grounded in each language's own abstractions. Across 14 open-weight models, accuracy drops by \textasciitilde{}12--52 points versus English when evaluated on the native Arabic/Amharic/Japanese sets, reshuffling conclusions about which models ``reason well.'' Translation-based tests systematically overestimate multilingual reasoning transfer.}
+
+\medskip
+
+{\small\textbf{The Cross-Domain Generalization Cost of Offensive Language Detection}} {\scriptsize[\href{https://arxiv.org/abs/2607.23512}{arxiv}]}\\
+{\scriptsize Ruixing Ren, Junhui Zhao, Xiaoke Sun, Qiuping Li}\\
+
+{\small\textit{Offensive-language detectors fail in transfer mostly due to dataset/label mismatch, and fixing target performance has a measurable ``source accuracy'' price tag.}}\\[1pt]
+{\footnotesize They decompose transfer loss into dataset-shift vs language-shift components and argue adaptation must be scored jointly on target gains and source-task forgetting. They provide joint-training strategies that expose a controllable Pareto frontier between multilingual improvement and source preservation. Zero-shot loss decomposition (e.g., OLID→MLMA) isolates dataset vs language effects. Few-shot adaptation compares continued fine-tuning vs cold-start to separate true adaptation from initialization advantage, and measures post-adaptation source-task damage. Joint training uses temperature-based sampling and replay to trade off target gains vs forgetting. Dataset shift dominates zero-shot degradation. Continued fine-tuning yields unstable, large forgetting---4--9× more source-task damage than replay-based joint training. Joint strategies trade \textasciitilde{}3.2--4.1 source points for +8.1 to +42.6 target gains, making adaptation an explicit budgeted decision.}
+
+\medskip
+
+{\small\textbf{Echoes Across Vietnam's Highlands, Delta, and Coast: A Multilingual Corpus for Cham, Khmer, and Tay-Nung}} {\scriptsize[\href{https://arxiv.org/abs/2607.08362}{arxiv}]}\\
+{\scriptsize Anh Trac Duc Dinh, Khang Nhat Hoang Vo, Vinh Cong Doan, Tai Tien Ta, Khoa Duc Anh Lam}\\
+
+{\small\textit{CKTN provides the first multi-task benchmark for Cham, Khmer, and Tay‑Nung and shows models can ``improve'' via script/tokenization shortcuts without learning meaning.}}\\[1pt]
+{\footnotesize They release CKTN (continued pretraining + classification + summary-to-document retrieval) for three Vietnamese minority languages and highlight a key pitfall: mixed scripts/standardization let multilingual models win on surface cues, making common adaptation signals misleading. They propose a script-aware adaptation recipe to block these shortcuts. Diagnose severe tokenization fragmentation in existing multilingual encoders; expand vocabulary to better cover scripts/orthography; use calibrated replaced-token pretraining so the discriminator can't rely on trivial script mismatch, forcing contextual/semantic learning. Lower LM loss and strong overlap-heavy retrieval can coexist with poor semantic generalization. Their script-aware adaptation reduces fragmentation and yields the best category classification among tested models, demonstrating that surface-overlap retrieval metrics are not reliable proxies for understanding in mixed-script low-resource settings.}
+
+\medskip
+
+{\small\textbf{Efficient Multilingual Reasoning Transfer via Progressive Code-Switching}} {\scriptsize[\href{https://arxiv.org/abs/2607.00485}{arxiv}]}\\
+{\scriptsize Zhijun Wang, Junxiao Liu, Hao Zhou, Hao-Ran Wei, Baosong Yang, Shujian Huang}\\
+
+{\small\textit{Progressive Code-Switching transfers English reasoning to other languages by gradually increasing target-language usage inside the chain-of-thought, using only cheap translation.}}\\[1pt]
+{\footnotesize PCS enables multilingual reasoning without teacher-generated target-language rationales or external judge scoring. Key idea: preserve reasoning skill by smoothing the transition from English CoT to target-language CoT via a curriculum over code-switching intensity. Stage 1 SFT on mixed traces created by translating only some English reasoning steps. Stage 2 RL with step-level language-consistency rewards, gradually raising the required target-language ratio until reasoning is fully in the target language. Across multiple reasoning benchmarks and five diverse languages, PCS closes much of the English→target reasoning gap while increasing true target-language reasoning consistency (not just translated final answers), maintaining competitive accuracy without expensive supervision.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{MoLGE: Mixture of Language Group Experts for Efficient Scaling of Massively Multilingual Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2607.24030}{arxiv}]}\\
+{\scriptsize Sangmin Lee, Woojin Chung, Woongjib Choi, Hong-Goo Kang}\\
+
+{\small\textit{MoLGE scales ASR to hundreds of languages by specializing small expert modules per language group (not per language), avoiding capacity dilution.}}\\[1pt]
+{\footnotesize MoLGE combats the ``curse of multilinguality'' with group-level experts plus hierarchical LoRA that targets acoustic vs linguistic/orthographic components separately. It treats language grouping as a design variable and analyzes how grouping choices affect outcomes. Start from a speech self-supervised backbone; attach expert modules shared by language clusters and route examples by cluster. Add structured (hierarchical) LoRA adapters aligned to acoustic vs linguistic parts. Compare linguistically motivated vs data-driven grouping strategies. On a 495-language benchmark, MoLGE outperforms dense multilingual baselines with only modest added trainable parameters, recovering performance otherwise lost to capacity dilution. Grouping materially affects both phonetic and orthographic modeling, implying ``similarity'' for ASR depends on sound systems and writing conventions.}
+
+\medskip
+
+{\small\textbf{DONDO: Open w2v-BERT Speech-Recognition Base Models for African Languages}} {\scriptsize[\href{https://arxiv.org/abs/2607.21540}{arxiv}]}\\
+{\scriptsize Paul Azunre, Naafi Ibrahim, Joel Budu, Lawrence Adu-Gyamfi}\\
+
+{\small\textit{DONDO releases permissively licensed w2v-BERT ASR base models for African languages and shows a single multilingual checkpoint can approach monolingual accuracy with staged fine-tuning plus language conditioning.}}\\[1pt]
+{\footnotesize They publish 21 monolingual and 5 multilingual w2v-BERT 2.0 ASR base models (27 varieties) under Apache-2.0. Core idea: staged learning-rate fine-tuning plus an explicit language-ID prefix lets one multilingual model behave like many specialized systems; they leverage license-clear, consistent read-speech data (religious texts). Fine-tune w2v-BERT 2.0 on transcribed read speech. For multilingual: high LR adaptation then LR annealing to recover accuracy. Condition inference by prepending prefix frames encoding a one-hot language ID, steering decoding without separate heads. Annealed multilingual models reach \textasciitilde{}10--13\% average WER, closing most of the monolingual gap while covering many languages in one checkpoint. High-impact practical result: openly released Apache-2.0 base checkpoints enable legal downstream fine-tuning/deployment for language communities totaling \textasciitilde{}100M L1 speakers.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Through the Bottleneck: How Multi-head Latent Attention Separates Content from Position in Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2607.23054}{arxiv}]}\\
+{\scriptsize Dhruvil S, Fenil Sojitra, Ravirajsinh Chauhan}\\
+
+{\small\textit{Multi-head Latent Attention's shared low-rank bottleneck reshapes transformer circuits by separating content from position and concentrating key computations into specific layers.}}\\[1pt]
+{\footnotesize First mechanistic interpretability study of DeepSeek-style MLA: the shared cKV bottleneck acts as a content channel while positional information is handled elsewhere, causing recognizable circuits (e.g., induction) to relocate and concentrate across layers. Train a 114M MLA transformer (web/code/math) then fine-tune on TinyStories; analyze cKV with SVD/rank, linear probes for content vs position, head taxonomy for induction-like behavior, and disruption-attribution to localize causal importance. The cKV bottleneck preserves entity/content extremely well (\textasciitilde{}98\% retention) while largely discarding position. Induction heads concentrate into one layer (Layer 12), and a ``semantic hub'' layer (Layer 15) shows highest effective rank and disruption importance. Bottleneck capacity is underused (\textasciitilde{}46\%), suggesting room for further compression or explanation.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Codifying the Judge: Scalable Evaluation via Program Distillation}} {\scriptsize[\href{https://arxiv.org/abs/2607.22561}{arxiv}]}\\
+{\scriptsize Tzu-Heng Huang, Shengqi Qiu, Frederic Sala}\\
+
+{\small\textit{LLM-judge evaluation can be mostly replaced by a distilled committee of executable programs, with LLM fallback only for uncertain cases.}}\\[1pt]
+{\footnotesize Program distillation compresses an LLM judge into transparent, editable programmatic judges; PAJAMA aggregates a committee and routes ambiguous items to an LLM, cutting cost while retaining quality. Program verdicts also serve as cheap labels for downstream reward modeling. Synthesize multiple scoring/ranking programs that take prompt + candidate (and optional references) and output scores/preferences; aggregate committee outputs; use agreement/confidence to escalate hard cases to an LLM judge. Use program labels as rewards to train reward models. Program committees reach \textasciitilde{}parity with a 13B-class LLM judge across datasets/model families and improve the accuracy--throughput tradeoff via selective escalation. Reward models trained on program labels outperform those trained on proprietary LLM labels on RewardBench while using \textasciitilde{}100× fewer API calls.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent reliability, safety, and evaluation work: at least \textasciitilde{}40--60 titles focus on hallucination detection, chain-of-thought faithfulness/unfaithfulness, prompt-injection/jailbreak defenses, red-teaming limits, and ``reliability beyond accuracy'' (e.g., D-Score, Reasoning Denoiser, Semalith, Same Question Different Answers, CoT unfaithfulness, red-team validity). A second major cluster is agentic systems + RAG + memory/tooling (roughly \textasciitilde{}30--50): active/agentic RAG, evidence attribution/citations, memory contamination/consistency gates, workflow synthesis, tool-call risk control, and enterprise/DB agents (e.g., CAGE, TriShieldRAG, ConsistencyGate, Keep It InMind, DBA-Bench, AgentKVShift, SpecBox). Efficiency/serving for long-context and deployment is also heavily represented (\textasciitilde{}25--40), especially KV-cache compression/eviction, sparse attention, quantization, and on-device/mobile inference (LOCKS, HiKV, DynaCalKV, MixQuant, MM-ShiftKV, FBLayout, ELMOD). A notable emerging direction is the strong multilingual/low-resource emphasis (at least \textasciitilde{}20--30) spanning Indic/African languages, tokenization ``tax,'' multilingual ASR/diarization, and culturally grounded datasets---plus a surprisingly large audio/music thread (\textasciitilde{}15--25) covering TTS, deepfake detection, audio codecs/vocoders, and music generation/source separation.}
+
+
+\end{document}
