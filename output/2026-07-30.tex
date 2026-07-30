@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-30} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Language Models are not Equally Robust to Non-Canonical Tokenization across Languages}} {\scriptsize[\href{https://arxiv.org/abs/2607.26831}{arxiv}]}\\
+{\scriptsize Poulami Ghosh, Preethi Jyothi}\\
+
+{\small\textit{Equivalent re-tokenizations of the same string can sharply degrade LLM performance in many languages; training on multiple tokenizations improves robustness.}}\\[1pt]
+{\footnotesize Shows ``tokenization invariance'' is not multilingual: across 27 languages, non-canonical (but text-identical) tokenizations cause large, systematic drops tied to tokenizer fragmentation; proposes a simple LoRA + multi-tokenization augmentation fix that transfers cross-lingually. Generate alternative token sequences that decode to the exact same text as the canonical tokenizer output; evaluate instruction-tuned LLMs on 6 tasks while holding decoded text constant; relate drops to per-language token fragmentation; LoRA fine-tune on examples augmented with diverse tokenizations and re-evaluate. Average relative performance drops under non-canonical tokenization are large (≈23.7\% Llama-3.1-8B, 11.4\% Qwen3-8B, 9.9\% Gemma-3-12B), worst in highly fragmented languages; LoRA on multi-tokenization data reduces the gap, with systematic diverse sampling best, and even English-only robustness training can generalize.}
+
+\medskip
+
+{\small\textbf{DenseOn with the LateOn: Fully Open Dense and Late-Interaction Models for Multilingual, Long-Context, and Code Search}} {\scriptsize[\href{https://arxiv.org/abs/2607.27178}{arxiv}]}\\
+{\scriptsize Rapha\"el Sourty, Antoine Chaffin, Paulo Roberto Moura Junior, Am\'elie Chatelain}\\
+
+{\small\textit{With fully open data/code, late-interaction retrieval matches strong English results and transfers to unseen languages/scripts better than single-vector dense retrieval.}}\\[1pt]
+{\footnotesize Rebuilds a large-scale, end-to-end open retrieval pipeline and trains matched-scale dense (DenseOn) and ColBERT-style late-interaction (LateOn) models; cleanly demonstrates that late interaction is more robust beyond translate-trained languages, revealing an architectural advantage for multilingual transfer. Pretrain on hundreds of millions of public contrastive query--doc pairs; supervised fine-tune with hard negatives; train DenseOn (single embedding) vs LateOn (token-level late interaction) under matched supervision; multilingual study via translate-train into 8 languages on the same mmBERT-base backbone (mDenseOn vs mLateOn). On BEIR, both open models are top-tier for their size (LateOn slightly better); in multilingual evaluation, dense retrieval degrades much more outside translate-trained languages, while late interaction remains stronger on unseen languages and even unseen scripts, consistent with more language-agnostic token-level matching.}
+
+\medskip
+
+{\small\textbf{DialectLLM: A Dialect-Aware Dialog[ue] Generation Framework Beyond Standard American English}} {\scriptsize[\href{https://arxiv.org/abs/2601.22888}{arxiv}]}\\
+{\scriptsize Jio Oh, Paul Vicinanza, Thomas Butler, Steven Euijong Whang, Dezhi Hong, Amani Namboori}\\
+
+{\small\textit{Dialect-aware assistants need dialect-parallel dialogue and an asymmetry rule: understand user dialect, but usually don't mirror its grammar in assistant replies.}}\\[1pt]
+{\footnotesize Creates DialectLLM, a linguistically grounded framework to generate high-quality dialogues in 9 English dialects by controlling lexical, orthographic, and morphosyntactic features; finds assistant-side grammatical mirroring is often unnatural; releases DialectLLM-Bench to expose persistent model failures. Start from SAE dialogues and apply linguist-designed/validated transformations across vocabulary, spelling, and grammar; crucially apply morphosyntax asymmetrically (user uses dialect grammar; assistant stays mostly neutral with selective markers); human preference studies plus benchmarking on dialect ID and response appropriateness. Humans prefer DialectLLM dialogues for dialect naturalness in 98.8\% of pairwise comparisons; assistant responses should avoid up to \textasciitilde{}90\% of dialect morphosyntactic features; DialectLLM-Bench (50k+ dialogues, 97k+ QA) shows 17 LLMs still <70\% dialect ID accuracy (and <50\% on some dialects), often collapsing dialects into ``American/British.''}
+
+\medskip
+
+{\small\textbf{ML2B: Benchmarking LLMs on Cross-Lingual ML Pipeline Generation}} {\scriptsize[\href{https://arxiv.org/abs/2509.22768}{arxiv}]}\\
+{\scriptsize Ekaterina Trofimova, Zosia Shamina, Maria Selifanova, Artem Zaitsev, Remi Savchuk, Maxim Minets, Daria Ozerova, Emil Sataev, Denis Zuenko, Andrey E. Ustyuzhanin}\\
+
+{\small\textit{ML2B shows multilingual ML-pipeline code generation fails in task-specific ways; ``good in language X'' can't be inferred from generic multilingual scores.}}\\[1pt]
+{\footnotesize Introduces a realistic cross-lingual benchmark for end-to-end Kaggle-style pipeline generation: 35 competitions translated into 14 languages with integrity controls (private comps, network-isolated execution) to measure true task understanding and runnable pipeline construction, not memorization. Native-speaker ML-aware translations of competition specs; evaluate generated code by executability and achieved scores under a standardized protocol; include AutoGluon baseline; use private competitions and network isolation to reduce leakage; categorize failures into code bugs vs task misunderstanding. Cross-lingual degradation is not monotonic with language ``resource level''; performance swings heavily by competition/task, with some language--task pairs holding up and others collapsing, implying bottlenecks often come from pipeline decision-making (data/metric/preprocessing/leakage) rather than general multilingual fluency.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Prosody-driven Jailbreaks in Audio LLMs: A Controlled Study and Mechanistic Analysis}} {\scriptsize[\href{https://arxiv.org/abs/2607.26541}{arxiv}]}\\
+{\scriptsize Jiachen Qian, Junyu Li}\\
+
+{\small\textit{Audio LLMs can be jailbroken by prosody alone---same words, different delivery---so transcript-only safety checks miss a major attack channel.}}\\[1pt]
+{\footnotesize Defines and measures ``prosody-only'' jailbreaks: paralinguistic cues (panic/anger/fast/authority) can drive policy violations without changing text; introduces PJ-Break protocol and AdvAudio-Prosody (600 verified samples) to cleanly separate content from delivery and enable reproducible testing. Keep a fixed jailbreak transcript and render it in six controlled delivery presets; evaluate jailbreak success in a black-box setting (PJ-Break); build AdvAudio-Prosody with acoustic QC verifying intended prosodic changes; run ablations (same-voice pool, audio emotion vs emotional wording) to rule out confounds. On Qwen2-Audio, neutral delivery yields 4/95 successes, while Panic/Anger/Fast reach 38/95, 35/95, 32/95; the 6-query pool succeeds on 44/95 Qwen2-Audio seeds and 15/95 GPT-4o seeds, beating a matched-budget StyleBreak reimplementation (27/95) on Qwen2-Audio; emotional delivery audio (44/95) far outperforms emotional text alone (11/95).}
+
+\medskip
+
+{\small\textbf{Dissecting Sensitivity to Training Language in Self-Supervised Speech Learning Using Neural Audio Codec Tokens}} {\scriptsize[\href{https://arxiv.org/abs/2607.26350}{arxiv}]}\\
+{\scriptsize Daigo Takizawa, Tomohiko Nakamura, Samuele Cornell, William Chen, Satoru Fukayama, Shinji Watanabe}\\
+
+{\small\textit{In codec-token SSL speech models, codec training language matters little; SSL pretraining language drives most cross-lingual sensitivity.}}\\[1pt]
+{\footnotesize Disentangles where language dependence enters codec-token pipelines by independently varying codec training language vs SSL pretraining language; shows the codec is largely language-agnostic while the SSL stage learns language-specific structure that governs transfer. Two-stage controlled swaps: train codecs on different languages with SSL pretraining fixed, then fix the codec and vary SSL pretraining language; evaluate downstream tasks to attribute performance changes to codec vs SSL components. Swapping codec training language yields minimal downstream change, but swapping SSL pretraining language causes large, consistent shifts---implying one shared codec can be reused broadly, while multilingual robustness mainly requires aligning/adapting SSL pretraining data.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Steering Instruction Hierarchies at Inference Time}} {\scriptsize[\href{https://arxiv.org/abs/2607.26228}{arxiv}]}\\
+{\scriptsize Siqi Zeng, Sewoong Lee, Han Zhao, Julia Hockenmaier}\\
+
+{\small\textit{Instruction hierarchy (system > user) can be enforced at inference time by editing a few attention value vectors---no retraining required.}}\\[1pt]
+{\footnotesize Proposes V-Steer, a mechanistic, training-free fix for role-conflict failures: identify attention heads where lower-priority spans dominate logit contributions, then reweight cached value (V) vectors so privileged instructions regain causal influence. After prefill, run head-wise direct logit attribution for the first next-token prediction to detect hierarchy-violating heads; apply in-place multiplicative edits to KV-cache V tensors at prompt positions (boost system/developer spans, suppress conflicting user/tool spans) only for those heads; minimal overhead and compatible with fused attention. Primary constraint accuracy rises from <\textasciitilde{}18\% to as high as \textasciitilde{}92\% on role-conflict benchmarks, consistent across 7B--70B models; outperforms prompt-only baselines and is competitive with training-based fixes while adding negligible decoding-time cost.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{BayesAME: Bayesian Active Model Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2607.27023}{arxiv}]}\\
+{\scriptsize Paula Cordero Encinar, Taylan Cemgil, Arnaud Doucet, Virginia Aglietti, Silvia Chiappa}\\
+
+{\small\textit{BayesAME cuts benchmark cost by actively selecting items and stopping once uncertainty is low, using priors from historical model results.}}\\[1pt]
+{\footnotesize Recasts evaluation as sequential Bayesian inference with automatic coreset sizing: leverage correlations with past models as a prior, choose the next most-informative items, and stop when estimates stabilize---yielding cheaper yet uncertainty-aware evaluation. Cluster items by historical behavior; place a correlated prior over group ``abilities'' for the new model; sequentially pick items via expected information gain, update the posterior with observed scores (optionally using continuous signals like log-likelihood), and stop when stability + uncertainty thresholds are met; extend to jointly evaluating multiple new models. Achieves target accuracy/confidence with fewer evaluated items than sequential baseline methods; active (non-random) selection reduces uncertainty faster; using continuous signals (e.g., log-likelihood) further improves sample efficiency, making evaluation both cheaper and more statistically explicit.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents + evaluation/safety work: at least \textasciitilde{}25--35 papers on agentic systems (interfaces like AgentGUI, long-horizon task benchmarks like TREK/OmegaUse-OfficeVal/SecRespond, multi-agent debate/coordination, and workflow optimization/cost-aware tool use), with a particularly strong subcluster on agent memory (filesystem/graph memory stores, ForgetBench/IFCMemoryBench, memory poisoning like MemSecBench, and RAG+memory hybrids like CMT-RAG). Retrieval-Augmented Generation is another clear hotspot (at least \textasciitilde{}10--15 papers) spanning scaling studies (``Which RAG Paradigm Wins at Scale?''), evidence coverage/uncertainty, poisoning defenses (RAGuard), and enterprise serving/caching (FinCacheServe), suggesting the field is shifting from ``does RAG help?'' to ``how do we make it reliable, economical, and attack-resistant?''. Safety/alignment and adversarial robustness form a second major pillar (at least \textasciitilde{}15--25 papers) including red teaming/jailbreaks (GPT-Red, prosody-driven audio jailbreaks), bias audits (regional/gender/disability), backdoors/poisoning detection (ToxScreen, Lilith), and multi-turn/state-dependent safety risk forecasting. A notable emerging direction is audio-first foundation modeling and audio security (roughly \textasciitilde{}10--15 papers): full-duplex speech agents/ASR, audio deepfake/forgery detection, and music generation/detection benchmarks (MMAC, Qwen-Audio-3.0), indicating multimodal safety is expanding beyond vision into speech/music.}
+
+
+\end{document}
