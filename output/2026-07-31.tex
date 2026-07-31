@@ -1,0 +1,88 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-07-31} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Improving Mental Health Screening and Early Risk Detection in Spanish}} {\scriptsize[\href{https://arxiv.org/abs/2607.28476}{arxiv}]}\\
+{\scriptsize Andreu Casamayor-Segarra, Vicent Ahuir, Antonio Molina-Marco, Llu\'is-F. Hurtado}\\
+
+{\small\textit{Earlier, more reliable Spanish mental-health risk detection comes from pairing domain-adapted Spanish LMs with a relabeling scheme that teaches when evidence becomes sufficient.}}\\[1pt]
+{\footnotesize Adds (1) Spanish foundation models further pre-trained on mental-health--relevant text and (2) Incremental Context Expansion (ICE), which converts user-level labels into early-detection supervision by inferring the earliest ``turning point'' in a post timeline. From each user's chronological posts and final label, ICE creates prefix histories and auto-relabels them by selecting the earliest prefix that justifies the final label; models are then fine-tuned on these ICE samples to optimize accuracy under minimal delay. Across three Spanish screening/early-risk benchmarks, domain adaptation + ICE consistently lowers detection latency without hurting overall quality, showing much early-warning performance is lost when training only on full histories; models are released publicly.}
+
+\medskip
+
+{\small\textbf{DialectLLM: A Dialect-Aware Dialog[ue] Generation Framework Beyond Standard American English}} {\scriptsize[\href{https://arxiv.org/abs/2601.22888}{arxiv}]}\\
+{\scriptsize Jio Oh, Paul Vicinanza, Thomas Butler, Steven Euijong Whang, Dezhi Hong, Amani Namboori}\\
+
+{\small\textit{LLMs still struggle with everyday English dialects, and dialect-aware dialogue needs linguist-grounded transformations plus restraint in assistant imitation to avoid forced/stereotyped dialect.}}\\[1pt]
+{\footnotesize Creates a large dialect-parallel dialogue framework for nine dialects using native-linguist-authored rules and introduces DialectLLM-Bench to test dialect ID and dialect-conditioned response generation; argues assistants should reproduce only a small subset of dialect morphosyntax (up to 90\% should not be mirrored). Start from SAE dialogues, apply validated transformations across lexicon, spelling, and morphosyntax to generate meaning-preserving dialect variants; treat user vs. assistant differently (limited assistant morphosyntax); evaluate models on identification and constrained generation with human naturalness checks. Across 17 LLMs, even frontier models stay <70\% overall and <50\% on some dialects (e.g., Canadian English), often collapsing dialects into US/UK labels; humans prefer DialectLLM outputs over prior approaches for dialect naturalness (98.8\% pairwise), and the data also serves as scalable post-training material.}
+
+\medskip
+
+{\small\textbf{MathNet: a Global Multimodal Benchmark for Mathematical Reasoning and Retrieval}} {\scriptsize[\href{https://arxiv.org/abs/2604.18584}{arxiv}]}\\
+{\scriptsize Shaden Alshammari, Kevin Wen, Abrar Zainal, Mark Hamilton, Navid Safaei, Sultan Albarakati, William T. Freeman, Antonio Torralba}\\
+
+{\small\textit{MathNet is a large multilingual, multimodal Olympiad-math benchmark that separately measures solving, true-equivalence retrieval, and retrieval-augmented solving---exposing retrieval as the bottleneck for math RAG.}}\\[1pt]
+{\footnotesize Builds a 17-language, multimodal Olympiad problem set with expert solutions and human-curated pairs of mathematically equivalent/structurally similar problems, enabling rigorous evaluation of math-aware retrieval beyond surface similarity. Three tracks: (1) direct problem solving, (2) retrieval of equivalent/structurally aligned problems using expert-curated relevance, and (3) RAG solving with analysis of sensitivity to retrieval quality. Frontier models are not saturated (e.g., 78.4\% Gemini-3.1-Pro; 69.3\% GPT-5); embedding retrieval often fails to find truly equivalent problems; RAG can add large gains but is highly retrieval-quality dependent (e.g., DeepSeek-V3.2-Speciale up to \textasciitilde{}+12\% to best overall), making math retrieval the key limiter.}
+
+\medskip
+
+{\small\textbf{AHA-Memes: A Fine-Grained Multimodal Benchmark for Understanding Hate in Arabic Memes}} {\scriptsize[\href{https://arxiv.org/abs/2607.27393}{arxiv}]}\\
+{\scriptsize Mohamed Bayan Kmainasi, Ali Ezzat Shahroor, Abul Hasnat, Md. Rafiul Biswas, Wajdi Zaghouani, Firoj Alam}\\
+
+{\small\textit{AHA-Memes provides the first large, fine-grained benchmark for hateful Arabic memes and establishes broad baselines across text, vision, and multimodal models.}}\\[1pt]
+{\footnotesize Releases a 5k manually labeled Arabic meme dataset with multi-label hate taxonomy framed as attack strategies, plus \textasciitilde{}66k silver-labeled memes, along with guidelines and evaluation scripts to standardize progress. Collect and annotate memes with fine-grained multi-label hate categories; benchmark text-only, image-only, late-fusion multimodal, and vision-language models under zero-shot, few-shot, and fine-tuning settings. Provides baseline results across unimodal and multimodal families and surfaces culturally grounded challenges where straightforward model applications fall short; the paper's main outcome is a shared dataset/taxonomy/eval pipeline rather than a single claimed SOTA margin.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Zero-Shot Face-to-Speech Synthesis via Latent Space Adaptation of a Style-Diffusion TTS Model}} {\scriptsize[\href{https://arxiv.org/abs/2607.26742}{arxiv}]}\\
+{\scriptsize Carlos Mu\~noz-Romero, Jose A. Gonzalez-Lopez}\\
+
+{\small\textit{A single face image can drive zero-shot, identity-consistent speech by learning a small face→style mapping into a frozen diffusion TTS model, and it transfers cross-lingually.}}\\[1pt]
+{\footnotesize Introduces a lightweight ``face adapter'' that maps face-recognition embeddings into StyleTTS2's speaker/style latent, avoiding end-to-end TTS retraining while enabling face-conditioned voice synthesis. Face image → face encoder embedding → small adapter (with mild tuning of top face-encoder blocks) → StyleTTS2 style code → speech; StyleTTS2 stays frozen and the adapter is trained on paired face--speech data. On unseen LRS3 identities, synthesis is highly natural (UTMOS \textasciitilde{}3.7--4.0, reported above their ground-truth 3.61) and identity-consistent (retrieval above chance); an English-trained adapter produces fluent Spanish without retraining, suggesting language-agnostic speaker traits are captured.}
+
+\medskip
+
+{\small\textbf{DualAnchor: Preserving Language Priors and Improving Lexical Fidelity in Gloss-Free Sign Language Translation}} {\scriptsize[\href{https://arxiv.org/abs/2607.27614}{arxiv}]}\\
+{\scriptsize Hongbin Zhang, Junhao Liu, Xuefeng Bai, Youcheng Pan, Yang Xiang, Kehai Chen}\\
+
+{\small\textit{DualAnchor improves gloss-free sign-language translation by explicitly preserving an LLM's fluency prior while adding token-level video--text grounding for lexical fidelity.}}\\[1pt]
+{\footnotesize Identifies two failures in LLM-based SLT---language-prior degradation and weak lexical grounding---and proposes DualAnchor with two training ``anchors'' to address them: Token-level Prior Anchoring (TPA) and Optimal Transport Alignment (OTA). TPA regularizes the multimodal decoder's next-token distribution toward a frozen LLM teacher given the same prefix; OTA uses entropy-regularized partial optimal transport (Sinkhorn, cosine cost) to softly align video tokens with text content tokens, allowing unmatched tokens/words. On PHOENIX-2014T and CSL-Daily, DualAnchor outperforms prior gloss-free LLM-based baselines; analysis attributes fluency gains to TPA and reduced lexical errors to OTA, showing separate mechanisms are needed for ``write well'' and ``say what you saw.''}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents and the infrastructure to make them reliable: at least \textasciitilde{}25--35 papers on agent evaluation/benchmarks and workflow harnesses (e.g., ORCA-bench, HANDBOOK.md, OmegaUse-OfficeVal, ClawTrack, SecRespond, StealthBench, OSReward, SimpleWikiSearch), plus another \textasciitilde{}15--25 on agent memory (ChronoMem, MemTxn, Memory Decoder at Scale, ForgetBench, filesystem/graph-native memory, memory poisoning like MemSecBench). A second major cluster is retrieval/RAG and evidence traceability---roughly \textasciitilde{}15--20 papers spanning agentic RAG reliability (LayerRAG-Bench), graph/structured RAG (GLM-RAG), mutable-doc serving (FinCacheServe), and claim--evidence ledgers/citation auditing (LEDGERMIND, Evidence-Ledger Adjudication, SourceMinds). Efficiency/post-training is also heavily represented (\textasciitilde{}20+): quantization/pruning/low-bit inference (WIDE, LightRot, GyRot, Flat Score Amplified Failures), KV-cache/long-context tricks (Recall Before You Rank, Back from the Future, RedKnot), and RLVR/OPD-style post-training methods (LEEPS, LSPO, TAPO, Flux-OPD, Lightning OPD 2.0). A notable emerging direction is ``evaluation skepticism'' and measurement science---multiple papers explicitly question LLM-as-judge, benchmark composability/perishability, and score validity (e.g., Position: Evaluation Scores Are Perishable Knowledge Claims; When benchmark inferences do not compose; Rethinking LLM-Judged Helpfulness; Reviewer scores not comparable), alongside a smaller but visible safety/security cluster around deception, prompt injection, and red-teaming (Can Agents Deceive?, Even More Deception, GPT-Red, prompt-injection defenses).}
+
+
+\end{document}
