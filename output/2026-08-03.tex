@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-03} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Translation with Thought: Difficulty-Adaptive Reasoning via Reinforcement Learning for Multi-Domain Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2607.29287}{arxiv}]}\\
+{\scriptsize Yongshi Ye, Biao Fu, Chongxuan Huang, Yidong Chen, Xiaodong Shi}\\
+
+{\small\textit{TwT trains MT models to spend extra reasoning tokens only on hard sentences, improving multi-domain quality while cutting inference tokens.}}\\[1pt]
+{\footnotesize Introduces Translation with Thought (TwT), a resource-rational MT framework that learns difficulty-adaptive ``intuitive vs deliberate'' translation behavior across domains, improving efficiency without sacrificing generalization. Two-stage training: (1) SFT on difficulty-aware, economical long-CoT traces distilled from DeepSeek-R1 and rewritten by GPT-4o; (2) RL with a hybrid reward trading off translation quality against reasoning-token cost, directly optimizing ``minimal sufficient thought.'' On 15 benchmarks (in/out-of-domain), across 3 seen + 59 unseen languages, TwT-7B/14B beat larger reasoning MT baselines while using 32--60\% fewer tokens; ablations across three backbones attribute gains to the TwT recipe.}
+
+\medskip
+
+{\small\textbf{The Morphological Core of Dungan: A Two-Dialect Finite-State Model and a Multi-Genre Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2607.28766}{arxiv}]}\\
+{\scriptsize Anton M. Alekseev, Sergey I. Nikolenko}\\
+
+{\small\textit{A two-dialect finite-state analyzer shows Dungan NLP is limited more by lexicon coverage than by missing morphological rules.}}\\[1pt]
+{\footnotesize Builds the first fairly complete HFST finite-state morphology for Cyrillic Dungan (Gansu + Shaanxi dialects) and uses it as a measurement tool to separate grammar adequacy from vocabulary gaps across genres. Hand-encode published grammatical categories/alternations in HFST; evaluate on multi-genre corpora, tracking overt inflection frequency, ambiguity hotspots, and failure causes (OOV vs unmodeled phenomena). Overt inflection is sparse (\textasciitilde{}9\% marked tokens in encyclopedic text); ambiguity is mostly concentrated in clitics -di/-ni; analyzer failures are 78--95\% OOV by genre. Held-out coverage \textasciitilde{}80--85\%; a stem list already \textasciitilde{}67\%, implying lexicon expansion is the main frontier. أدوات/scripts released.}
+
+\medskip
+
+{\small\textbf{HalluTruthQA: A Fine-Grained Benchmark for Hallucination Detection, Localization, and Explanation in Arabic Question Answering}} {\scriptsize[\href{https://arxiv.org/abs/2607.20219}{arxiv}]}\\
+{\scriptsize Abdessalam Bouchekif, Mohammed-En-Nadhir Zighem, Salah Eddine Bekhouche, Hichem Telli, Somaya Eltanbouly, Shahd Gaben, Heba Sbahi, Samer Rashwani, Mutaz Al-Khatib, Emad Mohamed, Mohammed Ghaly, Abdenour Hadid}\\
+
+{\small\textit{HalluTruthQA makes Arabic hallucination evaluation actionable by testing detection, localization, verification, and explanation---not just answer correctness.}}\\[1pt]
+{\footnotesize Releases a 2,400-item Arabic QA benchmark with verified references plus fine-grained hallucination annotations: binary labels, character-level error spans, human explanations, and macro/micro error types, plus MC verification candidates. Each item pairs a question with a (possibly hallucinated) model answer; experts verify the reference, mark erroneous spans at character level when needed, write explanations, assign taxonomy labels, and provide six candidate answers for verification. Zero-shot eval on ALLaM-7B, Falcon-H1R-7B, Qwen3-32B, SILMA shows tasks decouple: best detection Macro-F1 \textasciitilde{}0.880 vs best span F1 \textasciitilde{}0.516; verification can be high (best LO-Score \textasciitilde{}0.852) while explanations lag (best \textasciitilde{}0.644), confirming response-level labels miss key failure modes.}
+
+\medskip
+
+{\small\textbf{DenseOn with the LateOn: Fully Open Dense and Late-Interaction Models for Multilingual, Long-Context, and Code Search}} {\scriptsize[\href{https://arxiv.org/abs/2607.27178}{arxiv}]}\\
+{\scriptsize Rapha\"el Sourty, Antoine Chaffin, Paulo Roberto Moura Junior, Am\'elie Chatelain}\\
+
+{\small\textit{With a fully open pipeline, late-interaction retrieval transfers translate-train supervision to unseen languages/scripts better than dense embeddings.}}\\[1pt]
+{\footnotesize Releases end-to-end open data/training for strong retrieval and provides a controlled dense vs late-interaction comparison under identical translate-train conditions, isolating interaction mechanism as the driver of multilingual transfer. Curate 665M contrastive pairs (from 1.4B across 34 sources) + 1.88M supervised pairs with hard negatives; train DenseOn (bi-encoder) and LateOn (ColBERT-style). Translate validated English data into 8 languages + cross-lingual samples (2.8B pairs) and train mDenseOn/mLateOn on the same mmBERT-base backbone/objectives. On BEIR, 149M DenseOn/LateOn reach 56.20/57.22 avg nDCG@10 (SOTA for size). In multilingual eval, mLateOn degrades less than mDenseOn on languages/scripts outside translate-train, indicating token-level late interaction improves zero-shot cross-script generalization.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Tokenizer Transplantation: Mitigating Autoregressive Collapse in Edge-Efficient Bengali ASR}} {\scriptsize[\href{https://arxiv.org/abs/2607.09598}{arxiv}]}\\
+{\scriptsize Sanjid Hasan, Md. Abdur Rahman}\\
+
+{\small\textit{Bengali ASR collapse in tiny autoregressive models is largely a tokenizer problem; swapping to a Bengali WordPiece vocab stabilizes decoding with minimal changes.}}\\[1pt]
+{\footnotesize Causally links Moonshine's Bengali failures to English-centric byte tokenization that inflates target length and triggers autoregressive instability, and proposes ``tokenizer transplantation'' as a lightweight fix. Replace the decoder's byte-level vocabulary with BanglaBERT WordPiece tokens, resize the embedding matrix, keep the rest of the model unchanged; shorter sequences reduce exposure-bias-driven error accumulation. Token fertility drops 9.16→1.30 tokens/word (−85.8\% length). On 882h Lipi-Ghor, the transplanted model reaches 21.54\% WER at RTF 0.0053, supporting that the collapse was tokenizer-induced.}
+
+\medskip
+
+{\small\textbf{M3-DuplexBench: A Multi-Turn, Multilingual, Multidomain Benchmark for Full-Duplex Spoken Dialogue Models}} {\scriptsize[\href{https://arxiv.org/abs/2607.29125}{arxiv}]}\\
+{\scriptsize Ryo Fukuda, Atsushi Ando, Hiroki Kanagawa, Takatomo Kano, Marc Delcroix, Naohiro Tawara, Yuya Chiba}\\
+
+{\small\textit{M3-DuplexBench enables controlled, multi-turn evaluation of full-duplex spoken dialogue across languages and domains, exposing turn-taking gaps hidden by standard benchmarks.}}\\[1pt]
+{\footnotesize Introduces a multilingual (EN/JA), multidomain (chat, multi-turn QA) benchmark tailored to full-duplex interaction (simultaneous listen/speak), where timing, interruptions, and history matter. Evaluate models under controlled context conditions---single-turn, user-history, and teacher-forced full-context---to disentangle turn-taking policy from dialogue-state tracking and reduce confounds from compounding errors. Recent duplex models exhibit distinct, model-specific turn-taking styles and uneven performance across language/domain; adding more history helps inconsistently and can shift behavior unpredictably, showing duplex robustness is not solved.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Do Music Foundation Models Embed Pitch in Helical Structure?}} {\scriptsize[\href{https://arxiv.org/abs/2607.29086}{arxiv}]}\\
+{\scriptsize Hayato Yagi, Shinnosuke Takamichi, Rin Sato, Keitaro Tanaka, Shigeo Morishima}\\
+
+{\small\textit{Several music foundation models encode pitch on a helical manifold, naturally capturing octave equivalence plus pitch height.}}\\[1pt]
+{\footnotesize Turns ``do models understand pitch?'' into a geometry probe: isolated-note embeddings often form a helix, matching the expected structure for periodic pitch class wrapped around monotonic pitch height. Feed controlled single-note inputs sweeping pitch; extract intermediate-layer embeddings; apply PCA to visualize/quantify low-D structure; vary acoustic/timbre conditions to test robustness of the manifold. Intermediate representations show a clear pitch helix aligned with octave periodicity; helix clarity varies by model and input acoustics, implying pitch coding is learned, structured, but architecture/training- and timbre-dependent.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{CalibratedRubric: Task-Adaptive Rubric Banks for Open-Ended LLM Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2607.29252}{arxiv}]}\\
+{\scriptsize Mengting Chen, Yanshu Sun, Wanting Liang, Beidi Luan, Rui Sun, Dezhi Chen, Jing Li, Zuo Bai}\\
+
+{\small\textit{CalibratedRubric builds small, task-adaptive rubric banks that judges can apply consistently and that better preserve system rankings at lower cost.}}\\[1pt]
+{\footnotesize Separates rubric ``measurability'' (judgeable with agreement) from ``informativeness'' (discriminates model quality) and selects compact rubric sets via uncertainty-aware filtering plus IRT-based coverage, improving reliability and efficiency. Pipeline: type-specific rubric scoring; estimate measurability with a Beta--Bernoulli posterior over judge agreement; model rubrics with IRT (difficulty/discrimination) and greedily select a submodular, information-maximizing rubric bank over the capability range. Measurability filtering boosts agreement on JudgmentBench (Cohen's κ 0.604→0.743). IRT-based selection improves rank fidelity vs random across response blocks; on FinResearchBench, 49 rubrics match the target correlation of 131, cutting evaluation cost substantially (with gains depending on sufficient judge redundancy).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent evaluation, reliability, and governance: at least \textasciitilde{}25--35 papers on LLM-as-a-judge auditing and rubric/benchmark design (e.g., bias-robust judges, agreement metrics, sample-level auditing, calibrated rubrics, agent-safety benchmark validity, medical evaluator limits), plus another \textasciitilde{}20--30 on agentic systems themselves---especially long-horizon memory/context management and test-time compute control (Zero-Mem/TransMem/MemForest/ViSAGE, aborting futile reasoning, adaptive exits, conformal cascades, OPD/TTRL-style self-improvement). A second major cluster is efficiency + systems for deployment (roughly \textasciitilde{}15--25): KV-cache compression/translation, tokenization/serving optimizations, disaggregated GPU inference, quantization trade-offs, and federated pre-training/fine-tuning with privacy defenses. Notable emerging directions include ``enterprise/regulated'' agent validation and risk gating (regulated-firm shipping checks, tool-call authorization and conformal risk control, evidence traceability), and a surprisingly strong multimodal/audio thread (\textasciitilde{}10--15) spanning full-duplex spoken dialogue benchmarks, LLM-based ASR, audio/music foundation model analysis, and deepfake voice/media detection.}
+
+
+\end{document}
