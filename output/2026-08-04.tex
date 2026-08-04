@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-04} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Writing-System-Level Tokenizer Adaptation for Byte-Level BPE}} {\scriptsize[\href{https://arxiv.org/abs/2608.00582}{arxiv}]}\\
+{\scriptsize Bohdan Didenko (Lviv Polytechnic National University)}\\
+
+{\small\textit{You can adapt a byte-level BPE tokenizer to an underrepresented script while keeping vocab size and most token IDs, yielding large efficiency gains without breaking compatibility.}}\\[1pt]
+{\footnotesize Provides an ID-preserving, fixed-size tokenizer retrofit that reallocates capacity to a target writing system and solves a key pitfall: inserted tokens may be unreachable under greedy BPE unless merge order is constructed correctly. Replace script-irrelevant vocab rows via script-aware selection; perform BPE-guided insertion by adding prerequisite subpieces and merges in rank-consistent order so desired tokens are reachable; ensure byte-level prerequisites exist and audit merge reachability while preserving retained IDs. Ukrainian adaptation for Nemotron and GPT-OSS reduces Ukrainian token counts by 33.5\% and 36.6\% while keeping English/4-language European aggregate within 0.05\%. Preserves 78.5\%/77.3\% of original token IDs; baselines either hurt dominant-language tokenization or lose ID compatibility, while their insertion guarantees reachability under greedy BPE.}
+
+\medskip
+
+{\small\textbf{Native Multilingual Chain-of-Thought Reasoning in Low-Resource Southeast Asian Languages}} {\scriptsize[\href{https://arxiv.org/abs/2608.00533}{arxiv}]}\\
+{\scriptsize Sean Gip Lim, William Chandra Tjhi, Hai Leong Chieu}\\
+
+{\small\textit{OSCD makes LLMs produce stable native-language chain-of-thought in low-resource Southeast Asian languages instead of reverting to English.}}\\[1pt]
+{\footnotesize Targets ``English-thinking'' collapse in multilingual reasoning with OSCD: converts high-quality English CoT into native-language reasoning during post-training and adds semantic alignment to prevent representational drift/forgetting. Agentic training loop continuously translates dynamically generated reference reasoning into the target language (not a static parallel set); cross-distills English reasoning behavior into target-language traces; adds joint-embedding semantic alignment between English and target CoT to preserve meaning/structure. On AIME25/HMMT25 translated into SEA languages, OSCD yields up to 3.2× gains over baselines. Translation helps, but semantic alignment adds further improvements, including up to +6.4\% ``linguistic debiasing'' vs translation-only, indicating alignment stabilizes cross-lingual reasoning without degrading multilingual competence.}
+
+\medskip
+
+{\small\textbf{Bridging the English-Arabic Medical Knowledge Gap: Targeted Low-Rank Adaptation via Causal Layer Selection}} {\scriptsize[\href{https://arxiv.org/abs/2608.00207}{arxiv}]}\\
+{\scriptsize Chaimae Abouzahir, Musa Khan, Hala Ali-Hassan, Congbo Ma, Khaled Saleh, Yousra Sadqi, Jihad Mallat, Walid Al-Eisawi, Nizar Habash, Farah E. Shamout}\\
+
+{\small\textit{Arabic medical knowledge can exist inside LLMs but fail to reach the output; adapting the right layers with TLoRA improves Arabic medical QA efficiently.}}\\[1pt]
+{\footnotesize Uses mechanistic diagnosis to argue the issue is often expression, not absence, of Arabic medical knowledge; proposes Targeted LoRA (TLoRA) that adapts only the causally implicated layer window; releases AraClinicDialog, clinician-built Arabic clinical dialogues with dialect variants. Apply tuned-lens probing to locate where Arabic medical info appears across layers and causal activation patching to test whether restoring activations recovers behavior; then train LoRA only on the identified divergence window rather than across the full network. TLoRA improves Arabic medical multiple-choice QA over zero-/few-shot and beats full-network LoRA, showing layer choice matters. It is competitive on short-answer and multi-turn dialogue without task-specific fine-tuning. AraClinicDialog adds MSA dialogues with validated variants across four Arabic dialects for evaluation.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{The Learning Objective Governs Perceptual Narrowing: A Cross-Lingual, Layer-Wise, Ten-Seed Study of Self-Supervised Speech Encoders}} {\scriptsize[\href{https://arxiv.org/abs/2608.00507}{arxiv}]}\\
+{\scriptsize Sejin Yoo}\\
+
+{\small\textit{Perceptual narrowing in speech SSL is driven by the training objective, not an inevitable Transformer/data effect.}}\\[1pt]
+{\footnotesize Tests which SSL objectives induce infant-like non-native phoneme decline, showing the same encoder+data can either narrow or improve cross-lingual phonetic discrimination depending on objective; includes layer-wise ABX across EN/FR/ZH with 10 seeds to make the claim robust. Train a \textasciitilde{}7M Transformer on child-directed vs read speech with (i) reconstruction (masked mel prediction) vs (ii) contrastive/predictive frame learning; evaluate each layer with cross-lingual ABX, separating intrinsic ABX difficulty from language specialization; treat seed as replication and analyze seed-budget fragility. Objective flips transfer direction: reconstruction reliably worsens non-native ABX while contrastive improves it, even in the same layer/data; e.g., 1st-layer Mandarin ABX differs by +0.051 (p=3×10\textasciicircum{}-8) with unanimous sign across 20 runs. Reconstruction can underperform raw mels (harms separability) while prediction beats input baseline; read speech yields steeper non-native decline than child-directed, and 3-seed studies often miscall the effect.}
+
+\medskip
+
+{\small\textbf{The Role of Disfluencies in Speech Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.02138}{arxiv}]}\\
+{\scriptsize Maike Z\"ufle, Maria Teleki, Fabian Retkowski, Vil\'em Zouhar, Oliver Grabner, Alexander Waibel, James Caverlee, Jan Niehues}\\
+
+{\small\textit{Disfluencies---especially false starts and self-repairs---carry meaning in speech translation, and decoding tweaks can preserve them without retraining.}}\\[1pt]
+{\footnotesize Introduces Uh-Mazing (Switchboard-based) with disfluency annotations and human translations that retain disfluencies in 8 target languages; shows translation harm is concentrated in structural disfluencies, and models mostly delete them rather than mistranslate. Build annotated benchmark (filled pauses, discourse markers, false starts, self-repairs); evaluate multiple speech translation systems on disfluency preservation by type; propose inference-time decoding bias to discourage systematic omission. Across 8 languages/models, false starts and self-repairs drive most disfluency-related quality loss; filled pauses/discourse markers matter less. Models typically omit disfluencies outright, and an inference-time decoding adjustment recovers preservation gains without additional training, exposing a failure masked by ``clean text'' pipelines.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{A Few Neurons Reveal When LLMs Misuse Tools: Sparse Detection and Selective Steering for Reliable Tool Use}} {\scriptsize[\href{https://arxiv.org/abs/2608.00218}{arxiv}]}\\
+{\scriptsize Yutong Ke, Ming Yin, Chongwen Zhao, Kaizhu Huang}\\
+
+{\small\textit{A tiny set of MLP neurons can predict---and selectively fix---LLM tool-use failures.}}\\[1pt]
+{\footnotesize Shows distinct tool-use failure modes map to sparse, failure-specific neuron sets that linearly separate success/failure and transfer across model families; introduces PRISMS to reuse those neurons for both monitoring and gated steering. Identify contribution-critical MLP neurons per failure type; train L1-sparse linear detectors on their activations (timed at prompt boundary or tool-call span); apply activation steering on the same neurons, gated by detector risk to avoid always-on side effects. Failures are highly low-dimensional: missing-tool detectable with 1--2 neurons, over-calling with 2--16, invalid arguments with \textasciitilde{}128, achieving high ROC-AUC across six Qwen3/Llama/Gemma models. Gated steering cuts over-calling \textasciitilde{}80\% (0.131→0.026) and raises tool-required accuracy by 14.2 points (0.689→0.831), matching/beating dense baselines with far fewer features.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{RADAR: Rubric-Aware Dependency and Redundancy Analysis for LLM-as-Judge Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2608.01810}{arxiv}]}\\
+{\scriptsize Divyansh Singh, Reza Davari, Afra Mashhadi}\\
+
+{\small\textit{RADAR cheaply reveals when rubric criteria in LLM-as-judge evaluations are redundant or entangled, preventing misleading aggregate scores.}}\\[1pt]
+{\footnotesize Introduces a rubric ``preflight'' that estimates directional coupling between criteria, exposing double-counting, hierarchy, and aggregation sensitivity before running large-scale judging. Generate criterion-targeted synthetic probes that primarily manipulate one rubric dimension at a time; score all probes with the LLM judge across all criteria; compute a directional coupling matrix capturing how interventions on criterion A shift criterion B. On HelpSteer2, SumPubMed, and SummEval, RADAR's coupling estimates align with human views of criterion relationships, matching human inter-criterion correlations with Pearson r > 0.84 using few probes per criterion. It flags redundancy/hierarchy early so rubrics or aggregation can be fixed before expensive evaluations.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM engineering and its evaluation: at least \textasciitilde{}40--60 papers cluster around long-horizon agents (search/tool use, workflow routing, multi-agent debate) plus the infrastructure to measure them (new benchmarks like AgentMemBench, PATH-Bench, AgentSLABench, HopRefusalBench, PredAct-Bench, GISAgentBench, GABench, etc.). A second major theme is long-context + memory efficiency for serving (KV-cache compression/compaction, speculative decoding, token pruning, cache eviction recovery, semantic caching) with roughly \textasciitilde{}20--30 papers (e.g., SeDeM, S\$\textasciicircum{}4\$R, RestoreKV, Practical KV Cache Compaction, OoO-Spec, xPress, LaCache). There's also a noticeable surge in non-autoregressive/discrete diffusion language modeling and acceleration (DiffusionGemma, AURORA-LM, DeltaFlow, multiple diffusion decoding/speculation papers) at \textasciitilde{}10--15 papers, alongside safety/trustworthiness work spanning jailbreaks, data extraction/unlearning, and judge bias (\textasciitilde{}15--25 papers, including ``Leak It,'' QR-Erase, Z-PEFT, Mind the Gap T2I jailbreaks, ArabicDialectSafety, RADAR/LLM-as-judge audits). A somewhat surprising cluster is the size of the audio/speech track (TTS, audio deepfake detection, silent speech, music generation/transcription) at \textasciitilde{}15--25 papers, suggesting multimodal ``voice agents'' and media forensics are getting unusually concentrated attention today.}
+
+
+\end{document}
