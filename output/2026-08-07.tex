@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-07} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{MameLoshnLM: Yiddish Language Model and Evaluation Benchmark}} {\scriptsize[\href{https://arxiv.org/abs/2608.05850}{arxiv}]}\\
+{\scriptsize Uri Katz, Omer Goldman, Tomasz Limisiewicz, Reut Tsarfaty, Noah A. Smith}\\
+
+{\small\textit{Clean, language-faithful Yiddish data plus targeted continued pretraining beats relying on noisy ``multilingual web'' signal for true Yiddish competence.}}\\[1pt]
+{\footnotesize Releases a full Yiddish LM stack: MameLoshnLM (Llama 3.1 8B continued-pretrained), Oytser (curated Yiddish pretraining corpus), and Kashes (multi-task Yiddish benchmark). Diagnoses a key failure mode for low-resource languages: web-scale ``multilingual'' data is often misidentified/MT/noisy, teaching wrong lexical/morphological regularities. Continue pretraining Llama 3.1 8B on high-precision Yiddish (Oytser). Build Kashes to test translation plus morphology/syntax-sensitive tasks (analysis, IE, understanding). Compare to similarly sized open baselines and analyze whether learned patterns match Yiddish-specific morphology/lexicon. On Kashes, MameLoshnLM outperforms similar-scale open baselines across tasks and shows more Yiddish-faithful lexical/morphological behavior, supporting the claim that data fidelity (not just quantity) is decisive for low-resource multilingual training.}
+
+\medskip
+
+{\small\textbf{Different Perturbations, Different Mechanisms: Understanding Continued Pre-training for Zero-Shot Dialect Robustness}} {\scriptsize[\href{https://arxiv.org/abs/2608.05510}{arxiv}]}\\
+{\scriptsize Aarohi Srivastava, David Chiang}\\
+
+{\small\textit{Synthetic-noise continued pretraining improves zero-shot dialect robustness, but different perturbations work via different internal mechanisms.}}\\[1pt]
+{\footnotesize Provides a controlled comparison of multiple perturbation-based CPT recipes and links similar accuracy gains to distinct mechanisms: some perturbations increase dialect--standard representational alignment (invariance), others improve input ``repair'' at prediction time. Continued pretraining of a multilingual LLM under six synthetic perturbation conditions (incl. character noise). Zero-shot evaluation on nine dialect tasks (German/Italian/Arabic) plus checks on standard-variety performance. Mechanism probes: representation alignment and behavioral signatures of invariance vs repair. Character-noise CPT is the most consistently beneficial, improving dialect task performance while largely preserving standard-language accuracy; analyses show comparable gains can arise from different internal adaptations, so perturbation choice should match the dialect shift type.}
+
+\medskip
+
+{\small\textbf{RP-OPSD: Reasoning-Pivot-Guided On-Policy Self-Distillation for Multilingual Reasoning Transfer}} {\scriptsize[\href{https://arxiv.org/abs/2608.06347}{arxiv}]}\\
+{\scriptsize Xinye Wang, Junxiao Liu, Shujian Huang}\\
+
+{\small\textit{Multilingual reasoning transfer improves when distillation targets the few trajectory-steering ``pivot'' decisions rather than all tokens equally.}}\\[1pt]
+{\footnotesize Introduces RP-OPSD: on-policy self-distillation that detects reasoning pivots (subgoal/operation/state-update decisions) and concentrates teacher pressure there, reframing cross-lingual reasoning transfer as controlling key decisions, not supervising surface text. Student generates target-language rollouts. Two teacher views score the same rollout: one privileged with an English reference solution, one without. Tokens where the two teacher distributions diverge most are treated as pivots; distillation loss is upweighted on these tokens using the privileged view as anchor. Across math reasoning benchmarks in 17 languages, RP-OPSD beats strong multilingual reasoning baselines and prior OPSD objectives; gains track increased supervision on pivot-like tokens rather than language-specific surface realization.}
+
+\medskip
+
+{\small\textbf{Task-Conditional Flow Matching for Balanced Multilingual Text Embedding Adaptation}} {\scriptsize[\href{https://arxiv.org/abs/2608.05785}{arxiv}]}\\
+{\scriptsize Tirth Bhatt, Naren Kumar S, Mayank Singh}\\
+
+{\small\textit{Multilingual embedding adaptation improves when objectives are task-conditional and training is stabilized to preserve the base embedding geometry.}}\\[1pt]
+{\footnotesize Proposes Task-Conditional Flow Matching (TCFM): use Flow Matching for translation-style distribution alignment, but different objectives for retrieval/classification/pair-classification. Adds teacher-guided representation preservation plus a staged curriculum to reduce drift/forgetting. Route training by task type: Flow Matching for translation alignment; standard task-appropriate losses for retrieval/classification variants. Regularize toward a teacher/base model to preserve geometry, and train in three stages from stable signals to harder multi-task mixing. On the Indic Massive Text Embedding Benchmark, TCFM improves performance broadly across multilingual embedding tasks without the usual tradeoffs; Flow Matching helps specifically for translation alignment, while teacher-preservation + curriculum make gains stable and general across model families.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{FormBharo: Designing and Evaluating a Voice Agent for Conversational Form Filling in Rural India}} {\scriptsize[\href{https://arxiv.org/abs/2608.06027}{arxiv}]}\\
+{\scriptsize Aman Dalmia, Sanskriti Midha, Jigar Doshi}\\
+
+{\small\textit{A deployable Hindi phone voice agent can fill benefit forms reliably by combining LLM flexibility with strict rule-based control and end-to-end evaluation under real speech noise.}}\\[1pt]
+{\footnotesize Builds and pilots FormBharo, a conversational form-filling voice agent for low-income Hindi-speaking mothers, and releases FormVoiceAgentBench for reproducible end-to-end evaluation under realistic acoustic variability. Argues pipeline-level evaluation is essential under latency/cost constraints and ASR errors. Phone-call, multi-turn dialogue to collect structured fields. LLMs handle understanding/generation, but deterministic validation + flow control enforce constraints and choose next questions. Evaluate components (ASR/IE/generation) and full form-completion; benchmark uses human-recorded Hindi audio and thousands of simulated calls. Using real ASR transcripts can reduce form completion by \textasciitilde{}41 points vs clean transcripts; rule-based controls recover many extraction errors so smaller/cheaper models can match or beat frontier models on end-to-end completion. High turn-level IE (e.g., 99.8\% on clean text) does not guarantee best overall completion; no model dominates accuracy/cost/latency, so they select via Pareto-style weighting.}
+
+\medskip
+
+{\small\textbf{Breaking the Curse of Multilinguality in Many-to-Many Speech-to-Text Translation via a Resource-Aware Mixture of Speech Encoders}} {\scriptsize[\href{https://arxiv.org/abs/2608.04586}{arxiv}]}\\
+{\scriptsize Yexing Du, Kaiyuan Liu, Youcheng Pan, Bo Yang, Chengpeng Fu, Yu Wang, Ming Liu}\\
+
+{\small\textit{Many-to-many speech translation can avoid low-resource ``crowding out'' by routing languages through a resource-aware mixture of speech encoders while protecting high-resource performance.}}\\[1pt]
+{\footnotesize Introduces MSRT/MoSE: replace a single shared speech encoder with a routed mixture specialized by resource regime. Key design: a frozen expert preserves high-resource representations; a trainable expert adapts for medium/low-resource, reducing destructive interference without abandoning a unified multilingual system. Language router selects an encoder expert per utterance. One expert is frozen (high-resource anchor), another is trainable (adaptation capacity). Train with a five-stage curriculum to align speech/text with limited paired data, targeting effectiveness with \textasciitilde{}10 hours paired S2TT per language. Across 45 languages and all 45×44 directions, the mixture-of-encoders improves low-resource performance while maintaining high-resource quality; the 4B model reaches SOTA and beats larger baselines, indicating the gain comes from reduced cross-lingual interference, not just scale.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Subliminal Learning is Non-Semantic Distillation}} {\scriptsize[\href{https://arxiv.org/abs/2608.05734}{arxiv}]}\\
+{\scriptsize Ethan Hadley, Eren Gultepe}\\
+
+{\small\textit{Subliminal learning transfers bias through non-semantic, weight-linked structure in synthetic data, and students can inherit both the bias and the intervention style that created it.}}\\[1pt]
+{\footnotesize Shows subliminal transfer is not purely semantic: weight-level structure matters, and distillation can transmit the *mechanism* of bias induction (e.g., steering vs prompting). Expands the threat model by demonstrating steering vectors can generate subliminal data. Controlled distillation experiments varying bias source (prompting, fine-tuning, steering) and teacher/student weight structure. Add Gaussian noise to weights to test sensitivity. Analyze student activations after steered vs prompted subliminal data; test whether gradients from steered data align with teacher steering directions. Gaussian weight noise increases subliminal transfer (\textasciitilde{}1.9× Gemma, \textasciitilde{}1.3× Llama), implicating non-semantic weight structure. Steering-generated subliminal data works, and students trained on it show steering-like internal signatures; gradients correlate linearly with teacher steering vectors, suggesting an auditing/detection handle.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM agent reliability and evaluation: at least \textasciitilde{}25--35 papers on tool-using/long-horizon agents, skill libraries, and debugging/auditing (e.g., SearchAuditor, TRAJDEBUG, OrchestraBench, SkillTrace/SkillZip/SkillHEX/SkillMemo, DreamGuard, CodeGrep, ``Bitter Lesson of Tool Calling,'' prompt-side playbook transfer). A second major cluster is RAG and grounding---roughly \textasciitilde{}10--15 papers on RAG failure modes, traceability, privacy/PII leakage, and neuro-symbolic/agentic retrieval (e.g., triple-robustness GraphRAG analysis, multilingual RAG privacy audit, NeSy-RAG, Align-RAG/TS-RAG, ``Beyond Top-K'' retrieval). There's also a strong safety/governance thread (\textasciitilde{}10+), spanning jailbreak/guardrails, sycophancy, double-blind review threats, unlearning/privacy filters, and agent authorization/zero-trust signing (e.g., Mood Matters jailbreaks, harmful sycophancy detection, GROM unlearning, AISPA prompt auditing, Hardware Keystores for agent signing). A notable emerging direction is ``self-evolving'' agents and on-policy self-distillation/post-training methods (\textasciitilde{}10--15) showing up across reasoning, multilingual transfer, and agent RL (OPSD/OPD variants, DASH, Hyper-ES, AgentOPSD, When Self-Evolution Backfires/Trajectory Poisoning), suggesting the field is shifting from static assistants toward continuously improving, auditable agent systems.}
+
+
+\end{document}
