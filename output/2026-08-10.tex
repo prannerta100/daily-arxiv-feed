@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-10} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{PolyFact: Comparing Consistency-Driven Post-training Methods for Cross-Lingual Factual Recall}} {\scriptsize[\href{https://arxiv.org/abs/2606.06586}{arxiv}]}\\
+{\scriptsize Jonathan von Rad, Louis Arts, George Burgess, Eleftheria Kolokytha, Harry O'Donnell, Ektor Oikonomidis Doumpas, Eduardo Sanchez, Yao Lu, Pontus Stenetorp}\\
+
+{\small\textit{Multilingual factual recall is as much about cross-language agreement as accuracy; post-training methods trade off QA accuracy, consistency, and real generation transfer.}}\\[1pt]
+{\footnotesize Releases PolyFact: 60K Wikidata-grounded facts asked in parallel across 12 diverse languages, enabling direct measurement of cross-lingual inconsistency; benchmarks SFT, DCO, CM-Align, and a consistency-rewarded GRPO variant to show they optimize different objectives. Consistency-driven GRPO with reward pooled over parallel prompts for the same fact, incentivizing identical answers across languages; compared against SFT/DCO/CM-Align and with/without light continual pretraining on parallel data; evaluated on controlled QA plus free-form factual recall and unseen languages. SFT best boosts in-distribution QA but doesn't reliably fix inconsistency; DCO yields the largest QA consistency gains but transfers poorly to free-form recall; pooled-reward GRPO transfers best to free-form factual recall and unseen languages (especially from multilingual bases). Light parallel continual pretraining can help monolingual models but may hurt multilingual ones; analysis links GRPO gains to reduced language specialization (more shared representations).}
+
+\medskip
+
+{\small\textbf{Measuring the Cross-Lingual Comprehension Gap: How the language of the evidence shapes what language models understand}} {\scriptsize[\href{https://arxiv.org/abs/2608.06506}{arxiv}]}\\
+{\scriptsize Rafael da Silva, Jeff Eicher}\\
+
+{\small\textit{Holding content fixed, LLM comprehension drops when evidence is non-English; CLCG quantifies this ``evidence-language'' penalty cleanly.}}\\[1pt]
+{\footnotesize Defines Cross-Lingual Comprehension Gap (CLCG): performance loss when only the evidence passage language changes, avoiding confounds in typical multilingual benchmarks via a within-item parallel design. Uses ParallelQA-18 (English + 17 human-translated languages): same question/answer, evidence swapped by language; scores open-ended answers with Token-F1; CLCG = English minus target score; uncertainty via article-cluster bootstrap; reports pooled and macro averages and correlates gaps with language resource class. Finds a robust pooled CLCG ≈ 0.078 Token-F1 (\textasciitilde{}17\% relative drop) with similar macro magnitude; beyond a high-resource baseline (Portuguese), remaining macro gap ≈ 0.016 but still tight. Gaps grow for lower-resource languages (rho ≈ −0.59). Paired human judgments align directionally (higher-resource outputs preferred \textasciitilde{}0.655 among decisive cases).}
+
+\medskip
+
+{\small\textbf{Multi-Legal-Bench: Evaluating LLMs on Legal Reasoning Across Jurisdictions, Languages, and Legal Traditions}} {\scriptsize[\href{https://arxiv.org/abs/2605.29738}{arxiv}]}\\
+{\scriptsize Volodymyr Ovcharov}\\
+
+{\small\textit{A cross-jurisdiction, multilingual legal benchmark shows transfer depends more on label/jurisdiction alignment than language similarity.}}\\[1pt]
+{\footnotesize Builds Multi-Legal-Bench: comparable legal prediction tasks anchored in court-registry metadata across six countries and multiple languages/traditions, exposing jurisdiction- and task-specific failure modes hidden by single-country benchmarks. Instantiates five tasks (court type, judgment form, outcome, norm extraction, cause category) via registry-field mappings, yielding a sparse but well-defined 5×6 matrix (20 valid cells). Evaluates frontier and 3--12B models with zero-shot and 3-shot prompting; analyzes predictors of transfer (language family, label-set alignment, tokenizer fertility). Performance varies sharply by task and jurisdiction; no stable ``best model per language.'' Few-shot often helps unevenly and can hurt (e.g., judgment-form: 8/28 pairs degrade). Cross-lingual few-shot transfer does not track linguistic proximity (e.g., Ukrainian→French can beat Ukrainian→Polish); label-set alignment better predicts transfer. Tokenizer fertility varies but doesn't significantly predict accuracy.}
+
+\medskip
+
+{\small\textbf{Dependency Parsing Across the Resource Spectrum: Evaluating Architectures on High and Low-Resource Languages}} {\scriptsize[\href{https://arxiv.org/abs/2605.02608}{arxiv}]}\\
+{\scriptsize Kevin Guan, Happy Buzaaba, Christiane Fellbaum}\\
+
+{\small\textit{For truly low-resource dependency parsing, tuned biaffine LSTMs often beat pretrained transformers until labeled data is large enough.}}\\[1pt]
+{\footnotesize Controlled comparison across 12 languages (including low-resource African treebanks) maps where architecture rankings flip with data size; argues ``transformers always win'' is mainly high-resource and morphology-sensitive. Compare biaffine LSTM and stack-pointer parsers vs transformer encoders (AfroXLMR-large, RemBERT) for parsing; evaluate across increasing training sizes (``resource spectrum''); analyze drivers using corpus size plus morphological complexity proxy (MATTR). In low-resource regimes, biaffine LSTM consistently outperforms transformer-based parsers; transformers overtake only with more annotation, with crossover near typical under-resourced treebank sizes. MATTR predicts additional transformer disadvantage beyond dataset size, suggesting rich morphology amplifies low-resource shortfalls.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{MetaSICL: Globalizing Auditory LLMs for Underserved Speakers and Languages via Meta Speech In-Context Learning}} {\scriptsize[\href{https://arxiv.org/abs/2601.18904}{arxiv}]}\\
+{\scriptsize Haolong Zheng, Siyin Wang, Zengrui Jin, Mark Hasegawa-Johnson}\\
+
+{\small\textit{You can train auditory LLMs (using only high-resource data) to reliably adapt at test time from a few spoken demos, and that skill transfers to underserved languages/speakers.}}\\[1pt]
+{\footnotesize Introduces MetaSICL, a post-training recipe that explicitly teaches speech in-context learning as the adaptation mechanism, avoiding brittle low-resource fine-tuning; also serves as a strong warm start for later in-domain RL when small target data exists. Meta-learning-style post-training: model repeatedly conditions on small support sets (speech-task demonstrations) to solve a query, matching inference-time prompting for ASR, speech translation, and audio understanding; optionally followed by in-domain reinforcement learning to further optimize task rewards while preserving ICL behavior. Improves ICL where fine-tuning is fragile (children's ASR, audio reasoning, unseen-language/direction ASR/ST) despite never training on those domains; with limited target data, MetaSICL + in-domain RL yields the best low-resource ASR across five diverse languages, outperforming standard fine-tuning baselines.}
+
+\medskip
+
+{\small\textbf{A Practical Evaluation Method for Long-Form Simultaneous Speech-to-Speech Translation}} {\scriptsize[\href{https://arxiv.org/abs/2606.15059}{arxiv}]}\\
+{\scriptsize Yulin Xue, Siqi Ouyang, Lei Li}\\
+
+{\small\textit{Provides a reproducible way to evaluate long-form simultaneous speech-to-speech translation for both quality and true end-to-end latency.}}\\[1pt]
+{\footnotesize End-to-end evaluation pipeline that works without model-internal timestamps or perfect segmentation: recovers when the system spoke each target token and aligns it back to source sentences to compute sentence-level latency/quality over long streams. Run ASR + forced alignment on generated target audio to obtain token timestamps; use sentence-embedding alignment to map target chunks to source transcript sentences; compute per-sentence latency (e.g., YAAL) and quality (e.g., xCOMET) and aggregate across the full long-form session. Applied to SimulS2ST systems, the method reveals latency accumulation over long speech---systems that look fine on short clips can steadily fall behind---making drift/backlog measurable and comparable in a way short-form tests miss.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Transformers Struggle to Use Their Emergent World Models: Revisiting the Tower of Hanoi, and the Illusion of Thinking}} {\scriptsize[\href{https://arxiv.org/abs/2608.07077}{arxiv}]}\\
+{\scriptsize Devin Pereira, Willem Zuidema}\\
+
+{\small\textit{Reasoning Transformers can encode an accurate Tower-of-Hanoi world model, but often fail because that representation drifts during long plan generation.}}\\[1pt]
+{\footnotesize Disentangles ``no world model'' from ``can't maintain it'': shows a linearly decodable, geometrically correct (Sierpinski-like) state representation that is causally linked to success, yet degrades over chain-of-thought in frontier LRMs. Train small Transformers on Hanoi traces for mechanistic study; probe hidden states for state encoding and Sierpinski geometry; test causality via representation interventions (injecting good states). Replicate probing/interventions on Qwen3.6-27B and DeepSeek-R1-Distill-Qwen-32B, tracking representation quality from prompt end through generation. Frontier LRMs encode near-perfect state immediately after the prompt even where task accuracy collapses (harder variants >3 rings). The decodable world model degrades during generation and predicts failure; reinjecting the prompt-time representation improves performance, implicating representational drift---not missing understanding---as a key planning failure mode.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents and their infrastructure: at least \textasciitilde{}20 papers on long-horizon agents (planning/execution gaps, memory compression \& revocation, skill libraries, trajectory attribution, agent auditing, coding/web agents, and multi-agent coordination/negotiation). A second major theme is efficiency for deployment---roughly \textasciitilde{}15 papers on routing/MoE and serving/compute reduction (MoE supervision \& entropy routing, LLM routers, KV-cache compression/reuse, sparse/linear attention, token/visual-token pruning, quantization/PTQ, latency/energy modeling). Safety, evaluation, and reliability form another dense cluster (\textasciitilde{}15): LLM-as-a-judge failure modes and calibration, benchmark contamination, prompt-injection/agent harness safety, backdoors/watermarking/privacy, and misinformation/fact-checking. A notable emerging direction is diffusion language models and flow/rectified-flow methods showing up across both modeling and safety/efficiency (≈6--8 papers), alongside a smaller but visible audio/music surge (≈10) spanning audio LLM audits/jailbreaks, speech codecs/editing, and AI-music detection/benchmarks.}
+
+
+\end{document}
