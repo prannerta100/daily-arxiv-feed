@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-11} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Measuring the Tokenization Premium: A Cost Audit for Underserved Language Communities}} {\scriptsize[\href{https://arxiv.org/abs/2608.09046}{arxiv}]}\\
+{\scriptsize Avijit Roy, Proma Roy, Hrishitva Patel}\\
+
+{\small\textit{Tokenizers can make some languages 1.5--4.5× more expensive per meaning, shrinking effective context and raising API cost before accuracy even enters the picture.}}\\[1pt]
+{\footnotesize Frames tokenization as an equity-relevant infrastructure issue and introduces a reproducible Tokenization Equity Audit (TEA) that reports a ``tokenization premium'' (tokens vs. English) as a direct proxy for cost/latency/context penalties. Translate a 120-item Python tutoring/debugging set from English into multiple languages (validated: Bengali, Hindi; exploratory: Arabic, Tamil, Yoruba). Count tokens under several common tokenizers (GPT-4o o200k, Qwen2.5-7B, Mistral-7B) and compute premium = tokens(lang)/tokens(English). Premiums are operationally large and tokenizer-dependent: Bengali is \textasciitilde{}1.56× on GPT-4o (128k behaves like \textasciitilde{}82k English-equivalent), but can reach \textasciitilde{}4.5× on Qwen/Mistral tokenizers. Yoruba is highest on GPT-4o at \textasciitilde{}2.37× despite Latin script, implying coverage/training choices---not script alone---drive inequity.}
+
+\medskip
+
+{\small\textbf{Cultivar: A Contrastive and Locale-Oriented Translation Benchmark for Investigating Contamination and Localisation Robustness}} {\scriptsize[\href{https://arxiv.org/abs/2608.09766}{arxiv}]}\\
+{\scriptsize Pinzhen Chen, Koel Dutta Chowdhury, Xiaoya Xu, David Tan, Doreen Osmelak, Ona de Gibert, Ariun-Erdene Tumurchuluun, Ashok Urlana, Fedor Sizov, Hale Sirin, Jesujoba Alabi, Karrar Talib Abed, Mateusz Klimaszewski, Nikolay Bogoychev, Niyati Bafna, Patricia Schmidtova, Preksha Manjunath Shanbhag, Sherrie Shen, Vilem Zouhar, Vivek Iyer, Yasser Hamidullah, Yusser Al Ghussin, Zheng Zhao}\\
+
+{\small\textit{Translation quality can hide locale brittleness and benchmark memorization; models may excel on FLORES-like text yet fail on localized variants.}}\\[1pt]
+{\footnotesize Introduces Cultivar, a contrastive, locale-oriented MT benchmark that separates localisation robustness from contamination/overfitting by pairing FLORES-aligned (localized) content with closely matched unlocalized counterparts. Evaluate models on near-parallel source sets differing mainly in locale-specific entities/conventions. Large localized--unlocalized gaps indicate locale brittleness; unusually strong FLORES-like performance that doesn't transfer suggests contamination/overfitting. Across 32 open-weight models, MT-specialized systems often look strong on standard sets but drop on localized variants; several models show patterns consistent with ``learning FLORES.'' A consistent US-locale advantage appears across targets, reframing part of MT quality as cultural/locale generalization.}
+
+\medskip
+
+{\small\textbf{SurakshaEval: An Indic Safety Benchmark for Multilingual LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2608.07862}{arxiv}]}\\
+{\scriptsize Debopriyo Banerjee, Kapil Rajesh Kavitha, Angana Borah, Xudong Han, Yuxia Wang, Parameswari Krishnamurthy, Utkarsh Agarwal, Atharva Kulkarni, Swaran Lata, Ayush Munot, Dhruv Sahnan, Aaryamonvikram Singh, Preslav Nakov, Monojit Choudhury}\\
+
+{\small\textit{LLMs that appear safe in English can fail in Hindi/Tamil/Bengali---especially in native scripts---so safety must be evaluated with localized, culturally grounded prompts.}}\\[1pt]
+{\footnotesize Releases SurakshaEval, a region-aware safety benchmark spanning 10 Indic languages + English with prompts written for local sociocultural contexts (not just translations), enabling systematic measurement of multilingual safety gaps. Human-curate generic and region/language-specific safety scenarios across Assamese, Bengali, Gujarati, Hindi, Kannada, Malayalam, Marathi, Punjabi, Tamil, Telugu, and English; evaluate models for appropriate safe behavior (not blanket refusal), emphasizing native-script prompting. Even strong multilingual models show degraded safety in Indic languages, worse in native scripts: unsafe completions, over-refusal of benign requests, missed implicit bias/coded language, and weak context handling in locally sensitive scenarios---evidence current safety tuning/evals are Anglocentric.}
+
+\medskip
+
+{\small\textbf{Hidden Language Consistency Phenomena in Reasoning LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2608.08447}{arxiv}]}\\
+{\scriptsize Muhammad Ali Shafique, Kelly Marchisio}\\
+
+{\small\textit{Multilingual reasoning models can silently abandon the user's language as problems get harder, so accuracy can look fine while language control fails.}}\\[1pt]
+{\footnotesize Introduces ``language consistency'' as an evaluation axis---thinking-language consistency (TC) and answer-language consistency (AC)---and shows difficulty-driven phase changes where models switch to a dominant language, masking failures under standard accuracy metrics. Run PolyMath in 8 languages across 4 difficulty levels; measure TC and AC; analyze regime patterns (stable, always-misaligned, gradual degrade, abrupt collapse). Test quantization effects (GPTQ, AWQ, AutoRound) and separate correctness via ε=1.0 voting. Finds four distinct difficulty-dependent consistency regimes and a sharp ``language consistency breakdown'' where small difficulty increases trigger abrupt AC drops, especially for less-represented/non-Latin languages. Accuracy can stay stable or improve because the model switches languages; quantization alters consistency independently of accuracy (GPTQ/AWQ often better than AutoRound here).}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Multilingual Emotion Neurons in Large Audio-Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2608.08772}{arxiv}]}\\
+{\scriptsize Xiutian Zhao, Philipp Koehn, Bj\"orn Schuller, Berrak Sisman}\\
+
+{\small\textit{Emotion isn't stored in the same obvious neurons across languages in audio-language models, but a small cross-lingual neuron set can be found and causally controls emotion across many languages.}}\\[1pt]
+{\footnotesize Defines and discovers Multilingual Emotion Neurons (MLENs)---neurons with cross-language emotion selectivity and aligned causal effects---and proposes Consistency-Regularized Fusion (CR-Fusion) to identify them beyond monolingual, non-transferable neuron picks. Identify candidate emotion neurons with cross-lingual consistency regularization across 12 languages; validate with causal interventions (activate/suppress) and leave-one-out analyses to test transfer and language contributions across multiple LALMs. Monolingual emotion-neuron sets overlap little across languages and saturate with more monolingual data. CR-Fusion MLENs yield stronger, more transferable emotion control (including zero-shot/low-resource), and leave-one-out shows languages provide non-redundant identification signal with low-resource languages benefiting disproportionately.}
+
+\medskip
+
+{\small\textbf{DialectS2S: End-to-End Speech Dialogue Modeling for Low-Resource Chinese Dialects}} {\scriptsize[\href{https://arxiv.org/abs/2608.08067}{arxiv}]}\\
+{\scriptsize Yi Shu, Tianyu Peng, Yingzhuo Deng, Wen Yang, Jun Lin, Changming Xie, Xinyu Yu, Jiajun Zhang}\\
+
+{\small\textit{End-to-end speech dialogue for low-resource Chinese dialects works best when training fixes a semantic--speech supervision mismatch that otherwise destabilizes dialect generation.}}\\[1pt]
+{\footnotesize DialectS2S provides a practical recipe: scalable synthetic dialect speech-dialogue data plus a post-training ``self-aligned speech supervision'' step that keeps targets aligned with the model's evolving semantic space during adaptation. Synthesize dialect speech dialogue to address data scarcity, then run a two-stage post-training procedure where supervision is updated/selected to match the model's current representations, preventing drift between meaning and speech targets. Across multiple dialects, DialectS2S improves dialect correctness, response quality, and intelligibility/stability over baselines. The key driver is self-aligned supervision, which mitigates the moving-target mismatch introduced during adaptation beyond gains from synthetic data alone.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Spectral Outliers Reveal Dominant Learned Structure in Transformer Attention}} {\scriptsize[\href{https://arxiv.org/abs/2608.07921}{arxiv}]}\\
+{\scriptsize Kasun Dewage, Marianna Pensky, Suranadi De Silva, T. H. Bandara}\\
+
+{\small\textit{A small set of Marchenko--Pastur ``spectral outlier'' directions in attention projections carries most learned function; ablate them and capabilities collapse.}}\\[1pt]
+{\footnotesize Applies random-matrix (Marchenko--Pastur) analysis to Q/K/V/O attention matrices to separate bulk vs. outlier subspaces, then causally validates that outliers encode dominant learned structure; reports recurring architecture-linked spectral patterns across models. Compute singular spectra per projection; label singular values beyond the MP edge as outliers; decompose matrices into outlier + bulk components. Causally ablate by zeroing outlier components (or count-matched bulk directions) and measure downstream benchmark impact. In models like Mistral-7B, removing only the MP-identified outlier subspace drives performance on HellaSwag/MMLU/PIQA toward chance, far worse than removing the same number of bulk directions. Across 11 transformers, Q has the most outliers; under GQA, V shows weaker bulk/outlier separation; recurring banded patterns and persistent residual-stream dimensions appear as outliers in K/O across layers.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Temporal Misgrounding in Legal RAG: A Versioned-Corpus Benchmark for French Tax Law}} {\scriptsize[\href{https://arxiv.org/abs/2608.09393}{arxiv}]}\\
+{\scriptsize Rose Cymbler, Daniel Guez, Laurent Fabre}\\
+
+{\small\textit{Legal RAG can look well-cited yet be wrong by citing the wrong historical version of the law---temporal misgrounding is a deployment-breaking failure mode.}}\\[1pt]
+{\footnotesize Defines ``temporal misgrounding'' and releases FiscalQA Pro: a versioned French tax-law corpus (1938--2031) plus expert questions where correct answers often require non-current statute versions, scored via deterministic nugget matching (not LLM judges). Build tens of thousands of article versions; ask date/tax-year-conditioned questions. Compare closed-book, static ``current-corpus'' RAG, and a version-aware multi-version retrieval pipeline. Score with regex/number-tolerant atomic nuggets. Static current-corpus RAG retrieves the date-applicable version 0\% of the time and achieves \textasciitilde{}2--3\% strict nugget accuracy (≈ closed-book) despite authoritative-looking citations. Version-aware retrieval boosts strict accuracy to \textasciitilde{}98--99\%; remaining errors are mainly first-stage article recall, not version selection.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Across today's 1266 papers, the dominant cluster is clearly LLM/agent reliability and evaluation: at least \textasciitilde{}70--100 titles focus on benchmarks, auditing, calibration/abstention, hallucination detection, and judge/reward-model failure modes (e.g., hallucination fuzzing/probes, prompt privilege/position bias, rubric/judge audits, contamination detectability, verification-cost framing). A second major theme is agentic systems engineering---memory, skills, routing, and governance---with at least \textasciitilde{}60--90 papers on long-horizon agents (skill libraries/skill evolution, multi-agent coordination, tool calling, RAG in production, prompt injection/guardrails, provenance/lineage, KV-cache management). There's also a striking surge in audio \& speech foundation models and safety (roughly \textasciitilde{}25--40 papers on audio-language models, TTS, audio generation, audio deepfakes/watermarking, and low-frequency attack surfaces), alongside a strong systems/efficiency thread (\textasciitilde{}30--50 papers) on MoE routing/serving, quantization (incl. 2--4 bit and KV-cache quantization), speculative decoding, and long-context compression. Emerging directions include ``self-evolving'' agent harnesses/benchmarks (multiple papers explicitly on harness evolution, loop engineering, and agentic auto-research as fuzz testing) and a noticeable cross-lingual fairness/safety push (Indic/Arabic/Dravidian benchmarks, tokenization cost audits, cross-lingual refusal circuits, temporally versioned legal RAG).}
+
+
+\end{document}
