@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-12} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{The Illusion of Cross-Lingual Safety in Low-Resource Languages}} {\scriptsize[\href{https://arxiv.org/abs/2608.11146}{arxiv}]}\\
+{\scriptsize Abigail Oppong, P Sam Sahil, Tadesse Destaw Belay, Maryam Ibrahim Mukhtar, Esmael Ahmed Abdu, Tassallah Abdullahi, Jessica Oparebea, Saminu Mohammad Aliyu, Idris Abdulmumin, Abubakar Juma Chilala, Nicholaus Dismas Ladislaus, Alfred Malengo Kondoro, Lemofouet Valdini Douglace, Shamsuddeen Hassan Muhammad, Seid Muhie Yimam}\\
+
+{\small\textit{English safety alignment can appear multilingual, but in low-resource African languages the model often fails to engage its internal refusal mechanism even for faithful translations.}}\\[1pt]
+{\footnotesize Tests (rather than assumes) cross-lingual safety transfer and shows it can be illusory in low-resource settings; releases LoDNA (Twi, Hausa, Amharic, Swahili) with literal + localized harmful prompts; introduces a representation-level probe to detect whether ``refusal circuitry'' activates beyond surface refusals. Evaluate both outputs and hidden-state geometry: define an English refusal direction/subspace, then measure whether non-English harmful prompts elicit the same latent refusal signature; use paired English/translation/localization prompts and track layer-wise evolution to separate understanding from refusal routing failures. Across the four languages, harmful prompts retain <10\% of the English refusal signal for most model--language pairs despite high semantic similarity to English (cosine \textasciitilde{}0.95--0.996). Layer-wise analysis shows semantics are encoded but don't propagate into the refusal pathway, implying multilingual safety is shallow and language-dependent.}
+
+\medskip
+
+{\small\textbf{Actions Speak Louder than Words: Measuring Cross-Lingual Policy Retention in Tool-Using Agents}} {\scriptsize[\href{https://arxiv.org/abs/2608.11110}{arxiv}]}\\
+{\scriptsize Sourabrata Mukherjee, Kalika Bali, Sunayana Sitaram}\\
+
+{\small\textit{Cross-lingual agent evaluation should compare tool-action policies, not just final answers; after deconfounding, action policies diverge systematically across languages.}}\\[1pt]
+{\footnotesize Introduces a measurement framework for cross-lingual policy retention (procedure similarity across languages) and shows naive trace similarity is confounded (length, empties, chance matches, non-determinism, reproducibility ceilings). Runs a large-scale study (8 models, 6 benchmarks, 41 languages, 2.38M rollouts) and surfaces English-pivoting and evaluation-pipeline artifacts. Compute trace similarity but normalize by within-language reproducibility (ceiling) and estimate chance floors via permutation; control decoding/temperature; analyze and causally validate English-pivoting via trace evidence and pre-registered predictions; audit tooling effects (trace extraction/parsing). After corrections, divergence is structural (persists under greedy; not explained by sampling). Frontier models cluster at \textasciitilde{}71--73\% retention under greedy; model identity explains little variance (\textasciitilde{}5.7\%). Below \textasciitilde{}10B params retention degrades and rankings can be chance-floor artifacts. Many agents pivot through English in a causally important way, and evaluation tooling can dominate results (e.g., regex-induced failures; two worked examples yield 26× measured accuracy for one model with little change in human-visible outputs).}
+
+\medskip
+
+{\small\textbf{The Multilingual Quantization Tax: Structural Collapse and Typological Fragility in Edge SLMs}} {\scriptsize[\href{https://arxiv.org/abs/2608.09941}{arxiv}]}\\
+{\scriptsize Mohammad Wathiq Soualhi}\\
+
+{\small\textit{In multilingual edge SLMs, 4-bit quantization can trigger language-specific capability collapse---not just small accuracy drops---missed by English-only tests.}}\\[1pt]
+{\footnotesize Shows the ``multilingual quantization tax'' is uneven and typology-dependent, sometimes catastrophic (script/language collapse, invalid outputs/logits); frames quantization as a stress test revealing brittle multilingual representations and separates distinct failure modes (home-language fragility, domain forgetting, resistance pockets). Compare full precision vs 4-bit quantized Gemma 4 and Qwen 3.5 on eight typologically diverse languages using MMLU ProX Lite and GlobalPIQA; inspect qualitative failure signatures (e.g., unusable outputs/logits) and double dissociations across model families to infer disrupted routing/storage. 4-bit quantization can cause catastrophic failures for some low-resource languages and non-Latin scripts, including inability to produce valid task logits. ``Home language'' pretraining dominance doesn't guarantee robustness. Multi-step cross-lingual routing degrades more than simpler recall (domain-specific forgetting), while typologically aligned/high-saturation areas show relative resistance; apparent gains are consistent with noise.}
+
+\medskip
+
+{\small\textbf{Reference-Free Post-Training of Open Large Language Models for Multilingual Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.10812}{arxiv}]}\\
+{\scriptsize Chris Han, Pengzhi Gao, Pei Fu, Jian Luan}\\
+
+{\small\textit{Open LLM MT can be improved via reference-free RL: optimize translations using automatic quality estimators, then blend RL and SFT checkpoints.}}\\[1pt]
+{\footnotesize Provides a reproducible recipe for reference-free post-training of an open multilingual MT LLM: start from MiLMMT-46-v0.1, apply GRPO with reference-free rewards, then release MiLMMT-46-v1.0 plus code; compares against on-policy distillation. GRPO RL where reward is the average of two reference-free QE model scores, gated by language ID; final model is a linear interpolation of SFT and RL checkpoints; additional experiments evaluate on-policy distillation vs RL+interpolation. Across 46 languages, post-training improves over SFT and beats open baselines (Seed-X, HY-MT2, TranslateGemma). On reference-free evaluation it leads among evaluated proprietary systems (Google Translate, Gemini 3 Pro, GPT-5). On-policy distillation matches but does not surpass RL+interpolation, indicating RL drives the best gains.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{IndexTTS 2.5 Technical Report}} {\scriptsize[\href{https://arxiv.org/abs/2601.03888}{arxiv}]}\\
+{\scriptsize Yunpei Li, Xun Zhou, Jinchao Wang, Lu Wang, Yong Wu, Siyi Zhou, Yiquan Zhou, Yining Wang, Yaogen Yang, Zhetao Hu, Shiyao Duan, Jiacheng Xu, Jingchen Shu, Bin Xia}\\
+
+{\small\textit{IndexTTS 2.5 speeds up zero-shot multilingual emotional TTS while keeping intelligibility and speaker similarity roughly on par with IndexTTS 2.}}\\[1pt]
+{\footnotesize Engineering upgrade of IndexTTS 2 targeting sequence length, efficiency, multilingual/emotion transfer, and post-training alignment; extends practical zero-shot emotional TTS across Chinese/English/Japanese/Spanish and outlines concrete cross-lingual design strategies. Same two-stage pipeline (T2S transformer + non-AR S2M), with: semantic codec frame rate cut 50→25 Hz; S2M backbone swapped to Zipformer; cross-lingual strategies (boundary-aware alignment, token-level concatenation, instruction-guided generation); GRPO RL post-training for T2S to improve pronunciation/naturalness. Reports 2.28× better real-time factor with comparable WER and speaker similarity vs IndexTTS 2, plus strong zero-shot emotional prosody for the four supported languages. Also reports emotion transfer to additional unseen languages (not enumerated in the abstract).}
+
+\medskip
+
+{\small\textbf{VoxSumm: A Multilingual Corpus of Long-Form Spoken News for Joint Summarization and Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.10359}{arxiv}]}\\
+{\scriptsize Yejin Jeon, Marie Maltais, Virginia Ceccatelli, Min Ma, David Ifeoluwa Adelani}\\
+
+{\small\textit{VoxSumm benchmarks the realistic task of producing a short target-language summary directly from long source-language news audio (joint summarization+translation).}}\\[1pt]
+{\footnotesize Defines Joint Speech Summarization and Translation (JSumT) and releases VoxSumm: BBC long-form spoken news with article/summary supervision across 24 languages, enabling end-to-end evaluation under both cross-lingual and compression constraints. Dataset construction pairs long audio with reference summaries and supports cross-language targets; benchmarks systems on direct audio→target-summary vs translate-then-summarize pipelines across many directions to diagnose instruction-following, generation quality, and long-intermediate error accumulation. Current models are unreliable once required to be both brief and faithful cross-lingually; Gemini3.1-Pro is most consistent but still language/decoding sensitive. Summarizing into English is easier than into non-English targets, and translate-full-then-summarize often worsens outcomes due to longer intermediates and compounded failures.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Off-Axis, On Purpose: Where a Transformer Computes Concepts and Why it Does So}} {\scriptsize[\href{https://arxiv.org/abs/2608.10251}{arxiv}]}\\
+{\scriptsize Mark Oskin}\\
+
+{\small\textit{Transformers compute concepts largely in an off-axis subspace (near-orthogonal to the unembedding), then add on-axis information late to produce logits.}}\\[1pt]
+{\footnotesize Argues off-axis hidden states are a functional ``concept workspace,'' not noise; proposes a two-phase compute story (concept phase off-axis, answer phase on-axis) and validates it with targeted geometric interventions and training-time constraints. Measure layer-wise alignment of sublayer outputs to the unembedding axis; rotate attention value updates onto the readout axis vs matched random rotations; train with geometry-altering objectives (early-exit/on-axis pressure, projection penalties) and insert rotations at the phase boundary to test causal effects. Early attention updates stay \textasciitilde{}75--96° from the readout axis and the model goes on-axis late by adding new on-axis components rather than rotating prior content. Forcing values on-axis is far more damaging than random rotations (especially for cross-token mixing). Penalizing readout projection often collapses training, while inserting a boundary rotation preserves quality---suggesting the need is an off-axis workspace, not a specific basis.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents and the infrastructure around them: at least \textasciitilde{}60--80 titles focus on tool-using agents, agent harnesses, skill libraries (SKILL.md), routing, memory, and long-horizon evaluation (e.g., DSAgentBench, AndroidReality, CAP, Business Arena, ForestBench, VibeLifeBench, OpenPM), with a noticeable subcluster on self-evolving agents/harness evolution and co-evolution (e.g., Co-Evolution in Agentic Systems, Evo-Bench, DarwinX, SHE, OpenLoopEvolve, Mendel Gödel Machine). A second major theme is reliability/safety/measurement---roughly \textasciitilde{}40--60 papers---covering hallucination detection, calibration/uncertainty, LLM-as-judge pitfalls, benchmark contamination/provenance/lineage, and multilingual safety gaps (e.g., ``Illusion of Cross-Lingual Safety...'', TokenPrint, spectral fingerprints, contamination audits, evidence-locked judging). Efficiency and scaling is another strong cluster (\textasciitilde{}30--50): long-context/KV-cache compression and eviction, quantization (4-bit/FP4 and beyond), MoE routing/load balancing, and speculative decoding (e.g., KVDiagnosis, DistillCache, RippleKV, ReRound, Full-Stack FP4, EasyBalance, Matryoshka suites). A notable emerging direction is ``governance-by-systems-design'' for agents---runtime authorization, auditability, and operational guardrails (MCP/tool access control, timing side-channels, policy-to-SHACL, hospital/finance governance)---suggesting the field is shifting from single-model alignment to end-to-end agent ecosystem control.}
+
+
+\end{document}
