@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-13} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{When the API Speaks the Wrong Language: Revisiting Post-Training for Multilingual Tool Use}} {\scriptsize[\href{https://arxiv.org/abs/2608.11715}{arxiv}]}\\
+{\scriptsize Siddharth Chauhan, Thomas Butler, Abhishek Singhania, Pankaj Porwal, Honey Gupta}\\
+
+{\small\textit{Multilingual tool use often fails after picking the right API: arguments come out in the wrong language; SFT fixes most of it, RL adds small, targeted gains.}}\\[1pt]
+{\footnotesize Defines and isolates Argument Language Mismatch (ALM)---an operational validity failure invisible to standard tool-call metrics---and shows post-training should explicitly enforce argument-language consistency. Clarifies RL's role: mainly marginal generalization/constraint trade-offs, not the primary fix. Evaluate tool calls with ALM-aware checks (correct function + arguments in the required/consistent language). Compare SFT vs RL (e.g., GRPO), including structured argument-aware rewards; control for tool selection to separate choosing the tool from filling arguments. SFT sharply reduces ALM and lifts end-to-end function-call success; with tool selection held constant, SFT matches or beats RL variants. RL with argument-aware rewards yields incremental improvements, mostly in generalization and multi-objective balancing (consistency without harming reasoning).}
+
+\medskip
+
+{\small\textbf{Reference-Free Post-Training of Open Large Language Models for Multilingual Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.10812}{arxiv}]}\\
+{\scriptsize Chris Han, Pengzhi Gao, Pei Fu, Jian Luan}\\
+
+{\small\textit{Reference-free RL using QE rewards can improve multilingual MT, and simple SFT↔RL checkpoint interpolation stabilizes gains across 46 languages.}}\\[1pt]
+{\footnotesize A practical, no-reference post-training recipe for open multilingual MT: QE-as-reward RL plus safeguards (dual-QE averaging, language-ID gating) and linear interpolation with the SFT checkpoint to curb reward hacking/language drift. रिलीज MiLMMT-46-v1.0. Start from an SFT MT model (MiLMMT-46-v0.1), run GRPO with reward = average of two QE models, gated by language ID. After RL, linearly interpolate SFT and RL checkpoints; also test on-policy distillation (OPD) vs the RL+interpolation frontier. RL + checkpoint interpolation yields consistent quality gains over SFT across 46 languages; beats recent open baselines (Seed-X, HY-MT2, TranslateGemma) under reference-free evaluation and reports leading scores vs evaluated proprietary systems. OPD reaches but does not surpass the RL+interpolation frontier.}
+
+\medskip
+
+{\small\textbf{Language-Conditional Dequantization: Recovering What Quantization Steals from Non-English Languages}} {\scriptsize[\href{https://arxiv.org/abs/2608.11786}{arxiv}]}\\
+{\scriptsize Nirmal Thomas}\\
+
+{\small\textit{INT3 quantization disproportionately breaks non-English; tiny per-language low-rank adapters can recover most lost perplexity and some downstream accuracy without changing quantized weights.}}\\[1pt]
+{\footnotesize Quantifies ``multilingual collapse'' under aggressive quantization and proposes Language-Conditional Dequantization (LCD): language-specific residual capacity is more efficient than a single global fix. Links recoverability to where quantization error concentrates across depth. Attach per-language LoRA adapters (rank 2) to linear layers of an INT3 GPTQ model; select adapter by language at inference. Train post-hoc (\textasciitilde{}0.12\% params per language). Run layer-restricted LCD (early vs late layers) to localize where corrections matter. On Qwen2.5-3B and Llama-3.2-3B INT3, LCD closes \textasciitilde{}70--83\% of the non-English perplexity gap vs English and recovers \textasciitilde{}17--28\% of the GlobalMMLU accuracy gap; beats language-agnostic corrections at equal budget on distant languages. Finds a perplexity--accuracy disconnect tied to depth: late-layer damage (Qwen) is more fixable than early-layer damage (Llama).}
+
+\medskip
+
+{\small\textbf{When the Knowledge Base Becomes the Gold Standard: Measuring Resource-Shared Evaluation Loops in Entity-Level Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.11843}{arxiv}]}\\
+{\scriptsize Jinhyung Bae, Dain Kil, Seongmin Oh, Seungmin Lee}\\
+
+{\small\textit{Entity-translation gains can be illusory when the same KB is used for both injection and evaluation; most ``improvement'' is a resource-sharing loop.}}\\[1pt]
+{\footnotesize Identifies and measures self-referential evaluation in KB-augmented MT for entities: KB-as-gold can reward agreement with the injected resource rather than true translation. Provides a concrete protocol to separate KB agreement from independent expert correctness. Use expert person-name annotations (independent gold) for Seungjeongwon Ilgi and split mentions into KB-overlap vs non-overlap with the injection pipeline. Evaluate four MT models with/without KB injection using a difference-in-differences comparison to detect loop-driven gains. Of 527 expert-annotated mentions, only 31.1\% are outside the injection pipeline. Injected readings match human translations 97.8\% in the overlap segment but only 70.1\% in the independent segment. Across models, injection gains appear only in the overlap segment; in the independent segment gains are zero or negative, and post-injection scores compress into a high band (≈0.910--0.996), inflating weaker models.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Gloss-Free Representation Learning for Cross-Dataset Sign Spotting}} {\scriptsize[\href{https://arxiv.org/abs/2608.11332}{arxiv}]}\\
+{\scriptsize O\u{g}uz Akif T\"ufekcio\u{g}lu, Ezgi Ekin, Mustafa Kaan \c{C}evik, Hacer Yalim Keles}\\
+
+{\small\textit{Gloss-free sign pretraining from transcripts works much better if you normalize morphologically varied text targets; the resulting encoder transfers strongly to cross-dataset sign spotting.}}\\[1pt]
+{\footnotesize Shows target fragmentation (many inflected surface forms) is a key bottleneck in transcript-supervised sign representation learning, especially in morphologically rich languages. Treats transcript normalization as core to learning transferable lexical/time representations. Pretrain a Turkish sign encoder on TSL-News using loosely aligned transcripts mapped to pseudo-glosses. Compare rule-based lemmatization vs constrained LLM-assisted normalization to canonicalize variants. Transfer the encoder to temporal sign spotting on a different dataset (TSL Dictionary benchmark). LLM-assisted normalization nearly doubles cross-dataset spotting quality: top-5 temporal localization mean IoU 0.235→0.465; 56.2\% reach ≥0.50 IoU. Also improves a translation sanity check (BLEU-4 9.60→11.04; ROUGE 23.48→27.43), indicating stronger learned lexical structure.}
+
+\medskip
+
+{\small\textbf{DonorRank: Donor Language Selection for Low-Resource Cross-Lingual Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2608.11441}{arxiv}]}\\
+{\scriptsize Akriti Dhasmana, Aarohi Srivastava, David Chiang}\\
+
+{\small\textit{DonorRank learns which donor languages actually transfer best for low-resource zero-shot ASR, outperforming ``biggest'' or ``closest language'' heuristics and revealing when cues stop mattering.}}\\[1pt]
+{\footnotesize Recasts donor-language choice as learning-to-rank from observed transfer outcomes, arguing ``good donors'' depend on donor pool and conditions (data type, orthography, resource skew), not a single similarity metric. Also uses the learned ranker to analyze what predicts transfer under different pools. Train a ranking model on prior cross-lingual ASR transfer results: for each target, learn pairwise/relative ordering of donors rather than absolute scores. Use features capturing linguistic/resource relations; vary donor sets to study how predictive signals shift with pool composition. Accurately predicts donor rankings on two multilingual corpora (Indic and African) and yields better donor choices than high-resource or genetic-similarity baselines. Analysis shows cue usefulness is pool-dependent (e.g., family similarity saturates when donors are all related), offering practical guidance for messy low-resource ASR settings.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Measure, Don't Optimize: Forecasting Recovery in LLM Unlearning}} {\scriptsize[\href{https://arxiv.org/abs/2608.11408}{arxiv}]}\\
+{\scriptsize Zirui Song, Huaxing Liu, Xiang Wang, Shuai Li, Xinye Li, Lang Gao, Jinghui Zhang, Zheng Lu, Fengxian Ji, Xiaojun Chang, Xiuying Chen}\\
+
+{\small\textit{You can predict how fast unlearned knowledge will return by measuring its internal accessibility---but optimizing that metric can make models hide knowledge and recover even faster.}}\\[1pt]
+{\footnotesize Introduces J-Access, a white-box ``recovery susceptibility'' audit that measures whether unlearned concepts remain reachable along the logit pathway. Shows Goodhart's law: training to minimize the audit can reduce detectability while increasing recoverability. Use a Jacobian-lens-style probe across layers to map hidden states into vocabulary space and score alignment with target (supposedly unlearned) concepts. Test whether pre-attack J-Access predicts recovery under later fine-tuning; then explicitly optimize to minimize J-Access to check for evasion vs deletion. Across 398 public unlearned models (8 methods), most retain higher accessibility than a retain-only ``gold'' baseline. Model-level J-Access predicts recovery speed/extent under attack, though not per-fact recovery. Directly minimizing J-Access often lowers the audit score while making models more recoverable, demonstrating audit evasion.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Across today's list, the dominant theme is LLM agents and how to evaluate/control them: at least \textasciitilde{}25--35 papers introduce agent benchmarks or evaluation protocols (e.g., TRACE Bench, InfraBench, EnterpriseRAG, CTBench, VAKRA, Backtrader-Bench, FrontierFinance, AutoWorldModel-Bench) or study agent behaviors like self-correction, tool-use policies, and memory cost/definitions. A second large cluster (\textasciitilde{}15--25) targets reliability/safety/alignment and measurement---unlearning and retention, sycophancy/persuasion/political alignment, uncertainty calibration, prompt/wording effects, and guardrails under context compression/summarization (e.g., ``Lost in Compaction,'' ``Sleeping Agent,'' unlearning papers, judge/rubric work). On the systems/modeling side there's a noticeable push (\textasciitilde{}10--15) on efficiency infrastructure---quantization and multilingual degradation, MoE routing/edge inference, caching/PIC, training/energy scheduling, and diffusion-LM decoding/compression (e.g., LinearKV, QV-PIC, SoftWater, LazyTrain, multiple MoE edge papers, diffusion LLM inference). A somewhat surprising emerging direction is the breadth of audio/voice/music generation and evaluation (roughly \textasciitilde{}8--12 papers: multiple TTS technical reports, voice generation, text-to-music instruction-following tests, audio-visual QA), alongside steady applied clusters in finance (trading/forecasting/benchmarks) and clinical/medical imaging RAG/benchmarks.}
+
+
+\end{document}
