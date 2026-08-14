@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-14} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{When the API Speaks the Wrong Language: Revisiting Post-Training for Multilingual Tool Use}} {\scriptsize[\href{https://arxiv.org/abs/2608.11715}{arxiv}]}\\
+{\scriptsize Siddharth Chauhan, Thomas Butler, Abhishek Singhania, Pankaj Porwal, Honey Gupta}\\
+
+{\small\textit{Multilingual tool use often fails via Argument Language Mismatch (right API, wrong-language arguments); supervised fine-tuning fixes most of it, with RL mainly refining trade-offs/generalization.}}\\[1pt]
+{\footnotesize Identifies ALM as a production-relevant failure mode missed by typical function-calling metrics, and shows that measuring operational validity reveals SFT---not RL---as the primary driver of language-consistent, valid tool calls. Evaluate multilingual function calling with metrics that penalize ALM and invalid calls; compare SFT vs RL variants (e.g., GRPO) using structured, argument-aware rewards; isolate formatting/argument errors by controlling for tool-selection correctness. SFT sharply reduces ALM and boosts end-to-end call accuracy; when tool choice is already correct, SFT matches or can beat RL. RL with structured rewards yields smaller, incremental gains, mainly for multi-objective trade-offs (strict language consistency vs broader reasoning) and generalization.}
+
+\medskip
+
+{\small\textbf{Reference-Free Post-Training of Open Large Language Models for Multilingual Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.10812}{arxiv}]}\\
+{\scriptsize Chris Han, Pengzhi Gao, Pei Fu, Jian Luan}\\
+
+{\small\textit{Reference-free RL can improve an open multilingual MT model across 46 languages; blending RL and SFT checkpoints preserves gains without destabilizing behavior.}}\\[1pt]
+{\footnotesize Post-trains a supervised multilingual MT LLM without parallel references by rewarding outputs using two reference-free quality estimators; mitigates RL over-optimization by linear parameter interpolation with the original SFT model, producing MiLMMT-46-v1.0. Use GRPO with rewards averaged from two QE models plus a language-ID gate to prevent target-language cheating; after RL, linearly interpolate RL and SFT checkpoints to recover stability/coverage while keeping quality gains. Interpolated RL models consistently outperform the SFT baseline across all 46 languages; they beat several strong open MT baselines (Seed-X, HY-MT2, TranslateGemma) and reach leading reference-free scores even versus evaluated proprietary systems. OPD can match but not exceed the RL+interpolation quality frontier.}
+
+\medskip
+
+{\small\textbf{Language-Conditional Dequantization: Recovering What Quantization Steals from Non-English Languages}} {\scriptsize[\href{https://arxiv.org/abs/2608.11786}{arxiv}]}\\
+{\scriptsize Nirmal Thomas}\\
+
+{\small\textit{Low-bit quantization disproportionately hurts non-English; tiny per-language rank-2 LoRA ``dequantization'' patches recover most lost multilingual performance at negligible cost.}}\\[1pt]
+{\footnotesize Quantifies that INT3 GPTQ can degrade non-English perplexity 2--4× more than English, and proposes Language-Conditional Dequantization (LCD): language-specific micro-adapters that correct language-dependent quantization error better than a single global patch. Start from an INT3-quantized model (e.g., Qwen2.5-3B, Llama-3.2-3B) and add per-language rank-2 LoRA modules to linear layers; train each language adapter briefly (<20 min, single GPU). At inference, select the adapter by language; overhead \textasciitilde{}0.12\% params per language. LCD recovers \textasciitilde{}70--83\% of the INT3-induced perplexity gap for non-Latin scripts and \textasciitilde{}17--28\% of the GlobalMMLU accuracy gap; language-conditional adapters beat equally small language-agnostic fixes. Layer-restricted tests support a depth-of-damage story: early-layer quantization errors (observed in Llama) are harder to repair than later-layer damage (Qwen).}
+
+\medskip
+
+{\small\textbf{From Reasoning Depth to Reasoning Breadth: Evaluating Multi-Point Associative Reasoning in Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2608.10444}{arxiv}]}\\
+{\scriptsize Si'an Xie, Jiaxun Liu, Biao Yang, Wei Yuan, Fan Yang, Tingting Gao, Ming Wu}\\
+
+{\small\textit{LLM ``reasoning'' benchmarks over-measure depth; a distinct skill---reasoning breadth (integrating diverse weak clues)---is brittle and not reliably improved by longer thinking.}}\\[1pt]
+{\footnotesize Defines reasoning breadth and introduces MPAR-Bench (English/Chinese), a Just-One-style hidden-word task requiring multi-clue evidence integration; adds robustness perturbations and multiple similarity/trace-alignment metrics to test stability, not just accuracy. Create items with multi-agent clue generation plus embedding-based diversity filtering; human-verify recoverability. Evaluate with exact match, ANLS/embedding similarity, and reasoning-trace verification; stress-test via clue removal, shuffling, distractors, and multi-step hint variants. Strong ``deep reasoning'' models remain fragile on breadth: perturbations drop performance \textasciitilde{}9--18 points (English) and \textasciitilde{}5--12 (Chinese). ``Thinking mode'' often boosts baseline accuracy but doesn't consistently improve robustness and can even talk models out of correct guesses, showing depth and breadth are separable and breadth is under-evaluated.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Confucius4-TTS: Transcript-Free Cross-Lingual Zero-Shot TTS with a Learnable Speaker Encoder}} {\scriptsize[\href{https://arxiv.org/abs/2608.11650}{arxiv}]}\\
+{\scriptsize Huaxuan Wang, Huimin Wang, Ruiyu Zhang, Yingjie Li, Yitao Duan}\\
+
+{\small\textit{Transcript-free cross-lingual zero-shot voice cloning from a raw audio prompt by learning a speaker embedding from self-supervised speech features and conditioning a two-stage TTS pipeline.}}\\[1pt]
+{\footnotesize Removes the common ``reference transcript required'' bottleneck for zero-shot TTS by learning a speaker encoder that extracts timbre identity from audio alone, enabling practical in-the-wild and cross-lingual cloning (plus optional transcript-based continuation when available) across 14 languages. Two-stage TTS: (1) LLM-based text-to-semantic token predictor conditioned on a learnable speaker encoder fed with self-supervised speech representations from the prompt audio; (2) semantic-to-acoustic mel generation via conditional flow matching, conditioned on tokens + speaker embedding. On CV3-Eval cross-lingual directions, achieves 3.73\% average WER (high intelligibility) and is top-ranked by human overall preference in internal cross-lingual tests versus open-source/commercial baselines, showing transcript-free prompting can preserve speaker similarity without major quality loss.}
+
+\medskip
+
+{\small\textbf{DonorRank: Donor Language Selection for Low-Resource Cross-Lingual Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2608.11441}{arxiv}]}\\
+{\scriptsize Akriti Dhasmana, Aarohi Srivastava, David Chiang}\\
+
+{\small\textit{Donor-language choice for low-resource cross-lingual ASR can be predicted: learn a ranking over donors instead of relying on ``relatedness'' or ``more data'' heuristics.}}\\[1pt]
+{\footnotesize Introduces DonorRank, casting donor selection as learning-to-rank from observed transfer outcomes, showing donor usefulness depends on contextual mixes of linguistic/resource cues rather than a single similarity metric. Train a ranking model on many target--donor transfer experiments; use features capturing linguistic similarity and resource signals to score donors so higher scores match better observed zero-shot transfer; analyze which cues matter under different donor-pool compositions. On Indic and African multilingual corpora, DonorRank improves practical donor selection over baselines like ``closest language'' or ``highest-resource,'' and shows cue importance is donor-pool dependent (donor selection is inherently contextual), yielding actionable patterns on when to favor similarity vs strong but less-related donors.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Geometric and Behavioral Stratification in Transformer Residual Streams}} {\scriptsize[\href{https://arxiv.org/abs/2608.12447}{arxiv}]}\\
+{\scriptsize Nelson Guda}\\
+
+{\small\textit{Residual streams stratify around the current predicted token's unembedding direction, yielding a scale-invariant ``prediction interface'' geometry that predicts and causally affects behavior.}}\\[1pt]
+{\footnotesize Anchors residual-stream analysis to a content-dependent ``prediction direction'' (unembedding of the argmax token), revealing a thin prediction-proximal subspace that carries readout-relevant structure and a large prediction-distal complement; shown across 18 models (dense/MoE, base/instruct, 7B--120B). At each position, use the predicted token's unembedding as an anchor; analyze clustering/discriminability as a function of alignment to this direction; run causal ablations/disruptions of residual directions ranked by prediction-alignment and compare to more distal directions, tracking divergence and task-frame shifts. Prediction-aligned structure concentrates in a narrow interface while the orthogonal space grows with scale and can look flat/anti-discriminative; the prediction direction is near-orthogonal to PCA variance axes, so variance-only analyses miss key organization. Ablating the most prediction-aligned variance directions causes immediate divergence and frequent task-frame shifts; slightly more distal disruptions delay divergence and preserve framing longer.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{The Wording Effect: Quantifying Two-Way Drift in LLM Benchmark Performance}} {\scriptsize[\href{https://arxiv.org/abs/2608.11694}{arxiv}]}\\
+{\scriptsize Shailja Thakur, Sungeun An, Chad DeLuca, Hima Patel}\\
+
+{\small\textit{Meaning-preserving rewordings can flip benchmark answers both ways, and stronger models can be harmed more than helped---so scores depend heavily on the benchmark's exact phrasing.}}\\[1pt]
+{\footnotesize Defines and measures two-way ``drift'' (success→failure and failure→success) under semantics-preserving rephrases, introducing BenchDrift to show benchmark performance is a property of wording choices, not just task competence. Generate controlled rephrasings along four axes---linguistic, referential, pragmatic, structural---evaluate originals vs variants, and compute flip rates in both directions; analyze which rephrases/axes drive drift and whether patterns are model- or phrasing-driven. Across GSM8K, MMLU, and MATH-Hard, drift is large and genuinely two-way; net effect flips with model strength (weaker models benefit more, stronger models are harmed more). Models largely agree on which rephrasings are most damaging; failures aren't explained by prompt length and can break high-confidence answers.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM agents + evaluation/benchmarks: at least \textasciitilde{}25--35 papers introduce new benches or auditing frameworks (e.g., TRACE Bench, InfraBench, EnterpriseRAG, CTBench, VAKRA, Backtrader-Bench, FrontierFinance, OEIS Open, Diagram-MMU, TRACES), reflecting a shift from raw capability to measuring instruction adherence, epistemic reliability, and real-world task completion. A second major cluster is agent infrastructure for long-horizon operation---memory, context compaction, harnesses, and runtime contracts---with \textasciitilde{}15--20 papers on memory systems/caching/compaction and ``harness'' design (e.g., Total Recall cost, LinearKV/QV-PIC, MaSRead, EvoGraph-Mem, memorywire, The Sleeping Agent, Lost in Compaction, Agent Safety Should Be a Runtime Contract). Diffusion is unusually prominent beyond vision: \textasciitilde{}10--15 papers touch diffusion language models/decoding/compression or diffusion planning (Ripple-Pivot Search, CORA-Diff, DARTree, Diffuse to Compress, cache reuse for diffusion, LoSA), suggesting diffusion-style inference is becoming a serious alternative for text and agent pipelines. Finally, there's a noticeable safety/robustness/governance thread (\textasciitilde{}15+ papers) spanning unlearning, sycophancy/persuasion/political alignment, prompt injection/tool hazards, and regulatory/enterprise risk reporting---indicating growing attention to deployment failure modes rather than just benchmark scores.}
+
+
+\end{document}
