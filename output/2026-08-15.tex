@@ -1,0 +1,94 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-15} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Vision-Language Models are Fragile Multilingual Associators}} {\scriptsize[\href{https://arxiv.org/abs/2608.12333}{arxiv}]}\\
+{\scriptsize Ritabrata Chakraborty, Rajatsubhra Chakraborty, Shivakumara Palaiahnakote, Angelo Cangelosi, Umapada Pal}\\
+
+{\small\textit{VLMs often lose correct entity--attribute bindings when you switch languages, and the paper traces this to a shifted/weakened internal binding computation---not just an accuracy drop.}}\\[1pt]
+{\footnotesize Defines multilingual ``binding'' as stable entity--attribute linking across language changes, and introduces M\$\textasciicircum{}2\$BIND to test it both behaviorally (task success) and mechanistically (whether the same internal signals remain causally necessary). M\$\textasciicircum{}2\$BIND varies context language and query language across multiple languages/scripts to force cross-lingual carryover of associations; evaluates task metrics plus causal probing/interventions on internal representations to localize binding-relevant layers and measure their causal effect on decisions. Cross-family/script switches can sharply collapse binding accuracy; internally, binding-related computation shifts later and its causal strength weakens under harder multilingual settings, while closely related languages preserve bindings better---implying the binding mechanism itself degrades under multilingual input.}
+
+\medskip
+
+{\small\textbf{Steering the Language Axis: From Linear Decodability to Causal Control}} {\scriptsize[\href{https://arxiv.org/abs/2608.12334}{arxiv}]}\\
+{\scriptsize Arnav Srivastav}\\
+
+{\small\textit{A low-dimensional ``language axis'' in hidden states is not just decodable---it can be used as a causal control knob to switch a model's output language.}}\\[1pt]
+{\footnotesize Moves from correlation to causation: PCA-derived language directions reliably steer generation language, and removing that component makes models revert to a default, implying language choice is implemented as a compact, manipulable feature in specific layers. Extract language axes via PCA on hidden states by target language; during generation, add (steer) or remove (ablate) the axis at chosen layers; compare to equal-norm random directions; sweep layers/language pairs across models (e.g., Qwen 3.5-2B, Llama-3.2-1B-Instruct) with \textasciitilde{}1.26M FLORES-200 generations. Axis steering flips output language (including cross-script) while random directions barely do; layer sensitivity differs by pair (e.g., English→Chinese steers later than English→Spanish); ablating the signal often collapses outputs back to English, suggesting an English ``default basin.''}
+
+\medskip
+
+{\small\textbf{Don't Want Your LLM to Recommend Nuclear Strike? Try Asking It in Japanese}} {\scriptsize[\href{https://arxiv.org/abs/2608.12373}{arxiv}]}\\
+{\scriptsize Rian Touchent (ALMAnaCH)}\\
+
+{\small\textit{Changing the language a model reasons in can flip catastrophic-violence recommendations, so English-only safety tests can badly misestimate real risk.}}\\[1pt]
+{\footnotesize Shows a high-stakes cross-lingual alignment effect: Japanese can strongly suppress nuclear-strike recommendations in some frontier models, and a key manipulation separates input language from reasoning language to pinpoint the driver. Single-turn game-theoretic nuclear-strike advisor vignettes with identical strategic structure/amoral framing across languages; test nine models from six providers; measure ``launch rates'' across scenario types; mechanism test: English prompt + explicit instruction to reason in Japanese; analyze rationales for framing shifts. Claude models show large drops with Japanese (e.g., Sonnet 4.6: unnecessary strikes 40\%→0\%, contested 93\%→17\%) with little change when strikes are strategically rational; Gemini Pro 3.1 also drops (53\%→13\%); instructing Japanese reasoning inside an English prompt cuts contested launches (93\%→37\%), indicating reasoning language drives the effect and elicits moral framing absent from the prompt.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Comparative Analysis of Multilingual Pre-trained Models for Nepali Automatic Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2608.12327}{arxiv}]}\\
+{\scriptsize Suman Paudel, Sarbin Sayami}\\
+
+{\small\textit{For Nepali ASR, language-family-relevant pretraining can match huge models on in-domain WER, and CTC models can deliver similar accuracy at far lower latency.}}\\[1pt]
+{\footnotesize First controlled, efficiency-aware comparison of major multilingual pretrained ASR models for Nepali under a unified fine-tuning recipe, reporting both accuracy (WER/CER) and deployment cost (RTF) across multiple test sets to expose accuracy--latency--robustness tradeoffs. Fine-tune six pretrained ASR models spanning CTC SSL encoders (XLSR-53, IndicWav2Vec, MMS-1B), autoregressive encoder-decoder (Whisper variants), and Conformer-CTC; keep data (OpenSLR SLR54 \textasciitilde{}165h), preprocessing/splits, and tuning protocol consistent; evaluate on OpenSLR, FLEURS, Common Voice with WER/CER + RTF. Whisper-Large-v3-Turbo and IndicWav2Vec tie on in-domain WER (14.76\% vs 14.89\%), showing family-relevant pretraining can substitute for scale; CTC decoding is up to 29× faster than Whisper at similar accuracy; MMS-1B degrades least out-of-domain on FLEURS, suggesting scale mainly buys domain-shift robustness.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Information Abundance Paradox: Long-Context Training Undermines Parametric Knowledge}} {\scriptsize[\href{https://arxiv.org/abs/2608.12218}{arxiv}]}\\
+{\scriptsize Arda Uzunoglu, Benjamin Van Durme, Daniel Khashabi}\\
+
+{\small\textit{Training with ever-more helpful long context can reduce what models store in weights, making them worse when context is missing or misleading.}}\\[1pt]
+{\footnotesize Formalizes the Information Abundance Paradox: beyond an intermediate context length, long-context training can improve context use yet degrade parametric recall/robustness, supported by an optimization/mechanistic account tied to where learning pressure flows in the network. Train models with varying context availability/length in pretraining and SFT; evaluate both with-support and closed-book/no-context settings to detect non-monotonic effects; analyze training dynamics showing abundant context favors ``cheaper'' attention-based solutions over MLP-based storage; use causal component interventions to test whether attention-heavy computation increases context reliance. Longer-context training yields gains up to a midpoint, then harms closed-book knowledge (e.g., multiple-choice QA) and increases fragility when context is removed or adversarial; gradients shift from MLPs toward attention as context becomes more informative, and causal tests support this shift contributing to increased context dependence at inference.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Fast A/B/n Testing: Exact Multi-Policy Comparison via Tree-Coupled Feedback Sharing}} {\scriptsize[\href{https://arxiv.org/abs/2608.12831}{arxiv}]}\\
+{\scriptsize Yuxiao Wen}\\
+
+{\small\textit{You can evaluate many adaptive bandit policies ``as if'' run separately while often paying near one trajectory's reward cost, by coupling policies to share feedback when they choose the same actions.}}\\[1pt]
+{\footnotesize An exact multi-policy A/B/n design for history-dependent contextual-bandit policies that preserves each policy's standalone trajectory distribution while enabling reward sharing via controlled dependence, yielding unbiased comparisons with far fewer reward queries. At each round, arrange the J policies in a tree and apply maximal couplings on edges so endpoints match actions with highest possible probability; matched components share one reward sample, mismatches trigger extra queries; derive cost identity N(T)=T+∑\_\{t,e\}D\_\{e,t\} linking extra queries to cumulative tree-edge total variation; argue myopic minimum-spanning-tree choice is optimal among trees. Reward queries drop from JT to \textasciitilde{}T plus a mismatch penalty that shrinks as policies' action distributions converge; induced correlation can also reduce variance of pairwise contrasts; experiments (reward-model eval, MCQ LM eval, adaptive search) show better cost--precision than independent rollouts.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents and their infrastructure: at least \textasciitilde{}25--35 papers touch agentic workflows (memory layers like MindMemOS/FluctlightDB/EgoMonth, multi-agent coordination/communication like StateBridge/BoardroomAI/MARC, and long-horizon evaluation such as SteerBench-Work, ARAC, Beyond Final Scores, QuoteBench). A second major cluster is safety/governance and evaluation of alignment/judging (roughly \textasciitilde{}15--25), including multilingual safety failures (e.g., ``asking in Japanese''), research integrity/provenance, watermarking, rule compliance, and critiques of alignment as dual-use/censorship tooling. Efficiency/serving is also heavily represented (\textasciitilde{}10--15) with KV-cache virtualization/compaction (vToken, thought-aware compaction), speculative/edge inference (SPADE), transformer inference refactors (Dual-Flow Transformers), and diffusion acceleration/caching (GeoCache, cache reuse policy). A notable emerging direction is ``process-level'' reasoning diagnostics---constraint satisfaction/constraint influence, reasoning-trace evaluation (Reasoning Jury), search-efficiency probes (TsuGO), numeracy limits, and activation/causal control---suggesting the community is shifting from final-answer scores to mechanistic and governance-aware reliability metrics.}
+
+
+\end{document}
