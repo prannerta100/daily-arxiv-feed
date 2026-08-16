@@ -1,0 +1,107 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-16} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{When the API Speaks the Wrong Language: Revisiting Post-Training for Multilingual Tool Use}} {\scriptsize[\href{https://arxiv.org/abs/2608.11715}{arxiv}]}\\
+{\scriptsize Siddharth Chauhan, Thomas Butler, Abhishek Singhania, Pankaj Porwal, Honey Gupta}\\
+
+{\small\textit{Multilingual tool use often fails because API arguments come out in the wrong language; targeted SFT fixes most of it, with RL adding small gains.}}\\[1pt]
+{\footnotesize Defines and measures Argument Language Mismatch (ALM)---correct tool, semantically correct args, wrong/inconsistent language---and shows that explicit supervised post-training largely resolves it, challenging the assumption RL is required. Build a multilingual function-calling eval where success requires language-consistent arguments; compare SFT vs RL variants (including argument-aware rewards) and analyze ``holding tool selection constant'' to isolate argument-language improvements. SFT substantially improves argument language consistency and end-to-end call accuracy, often matching/beat RL when tool choice is controlled; RL (e.g., structured/GRPO-style rewards) yields incremental benefits mainly in harder generalization/multi-objective settings.}
+
+\medskip
+
+{\small\textbf{Language-Conditional Dequantization: Recovering What Quantization Steals from Non-English Languages}} {\scriptsize[\href{https://arxiv.org/abs/2608.11786}{arxiv}]}\\
+{\scriptsize Nirmal Thomas}\\
+
+{\small\textit{Aggressive quantization hurts non-English far more than English, but tiny per-language LoRA patches can recover most of the loss.}}\\[1pt]
+{\footnotesize Shows INT3 GPTQ on \textasciitilde{}3B LLMs disproportionately degrades non-English (especially non-Latin scripts) and introduces Language-Conditional Dequantization (LCD): per-language low-rank adapters that compensate quantization error post hoc. Start from an INT3-quantized model (e.g., Qwen2.5-3B, Llama-3.2-3B); train rank-2 LoRA adapters per language on that language's text (\textasciitilde{}0.12\% params/language, <20 minutes/GPU). Select adapter by input language at inference; analyze layer-localization of quantization damage. Non-English sees 2--4× larger perplexity degradation than English under INT3; LCD closes \textasciitilde{}70--83\% of the non-Latin perplexity gap and recovers \textasciitilde{}17--28\% of the GlobalMMLU accuracy gap. Language-conditioned adapters beat language-agnostic fixes by \textasciitilde{}3--9 points on distant languages; early-layer damage is harder to patch than late-layer damage.}
+
+\medskip
+
+{\small\textbf{Better Decomposition, Free Aggregation: A Synthesizer-Folding Framework for Multilingual Multi-Hop Question Answering}} {\scriptsize[\href{https://arxiv.org/abs/2608.13160}{arxiv}]}\\
+{\scriptsize Yilin Wang, Yuchun Fan, Weidong Bao, Zili Wei, Shi Feng, Tong Xiao, Zhengtao Yu, Jingbo Zhu}\\
+
+{\small\textit{Multilingual multi-hop QA can avoid translation-by-default by translating only when the model's decomposition is unreliable.}}\\[1pt]
+{\footnotesize Syfer reframes translation as a gated fallback in multilingual multi-hop RAG: attempt native-language decomposition/answering first, and switch to an English-assisted path only when decomposition quality is predicted to be poor. Generate a structured sub-question graph (``synthesizer'') with format constraints; run a decomposition-quality check. If pass: retrieve-and-answer in the target language and aggregate along the graph. If fail: translate with bilingual graph alignment and ``fold'' cross-lingual intermediate results back into a target-language answer. Across multiple languages, Syfer maintains competitive accuracy while reducing unnecessary translation/compute; results support that translation can add noise/erase cues, but is valuable as a targeted rescue when decomposition is weak, and that structured decomposition + checks reduces cascading multi-hop errors.}
+
+\medskip
+
+{\small\textbf{Structural Silence: When AI Infrastructure Fails Speakers of Underrepresented Languages}} {\scriptsize[\href{https://arxiv.org/abs/2608.12278}{arxiv}]}\\
+{\scriptsize Avijit Roy, Proma Roy}\\
+
+{\small\textit{Underperformance in underrepresented languages is often an upstream infrastructure problem, not just a modeling problem---shown via a Bengali end-to-end audit.}}\\[1pt]
+{\footnotesize Recasts ``low-resource'' as structural silence across the pipeline (web presence, corpus sampling, tokenization, connectivity), arguing these compounding defaults create predictable inequity that model scaling alone won't fix. Bengali case study quantifying: (1) web content share vs speaker share, (2) token allocation in major multilingual corpora, (3) tokenizer token-fertility penalties for Bengali script, and (4) rural/urban connectivity gaps affecting real access to cloud AI tools. Bengali is <0.5\% of web content despite \textasciitilde{}4\% of global population; major corpora show \textasciitilde{}67:1 English:Bengali token deficit, worsened by higher tokenization fertility; low rural connectivity further blocks deployment---implying equity requires data priorities, tokenizer design, and offline-first delivery, not just bigger models.}
+
+\medskip
+
+{\small\textbf{Poly-Dialectal Neural Machine Translation System for Bangla Regional Dialects}} {\scriptsize[\href{https://arxiv.org/abs/2608.12018}{arxiv}]}\\
+{\scriptsize Rakib Ullah, Ruhul Islam Rahul, Tanbir Ahmed}\\
+
+{\small\textit{A single dialect-aware Bangla NMT model can translate among many regional dialects with little data, outperforming much larger multilingual baselines.}}\\[1pt]
+{\footnotesize Builds a poly-dialectal, multi-directional Bangla dialect translation system and releases a large multi-dialect parallel corpus (51,531 sentence pairs), including expert-verified bidirectional data for five previously uncovered dialects. Fine-tune a BanglaT5-style seq2seq model for many dialect-pair directions; use DoRA (weight-decomposed low-rank adaptation) for parameter-efficient specialization; study cross-dialect transfer and scaling vs data size; demonstrate INT8 quantized web deployment. BanglaT5+DoRA reaches 29.26 BLEU / 57.26 chrF++ and outperforms NLLB-200 (615M) and mBART-50 (611M) on dialectal Bangla with better morphological coherence; scaling/transfer analyses suggest dialect coverage depends more on the right parallel signal than model size.}
+
+\medskip
+
+{\small\textbf{BavGround: A Benchmark for Regional Cultural Grounding and Dialect Competence in Bavarian}} {\scriptsize[\href{https://arxiv.org/abs/2608.12894}{arxiv}]}\\
+{\scriptsize Jophin John, Michael Hoffmann, Jan Fillies, Michael A. Hedderich, Barbara Plank}\\
+
+{\small\textit{BavGround enables protocol-aware testing of Bavarian dialect and regional cultural grounding, revealing consistent drops vs English/standard German and sensitivity to scoring method.}}\\[1pt]
+{\footnotesize Introduces BavGround: 206 MCQ items × 3 languages (English/German/Bavarian) = 618 parallel instances across 8 cultural domains, designed to disentangle dialect difficulty from question difficulty and to test localized, source-grounded knowledge. Evaluate 15 open-weight instruction-tuned LLMs (7B--10B) plus one closed reference across all three language versions; compare multiple MCQ scoring protocols (letter, shuffled, option likelihood, parsing, semantic matching) to quantify protocol effects; exploratory checkpoint analysis for GENBA-10B. Scores drop when questions are in Bavarian and when they require localized source-grounded knowledge; evaluation protocol can materially change absolute scores and model rankings (notably for regionally adapted models). Continued pretraining can help some likelihood-based metrics but dialect competence remains comparatively weak.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{DonorRank: Donor Language Selection for Low-Resource Cross-Lingual Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2608.11441}{arxiv}]}\\
+{\scriptsize Akriti Dhasmana, Aarohi Srivastava, David Chiang}\\
+
+{\small\textit{Donor-language choice for low-resource cross-lingual ASR can be learned as a ranking problem and beats common heuristics.}}\\[1pt]
+{\footnotesize Proposes DonorRank, a learning-to-rank model that predicts which high-resource donor languages transfer best to a target language, emphasizing donor selection is conditional on the available donor pool (not a single rule like ``closest language''). Train a ranker over (target, donor) pairs using relationship/resource features and a learning-to-rank objective; outputs an ordered donor list (not just top-1) to match practical ``try top-k donors'' workflows and enable feature analysis. On two multilingual speech corpora (Indic and African families), DonorRank improves donor selection over similarity-only or resource-only heuristics and shows which cues dominate depends on the donor set composition.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Jagged Judges: Epistemic Stability Under Silence, Pressure, and Persistence}} {\scriptsize[\href{https://arxiv.org/abs/2608.12645}{arxiv}]}\\
+{\scriptsize Justin Zhao, Himaghna Bhattacharjee, Hannah Korevaar, Bhaktipriya Radharapu, Khalid El-Arini}\\
+
+{\small\textit{LLM judges are highly unstable under rephrasing and pushback, and mind-changes usually move them away from the correct label.}}\\[1pt]
+{\footnotesize Introduces the Wiggle Framework to evaluate judges as interactive systems, separating (i) prompt sensitivity, (ii) one-shot susceptibility, and (iii) multi-turn persuasion---showing that ``gold-set accuracy once'' misses key reliability failures. Probe the same judgment across three regimes: Mechanical Consistency (rewording), Single-turn Conviction (one opposing challenge), and Multi-turn Persistence (sustained dialogue with an adversarial LLM persuader). Tested 9 frontier models on 14 judging tasks; uses initial panel agreement (``jury majority strength'') to predict likely flips. Verdicts flip \textasciitilde{}25--71\% under single-turn pushback and \textasciitilde{}62--91\% under adversarial multi-turn persuasion; flips are typically net-corrupting vs ground truth, implying interactive pressure behaves like rhetorical capture rather than helpful deliberation.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by foundation-model ``systems'' work rather than new standalone architectures: at least \textasciitilde{}25--35 papers on agentic workflows (AI scientists, long-horizon tool use, multi-agent orchestration) plus the infrastructure they require (memory, harnesses, routing, provenance, evaluation). A second major cluster is retrieval/RAG and memory for agents---roughly \textasciitilde{}20 papers on multi-hop retrieval, stopping policies, embedding/retriever design, poisoning detection, caching, and long-term memory consolidation (e.g., Search-R1 stopping, GEM, RAGSieve, multiple ``memory'' benchmarks). Safety/trustworthiness/evaluation is similarly heavy (\textasciitilde{}20+): refusal robustness, uncertainty/calibration, benchmark contamination/wording effects, judge reliability, watermarking, political/cultural bias, and cross-lingual safety failures. A striking surprise is how large the audio/speech/music track is relative to typical days---well over 150 titles on TTS/ASR/audio LLMs, audio generation, deepfake detection, and audio benchmarks---suggesting a strong surge in ``omni-modal'' and speech-first agent directions alongside the usual LLM agent + RAG focus.}
+
+
+\end{document}
