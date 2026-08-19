@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-19} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{An Investigation of Translationese in the Generations of Multilingual Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2608.17399}{arxiv}]}\\
+{\scriptsize Maria Valentini, T\'ea Wright, Julisa Granados, Eliana Colunga, Katharina von der Wense}\\
+
+{\small\textit{Defines an evaluation pipeline to test whether multilingual LLM outputs exhibit translationese, and whether any signal matches human translation artifacts across languages.}}\\[1pt]
+{\footnotesize Reframes ``LLM translationese'' as a measurable empirical question and contributes a structured assessment: compare MLLM generations to non-translated and human-written/translated baselines, and diagnose whether any translation-like signature is human-like or model-specific. Apply established translationese indicators to outputs from multilingual LLMs in five languages; use high-accuracy classifiers as aggregate detectors plus feature-level analyses (e.g., variance/feature differences). Add human annotations for German and Spanish as an extra evaluation signal. The paper reports an assessment and feature-based characterization of translationese-like patterns in MLLM generations; the abstract does not claim prevalence, direction, or downstream impact, only that classifiers/feature analyses and limited human judgments are used to examine distinguishing cues.}
+
+\medskip
+
+{\small\textbf{There is No Theoretical Curse of Multilinguality For Embedding Space Structure}} {\scriptsize[\href{https://arxiv.org/abs/2608.17088}{arxiv}]}\\
+{\scriptsize Niyati Bafna, Neha Verma, Vil\'em Zouhar, Philipp Koehn, David Yarowsky}\\
+
+{\small\textit{Shows there's no inherent geometric ``curse of multilinguality'': even strong cross-lingual alignment constraints can be satisfied with embedding dimension growing only logarithmically in the number of languages.}}\\[1pt]
+{\footnotesize Formalizes ``perfect multilinguality'' with explicit structure-preservation and alignment conditions, then proves the minimal embedding dimension needed scales as O(log L), implying observed multilingual degradation is not a fundamental representational/geometric necessity. Define two multilinguality conditions capturing monolingual structure + consistent cross-lingual alignment; analyze the capacity question ``smallest d for L languages,'' and prove constructive/lower--upper bounds yielding logarithmic scaling; include a small empirical sanity check. Main theorem: under their strong definition, required embedding dimension grows only like log(number of languages). Conclusion: any practical ``curse'' likely comes from data imbalance, interference, or optimization---not unavoidable embedding-space geometry.}
+
+\medskip
+
+{\small\textbf{Thinking in a Low-Resource Language: What SFT Builds, What RL Fixes, What Accuracy Cannot See}} {\scriptsize[\href{https://arxiv.org/abs/2608.17744}{arxiv}]}\\
+{\scriptsize Ayoub Kirouane, Christos Petrocheilos}\\
+
+{\small\textit{Demonstrates you can make frontier models produce readable reasoning in a low-resource language without changing benchmark accuracy; the real gains are controllability and auditability.}}\\[1pt]
+{\footnotesize Separates final-answer accuracy from ``legible, steerable reasoning in the user's language,'' showing SFT and RL can drastically change the latter while accuracy stays noisy/flat; introduces six length-robust behavioral metrics plus experimental controls (pre-registration, random-reward RL). Measure baseline: models rarely produce Greek reasoning traces even when prompted. Apply SFT to induce Greek reasoning; evaluate via gated metrics (language-of-thought adherence, channel separation, formatting, grammaticality, capability). Then apply RL with verifiable rewards to fix specific defects (format fallback, channel leakage, override obedience) and compare to random-reward control. Accuracy is dominated by seed noise (\textasciitilde{}7.7 points), masking training effects. Behavior shifts are large: base models show 0/1000 Greek traces; SFT yields \textasciitilde{}98\% Greek reasoning with preserved ability. RL nearly eliminates format fallback (24\%→2.5\%) and leakage (3.5\%→0\%), and improves ``think in English'' override by \textasciitilde{}9 points; random-reward control stays flat.}
+
+\medskip
+
+{\small\textbf{What Tokens are Learned when Tokenization is Optimized Jointly with Language Modeling?}} {\scriptsize[\href{https://arxiv.org/abs/2608.17325}{arxiv}]}\\
+{\scriptsize Saketh Reddy Vemula, Parameswari Krishnamurthy}\\
+
+{\small\textit{Jointly learned tokenization produces qualitatively different token ``units'' (varying by method and language) that can lower perplexity while remaining competitive on downstream tasks.}}\\[1pt]
+{\footnotesize A typology-aware comparison showing ``tokenizer optimization'' is not monolithic: different joint schemes yield very different vocabularies, linked to language morphology/script, and these vocabularies can still transfer in BERT-style pretrain→finetune settings. Compare two joint tokenization families vs fixed-tokenizer baselines across 18 languages. SSLM-style methods learn contextually useful segmentations (often morpheme-like); H-Nets favor byte/computational efficiency (longer tokens, low overlap with subwords). Analyze overlap/length/dynamics and evaluate as pretokenization for BERT-style models via perplexity + downstream tasks. Joint optimization changes token structure fundamentally: SSLMs trend toward morphologically aligned, prediction-efficient units; H-Nets drift toward byte-efficient long tokens with minimal overlap to standard vocabularies. Agglutinative languages show more dynamic segmentation. Despite mismatch, SSLM pretokenization consistently reduces perplexity and keeps downstream performance competitive.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Speak in Context: Multilingual ASR with Speech Context Alignment via Contrastive Learning}} {\scriptsize[\href{https://arxiv.org/abs/2603.06505}{arxiv}]}\\
+{\scriptsize Yuchen Zhang, Haralambos Mouratidis, Ravi Shekhar}\\
+
+{\small\textit{Builds modular multilingual context-aware ASR by pairing frozen pretrained components with contrastive alignment between speech and context, yielding consistent gains.}}\\[1pt]
+{\footnotesize A multilingual ASR framework that treats dialogue history/biasing words as first-class inputs and adds a principled speech--context contrastive objective, while keeping a frozen speech encoder and decoder-only LM for modularity. Connect frozen speech encoder to frozen decoder-only LM via a lightweight projection; feed structured context prompts (history, bias lists) into the LM; add contrastive learning to align speech and contextual representations in a shared space. On >1,500 hours of conversational speech across 11 languages and 5 English dialects, context improves ASR consistently, and contrastive alignment adds further gains across context types, for >5\% aggregate improvement.}
+
+\medskip
+
+{\small\textbf{Language Family Matters: Evaluating LLM-Based ASR Across Linguistic Boundaries}} {\scriptsize[\href{https://arxiv.org/abs/2601.18899}{arxiv}]}\\
+{\scriptsize Yuchen Zhang, Ravi Shekhar, Haralambos Mouratidis}\\
+
+{\small\textit{For LLM-based multilingual ASR, sharing the speech-to-LLM connector within language families reduces parameters and often improves cross-domain robustness versus per-language connectors.}}\\[1pt]
+{\footnotesize Challenges per-language adapter training by arguing the connector is mainly an acoustic→LLM-space mapping that can be shared among related languages; proposes a simple deployment strategy: one connector per language family, reused across family languages. Freeze speech encoder and pretrained LLM; train only a lightweight connector. Group languages by family and train a single connector on pooled family data; at inference, any family language uses the same connector (sharing driven by an external linguistic prior). Family-shared connectors substantially cut trainable parameters while matching or improving ASR quality, with the clearest gains in cross-domain generalization (e.g., curated→crowdsourced speech). Suggests the connector learns reusable family-level correspondences rather than brittle language-specific mappings.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Geometric and Behavioral Stratification in Transformer Residual Streams}} {\scriptsize[\href{https://arxiv.org/abs/2608.12447}{arxiv}]}\\
+{\scriptsize Nelson Guda}\\
+
+{\small\textit{Anchoring residual-stream analysis to the model's current predicted-token direction reveals a thin, decisive ``prediction interface'' plus a large complementary subspace that is behaviorally essential but variance-invisible.}}\\[1pt]
+{\footnotesize Introduces the content-defined ``prediction direction'' (unembedding of the currently predicted token) as an internal reference axis; shows residual streams stratify into a narrow prediction-proximal band concentrating readout-relevant structure and a prediction-distal complement that grows with scale, explaining why variance-first views miss key organization. Across 18 transformers (dense/MoE; base/instruct; \textasciitilde{}7B--120B), define per-position prediction-direction anchors; analyze geometry relative to this anchor and run causal perturbations at varying ``distances'' from it to test behavioral importance, contrasting with PCA/variance-based analyses. Consistent stratification: a scale-invariant, prediction-proximal band is disproportionately critical, while the distal complement expands with model size. Prediction direction is near-orthogonal to top-variance PCs, so PCA misses it, especially with heterogeneous prompts. Perturbing closest directions causes rapid divergence/task-frame shifts; perturbing farther tiers degrades more slowly---showing the complement can be weakly readout-aligned yet causally necessary for stable behavior.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Judge, Retrieve, or Abstain: Uncertainty-Guarded LLM Judging with Provable Risk Guarantees}} {\scriptsize[\href{https://arxiv.org/abs/2608.17994}{arxiv}]}\\
+{\scriptsize Sher Badshah, Ali Emami, Hassan Sajjad}\\
+
+{\small\textit{Turns an LLM judge into a selective system that judges, retrieves evidence, or abstains, with finite-sample control of false discovery rate (FDR) among accepted verdicts at a user-set level.}}\\[1pt]
+{\footnotesize A practical, reference-free judging framework with a formal, user-tunable reliability guarantee: accept verdicts only when calibrated uncertainty says it's safe, otherwise escalate to retrieval or abstain, while controlling FDR on the accepted set (not informal confidence). Two-stage pipeline with two calibrated acceptance thresholds learned on a held-out calibration set: (1) parametric judge outputs verdict + uncertainty; accept if below threshold. Else (2) retrieval-augmented judging; accept if below a second threshold. Thresholds use finite-sample Clopper--Pearson intervals, and the guarantee composes through the routing scheme. Across open-domain QA benchmarks and judge sizes, the system meets the target FDR bound with high probability while achieving higher coverage than single-mode baselines by using retrieval only when needed; provable risk control and practical throughput can coexist for reference-free objective judging.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM/agent reliability and governance work: at least \textasciitilde{}25--35 papers on agentic systems (multi-agent workflows, harnesses, long-horizon browser/GUI agents, skill generation/memory, and ``deep research'' benchmarks like WANDR/StartupBench), often paired with safety controls (runtime governance, guardrails, prompt-injection/RAG safety, memory leakage, jailbreak/abliteration defenses). A second major cluster is evaluation/uncertainty/calibration (roughly \textasciitilde{}20+), including LLM-as-judge risk guarantees, rubric interference, conditional/cheap-signal evaluation, leakage audits, and selective prediction/conformal methods across domains (clinical, fraud, time series). There's also a noticeable systems-and-efficiency thread (\textasciitilde{}15--25) focused on inference/serving and compression (KV-cache paging/migration, mixed precision attention, quantization, MoE routing, GPU kernel optimization/PTXBench/KernelArc, ``serve LLaMA-70B on \$60 GPUs''), plus a strong multimodal/audio-speech pocket (\textasciitilde{}10--15) spanning MLLM uncertainty/safety, emotion across speech/faces, deepfake speech detection, and music/audio-language benchmarks. A surprising emerging direction is the ``agent harness'' as a first-class research object (Agent Lightning, LEGO-RL, HarnessRisk, workspace/versioning, provisioning), suggesting the field is shifting from model-only improvements to end-to-end operational scaffolding and auditability.}
+
+
+\end{document}
