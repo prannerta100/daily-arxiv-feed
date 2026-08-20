@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-20} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{OmniAlign: A Unified Multilingual Aligner for Word and Sentence Alignment}} {\scriptsize[\href{https://arxiv.org/abs/2608.18474}{arxiv}]}\\
+{\scriptsize Mengpeng Yang, Jingxu Yang, Chao Chen, Tian Xia, Yabo Sun, Qiang Liu}\\
+
+{\small\textit{One lightweight multilingual model can replace separate word- and sentence-aligners without sacrificing accuracy, even on long documents and unseen language pairs.}}\\[1pt]
+{\footnotesize OmniAlign unifies token- and sentence/document-level alignment in a single long-context encoder by decoupling shared representations from task-specific alignment extraction, stabilized via staged training. Single encoder produces contextual token embeddings (token--token similarity → word links) and sentence embeddings (sentence--sentence similarity + DP for monotonic-ish m--n document alignment). Training is multi-stage: continued pretraining + self-supervision, supervised word-alignment fine-tune, then sentence-embedding distillation from a multilingual teacher. Competitive on standard word- and sentence-alignment benchmarks with strong zero-shot transfer to unseen pairs; supervised word-alignment fine-tuning does not destroy long-context alignment, keeping long-text performance robust.}
+
+\medskip
+
+{\small\textbf{TranslatePsy-AfriSLM: High-Quality Data Scaling For Low-Resource Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.18655}{arxiv}]}\\
+{\scriptsize Milan Gritta, Patrik Lambert, Jihye Back, Amril Nazir}\\
+
+{\small\textit{For low-resource African MT, aggressively filtering and scaling high-quality (often synthetic) data can beat much larger general models.}}\\[1pt]
+{\footnotesize TranslatePsy-AfriSLM provides an open recipe for 19 Sub-Saharan languages: unify quality estimation across all bitext, discard most noisy tokens, then add African-specialized synthetic parallel data that passes the same filter and fine-tune small models. Use a single QE scorer to filter both human and synthetic parallel data; discard up to 96\% of tokens when low-quality. Generate/collect African-targeted synthetic bitext, re-filter with QE, and fine-tune \textasciitilde{}0.8B MT-capable SLMs on the curated mixture. Unified QE filtering preserves quality despite massive token removal, implying unfiltered data was harmful; filtered synthetic data yields the best quality/compute tradeoff, and \textasciitilde{}0.8B models outperform TranslateGemma-27B and Qwen3.5-122B-A10B on their African MT setting.}
+
+\medskip
+
+{\small\textbf{SuTRA : Structurally-Unified Tokenization with Root Awareness}} {\scriptsize[\href{https://arxiv.org/abs/2608.18087}{arxiv}]}\\
+{\scriptsize Vaibhav Rathore, Siddhant Gole, Dadhichi Telwadkar, Rooshil Bhatia, Maulik Ruparel, Siddharth Surekha, Neha Bhargava}\\
+
+{\small\textit{A tokenizer that respects Indic orthography and root--affix structure reduces ``morphological shattering'' and yields large MT gains.}}\\[1pt]
+{\footnotesize SuTRA constrains subword merges to avoid splitting aksharas and discourages merges across morpheme boundaries, treating meaning-breaking BPE splits as a fixable design flaw; also releases a Hindi/Marathi/Gujarati morphological segmentation dataset for direct tokenizer evaluation. BPE-like iterative merging with (1) akshara indivisibility constraints and (2) root-aware penalties for merges crossing annotated/estimated morphological boundaries, biasing tokens toward stems/affixes instead of frequent character fragments. Better alignment to morphology (up to +14.7\% Boundary F1 vs BPE), improved semantic recoverability (up to +34\% for Hindi), and large downstream MT gains (avg +8.08 chrF2), indicating structural tokenization changes materially improve learning.}
+
+\medskip
+
+{\small\textbf{Shared Circuits for Shared Grammar: Tracing Subject-Verb Agreement Across Languages}} {\scriptsize[\href{https://arxiv.org/abs/2608.18545}{arxiv}]}\\
+{\scriptsize Isabella Gidi, Antonio Almud\'evar, Core Francisco Park, Naomi Saphra, Ricard Marxer}\\
+
+{\small\textit{Multilingual LLMs often reuse the same causal subject--verb agreement circuitry across languages, especially where agreement is overtly marked.}}\\[1pt]
+{\footnotesize Causal tracing across 29 languages identifies attention heads necessary for present-tense agreement and compares these ``head signatures'' cross-lingually, showing sharing varies with typological strength/visibility of agreement marking. Activation patching: run clean vs corrupted agreement prompts, patch clean activations into corrupted runs to find heads that restore correct verb inflection. Compare implicated heads across languages/model families and inspect whether they share functional attention patterns (e.g., verb attending to subject). Greater circuit overlap among languages with rich/overt agreement; overlap is strongest when isolating the inflectional-contrast recovery step. English aligns with conjugating languages specifically where it enforces overt agreement, and many shared heads exhibit similar attention behaviors, supporting genuinely shared functional roles rather than coincidental layer reuse.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{The Null Token Knows: Reducing Message-Free Hallucination in ASR and NMT}} {\scriptsize[\href{https://arxiv.org/abs/2608.15940}{arxiv}]}\\
+{\scriptsize Kirill Borodin, Vasiliy Kudryavtsev, Ivan Viakhirev, Grach Mkrtchian}\\
+
+{\small\textit{ASR/NMT models often signal ``there's no message'' via the null/end token; boosting that signal reduces hallucinations but risks deleting real content.}}\\[1pt]
+{\footnotesize Defines and targets message-free hallucination, showing the model's null/end token score acts as an internal abstention signal; proposes using it diagnostically and as a controllable decoding intervention evaluated on a suppression--deletion tradeoff. Measure null/end-token probabilities on message-free inputs; apply a scalar logit shift to favor stopping. For Whisper, probe decoder states and compare in-model distribution edits (``row edits'') vs external gating cutoffs. Raising the null-token score can sharply cut hallucinated output on message-free inputs, confirming the abstention signal is present; the same knob can truncate valid speech/translation, so gains must be reported jointly with content deletion.}
+
+\medskip
+
+{\small\textbf{Understanding Multilingual Medical ASR Adaptation Through Layer-Wise Analysis}} {\scriptsize[\href{https://arxiv.org/abs/2608.18825}{arxiv}]}\\
+{\scriptsize Souranil Kahali, Rituparna Bose, Abner Hernandez, Tomas Arias-Vergara, Andreas Maier, Ning Ma, Paula Andrea Perez-Toro}\\
+
+{\small\textit{In multilingual medical Whisper adaptation, the first domain-tuning step drives most encoder change; later multilingual training largely reuses that adapted space.}}\\[1pt]
+{\footnotesize Layer-wise representation-shift analysis links fine-tuning recipes to internal changes, showing whether bilingual continuation rewrites or preserves the domain-adapted encoder; moves beyond WER-only evaluation for medical ASR adaptation. Compare Whisper checkpoints across regimes (zero-shot, EN-only medical, DE-only, direct EN+DE, two-stage EN→EN+DE) and sizes. Quantify layer-wise hidden-state shifts and use linear probes to track recoverability of domain, language, and error-related signals across depth. Two-stage Whisper-Small: English medical fine-tuning causes the dominant encoder shift; subsequent EN+DE continuation mostly preserves that representation. Language/domain remain strongly linearly separable post-adaptation, while linearly predictable error cues weaken as WER improves, suggesting remaining errors become less accessible to simple readouts.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Geometric and Behavioral Stratification in Transformer Residual Streams}} {\scriptsize[\href{https://arxiv.org/abs/2608.12447}{arxiv}]}\\
+{\scriptsize Nelson Guda}\\
+
+{\small\textit{Residual streams organize around the next-token ``prediction direction,'' revealing a thin, decisive interface that drives readout while a growing complement supports computation.}}\\[1pt]
+{\footnotesize Introduces the prediction-direction anchor (unembedding of the currently predicted token) and shows residual space stratifies into a narrow prediction-proximal interface containing most readout-relevant structure and a large prediction-distal complement that expands with scale. Across 18 transformers (dense/MoE, base/instruct, \textasciitilde{}7B--120B), decompose residual variation by proximity to the prediction direction; show PCA misses this due to near-orthogonality. Causally disrupt directions at different proximities and measure immediate vs delayed behavioral failures and task-frame shifts. Consistent, scale-invariant ``prediction interface'' across models; near-interface representations are structured/semantically clustering, while distal space flattens and can anti-discriminate. Perturbing most prediction-proximal directions causes rapid divergence and framing shifts; less-proximal perturbations degrade more slowly, showing behavior depends on *which* directions are hit, not just norm removed.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Metrics That Write Themselves: Evolving an Evaluator from Its Own Blind Spots}} {\scriptsize[\href{https://arxiv.org/abs/2608.18744}{arxiv}]}\\
+{\scriptsize Xing Zhang, Yanwei Cui, Guanghui Wang, Zhihao Lin, Peiyang He}\\
+
+{\small\textit{You can automatically evolve a cheap executable metric by repeatedly finding where it fails to distinguish good from bad solutions.}}\\[1pt]
+{\footnotesize A CEGAR-style loop that grows an evaluator from its blind spots: detect score collisions between different-quality outputs, then synthesize small Python defect detectors that separate them, yielding a reusable metric without per-instance LLM judging. Evaluator = pool of tiny Python operators (flag defect/abstain) aggregated by voting. Iteratively search for collisions where operator outputs match but hidden unit tests disagree; propose a new operator to split the collision, or expand operator read-access if none can. Avoids redundant operator generation seen with naive prompting. On MBPP+/HumanEval+ the loop synthesizes a compact (\textasciitilde{}55 LOC) operator that improves filtering on 428 unseen tasks, closing 15.4\% of the gap to a perfect filter (+0.0065, p=0.0010). It flags fewer cases than the best hand-written operator while matching it on \textasciitilde{}1/3 of flagged instances; 6/8 runs yield useful, generalizing operators, and piling on many hand-written rules can hurt.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM reliability + governance work, with a clear emphasis on hallucinations/grounding and evaluation: at least \textasciitilde{}10 papers explicitly on hallucination detection/mitigation (long-context summarization, token-level detectors, MoE signals, VLM hallucinations, watermark detection) and another \textasciitilde{}8--12 on evaluation/LLM-as-a-judge, verification, and benchmark design (bias in judges, autonomy levels for verifiers, structured judge decomposition, partial-credit scoring, multiple new domain benchmarks). A second major cluster is agentic AI---tool use, long-horizon memory, and RL post-training---at least \textasciitilde{}15 papers spanning agent diagnostics/failure attribution, memory systems, tool-calling, agentic RL optimization (GRPO variants, scheduling, debate training), and governance/auditing artifacts (claim-to-evidence trace graphs, observability, least-privilege controls). A notable emerging direction is ``global + low-resource'' language coverage and cross-lingual safety gaps (at least \textasciitilde{}8 papers on African/Indian/other low-resource LMs/MT plus multiple papers on cross-lingual safety/refusal failures), alongside a smaller but visible systems/efficiency thread (INT8/quantization effects, KV-cache/memory management, MoE serving locality, speculative decoding) that's increasingly tied to reliability rather than just speed.}
+
+
+\end{document}
