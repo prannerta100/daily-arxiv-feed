@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-21} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{HealMed: Multilingual Evaluation of Large Language Models in Medicine}} {\scriptsize[\href{https://arxiv.org/abs/2608.19981}{arxiv}]}\\
+{\scriptsize Yingjian Chen (Drew), Fan Gao (Drew), Sherry T. Tong (Drew), Haoyu Zhang (Drew), Aosong Feng (Drew), Kevin W. Jin (Drew), Xing Wu (Drew), Jinghui Lu (Drew), Abdul Samad (Drew), Akbar Faruqi (Drew), Cesar Caraballo (Drew), Cibele Brand\~ao (Drew),  Dhruva (Drew),  Gupta, Eunji Jeon, Gabriel Madera-Santiago, Geon Lee, Hugo Toshio Itikawa, Insook Cho, Isabelli Martins, Isarar Siddique, Israr Ahmed, Jihyo Kwak, Kanyakorn Veerakanjana, Luis Guilherme Cardoso, Minjin Kim, Piyalitt Ittichaiwong, Renee Dua, Santiago Gudi\~no-Rosales, Xiujie Chen, Zeo Lapalus, Zixin Xu, Michihiro Yasunaga, Rex Ying, Heuiseok Lim, Jaewoo Kang, Chanjun Park, Hang Jiang, Ethan Goh, Hyunjae Kim, Edison Marrese-Taylor, Yusuke Iwasawa, Yutaka Matsuo, Qingyu Chen, Irene Li}\\
+
+{\small\textit{HealMed shows ``multilingual medical skill'' scores often reflect translation artifacts, and provides expert-localized evaluation for real cross-lingual clinical robustness.}}\\[1pt]
+{\footnotesize Introduces HealMed: 1,000 physician-reviewed items in each of 9 languages, spanning MCQA, NLI, and open QA, sourced from 9 English medical datasets and revised to preserve clinical meaning---exposing how naive translation can flip difficulty or even the correct answer. Translate English medical items into 9 languages, then have two bilingual medical experts per item review and revise for clinical equivalence (not literal fidelity). Evaluate proprietary, open, and medical-tuned LLMs across languages; compare scores pre/post expert revision to quantify translation-driven measurement error. Performance drops outside English, especially in lower-resource languages, with stability varying by model family (proprietary models generally more robust; many open/medical-tuned models degrade unpredictably). Expert revision can raise or lower measured accuracy, proving translation quality can change benchmark conclusions, not just add noise.}
+
+\medskip
+
+{\small\textbf{SuTRA : Structurally-Unified Tokenization with Root Awareness}} {\scriptsize[\href{https://arxiv.org/abs/2608.18087}{arxiv}]}\\
+{\scriptsize Vaibhav Rathore, Siddhant Gole, Dadhichi Telwadkar, Rooshil Bhatia, Maulik Ruparel, Siddharth Surekha, Neha Bhargava}\\
+
+{\small\textit{SuTRA fixes Indic tokenization by respecting aksharas and morpheme boundaries, yielding large MT gains from tokenization alone.}}\\[1pt]
+{\footnotesize Introduces SuTRA, a structurally constrained subword tokenizer that discourages merges across root/affix boundaries and treats aksharas as atomic; releases a new gold morphological segmentation dataset for Hindi, Marathi, and Gujarati. Learn subwords with a merge objective penalized for crossing morpheme boundaries, while enforcing akshara integrity so merges cannot slice through orthographic syllables; evaluate against gold morphology and downstream translation. Improves morpheme boundary alignment (up to +14.7 Boundary F1 vs BPE), boosts semantic recoverability (up to +34\% for Hindi), and increases MT quality by +8.08 chrF2 on average---showing morphology-aware tokenization translates into end-task gains.}
+
+\medskip
+
+{\small\textbf{Auditing Cross-Lingual Fairness in Language Model Watermarking}} {\scriptsize[\href{https://arxiv.org/abs/2608.20047}{arxiv}]}\\
+{\scriptsize Alexander Nemecek, Osama Zafar, Debargha Ganguly, Vikash Singh, Vipin Chaudhary, Erman Ayday}\\
+
+{\small\textit{Watermarking that looks reliable in English can be unfair across languages; this work audits cross-lingual detection and quality with calibration-aware tools.}}\\[1pt]
+{\footnotesize Presents an auditing framework for cross-lingual watermarking: per-context threshold calibration, a threshold-independent detection metric to separate calibration vs signal failure, multi-paradigm quality evaluation, and disparity decomposition by typological family. Calibrate detector thresholds per language/context; report both thresholded metrics and a threshold-free companion measure. Evaluate text degradation with distributional, paired-semantic, and reference-perplexity-style metrics. Decompose cross-language gaps using generalized-entropy over language-family partitions. Across 6 schemes, 3 generators, 11 languages, and base/instruct settings, the framework reveals failures hidden by English-only single-threshold evals: some ``low detection'' is miscalibration, while other cases are true non-transfer. Most disparity is between typological families (not within), implicating structural factors (script/tokenization/morphology) rather than a few outlier languages.}
+
+\medskip
+
+{\small\textbf{First-Token Broadcasters: Mechanistic Origins of Language Identity and Distributed Robustness in Transformers}} {\scriptsize[\href{https://arxiv.org/abs/2606.22361}{arxiv}]}\\
+{\scriptsize Arjun Pillai, Christian Hoang, Anjelo Jann Laroza}\\
+
+{\small\textit{Wrong-language generation can hinge on a few attention heads that broadcast the first-token language cue; instruction tuning can relocate this circuitry to earlier layers.}}\\[1pt]
+{\footnotesize Introduces Language Identity Head Ablation (LIHA): a causal, per-head ablation test that measures output-language switch rates, revealing concentrated ``first-token broadcaster'' heads that control language identity. On 2,700 prompt-language pairs across 7 languages, ablate one attention head at a time and compute language switch rate. Inspect attention patterns of high-impact heads (persistent attention to token 1) and measure compensatory behavior in other heads/layers; compare base vs instruct variants. Language identity is not diffuse: in GPT-2, a small set of heads---especially L6H1---has outsized causal control and behaves as first-token broadcasters. Compensation after ablation comes mainly from higher layers, consistent with hierarchical repair. In Qwen2.5-1.5B, the base model shows little single-head concentration, while the instruct model concentrates control in layer 0, indicating instruction tuning can reorganize language-identity mechanisms.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Represented but Ignored: A Causal Account of Prosodic Underuse in Audio-Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2608.19211}{arxiv}]}\\
+{\scriptsize Linkai Peng, Baorian Nuchged}\\
+
+{\small\textit{Audio-language models often represent prosody internally but underweight it at decision time---so the bottleneck is using prosody, not perceiving it.}}\\[1pt]
+{\footnotesize Provides a mechanistic, stage-by-stage account of prosodic failures via a ``probe ladder'' plus causal hidden-state edits, distinguishing loss of prosody from downstream neglect. Probe prosody at multiple pipeline stages (audio front-end → cross-modal interface → LLM layers) to localize where it remains decodable; then intervene by editing a prosody-linked activation direction/subspace at specific layers to test causal impact on answer distributions. Across four audio-LLMs, prosody is typically preserved and decodable even late, yet weakly reflected in final outputs. Targeted edits at the right layer shift answers toward the prosody-consistent choice, showing the signal is causally present but underutilized (recovery is strong but not perfectly selective).}
+
+\medskip
+
+{\small\textbf{MINT-Bench: A Comprehensive Multilingual Benchmark for Instruction-Following Text-to-Speech}} {\scriptsize[\href{https://arxiv.org/abs/2604.17958}{arxiv}]}\\
+{\scriptsize Huakang Chen, Jingbin Hu, Liumeng Xue, Qirui Zhan, Wenhao Li, Guobin Ma, Hanke Xie, Dake Guo, Linhan Ma, Yuepeng Jiang, Bengu Wu, Pengyuan Xie, Chuan Xie, Qiang Zhang, Lei Xie}\\
+
+{\small\textit{MINT-Bench enables multilingual evaluation of instruction-following TTS, separating content accuracy, instruction adherence, and audio quality across 10 languages.}}\\[1pt]
+{\footnotesize Builds MINT-Bench: a 10-language benchmark with a hierarchical taxonomy of instruction types and an evaluation protocol designed to diagnose whether TTS systems follow nuanced controls (style/emotion/speaker/composition) while preserving intended text. Construct multilingual test items via a multi-stage pipeline for broad coverage of instruction categories, including compositional and paralinguistic controls. Evaluate with a hybrid protocol combining content-consistency checks (more automatic/reference-based) and perceptual judgments for instruction expression and quality. Across systems and languages, instruction-following TTS remains unsolved: models often keep intelligibility/quality while dropping requested controls, especially for compositional and paralinguistic instructions. Commercial systems lead overall, but strong open-source models can be competitive and even win in specific languages (e.g., Chinese), showing rankings are language- and setting-dependent.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Geometric and Behavioral Stratification in Transformer Residual Streams}} {\scriptsize[\href{https://arxiv.org/abs/2608.12447}{arxiv}]}\\
+{\scriptsize Nelson Guda}\\
+
+{\small\textit{Anchoring residual-stream geometry to the current predicted token reveals a scale-invariant ``thin interface'' that drives readout, plus a growing orthogonal complement that remains causally important.}}\\[1pt]
+{\footnotesize Defines the moving ``prediction direction'' (unembedding of the currently predicted token) as an analysis axis, showing residual streams stratify into prediction-proximal structure vs prediction-distal complement across 18 models (dense/MoE, base/instruct, 7B--120B). At each position, decompose residual activity by alignment/proximity to the prediction direction (rather than PCA variance axes). Run causal perturbations targeting directions at different proximity tiers and measure divergence, task-frame shifts, and stability over time. Near the prediction direction, states are highly structured and behaviorally discriminative; farther away, structure flattens and can anti-discriminate. The prediction-proximal region stays narrow with scale, while the orthogonal complement grows with model size. Perturbing the closest tier causes immediate divergence and framing shifts; perturbing lower tiers yields delayed divergence---showing the complement can be readout-weak yet temporally load-bearing.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Qworld: Question-Specific Evaluation Criteria for LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2603.23522}{arxiv}]}\\
+{\scriptsize Shanghua Gao, Yuchang Su, Pengwei Sui, Curtis Ginder, Marinka Zitnik}\\
+
+{\small\textit{Qworld evaluates open-ended answers with question-specific criteria, exposing capability differences that static rubrics blur.}}\\[1pt]
+{\footnotesize Operationalizes ``each question defines its own evaluation world'' by generating a rich set of binary, checkable criteria tailored to the specific question context, stakeholders, and failure modes---beyond dataset-level rubrics. Build a recursive expansion tree per question: vertical decomposition into scenarios/perspectives and horizontal enumeration of alternative angles; convert expansions into fine-grained yes/no criteria used to score model outputs. On HealthBench, Qworld criteria cover 89\% of expert-written criteria and add 79\% expert-judged novel criteria; experts rate them more insightful/granular than prior methods. Using these criteria to compare 11 frontier models on HealthBench and Humanity's Last Exam surfaces differences in long-term impact, equity, error handling, and interdisciplinary reasoning that aggregate scores miss.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLMs and their evaluation/controls: at least \textasciitilde{}35--45 papers on tool-using agents, long-horizon workflows, memory systems, and agent benchmarks/harnesses (e.g., Thinkingbox, SWE-bench Science, DeltaML-Bench, ComponentBench, ChainWorld, SkillGate/SkillForge, memory-tracking and ``reuse/spawn/defer'' expert pools). A second major cluster is reliability/safety/governance for LLMs/MLLMs---roughly \textasciitilde{}25--35 papers on jailbreaks/attacks (e.g., TempJail, SMT-guided DoS), watermarking and cross-lingual safety gaps, unlearning, privacy/context leakage, calibration/uncertainty, and LLM-as-a-judge methodology (multiple papers on judge panels, bias, calibration, decomposition). Multimodality is also heavily represented (\textasciitilde{}20--30 papers), especially vision-language robustness/hallucination mitigation, document/OCR VQA, and audio-language/prosody benchmarks, alongside a noticeable audio/music subcluster (\textasciitilde{}10--15) on audio SSL, token compression, MIR identification, and datasets. A somewhat surprising emerging direction is ``systems-for-agents'' and serving efficiency (KV-cache reuse/compression, routing/prefix caching, block-sparse prefill, fleet configuration, edge RAG compression) appearing repeatedly (\textasciitilde{}10--15), suggesting deployment constraints are now shaping research agendas as much as model capability.}
+
+
+\end{document}
