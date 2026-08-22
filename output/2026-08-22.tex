@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-22} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Thinking in a Low-Resource Language: What SFT Builds, What RL Fixes, What Accuracy Cannot See}} {\scriptsize[\href{https://arxiv.org/abs/2608.17744}{arxiv}]}\\
+{\scriptsize Ayoub Kirouane, Christos Petrocheilos}\\
+
+{\small\textit{Fine-tuning MoE models to ``think'' in a low-resource language changes auditability and behavior far more than it changes benchmark accuracy, and RL fixes defects SFT leaves behind.}}\\[1pt]
+{\footnotesize Separates correctness from inspectable reasoning language: shows accuracy can be flat/noisy while reasoning-language behavior shifts dramatically. Provides behavioral metrics that capture language-of-thought, formatting, and channel leakage; demonstrates SFT induces low-resource-language reasoning, while RL with verifiable rewards repairs compliance/leakage issues. SFT three frontier MoE models to produce Greek reasoning. Evaluate with six controlled behavioral dimensions (with length-gating controls and reported instrument failures). Then apply RL with pre-registered verifiable rewards plus a random-reward control to test which defects are causally fixable beyond SFT. Accuracy effects are swamped by seed noise: at \textasciitilde{}3.6--4.0B active params, seed shifts scores by 7.7 points, larger than recipe/data effects. Yet behavior changes are large: base models produce Greek reasoning 0/1000; SFT yields \textasciitilde{}98\% reasoning in the question language with little ability loss. RL sharply reduces format fallback (24\%→2.5\%) and eliminates reasoning-channel leakage (3.5\%→0.0\%) vs random-reward control, and improves instruction obedience; Greek-reasoning persists even when optimizing accuracy alone.}
+
+\medskip
+
+{\small\textbf{HealMed: Multilingual Evaluation of Large Language Models in Medicine}} {\scriptsize[\href{https://arxiv.org/abs/2608.19981}{arxiv}]}\\
+{\scriptsize Yingjian Chen, Fan Gao, Sherry T. Tong, Haoyu Zhang, Aosong Feng, Kevin W. Jin, Xing Wu, Jinghui Lu, Abdul Samad, Akbar Faruqi, Cesar Caraballo, Cibele Brandão,  Dhruva,  Gupta, Eunji Jeon, Gabriel Madera-Santiago, Geon Lee, Hugo Toshio Itikawa, Insook Cho, Isabelli Martins, Isarar Siddique, Israr Ahmed, Jihyo Kwak, Kanyakorn Veerakanjana, Luis Guilherme Cardoso, Minjin Kim, Piyalitt Ittichaiwong, Renee Dua, Santiago Gudiño-Rosales, Xiujie Chen, Zeo Lapalus, Zixin Xu, Michihiro Yasunaga, Rex Ying, Heuiseok Lim, Jaewoo Kang, Chanjun Park, Hang Jiang, Ethan Goh, Hyunjae Kim, Edison Marrese-Taylor, Yusuke Iwasawa, Yutaka Matsuo, Qingyu Chen, Irene Li}\\
+
+{\small\textit{HealMed provides expert-reviewed multilingual medical evaluation and shows medical LLM performance and rankings can shift substantially across languages and translation quality.}}\\[1pt]
+{\footnotesize Releases HealMed: 1,000 expert-reviewed examples in each of nine languages, spanning nine source datasets and three formats (MCQA, NLI, open QA), enabling more credible cross-language medical evaluation in a high-stakes domain. Aggregate items from nine medical datasets into three task types; translate into nine languages; have two bilingual medical experts per language review and revise translations. Evaluate multiple LLM classes across languages and analyze the effect of expert revision on measured performance. Performance generally drops from English to other languages, with larger declines in low-resource languages and strong variation by model/language. Proprietary models are more stable; many open-source and even medical-specialist models show larger, inconsistent gaps---specialization alone doesn't ensure multilingual robustness. Expert translation revision can raise or lower scores, meaning translation quality materially affects cross-language conclusions.}
+
+\medskip
+
+{\small\textbf{Auditing Cross-Lingual Fairness in Language Model Watermarking}} {\scriptsize[\href{https://arxiv.org/abs/2608.20047}{arxiv}]}\\
+{\scriptsize Alexander Nemecek, Osama Zafar, Debargha Ganguly, Vikash Singh, Vipin Chaudhary, Erman Ayday}\\
+
+{\small\textit{Watermarking evaluations that look fine in English can fail cross-lingually; threshold calibration and quality metrics strongly affect conclusions across languages and scripts.}}\\[1pt]
+{\footnotesize Proposes a multilingual watermarking audit that disentangles calibration vs detectability, evaluates quality with multiple non-overlapping paradigms, and attributes cross-lingual disparities using typological-family decomposition rather than language-by-language anecdotes. (1) Empirically calibrate detection thresholds per deployment context; (2) add a threshold-independent detectability measure to separate calibration failure from weak signal; (3) assess quality via three paradigms (distributional, paired-semantic, reference-perplexity); (4) quantify/decompose disparity with generalized-entropy over typological families to separate within- vs between-family variation. Across six schemes, three open-weight generators, eleven languages (four scripts, eight typological families), and base vs instruction-tuned settings, the framework reveals failure modes hidden by English-only, single-threshold, single-metric evaluation. Disparity decomposition shows gaps in detection and quality are dominated by between-family differences, implicating structural language properties as a major driver of cross-lingual watermarking behavior.}
+
+\medskip
+
+{\small\textbf{Institutional Books - Enriched Text: A customizable multilingual open-source pipeline for denoising, deduplicating, and annotating OCR text at scale}} {\scriptsize[\href{https://arxiv.org/abs/2608.19026}{arxiv}]}\\
+{\scriptsize David Lowry-Duda, Matteo Cargnelutti, Catherine Brobston, Salwa Ismail, Greg Leppert, Amanda Watson, Jonathan Zittrain}\\
+
+{\small\textit{An annotation-first OCR pipeline can scale to a 983k-volume book corpus while preserving provenance and letting users apply denoising/dedup/language filters as reversible views.}}\\[1pt]
+{\footnotesize Introduces ``Enriched Text,'' which normalizes OCR but keeps structure, metadata, duplicates, language IDs, and quality signals as machine-readable annotations instead of irreversible filtering; releases IB-HL-ET plus the open-source pipeline for large-scale reuse. Process OCR at paragraph granularity; add HTML-like markup annotations for endmatter, per-paragraph language ID (\textasciitilde{}250 languages), duplicate-paragraph clustering (without deleting), and bits-per-byte as a compact quality/compressibility signal so downstream users can choose thresholds and views. Demonstrates end-to-end scalability on Institutional Books: IB-HL-ET contains 217B o200k\_base tokens in 1.39B annotated subtopic paragraphs across 983,003 volumes (IB-HL has 983,004). The key outcome is flexible, reusable preprocessing: deduplication, language handling, endmatter detection, and quality scoring are delivered as selectable signals rather than destructive edits.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Hear2Act: Benchmarking When Prosody Should Change What an Assistant Does}} {\scriptsize[\href{https://arxiv.org/abs/2608.19515}{arxiv}]}\\
+{\scriptsize Xinyi Liu, Hooshang Nayyeri, Dilek Hakkani-Tur, Emine Yilmaz, JK Kim, Yifei Zhang, Charith Peris, Hari Thadakamalla}\\
+
+{\small\textit{Audio-capable assistants can detect prosody, but usually don't let it change their next action unless prosodic information is made explicit as an intermediate state.}}\\[1pt]
+{\footnotesize Introduces Hear2Act, a benchmark that tests whether prosody alters action selection (not just emotion recognition), by holding words/tasks constant and shifting crucial information between lexical content and prosody with verifiable ``best next action'' labels. 480 persona-grounded, task-oriented scenarios with a hidden concern that should change the assistant's trajectory. Create paired conditions: concern stated in text vs. conveyed mainly via prosody with near-identical transcripts. Evaluate transcript-only, transcript+audio, and an explicit concern-state channel (inferred then written down, or provided as ground truth) to isolate where integration fails. In prosody-mediated cases, adding audio barely improves optimal actions (\textasciitilde{}14.6\%→15.3\%), indicating weak prosody-to-planning integration. Forcing an explicit inferred concern state boosts performance to 39.6\%, close to 40.7\% with the true concern state, showing the bottleneck is carrying prosodic evidence into decisions, not perceiving it.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Infrared Universality of Collective Dynamics across Transformer and State-Space Architectures}} {\scriptsize[\href{https://arxiv.org/abs/2608.18592}{arxiv}]}\\
+{\scriptsize Byung Gyu Chae}\\
+
+{\small\textit{Transformers and Mamba both self-organize into the same near-marginal spectrum of slow modes, suggesting long-context memory is an emergent dynamical property, not an architecture-specific trick.}}\\[1pt]
+{\footnotesize Shows that Mamba blocks---despite explicit state-space dynamics and selective gating---exhibit the same collective ``infrared'' slow-mode continuum previously observed in Transformers, implying an architecture-agnostic route to long memory via many coexisting time scales. Measure relaxation via full-block Jacobian spectra; for Mamba, contrast (i) raw SSM generator eigen-spectrum, (ii) selective rescaling, and (iii) the effective full-block Jacobian. Summarize slow modes with a time-scale density of states TDOS ρ(λ) and fit infrared scaling ρ(λ)\textasciitilde{}λ\textasciicircum{}β, which implies a long-time kernel K(t)\textasciitilde{}t\textasciicircum{}\{-(1+β)\}; compare β across Mamba and Transformers under the same lens. Mamba's full-block TDOS develops a robust slow-mode continuum that sharpens with longer sequences; the infrared exponent stabilizes near β≈−0.17 (implying K(t)≈t\textasciicircum{}\{-0.83\}, close to marginal 1/t). This structure is not explained by the raw SSM spectrum---selective gating and nonlinear mixing reorganize micro time constants---yet the emergent infrared behavior persists and matches Transformer exponents in magnitude (β≈−0.1), supporting ``infrared universality.''}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Judge, Retrieve, or Abstain: Uncertainty-Guarded LLM Judging with Provable Risk Guarantees}} {\scriptsize[\href{https://arxiv.org/abs/2608.17994}{arxiv}]}\\
+{\scriptsize Sher Badshah, Ali Emami, Hassan Sajjad}\\
+
+{\small\textit{LLM judging can be turned into a selective system that judges, retrieves, or abstains with finite-sample guarantees on the error rate among accepted verdicts.}}\\[1pt]
+{\footnotesize Recasts LLM-as-a-judge as risk-controlled decision-making: calibrate uncertainty thresholds so the fraction of wrong accepted judgments is provably ≤ a user-chosen FDR level α (with high probability), and use retrieval as a principled escalation path rather than a default. Two-stage router: (1) parametric judge outputs verdict + uncertainty; accept if above calibrated threshold, else (2) retrieval-augmented judge; accept if above second calibrated threshold, else abstain. Thresholds are chosen on a calibration set using Clopper--Pearson binomial intervals to control accepted-error rate; the guarantee composes across the two thresholds without extra score-model assumptions. Across open-domain QA benchmarks and judge sizes, the system meets the target risk bound while increasing coverage versus single-mode baselines (parametric-only, retrieval-only, or one global threshold). It accepts many ``cheap'' parametric decisions when reliable and pays retrieval cost mainly on uncertain cases, maintaining the same controlled wrong-accept rate.}
+
+\medskip
+
+{\small\textbf{Phantom Gains: Auditing Self-Improvement Against a Measured Null}} {\scriptsize[\href{https://arxiv.org/abs/2608.20290}{arxiv}]}\\
+{\scriptsize Cheng Xu, Nan Yan, Liming Chen, M-Tahar Kechadi}\\
+
+{\small\textit{Many LLM ``self-improvement'' signals vanish once you measure a frozen-model null; per-problem tests with FDR prevent mistaking noise and pipeline quirks for learning.}}\\[1pt]
+{\footnotesize Shows transition-based self-improvement claims (wrong→right counts, acquisition/loss asymmetries, derived ``sharpening/expansion'' stats) are differences of noisy estimates and can produce large phantom gains unless paired with a measured null from an unchanged model run through the same pipeline. Run multi-round LoRA self-training on Qwen3-8B and, crucially, run a frozen control through identical data/training/eval bookkeeping. Demonstrate that even single greedy-decode ledgers can fabricate transitions due to inference details (e.g., batching). Replace fragile summaries with per-problem exact tests against a pooled baseline and apply false discovery rate control across many problems. With the frozen control, several standard transition analyses reverse: apparent gains are largely measurement artifacts. The proposed per-problem exact-test + FDR pipeline finds no reliable held-out gains for the self-training variants, robust to testing-rule and pool-size choices. Matched distillation does improve, mainly on rarely-solved problems, and self-training can also corrupt previously-solved items above the measured noise floor---highlighting both false-positive gains and missed degradations without nulls.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent reliability, evaluation, and post-training: at least \textasciitilde{}40--60 titles focus on agent benchmarks/harnesses, credit assignment, self-improvement/RSI, LLM-as-a-judge routing, test-time scaling/compute allocation, and new evaluation suites (e.g., multiple ``Bench'' papers plus judge/verification/autonomy frameworks). A second major cluster is long-context + memory systems for agents (roughly \textasciitilde{}15--25 papers) covering KV-cache compression/reuse, sparse/block-sparse attention, modular neural memory, memory arbitration/commitment, and ``can memory track evolving state?'' style audits. Safety/security is another strong theme (≈15--25): unlearning, watermarking (incl. cross-lingual), jailbreaks (incl. video), prompt-safety guardrails, DoS attacks on reasoning/speech models, context leakage/privacy, and malicious skill detection. The most surprising concentration is sheer volume in audio/speech/music foundation models and deepfake detection---well over 150 papers---spanning TTS/voice agents, audio-language models, audio generation/editing, and many dedicated deepfake/watermark robustness benchmarks and challenges, suggesting audio is having a ``benchmark-and-systems'' moment similar to LLM agents.}
+
+
+\end{document}
