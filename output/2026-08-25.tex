@@ -1,0 +1,101 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-25} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{The Multilingual FrameNet Corpus}} {\scriptsize[\href{https://arxiv.org/abs/2608.23037}{arxiv}]}\\
+{\scriptsize Beatrice Fiuman\`o, Nicolas Lazzari, Simone Paolo Ponzetto, Valentina Presutti}\\
+
+{\small\textit{Unifies fragmented FrameNet-style resources into one compatible multilingual corpus, enabling stronger multilingual/cross-lingual frame-semantic parsing.}}\\[1pt]
+{\footnotesize Builds the Multilingual FrameNet Corpus (mFNC) by harmonizing Berkeley FrameNet with nine FrameNet-like corpora (pt-BR, zh, nl, fr, de, it, ko, lv, sv) so frames/roles and conventions match across languages, and releases the corpus plus trained parsers. Normalize all datasets into a shared Berkeley-FrameNet-anchored schema/format, then train frame-semantic parsers in multilingual and cross-lingual regimes so models share signal across languages instead of learning dataset-specific quirks. Models trained on mFNC outperform prior SOTA in both multilingual and cross-lingual settings, showing gains come from true label/convention compatibility (harmonization), not just more data; releases make results reproducible.}
+
+\medskip
+
+{\small\textbf{L\"etzCross: A Cross-Lingual Page-Level Benchmark for Multimodal Retrieval over Luxembourgish Documents}} {\scriptsize[\href{https://arxiv.org/abs/2608.21714}{arxiv}]}\\
+{\scriptsize Omar El Bachyr, Fred Philippy, Laura Maria Bernardy, Saad Ezzini, Jacques Klein, Tegawende Bissyande}\\
+
+{\small\textit{A realistic cross-lingual PDF retrieval benchmark for Luxembourgish shows page-image retrieval beats OCR pipelines and that fine-tuning language choice strongly affects transfer.}}\\[1pt]
+{\footnotesize Introduces LëtzCross: page-level retrieval over Luxembourgish PDFs indexed as page images, with queries in EN/FR/DE/LB and both text-centric and visually grounded questions to stress layout/table/figure matching. Evaluate OCR text retrievers vs ColPali-style page-image retrievers under cross-lingual querying; study adaptation via single-language vs multilingual fine-tuning and measure transfer to Luxembourgish queries. Page-image retrievers outperform OCR-based retrievers across all query languages; fine-tuning transfers across languages (French is best single-language proxy on average for Luxembourgish), while multilingual fine-tuning that includes Luxembourgish yields the strongest overall and Luxembourgish-specific gains.}
+
+\medskip
+
+{\small\textbf{Rank Reversal in Multilingual LLM Judges: A Label-Free Double-Centering Calibrator}} {\scriptsize[\href{https://arxiv.org/abs/2608.22432}{arxiv}]}\\
+{\scriptsize Alhasan Mahmood, Samir Abdaljalil, Hasan Kurban}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary claims CBC ``removes language-specific judging bias.'' The abstract describes estimating and subtracting the language--backbone interaction term (a language-by-backbone effect), not a generic language-specific bias term. This is a different object (main language effect vs interaction).}}\\[1pt]
+
+{\small\textit{Multilingual LLM judges can reverse model rankings by prompt language; a simple label-free double-centering calibration removes this bias and stabilizes rankings while improving human agreement.}}\\[1pt]
+{\footnotesize Diagnoses systematic language--backbone interaction as the source of rank reversal and proposes Consensus-Based Calibration (CBC), a label-free estimator/subtractor of that interaction equivalent to two-way ANOVA double-centering, with supporting theory and bounds. Model judge scores as task difficulty + backbone skill + language×backbone interaction; estimate interaction by double-centering the multilingual mean-score matrix (row/column sums to zero), subtract it, then recompute rankings; provide finite-sample concentration and unbiasedness results even with extra task--language effects. On 7,920 runs (6 backbones, 8 languages, 55 tasks, 3 frameworks), raw judging shows top backbone changes by language and 7/15 backbone pairs have significant rank reversal; CBC boosts held-out rank consistency (Kendall's τ) 0.650→0.902, matches an additive-model oracle in 100\% per-language decisions (vs 68.5\% raw), and improves human agreement on M-RewardBench 68.7\%→76.6\% (+7.9 pp, 95\% CI [6.0, 9.9]).}
+
+\medskip
+
+{\small\textbf{The Geometry of Low-Resource Language Representations}} {\scriptsize[\href{https://arxiv.org/abs/2608.23358}{arxiv}]}\\
+{\scriptsize Francois Meyer, Jan Buys}\\
+
+{\small\textit{Shows low-resource languages have more collapsed final-layer representation geometry in multilingual LLMs, and geometry-regularized continued pretraining can modestly narrow gaps on harder tasks.}}\\[1pt]
+{\footnotesize Links multilingual performance disparities to a measurable internal failure mode---representational degeneration for low-resource languages (especially late layers)---and demonstrates targeted geometric regularizers as an intervention during continued pretraining. Measure layerwise geometric statistics across 30 languages and relate them to resource level; during monolingual CPT on 10 African languages, add degeneration-penalizing regularizers (notably a cosine-similarity term) and test across 9 base LLMs. Low-resource languages show consistent late-layer collapse; regularized CPT reliably reduces degeneration, and for larger models the cosine regularizer yields small but consistent gains over vanilla CPT, most evident on the hardest downstream tasks.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Bulbul: A Dataset for Dialectal Arabic Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2608.21950}{arxiv}]}\\
+{\scriptsize Ahmed Ashraf, Aisha Alansari, Fadel Al Abbas, Nada Almarwani, Samah Aloufi, Saad Ezzini, Maged S. Al-Shaibani, Doaa Dalaq, AbdelRahim A. Elmadany, Muhammad Abdul-Mageed, Mohamed Mehdi Trigui, Dania Refai, Layan Refai, Mohamed Akrout, Mustafa Jarrar, Wasfi G. Al-Khatib, Alaa Dalaq, Darin El-Nakla, Samir Abdaljalil, Abdulrahman Al-Fakih, Nour El Imane Zeghib, Moussa Redah, Salmane Chafik, Mohamed El-Attar, Rima Grati, Sarah Kohail, Malak Alkhorasani, Khadijah Al Safwan, Ismail M. Mudhaffar, Ali Altam, Ahmed Al-Shaikh, Adnan Saeed, Hamzah Luqman}\\
+
+{\small\textit{Provides a verified, multi-dialect Arabic speech dataset with structured coverage, enabling more realistic and comparable dialectal/accented ASR research.}}\\[1pt]
+{\footnotesize Releases BULBUL: speech from 275 speakers across 11 Arab countries covering dialects/sub-dialects, plus Classical Arabic and MSA spoken with native dialectal accents, with two-level human verification to balance diversity and label quality. Collect controlled multi-country recordings (not web/broadcast scraping), include dialectal + CA/MSA-with-accent from the same speakers to study accent effects, apply two-stage human verification, and benchmark multiple modern ASR systems to set baselines. Baseline ASR evaluations show BULBUL is consistent enough for meaningful comparisons while capturing real dialect/accent variation; results highlight that ``standard'' Arabic recognition must handle accent, and BULBUL fills the gap between narrow single-dialect sets and noisier large-scale corpora.}
+
+\medskip
+
+{\small\textbf{WnW: Waxing-and-Waning KV Cache for Long-Form Speech LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2608.22704}{arxiv}]}\\
+{\scriptsize Yiming Yao, Chenyang Lyu, Xuanfan Ni, Longyue Wang, Weihua Luo, Yazheng Yang, Jinsong Su}\\
+
+{\small\textit{Fixes long-form speech LLM KV-cache compression by letting decode-time attention drive what audio to recall, avoiding the prefill-only importance mismatch.}}\\[1pt]
+{\footnotesize Identifies why prefill-ranked KV eviction fails on long audio (prefill attention sinks to early audio, but decoding later needs dispersed info) and proposes WnW: keep a small decode-time `observer' on GPU and recall evicted audio KV chunks from CPU when needed. Offline-calibrate heads into anchor/tidal/fixed: anchor heads keep audio KV on GPU and provide decode-time importance via attention; tidal heads store more KV on CPU and are dynamically recalled (``wax/waning'' GPU cache) based on anchor signals; fixed heads use conventional permanent compression. On LibriSpeech-Long with Voxtral-mini-3B and Qwen2.5-Omni-3B, WnW matches near-full-cache accuracy while keeping \textasciitilde{}20\% of audio tokens on GPU; prefill-only baselines can become brittle (even failing to terminate), while WnW stays stable under shifts with little added decode overhead.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{The Communication Map of a Transformer}} {\scriptsize[\href{https://arxiv.org/abs/2608.22007}{arxiv}]}\\
+{\scriptsize Richard Zhe Wang}\\
+
+{\small\textit{Derives a weight-only `communication map' of transformer read/write pathways and uses it to causally disrupt induction by deleting a tiny residual subspace.}}\\[1pt]
+{\footnotesize Defines a unified coupling coefficient (generalizing composition scores) to quantify residual-stream write--read compatibility across 18 connection types (head↔head, MLP↔head, neuron-level, etc.), enabling scalable discovery of likely circuits without activations. Compute alignment between each component's output projection (writer) and another's input projections (reader) from weights; apply an orientation test to separate structured couplings from chance; cluster strong couplings and perform targeted ablations; aggregate couplings to identify induction-critical residual subspaces and delete them. A large share of head pairs (≈70--89\%, model-dependent) show non-chance oriented coupling; top couplings recover known induction circuits and ablating a coupled community collapses in-context copying; deleting a discovered 2D residual subspace abolishes induction across six models up to Pythia-6.9B.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents + retrieval + evaluation/safety: at least \textasciitilde{}35--45 papers touch RAG/agentic systems (e.g., multi-hop RAG evaluation, tool routing, long-horizon memory, enterprise RAG, agent benchmarks), with a noticeable subcluster on agent memory and context management alone (\textasciitilde{}10--15: Dual-Layer Agentic Memory, ECHO, MegaMem, MEMONDEMAND, compaction cliff, retriever-should-remember, etc.). Safety/reliability is the other major pillar: roughly \textasciitilde{}25--35 papers on jailbreaks/prompt injection, content moderation, uncertainty/calibration, unlearning/privacy leakage, and governance/auditing (e.g., Agentic Security, EviSafe, PsychJail, multiple unlearning papers, AIREP/HANSARD/AUDITA). A third strong theme is multilingual/low-resource + cultural grounding (\textasciitilde{}15--25 papers) spanning Khmer, Nigerian Pidgin, Bangla/Bengali safety, Cyrillic tokenization/QA, Luxembourgish retrieval, Polish multimodal benchmarks, Arabic dialect resources/detox/redteaming, and cross-lingual alignment/judging. Some emerging directions: diffusion/flow language models and decoding/control show up as a coherent cluster (\textasciitilde{}10--15: flow-matching LMs, diffusion MT, convergence-aware inference, suffix modeling, self-distillation), and ``measurement/benchmark fragility'' is unusually prominent (\textasciitilde{}8--12 papers critiquing harnesses, noise floors, judge instability, compute-vs-impact, and what process evaluation actually measures).}
+
+
+\end{document}
