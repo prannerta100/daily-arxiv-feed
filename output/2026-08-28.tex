@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-28} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Reasoning about In-Context Samples for Machine-Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.27036}{arxiv}]}\\
+{\scriptsize Maxime Bouthors, Josep Crego, Fran\c{c}ois Yvon}\\
+
+{\small\textit{MT improves when the LLM explicitly extracts reusable source--target fragments from in-context examples before translating.}}\\[1pt]
+{\footnotesize Proposes fragment-based reasoning over exemplars: treat retrieved in-context pairs as a resource to mine aligned phrase fragments that then guide the final translation; distills this behavior from a teacher via silver fragments/drafts. Retrieve similar parallel exemplars; force an intermediate step that extracts aligned source--target fragments relevant to the input; condition translation on these fragments; train by distilling teacher-produced fragment annotations and drafts into a smaller model. Across Qwen3 variants, six languages, and multiple domains (up to five per language), fragment-guided translation consistently beats standard k-shot prompting and a simple drafting baseline.}
+
+\medskip
+
+{\small\textbf{Cross-Lingual Alignment Without Joint Training: Do Monolingual Language Models Converge on Universal Representations?}} {\scriptsize[\href{https://arxiv.org/abs/2608.27115}{arxiv}]}\\
+{\scriptsize Ej Zhou, Suchir Salhan, Catherine Arnett, Anna Korhonen}\\
+
+{\small\textit{Independently trained monolingual LMs often learn hidden-state spaces that can be linearly rotated into each other, enabling cross-lingual transfer without joint training.}}\\[1pt]
+{\footnotesize Separates multilingual alignment from multilingual training: demonstrates that a single linear map learned from parallel data aligns representations across separately trained models---and that the alignment is functional, not just correlational. Run parallel sentences through each monolingual LM; fit a Procrustes rotation between residual-stream activations; measure alignment across layers/scales/language pairs; test causality via activation patching (rotate donor activations and insert into recipient). Linear alignability strengthens with larger models/more data/closer languages; rotated activation patching can flip a recipient model's factual cloze answers toward the donor's, showing the mapped vectors carry causal semantic content.}
+
+\medskip
+
+{\small\textbf{Vowel Signs Are Not Letters: A Pre-tokenization Ceiling on Multilingual Tokenizer Fertility}} {\scriptsize[\href{https://arxiv.org/abs/2608.26449}{arxiv}]}\\
+{\scriptsize Sajal Regmi, Siddhartha Pudasaini, Chetan Phakami Pun}\\
+
+{\small\textit{A common pre-tokenizer regex forces abugida scripts to split at vowel marks, creating an unfixable over-tokenization ceiling; making it mark-aware improves Nepali LM perplexity at equal compute.}}\\[1pt]
+{\footnotesize Identifies a structural tokenizer bug in HuggingFace ByteLevel: defining ``word'' as \textbackslash{}p\{L\}+ ignores combining marks (\textbackslash{}p\{M\}), so BPE can never merge across vowel-sign boundaries; formalizes a training-free fertility floor and shows a simple regex fix removes it. Analyze how pre-tokenization constrains BPE merges; derive a lower bound on tokens/word from forced splits at combining marks; train controlled tokenizer pairs differing only in letter-only vs mark-aware regex; train matched LMs to isolate perplexity impact. Abugida languages show large forced fertility (up to \textasciitilde{}9 tokens/word in Thai) while non-abugida scripts stay at 1.00×; observed fertility matches the predicted floor; mark-aware tokenization yields measurable Nepali bits-per-byte gains even versus a compute-boosted broken tokenizer.}
+
+\medskip
+
+{\small\textbf{Lost in Compression: A Controlled Cross-Lingual Audit of Extractive Prompt Compressors}} {\scriptsize[\href{https://arxiv.org/abs/2608.26175}{arxiv}]}\\
+{\scriptsize Mantas Lukauskas}\\
+
+{\small\textit{English-trained extractive prompt compressors can erase non-English context, sometimes making models worse than using no context despite saving tokens.}}\\[1pt]
+{\footnotesize Provides a controlled 10-language, 5-script audit across 11 target LLMs showing compression is not language-neutral; attributes failures to English-only supervision by contrasting learned compressors, deterministic baselines, and a multilingual-trained compressor; proposes translate-then-compress as a safer workaround. Use fully parallel content across languages; apply multiple compressors (learned English-supervised, multilingual, and deterministic) with budget-matching in each target model's tokenizer; sweep keep-rates and long-context settings; measure retained utility vs token savings. Large cross-lingual transfer gaps: at 0.33 keep-rate, English retains much more usable context while some languages (e.g., Lithuanian, Chinese) collapse to near-empty utilization; deterministic baselines and multilingual training avoid the collapse; aggressive learned compression can drop to no-context (or worse) performance, while translate-then-compress often preserves utility at \textasciitilde{}half the token cost.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Mapping Written Words to Spoken Words in a Different Language Using Only Visual Grounding}} {\scriptsize[\href{https://arxiv.org/abs/2608.26925}{arxiv}]}\\
+{\scriptsize Gabriel Pirlogeanu, Dan Oneata, Horia Cucu, Herman Kamper}\\
+
+{\small\textit{Using images as weak supervision, they learn to spot and localize Hindi spoken words from English text queries---no transcripts and no end-to-end speech model.}}\\[1pt]
+{\footnotesize Shows a simple, data-frugal alignment recipe can replace heavy multimodal training: image tags (e.g., ``dog'') weakly select Hindi utterances likely containing the concept, and recurring aligned acoustic patterns reveal the word segment. Generate English tags/captions for each image; for each keyword, collect associated Hindi audios; align utterances pairwise using self-supervised speech features; pool alignment evidence to surface consistent segments; add negative (unrelated) utterances to suppress generic false matches. On keyword spotting/localization, the alignment+pooling approach outperforms a prior attention-based multimodal model; adding negatives further improves results, supporting that many errors come from frequent non-word fragments.}
+
+\medskip
+
+{\small\textbf{AfriSwitch: A Benchmark for In-the-Wild African Code-Switched Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2608.26434}{arxiv}]}\\
+{\scriptsize Gabrial Zencha Ashungafac, Busayo Awobade, Tobi Olatunji}\\
+
+{\small\textit{AfriSwitch provides in-the-wild African code-switched ASR evaluation and shows current multilingual ASR performs poorly without Africa-targeted training.}}\\[1pt]
+{\footnotesize Releases a 61.36-hour human-transcribed benchmark spanning 16 African languages/varieties with code-switch annotations (English spans, per-utterance CMI, switch-point counts), highlighting that switching frequency and mixture balance are distinct dimensions. Collect natural bilingual conversational speech with human transcripts; add structured code-switch metadata (English span tags, CMI, switch counts); benchmark five multilingual ASR systems zero-shot; analyze how mixing properties relate to errors. Zero-shot ASR is weak: best system averages 35.93\% WER and no system gets <24\% WER on any language; performance tracks Africa-targeted training/adaptation more than model size or nominal language coverage.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Circuit Condensation: Post-Training that Concentrates a Behavior's Causal Circuit}} {\scriptsize[\href{https://arxiv.org/abs/2608.27254}{arxiv}]}\\
+{\scriptsize Sai Adith Senthil Kumar}\\
+
+{\small\textit{Post-training can concentrate a behavior into a much smaller causal circuit, making mechanistic explanations easier to inspect and verify.}}\\[1pt]
+{\footnotesize Introduces Circuit Condensation: iteratively prune weakly attributing edges and train a small adapter so the remaining edges alone reproduce the behavior, effectively relocating causal responsibility into a compact subgraph. Loop: score edges via attribution, prune candidates, then train a low-rank adapter with the base model frozen to match original behavior using only surviving edges; accept cuts only if target behavior and general capability are preserved; verify circuits with ablations (including exhaustive subset tests when feasible). Produces much smaller circuits than frozen pruning/search: smaller in 30/32 settings, \textasciitilde{}8× average and up to 316× reduction; without weight updates circuits stay larger in 29/32, implying true computation relocation; condensed IOI circuits isolate known attention heads and closely track the original model's next-token distribution (including its errors).}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Which Metrics Save the Most Human Annotation? Prediction-Powered Evaluation and Meta-Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2608.26638}{arxiv}]}\\
+{\scriptsize Mingqi Gao, Anthony Sicilia, Weiyan Shi}\\
+
+{\small\textit{Automatic metrics can be used as variance reducers---not replacements---to cut human judging while keeping system comparisons unbiased to human labels.}}\\[1pt]
+{\footnotesize Introduces prediction-powered evaluation for non-verifiable tasks and a meta-evaluation measure, Prediction-Powered Saving Ratio (PPSR), that ranks metrics by how many human annotations they actually save for a fixed statistical goal. Compute metric scores on many items and human judgments on a subset; use prediction-powered inference to debias/correct the metric with the labeled subset while leveraging full-coverage metric scores; provide parametric/nonparametric estimators and analyze paired vs unpaired designs; define PPSR from resulting annotation savings. On WMT datasets, prediction-powered evaluation substantially reduces required human labels while remaining human-grounded and unbiased; PPSR yields more practical, stable metric rankings than correlation-style meta-evals by directly measuring annotation savings.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent reliability and evaluation: at least \textasciitilde{}25--35 papers on agent benchmarks, tool-use reliability, harness/runtime governance, and LLM-as-a-judge issues (e.g., AgentJudgeBench, DuMateBench, BTS-AgentBench, ADeptS-Bench, Invocation-Level Reliability, Five Primitives for Governing Agents, verdict staleness, tool-output-as-command). A second major cluster is factuality/hallucination and abstention---roughly \textasciitilde{}12--18 papers spanning doubt signals, RAG hallucination diagnostics, evidence-grounded verification, and surveys (e.g., ``Can a Model Catch Its Own Hallucinations...'', PoP hallucination detection, ``Why RAGs Hallucinate'', hallucination lifecycle survey, ProvenanceGuard/TriShieldRAG). Efficiency/inference engineering is also heavily represented (\textasciitilde{}10--15 papers) with speculative decoding, diffusion LMs/MLLMs decoding, KV-cache compression, pruning/quantization, and MoE compression (TreeGraft, Affix Cache, TwinKV, LowRankArena, PACE, ClusterAttention). A notable emerging direction is multilingual/cultural and fairness auditing across modalities (\textasciitilde{}10--15 papers), including tokenization ceilings, cross-platform fairness, code-switch ASR, and cultural narrative homogenization---plus a surprisingly large audio/voice-agent thread (\textasciitilde{}8--12 papers) around audio-language models, streaming audio-video generation, and speech-first agent training (AudioSpan, SpeechGym, StreamAV-Bench).}
+
+
+\end{document}
