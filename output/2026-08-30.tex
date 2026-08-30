@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-30} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Vowel Signs Are Not Letters: A Pre-tokenization Ceiling on Multilingual Tokenizer Fertility}} {\scriptsize[\href{https://arxiv.org/abs/2608.26449}{arxiv}]}\\
+{\scriptsize Sajal Regmi, Siddhartha Pudasaini, Chetan Phakami Pun}\\
+
+{\small\textit{A widely copied pre-tokenization regex (letters-only) hard-limits byte-level BPE efficiency for many abugida scripts, and the damage is predictable without training.}}\\[1pt]
+{\footnotesize Shows HuggingFace ByteLevel's GPT-2-style regex treats only \textbackslash{}p\{L\}+ as ``word'' characters; abugida vowel signs are often combining marks (\textbackslash{}p\{M\}), so words get split at vowel signs. Because BPE can't merge across pre-token boundaries, this imposes a training-proof lower bound on fertility (tokens/word). Derive a training-free fertility floor from regex-induced splits; validate across 26 languages. Build matched tokenizers differing only in the regex character class (letters-only vs mark-aware) and show observed fertility tracks the predicted bound. Train controlled 268M LMs with each tokenizer and vary Nepali data share to test whether more data can overcome the ceiling. Abugida languages show large fertility inflation from the regex (≈1.47× Tibetan up to ≈9.02× Thai), while Latin/Cyrillic/Hangul/Han stay at 1.00×. In controlled comparisons, measured fertility is within a few percent of the predicted floor, indicating pre-tokenization dominates. The fixed tokenizer improves Nepali efficiency (4.43\% lower held-out bits/byte at equal compute) and still wins even when the broken-tokenizer model gets extra compute. Many popular HF gen models still ship with the flawed regex despite straightforward mark-aware fixes (e.g., o200k-style).}
+
+\medskip
+
+{\small\textbf{Skill Issue: Are Skills Language-Invariant in LLMs?}} {\scriptsize[\href{https://arxiv.org/abs/2608.25832}{arxiv}]}\\
+{\scriptsize Bobby Cheng, Adam Gaber, Zhengyuan Liu, Catherine Arnett, Omer Goldman, Cheston Tan, Leshem Choshen}\\
+
+{\small\textit{The same LLM can be a noticeably better or worse strategist depending only on the interaction language, implying multilingual deployments can differ in capability---not just knowledge.}}\\[1pt]
+{\footnotesize Proposes a language-invariance test for ``skills'' by pitting two copies of identical weights against each other in the same game environment while forcing different language interfaces, isolating language as the only variable affecting competence. Multilingual self-play on a text-game platform (TextArena extension): identical model vs itself, different languages for observations/actions. Evaluate across games stressing planning/spatial reasoning/imperfect information/resource allocation; analyze win rates plus failure modes (invalid actions, systematic suboptimality, strategy shifts). Probe mechanism by changing only the model's internal reasoning language while keeping the external interaction language fixed. Large, systematic cross-lingual strength gaps appear despite identical weights and identical environments, with language-specific increases in invalid actions and poorer game-relevant decisions. In some settings, switching only the internal reasoning language recovers much of the lost performance, suggesting language disrupts intermediate decision-making/representation---not just surface generation. Conclusion: multilingual evaluation must test interactive competence, not only static QA/translation.}
+
+\medskip
+
+{\small\textbf{One Form to Transfer Them All: Pretraining Multilingual Language Models Beyond Native Orthography}} {\scriptsize[\href{https://arxiv.org/abs/2608.25904}{arxiv}]}\\
+{\scriptsize Muge Zhang, Aaron Jencks, Krishna Badikela, Yulia Tsvetkov, Sachin Kumar}\\
+
+{\small\textit{Romanizing at pretraining time reliably boosts cross-script transfer in multilingual LMs, and the benefit grows with scale; post-hoc romanization finetuning can hurt.}}\\[1pt]
+{\footnotesize A controlled study showing cross-lingual transfer depends strongly on surface-form overlap: different scripts block sharing even for related languages, and romanization is the most effective representation to unlock transfer (vs native scripts or IPA). Pretrain matched autoregressive multilingual models varying only representation (native, IPA, romanized) at \textasciitilde{}467M/709M/1.03B on eight languages arranged as four related-but-different-script pairs. Evaluate transfer on multiple downstream tasks, including unseen languages. Test a ``bolt-on'' alternative: finetune a native-script pretrained model on romanized data. Romanized pretraining yields the best transfer across tasks/languages, with the advantage over native scripts increasing at larger scales. IPA usually helps vs native but trails romanization. Finetuning a native-script model on romanized data often degrades performance on covered languages while only marginally helping missing-script cases---so script equalization should be a pretraining choice, not a late adapter.}
+
+\medskip
+
+{\small\textbf{Cross-Lingual Alignment Without Joint Training: Do Monolingual Language Models Converge on Universal Representations?}} {\scriptsize[\href{https://arxiv.org/abs/2608.27115}{arxiv}]}\\
+{\scriptsize Ej Zhou, Suchir Salhan, Catherine Arnett, Anna Korhonen}\\
+
+{\small\textit{Separately trained monolingual LMs can be aligned with a simple rotation that even transfers factual behavior, suggesting universal representational structure emerges without joint multilingual training.}}\\[1pt]
+{\footnotesize Challenges the need for joint multilingual training by showing independently trained monolingual models converge to hidden-state spaces related largely by a change of basis; alignment is not just geometric but functionally causal. Fit a Procrustes rotation between hidden states from parallel/aligned sentences across two monolingual LMs; measure representational alignment across layers and conditions (scale, language proximity). Then do causal patching: rotate an English residual-stream vector into a German model's space and insert it during factual cloze prompts to test whether predictions shift. Alignment is measurable and strengthens with more data/capacity and closer language pairs. A single learned rotation maps states well, implying mismatch is mostly basis change. Crucially, rotated residual patching often flips the recipient model's factual next-token prediction toward the donor's answer (e.g., capitals), demonstrating functional content transfer without any joint training.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{VoxSumm: A Multilingual Corpus of Long-Form Spoken News for Joint Summarization and Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.10359}{arxiv}]}\\
+{\scriptsize Yejin Jeon, Marie Maltais, Virginia Ceccatelli, Min Ma, David Ifeoluwa Adelani}\\
+
+{\small\textit{VoxSumm benchmarks a realistic task: summarize long news audio in one language into a short summary in another, releasing a 24-language dataset for joint speech summarization+translation.}}\\[1pt]
+{\footnotesize Defines joint speech summarization and translation (JSumT) and releases VoxSumm: BBC long-form spoken news with paired supervision across 24 languages, enabling evaluation of long-audio understanding, content selection, and cross-lingual generation in one task. Construct long-form speech documents with summary targets and cross-lingual source/target settings. Benchmark representative speech-language pipelines and prompting/generation strategies, comparing ``translate-then-summarize'' vs more direct summarize+translate approaches to expose long-context and instruction-following failure modes. Performance varies sharply by model and setup; Gemini3.1-Pro is most consistent across settings. Summaries into English are generally stronger than into non-English targets, showing uneven multilingual generation. A naive translate-full-then-summarize pipeline can worsen outcomes by compounding instruction-following errors on long audio.}
+
+\medskip
+
+{\small\textbf{AfriSwitch: A Benchmark for In-the-Wild African Code-Switched Speech Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2608.26434}{arxiv}]}\\
+{\scriptsize Gabrial Zencha Ashungafac, Busayo Awobade, Tobi Olatunji}\\
+
+{\small\textit{AfriSwitch provides a realistic benchmark for African code-switched ASR and shows current multilingual ASR fails badly on the speech patterns people actually use.}}\\[1pt]
+{\footnotesize Releases AfriSwitch: 61.36 hours of in-the-wild, human-transcribed African code-switched speech spanning 16 languages/varieties, with switch-level English span tags plus per-utterance Code-Mixing Index and switch-point counts to analyze different mixing regimes. Collect natural bilingual speech, produce human transcripts, and add structured code-switch annotations (English spans, CMI, switch counts) to separate mixture balance from alternation frequency. Benchmark five open/commercial multilingual ASR systems zero-shot across all varieties and relate errors to mixing behavior. Zero-shot multilingual ASR collapses: best average WER is 35.93\%, and no system gets below 24\% WER on any language/variety. Mixing behavior varies widely and isn't captured by one scalar (balance vs alternation are largely independent). Performance correlates more with Africa-targeted data/adaptation than with model scale or nominal language coverage, pointing to data/training as the bottleneck.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{SCIT: Testing Causal Cache Carriers in Latent Chain-of-Thought Models}} {\scriptsize[\href{https://arxiv.org/abs/2608.27265}{arxiv}]}\\
+{\scriptsize Yi Ding, Lijun Huang, Menglin Yang}\\
+
+{\small\textit{SCIT is a causal ``swap test'' for latent-CoT models that identifies which cache objects actually carry hidden reasoning---and shows the carrier can shift across checkpoints/competence.}}\\[1pt]
+{\footnotesize Introduces SCIT, a counterfactual patching protocol that upgrades latent-CoT analysis from correlational probes to necessity/sufficiency-style evidence by swapping internal state between matched runs to see what truly flips the answer. Create matched source/recipient executions differing only in the latent computation (e.g., arithmetic result), then patch the latent-suffix region of internal state. Compare patching hidden states vs attention cache; split cache into K vs V; add decoded controls and matched-corruption to test sufficiency and (when possible) necessity while ruling out trigger-token/answer-slot/prompt leakage shortcuts. On CODI-GPT2 and a Sim-CoT GPT-2 reproduction, counterfactual arithmetic transfers primarily via the late value-cache suffix (not hidden states, not keys alone, not prompt shortcuts). For CODI-GPT2, late V-suffix patching is sufficient and matched-corruption supports necessity; for the Sim-CoT checkpoint, sufficiency holds but necessity is weaker---evidence the mechanism is checkpoint-dependent. More competent/8B or ``repaired'' models often route via prefix or broader K/V pathways, and some cases yield no single clean carrier.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by LLM/agent post-training and evaluation work: at least \textasciitilde{}40--60 papers cluster around agentic systems (skills/memory/harness design, multi-agent orchestration, tool-use safety, and agent benchmarks like DuMateBench/TraceBench/PLCBench/AgentJudgeBench), plus a similarly large cluster on inference-time scaling and post-training methods (RLVR/OPSD/GRPO/ES, test-time policy optimization, adaptive reasoning, speculative/parallel/diffusion decoding, KV-cache eviction/compression). Retrieval and grounding is another major theme (roughly \textasciitilde{}15--25 papers) focused on RAG reliability, evidence-aware retrieval, knowledge graphs/graph-RAG, and calibration/verification (e.g., ``Why RAGs Hallucinate,'' ReliableRAG, SelfGraphRAG, MemToC). A striking surprise is the sheer volume of audio-centric foundation-model work---easily 150+ papers spanning speech LLMs/LALMs, TTS/voice cloning, audio deepfake detection/watermarking, streaming voice agents, and long-context audio KV compression---suggesting audio is having a ``benchmark + safety + systems'' moment similar to LLMs last year.}
+
+
+\end{document}
