@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-08-31} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Ladders in Chaos: When, How, (and Perhaps Why) Does Test-Time Scaling Improve LLM Machine Translation}} {\scriptsize[\href{https://arxiv.org/abs/2608.28496}{arxiv}]}\\
+{\scriptsize Di Wu, Sergey Troshin, Christof Monz, Antske Fokkens, Vlad Niculae}\\
+
+{\small\textit{Test-time scaling in MT isn't free: sequential self-refinement boosts fluency, but at high budgets it can erode faithfulness as extra target-side context steers the model off-source.}}\\[1pt]
+{\footnotesize Disentangles parallel (i.i.d. Best-of-N) vs sequential (candidates conditioned on prior attempts) scaling and shows sequential changes the candidate distribution: more natural outputs, but a non-monotonic fluency--accuracy tradeoff at larger inference budgets; human eval + ablations point to target-context as the driver. Compare parallel sampling+selection vs sequential self-improvement chains across budgets; use human ratings that separate fluency/naturalness from accuracy/faithfulness; ablate target-side context construction and temperature to test robustness and mechanism. Sequential scaling is more sample-efficient and reaches a higher ceiling than parallel, but accuracy can drop as budget grows even while fluency improves; ablations tie gains (and drift) to added target-side context and its design.}
+
+\medskip
+
+{\small\textbf{OmniFusion: Simultaneous Multilingual Multimodal Translations via Modular Fusion}} {\scriptsize[\href{https://arxiv.org/abs/2512.00234}{arxiv}]}\\
+{\scriptsize Sai Koneru, Matthias Huck, Jan Niehues}\\
+
+{\small\textit{OmniFusion fuses a multimodal perception model with a translation LLM to do low-latency simultaneous multilingual translation that can use audio and images when available.}}\\[1pt]
+{\footnotesize Proposes a modular, jointly trained fusion of a pretrained multimodal foundation model and a translation-focused LLM to avoid cascade drawbacks and enable end-to-end multimodal simultaneous translation. Connects multiple-layer hidden states from Omni 2.5-7B into SeedX PPO-7B (not just final features) and trains end-to-end; supports speech→text, speech+image→text, and text+image→text translation modes. Reports effective use of audio/visual context, \textasciitilde{}1s lower latency vs ASR→MT cascades in simultaneous speech translation, and improved overall translation quality (per abstract).}
+
+\medskip
+
+{\small\textbf{XHotpotQA: A Benchmark for Cross-Lingual Knowledge Composition in Multi-Hop Question Answering}} {\scriptsize[\href{https://arxiv.org/abs/2608.27481}{arxiv}]}\\
+{\scriptsize Iman Barati, Arash Ghafouri, Behrouz Minaei-Bidgoli}\\
+
+{\small\textit{XHotpotQA forces multi-hop QA to cross language boundaries mid-reasoning, revealing failures that translation-to-one-language benchmarks hide.}}\\[1pt]
+{\footnotesize Creates a HotpotQA-style benchmark where question, bridge evidence, answer evidence, and distractors can be in different languages, represented with evidence-dependency roles and sentence-level supporting-fact supervision for diagnosis. Controlled language-role assignments per instance; supplied-candidate setting (gold paragraphs + distractors) to isolate reading/composition from retrieval; evaluates selector vs reader under mismatches (including different scripts) using support labels. Largest drops occur at language interfaces: full question--evidence mismatch reduces answer F1 by \textasciitilde{}10--16; different-script evidence drops \textasciitilde{}12--24; selector drops are small (\textasciitilde{}1.7--1.8), implicating multilingual reading/composition as the bottleneck.}
+
+\medskip
+
+{\small\textbf{When Tokenizers Fail: Byte-Level Chunking for Zero-Shot Transfer to Low-Resource Languages}} {\scriptsize[\href{https://arxiv.org/abs/2608.27658}{arxiv}]}\\
+{\scriptsize Sanjeev Kumar, Atsuki Yamaguchi, Nikolaos Aletras}\\
+
+{\small\textit{Gets byte-level robustness for low-resource transfer without training a full byte LM by learning byte chunks aligned to a frozen subword LM, with light boundary supervision.}}\\[1pt]
+{\footnotesize Hybrid ``byte-to-chunk + frozen subword LM'' framework that removes brittle tokenizer effects: learn word-aligned byte chunks while distilling/aligning them into the frozen LM's representation space. Hierarchical byte encoder dynamically chunks UTF-8; initialize/anchor with frozen subword representations; train with chunk-alignment loss to match subword-derived targets; add lightweight POS supervision to encourage linguistically sensible boundaries. Improves word-level morphology tasks across six languages over subword-tokenized transfer baselines, with up to +13.3\% POS tagging gain, without massive byte-level pretraining.}
+
+\medskip
+
+{\small\textbf{One Form to Transfer Them All: Pretraining Multilingual Language Models Beyond Native Orthography}} {\scriptsize[\href{https://arxiv.org/abs/2608.25904}{arxiv}]}\\
+{\scriptsize Muge Zhang, Aaron Jencks, Krishna Badikela, Yulia Tsvetkov, Sachin Kumar}\\
+
+{\small\textit{For cross-script transfer in multilingual decoder-only LMs, romanize during pretraining: it creates shared surface patterns that scaling can exploit better than native scripts or IPA.}}\\[1pt]
+{\footnotesize Controlled pretraining study isolating representation choice (native orthography vs IPA vs romanization) and showing script equalization is a primary driver of cross-lingual transfer, not a minor preprocessing tweak. Pretrain 467M/709M/1.03B autoregressive multilingual models on eight languages (four related pairs) under three representations; evaluate in-language and transfer (including unseen languages); test post-hoc romanization finetuning of native-text models. Romanized pretraining yields best transfer; the advantage over native orthography grows with model size; IPA usually beats native but trails romanization; post-hoc romanization finetuning can hurt covered languages and only marginally helps missing-script cases---romanization must shape pretraining/tokenizer stats.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Phoneme- and Word-Level Metrics Using Self-Supervised Speech Representations for Forced Alignment Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2608.28508}{arxiv}]}\\
+{\scriptsize V. S. D. S. Mahesh Akavarapu, Michael Daniel, Gerhard J\"ager}\\
+
+{\small\textit{Reference-free forced-alignment evaluation is possible: SSL speech models can score whether phoneme/word boundaries are acoustically consistent, avoiding human timestamps.}}\\[1pt]
+{\footnotesize Defines two scalable, multilingual alignment QA metrics---PCMI (phoneme-level) and WACS (word-level)---that use self-supervised speech representations to assess alignment quality without ground-truth boundaries; released as tooling. PCMI: mutual information between aligned phoneme labels and unsupervised clusters of SSL frame embeddings. WACS: consistency of SSL segments for repeated words using DTW to handle duration variation. Requires only audio, transcript, and alignment. Metrics degrade under random/systematic alignment perturbations; across 85 FLEURS languages they consistently separate better/worse aligners; correlate strongly with timestamp-based quality on 45 DoReCo languages, supporting validity as reference-free proxies.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{How Do Linear Probes Emerge? A Circuit-Tracing Framework with Concept-Targeted Attribution}} {\scriptsize[\href{https://arxiv.org/abs/2608.27510}{arxiv}]}\\
+{\scriptsize Vedant Palit, Florent Draye, Terry Jingchen Zhang, Bernhard Sch\"olkopf, Zhijing Jin}\\
+
+{\small\textit{Concept-Targeted Attribution turns linear probes into traceable circuits, showing probe mechanisms can be causally distinct from the circuits that drive next-token outputs.}}\\[1pt]
+{\footnotesize Introduces CTA: attribute not to a logit, but to alignment with a probe direction in the residual stream, yielding probe-specific attribution graphs with predictive structure and causal separability from logit circuits. Builds transcoder-style attribution graphs (via Cross-Layer Transcoders) targeting probe scores (dot product with probe direction); analyzes global graph stats and per-prompt sparse components; validates with targeted ablations of probe-relevant vs logit-relevant features. Graph features predict probe accuracy across concept types (corr \textasciitilde{}0.91, R² \textasciitilde{}0.84); ablations cleanly separate mechanisms---removing probe features lowers concept scores with little effect on tokens, while removing logit features flips tokens \textasciitilde{}92--100\% with probe scores largely unchanged.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Rating the Raters: Rasch Measurement Theory for LLM Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2608.27463}{arxiv}]}\\
+{\scriptsize Pratik S. Sachdeva, Nathan Boudol}\\
+
+{\small\textit{Using Rasch measurement models exposes LLM rater severity, miscalibration, and instability that simple agreement/correlation metrics miss.}}\\[1pt]
+{\footnotesize Applies many-facet Rasch theory to LLM-as-rater evaluation, explicitly separating item difficulty from rater effects (severity, scale use, consistency) and other facets (e.g., order), yielding interpretable bias diagnostics. Fit many-facet Rasch models to ordinal ratings from nine LLMs on Measuring Hate Speech; analyze severity/leniency, item-level calibration, order effects, target-identity sensitivity, and category usage patterns. LLMs differ substantially as raters despite similar aggregate scores: systematic harsh/lenient biases, item-specific miscalibration, order sensitivity, identity effects, and differing threshold/scale usage---showing why rater choice and calibration matter.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent engineering and governance: at least \textasciitilde{}35--45 papers touch agentic workflows (tool use, memory/context management, GUI/computer-use agents, multi-agent coordination, harness/OS layers like String/CrabOS/Logos, and agent RL/credit assignment such as VICT/HARTS/RTPO), with a noticeable sub-cluster on evaluation realism/benchmarks for agents (e.g., RealSWE, mobile assistants, MAP accessibility planning, LoopArena, PCFBench). A second major theme is efficiency for deployment---roughly \textasciitilde{}15--20 papers on inference acceleration and memory (speculative decoding/tree drafting, KV-cache eviction theory, sliding-window vs linear attention, quantization incl. NVFP4/bit-width allocation/hybrid precision, output-embedding bandwidth, energy accounting). Safety/security/privacy is another heavy concentration (\textasciitilde{}15--25): prompt injection and RAG poisoning/defenses (LongPIBench, CamoDocs, CAITLYN, Semantic Overlays), moderation/watermarking/AIGC detection (OpenStamp, semantic watermarking, stylometry), plus privacy/unlearning and context exfiltration (AIM, GRACE, ContextLeak, DP audits). Emerging directions include ``evidence-grounded abstention/verification'' for RAG and agents (Knowing Before Answering, Twin Worlds, HALT, verifier-instrumented credit tracing) and a parallel rise in multimodal/speech evaluation and robustness (audio-visual conflict, speech evidence gating, prosody transfer), suggesting the community is shifting from raw capability gains toward controllable, auditable, and cost-aware agent deployment.}
+
+
+\end{document}
