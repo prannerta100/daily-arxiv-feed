@@ -1,0 +1,112 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-02} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Removable and Irreducible: A Token-Cost Ledger for the Multilingual Tokenization Tax}} {\scriptsize[\href{https://arxiv.org/abs/2609.00378}{arxiv}]}\\
+{\scriptsize Madhulatha Mandarapu, Sandeep Kunkunuru}\\
+
+{\small\textit{Most multilingual ``tokenization tax'' is bad compression, not extra information; a ledger cleanly separates removable redundancy from irreducible differences.}}\\[1pt]
+{\footnotesize Introduces a source-coding ``token-cost ledger'' that decomposes token gaps into removable coding redundancy, residual slack vs an information-theoretic floor, intrinsic content differences in parallel text, and a separate orthography (G2P) term relevant beyond text token counts. Treat tokenizers as codes over vocab size V and compare observed token lengths to the Shannon rate H/log2(V). Use FLORES-200 parallel data to hold meaning fixed, attribute excess cost into ledger terms, and demonstrate removability by training script-matched tokenizers with \textasciitilde{}1,012 sentences; validate decomposition on synthetic data. Production tokenizers can use up to 8.9× more tokens than English for Indic scripts (implying up to \textasciitilde{}79× attention cost). A script-matched tokenizer trained on only 1,012 sentences removes a median 64\% of the excess; intrinsic content differences are <6\% under a script-fair floor. Synthetic control removes 98\% redundancy, supporting the ledger's correctness.}
+
+\medskip
+
+{\small\textbf{Lingua Franca or Probing Artifact? Rethinking Latent Language in Multilingual LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2609.00155}{arxiv}]}\\
+{\scriptsize Deniz Bayazit, Badr AlKhamissi, Antoine Bosselut}\\
+
+{\small\textit{``Latent language'' in multilingual LLMs is probe-dependent: geometry- and decoding-based probes disagree, so ``the model thinks in English'' is often an artifact.}}\\[1pt]
+{\footnotesize Shows latent-language identification is not a single coherent measurement: representation-geometry probes and language-decoding probes latch onto different signals (global mixing vs output-aligned decodability), yielding systematically different conclusions about pivot-language behavior. Evaluate representative geometry-based clustering/classification probes vs decoding-based probes across model families, training regimes/checkpoints, tasks/domains, layers, and up to 27 languages; track how each probe's language signal evolves through training and depth. Geometry probes indicate earlier/stronger cross-lingual mixing (states cluster less by language), while decoding probes still find strong language separability and deeper English bias. Disagreements are structured (vary with multilinguality and training) and stable across domains, implying ``English pivot'' claims can hinge on probe choice.}
+
+\medskip
+
+{\small\textbf{EDRAC: Benchmarking Arabic Dialect Reading Comprehension}} {\scriptsize[\href{https://arxiv.org/abs/2609.01113}{arxiv}]}\\
+{\scriptsize Noor Abo Mokh, Kirill Chirkunov, Teresa Lynn, Nizar Habash, Reham Marzouk, Malik H. Altakrori, Younes Samih, Muhammed Abu Odeh, Nour Rabih, Rahaf Alshahrani, Hamad Alshehhi, Hamdan Al-Ali, Muhra Almahri, Besher Hassan, Mohamed Anwar, Abed Alhakim Freihat, Preslav Nakov, Alham Fikri Aji}\\
+
+{\small\textit{EDRAC provides a multi-dialect Arabic reading-comprehension benchmark and shows standard metrics can miss dialect-faithfulness failures.}}\\[1pt]
+{\footnotesize Releases EDRAC: dialectal (not MSA) MRC/generative QA across five dialects (Egyptian, Moroccan, Emirati, Syrian, Saudi), emphasizing that correct meaning is insufficient if the answer drifts into MSA/other dialects; highlights metric blind spots for dialect fidelity. Create 499 passages from naturally occurring spoken interactions and 4,977 QA pairs via human--LLM collaboration (LLM drafting + LLM-judge filtering + human verification). Benchmark Arabic-focused and multilingual LLMs with lexical and semantic metrics, contrasting semantic correctness vs dialect-faithful realization. Models often score well on semantic/embedding metrics while failing dialect fidelity (MSA drift, dialect mixing, missing markers), revealing a large metric--requirement gap. Progress on dialectal QA needs evaluation/training that explicitly rewards dialect-faithful outputs, not just meaning.}
+
+\medskip
+
+{\small\textbf{Probing Factual Knowledge Transfer with Training Data Interventions}} {\scriptsize[\href{https://arxiv.org/abs/2609.01341}{arxiv}]}\\
+{\scriptsize Romina Oji, Marc Braun, Marcel Bollmann, Marco Kuhlmann, Jenny Kunz}\\
+
+{\small\textit{Fact-removal interventions show cross-lingual factual transfer into Persian is often overstated; true transfer from English is weak, especially for Persian-specific entities.}}\\[1pt]
+{\footnotesize Makes transfer identifiable by deleting targeted facts from Persian continued-pretraining data; introduces SIFT (500 Persian cloze triples) and shows evaluation choices (notably easy negatives) can create an illusion of transfer via shallow cues. Pretrain on English, continue pretraining on Persian with controlled removals of fact mentions at varying strictness; evaluate with Persian cloze prompts over SIFT under different multiple-choice candidate sets, including hard negatives to block topical/entity-type heuristics. Under strictest removals, most English-acquired facts do not become usable Persian knowledge, implying limited genuine transfer. Weaker removals leave residual traces that mimic transfer. Random negatives inflate scores; hard negatives cause substantial drops. Transfer is strongly frequency-dependent: Persian-related entities (rare in English) barely transfer, benefiting mainly globally prominent entities learned well in English.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{TEIDAN: A Multilingual Multiparty Dialogue Corpus}} {\scriptsize[\href{https://arxiv.org/abs/2609.00802}{arxiv}]}\\
+{\scriptsize Taiga Mori, Koji Inoue, Mikey Elmers, Divesh Lala, Tatsuya Kawahara}\\
+
+{\small\textit{TEIDAN is a rare bilingual (Japanese/English) multimodal corpus of spontaneous three-person conversations for studying real multiparty interaction.}}\\[1pt]
+{\footnotesize Introduces a dataset designed for triadic, face-to-face, spontaneous dialogue---capturing overlaps, rapid turn-taking, shifting addressees, and multimodal grounding---under a shared protocol across Japanese and English to enable cross-linguistic comparison. Record triads discussing open-ended topics with synchronized per-speaker pin mics, mic array, and participant-facing cameras. Provide transcripts segmented into inter-pausal units (IPUs) and document collection/annotation protocol plus corpus statistics for tasks like turn-taking and addressee recognition. Delivers a multilingual, multimodal resource tailored to multiparty phenomena (addressing, turn negotiation, visual grounding). Preliminary analyses confirm the presence of needed interaction signals; prior work used only subsets of Japanese data, while this release positions TEIDAN as a broader bilingual corpus with a path to more languages.}
+
+\medskip
+
+{\small\textbf{Phrase-Localized Language-Contrastive Guidance: Training-Free Localized Accent Control for Code-Switching Text-to-Speech}} {\scriptsize[\href{https://arxiv.org/abs/2609.01016}{arxiv}]}\\
+{\scriptsize Che Hyun Lee, Sangkwon Park, Donghun Kang, Dongwook Lee, Youngho Cho, Heeseung Kim, Sungroh Yoon}\\
+
+{\small\textit{Training-free, phrase-local guidance fixes code-switching TTS accent leakage by steering only the foreign span, with boundaries found from self-attention.}}\\[1pt]
+{\footnotesize Proposes Phrase-Localized Language-Contrastive Guidance (LCG): replace global language steering with span-specific steering so the code-switched phrase gets the right accent without contaminating the rest. Adds an alignment-free boundary finder using self-attention probing. At inference, detect the foreign phrase region via self-attention patterns, then apply different language-contrastive guidance signals to primary-language vs foreign-phrase regions in an existing cross-lingual TTS model---no retraining, no forced alignment/phoneme timing. Localized guidance improves perceived nativeness of the code-switched phrase and reduces accent leakage while largely preserving speaker identity and overall naturalness across multiple language pairs. Key lesson: many code-switching accent errors stem from misapplied global conditioning, fixable with boundary-aware local conditioning.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Lagged Coupling: Internal Representations Become Readable Before They Become Causal}} {\scriptsize[\href{https://arxiv.org/abs/2609.01048}{arxiv}]}\\
+{\scriptsize Xining Xun}\\
+
+{\small\textit{Decodability is not usage: features become linearly readable early, while causal steering along the probe direction stays near zero (``lagged coupling'').}}\\[1pt]
+{\footnotesize Defines and measures ``lagged coupling'' with a preregistered protocol separating internal readability (probe decodes), behavioral readability (outputs reflect), and causal efficacy (interventions change behavior), explaining why probe-based claims can be causally misleading. Across Pythia 160M--12B and checkpoints, train linear probes on residual streams for task variables, then intervene by adding/subtracting along probe weight directions and measure output shifts. Track behavioral readability and quantify ``headroom'' (representation variation vs writable behavioral change). Probes reach near-perfect AUROC (≥0.990) from \textasciitilde{}step 1,000 at all scales, yet steering is null-equivalent in 43/48 model×checkpoint cells (sometimes harmful early) with no consistent scale trend; only one unresolved positive pulse (12B @ step 8k). Behavioral readability emerges later, especially in larger models. Headroom grows up to 57×, but writable effect stays <0.11\% of headroom---information is stored but not read out.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{trajectory-judge: What Outcome-Only LLM Judges Miss on Agent Trajectories}} {\scriptsize[\href{https://arxiv.org/abs/2609.00038}{arxiv}]}\\
+{\scriptsize Hadi Mohammadi}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary says the outcome-only LLM judge ``sees only the request and final reply.'' The abstract does not state that the outcome-only judge is an LLM judge, only that it is an ``outcome-only'' judge among five judges.}}\\[1pt]
+
+{\small\textit{Outcome-only LLM judges miss many ``silent'' trajectory faults; a controlled testbed quantifies what different judges detect, localize, and cost.}}\\[1pt]
+{\footnotesize Builds a deterministic tool-using support-desk environment with an oracle policy plus a single-step fault injector, so the true failure point/type is known. This enables separate recall for loud (breaks outcome) vs silent (outcome still succeeds) faults and exposes outcome-only blind spots. Generate 400 scripted trajectories, inject exactly one known fault at a chosen step, then evaluate judges on fault detection, step localization, fault typing, calibration, and cost. Compare programmatic rules, an outcome-only LLM judge (request+final reply), step-by-step rubric judges (two sizes), and self-consistency; add an ``invented promise appended'' test to check attention to the final reply. Outcome-only judge: 84\% recall on loud faults but only 45\% on silent faults, and 33\% false alarms on correct trajectories. Step-rubric judge reaches 77\% silent-fault recall with 0 false alarms but \textasciitilde{}3× cost. Appending an invented promise is largely missed (rules: 100\% miss; step judge misses 82\%), suggesting judges often ignore the final reply; self-consistency triples cost with no gains. Authors argue reporting recall stratified by outcome survival.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents and their evaluation/safety infrastructure: at least \textasciitilde{}40--60 titles focus on long-horizon tool-use agents, harnesses/context management, and agent benchmarks/audits (e.g., trajectory-level judging, harness tampering/self-evolution, workflow-aware healthcare agents, KV-cache transfer, routing/budgeting, and multi-agent orchestration). A second major cluster is reliability/alignment measurement and defenses---roughly \textasciitilde{}25--40 papers on jailbreaks/refusals, reward hacking/RLVR signal audits, judge alignment/robustness, hallucination detection, and retrieval poisoning/integrity for RAG (TRIS/ISO-RAG/SCoNE/SFAD, etc.). Multimodality is also heavily represented (≈20--30) with repeated ``vision-before-text''/context-memory conflict and visual insensitivity themes plus efficiency tricks (token pruning/speculative decoding), while a notable emerging direction is diffusion language models and diffusion VLMs (≈8--12) spanning safety alignment across denoising steps, membership inference, and decoding/caching. Somewhat surprisingly, there's a sizable audio/speech substream (≈12--18) around audio-language model hallucinations, temporal audio grounding benchmarks, speech tokenization/codecs, and deepfake attribution---suggesting audio is becoming a first-class reliability/eval target alongside text and vision.}
+
+
+\end{document}
