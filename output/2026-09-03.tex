@@ -1,0 +1,107 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-03} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{TalkFa: A Unified Benchmark for Farsi Dialogue Generation and Understanding}} {\scriptsize[\href{https://arxiv.org/abs/2609.01810}{arxiv}]}\\
+{\scriptsize Neda Jamshidi, Kamyar Zeinalipour, Fahimeh Akbari, Monica Bianchini, Marco Maggini, Marco Gori}\\
+
+{\small\textit{TalkFa unifies high-quality Farsi dialogue generation + understanding tasks and shows automatic metrics can overrate models vs GPT-4.1 judging.}}\\[1pt]
+{\footnotesize Packages three validated Farsi dialogue datasets into one benchmark with strong native-speaker QC; demonstrates a measurement pitfall: common automatic dialogue metrics can substantially overestimate quality relative to GPT-4.1-as-judge. Combine WIKI-FADIAL (Wikipedia-grounded generation), DAILYDIALOG-FA (acts+emotions), PLAYDIAL-FA (sentiment). LLM-assisted drafting with multi-stage native review; experiments with LLaMA/Mistral variants, LoRA fine-tuning, and classification models; compare auto metrics vs GPT-4.1 judgments. LoRA improves generation, and 25--50\% of training data recovers >90\% of gains. Best understanding models: FABERT (dialogue acts), LoRA-Mistral-7B (emotion), Mistral-24B (sentiment). Auto metrics overestimate quality vs GPT-4.1; zero-shot frontier LLMs still struggle on TalkFa.}
+
+\medskip
+
+{\small\textbf{CroCo: Cross-Lingual Contrastive Preference Tuning on Self-Generations}} {\scriptsize[\href{https://arxiv.org/abs/2605.26293}{arxiv}]}\\
+{\scriptsize Mike Zhang, Ali Basirat, Desmond Elliott}\\
+
+{\small\textit{CroCo aligns multilingual LLM behavior using only English preference data by ranking the model's own non-English outputs and tuning on those rankings.}}\\[1pt]
+{\footnotesize Turns English-only preference supervision into cross-lingual alignment: use an English-trained reward model (with multilingual backbone) to rank same-language self-generations, then preference-tune without needing per-language preference labels and without wiping SFT skills. Sample multiple on-policy responses per prompt across languages; score with an English-preference-trained multilingual reward model; form chosen/rejected pairs and train with offline contrastive/DPO-style preference tuning (within-language or mixed-language). English-trained reward rankings transfer: tuned models improve broadly across 14+ languages. Judges prefer tuned over base in 28/30 open-ended comparisons (15 languages). Gains depend on on-policy self-generations; off-policy data weakens benefits, and online optimization doesn't beat the offline approach; avoids catastrophic forgetting.}
+
+\medskip
+
+{\small\textbf{BioELX: Context-Aware Cross-lingual Biomedical Entity Linking without Task-Specific Supervision}} {\scriptsize[\href{https://arxiv.org/abs/2605.27380}{arxiv}]}\\
+{\scriptsize Yi Wang, Corina Dima, Liangyu Zhong, Steffen Staab}\\
+
+{\small\textit{BioELX achieves strong cross-lingual biomedical entity linking with no labeled BEL data by fixing alias bias in retrieval and using mention-anchored LLM reranking for context.}}\\[1pt]
+{\footnotesize Identifies two blockers---English-skewed alias supervision and context hurting alias-trained retrievers---and proposes a retrieve--rerank pipeline: expand cross-lingual alias coverage for retrieval, then apply context only in an LLM reranker explicitly anchored to the target mention span. Stage 1: continue-train SapBERT\_multi on Wikidata-mined cross-lingual alias pairs to improve multilingual candidate retrieval. Stage 2: LLM reranker with mention-marked prompting scores candidate entity descriptions conditioned on the marked span in context. On 4 cross-lingual BEL benchmarks, Recall@1 improves by \textasciitilde{}5--18 points over prior best without task-specific BEL labels. Context helps most in reranking (not retrieval), and mention-anchoring is key to correct disambiguation behavior.}
+
+\medskip
+
+{\small\textbf{MultiGhostBench: A Multilingual Benchmark for Long-Form LLM-Generated Text Attribution under Distribution Shifts}} {\scriptsize[\href{https://arxiv.org/abs/2609.02379}{arxiv}]}\\
+{\scriptsize Matteo Greco, Anudeex Shetty, Andrea Tagarelli, Jey Han Lau}\\
+
+{\small\textit{MultiGhostBench is a multilingual, book-length benchmark for LLM text attribution designed to measure robustness under domain/author/language shifts.}}\\[1pt]
+{\footnotesize Moves attribution evaluation from short English i.i.d. snippets to realistic forensic conditions: 928 long synthetic books across languages/scripts, with explicit stress tests for domain shift, unseen generators, and cross-language transfer. Generate 928 books from 5 LLMs in 6 languages/3 scripts (\textasciitilde{}59K words avg). Define train/test splits for domain, author (generator), and language shifts. Benchmark transformer detectors and statistical/fingerprint methods under each shift. No method dominates under shifts; performance drops markedly out-of-distribution. Transformer detectors retain some cross-language generator signal (language-pair dependent), while statistical/fingerprint methods degrade more across languages/scripts---showing ``in-domain English'' success doesn't imply robust attribution.}
+
+\medskip
+
+{\small\textbf{Bridging Latent Reasoning and Target-Language Generation via Retrieval-Transition Heads}} {\scriptsize[\href{https://arxiv.org/abs/2602.22453}{arxiv}]}\\
+{\scriptsize Shaswat Patel, Vishvesh Trivedi, Yue Han, Yihuai Hong, Eunsol Choi}\\
+
+{\small\textit{Retrieval-Transition Heads are a small set of attention heads that causally steer multilingual models from latent reasoning into the requested output language.}}\\[1pt]
+{\footnotesize Identifies a distinct head type beyond standard ``retrieval heads'': Retrieval-Transition Heads (RTHs) that control the switch from language-agnostic internal reasoning to target-language surface generation, especially for multilingual chain-of-thought. Analyze attention heads in multilingual LLMs: show many retrieval heads are shared across languages; define RTHs via coupling to output-language choice; validate causality by masking candidate heads at inference and measuring degradation vs masking ordinary retrieval heads. Masking RTHs harms multilingual QA/reasoning far more than masking retrieval heads across MMLU-ProX, MGSM, MLQA, XQuaD and across Qwen-2.5 and Llama-3.1, with the largest drops on chain-of-thought---pinpointing a manipulable choke point for language control.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{VoiceLongMemEval: Do Assistants Remember How You Sounded?}} {\scriptsize[\href{https://arxiv.org/abs/2609.00570}{arxiv}]}\\
+{\scriptsize Ramit Pahwa, Parivesh Priye, Apoorva Beedu}\\
+
+{\small\textit{VLME tests long-term voice-assistant memory for how users sounded (emotion/prosody/events), not just what they said.}}\\[1pt]
+{\footnotesize Introduces VoiceLongMemEval, where questions depend on paralinguistic cues intentionally unrecoverable from transcripts; adds adversarial filtering so text-only LMs cannot solve items, making the benchmark genuinely diagnostic for audio-channel memory. Multi-turn long-horizon dialogues with paralinguistic annotations; questions require recalling these cues. A 3-stage adversarial gate removes items solvable from transcript alone. Evaluate transcript-only, transcript+paralinguistic ``text track,'' transcript+evidence hints, and audio-native models. Transcript-only models show a consistent ``affect gap.'' Adding paralinguistic metadata boosts accuracy by \textasciitilde{}0.09--0.38; adding evidence hints reaches \textasciitilde{}0.61--0.69. Audio-native models beat transcript-only (\textasciitilde{}0.354--0.412 vs \textasciitilde{}0.325), and ASR-centric pipelines erase key signals VLME measures.}
+
+\medskip
+
+{\small\textbf{VAANI Noise Event Dataset: A curated spontaneous speech dataset annotated with timestamps for noise events}} {\scriptsize[\href{https://arxiv.org/abs/2609.02474}{arxiv}]}\\
+{\scriptsize Pavan Kumar J, Agneedh Basu, Pranav Bhat, Sujith Pulikodan, Suryansh Shukla, Nihar Desai Prasanta K. Ghosh}\\
+
+{\small\textit{VAANI adds timestamped real-world noise-event labels to spontaneous multilingual speech, enabling training/eval for overlapping speech+noise conditions that break deployed ASR.}}\\[1pt]
+{\footnotesize Provides a rare supervision type: start/end timestamps for overlapping background noise events in in-the-wild recordings, with a compact 7-class taxonomy, spanning 105 languages---bridging the gap between synthetic mixtures and clean speech corpora. Annotate Project VAANI field recordings with human-labeled temporal spans for noise events (including overlap with speech); use a 7-category noise taxonomy and QC to ensure consistent boundaries and labels. Delivers a missing benchmark: authentic co-occurring speech+noise with span-level timing at massive multilingual scale. Compared to MUSAN/AudioSet/DESED/CHiME/WHAM!/noisy-ASR sets, it uniquely combines real overlap, timestamps, and broad language coverage---enabling event-aware robust ASR/enhancement training and evaluation.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Incremental Pooled LLM Evaluation for Cost-Effective Retrieval Model Selection}} {\scriptsize[\href{https://arxiv.org/abs/2609.02745}{arxiv}]}\\
+{\scriptsize Max Nelson, Hanoz Bhathena, Aviral Joshi, Saket Sharma}\\
+
+{\small\textit{Reuse LLM relevance judgments via incremental pooling to evaluate evolving RAG retrievers cheaply with near-gold ranking fidelity.}}\\[1pt]
+{\footnotesize Adapts classic IR pooling to LLM judging and makes it incremental: maintain a shared judged doc pool across retriever candidates; when a new retriever is tested, label only newly retrieved docs, enabling consistent comparisons without re-labeling past work. For a fixed query set, store all previously retrieved docs + LLM qrels. For each new system, add only unseen retrieved docs for LLM judging, then rescore all systems on the accumulated qrels; use bootstrap/uncertainty to compare pairwise orderings robustly. Across 4 benchmarks/11 systems, pooled-LLM rankings track gold closely; with uncertainty, 97\% of pairwise orderings match gold. In a financial-news QA deployment (62 configs), 65--80\% judgment reuse yields up to 4.9× lower evaluation cost.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agent reliability/safety/evaluation work: at least \textasciitilde{}25 papers on agent scaffolding, long-horizon planning/credit assignment, memory (persistent memory failures/poisoning, routing/topology for multi-agent systems), and deployment realism (e.g., evaluation awareness, monitoring without internal signals, enterprise readiness). A second major cluster is retrieval-grounding and evidence discipline---roughly \textasciitilde{}15 papers on RAG/multi-hop QA, evidence sufficiency/coverage, retrieval model selection, and retrieval attacks/poisoning (including code RAG), plus several KG-centric hypothesis discovery/completion efforts. Efficiency and model surgery is another heavy theme (\textasciitilde{}15+): LoRA/PEFT variants and initialization, pruning/quantization (2-bit/FP4/ternary), KV-cache/attention optimizations, and depth/layer merging---often explicitly tied to on-device or production constraints. Notable emerging directions include audio/speech + privacy/security (≈10 papers: low-resource ASR, audio grounding benchmarks, TTS membership inference, privacy firewalls) and a visible push toward culturally/linguistically grounded evaluation beyond English (≈8--10 papers: Indic/Farsi/Romanian/Dutch/Cantonese, cultural memes/pragmatics/bias).}
+
+
+\end{document}
