@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-04} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{FrameBench:A Language Understanding Benchmark Based on Frame Semantics}} {\scriptsize[\href{https://arxiv.org/abs/2609.03370}{arxiv}]}\\
+{\scriptsize Chihiro Yano, Ryohei Sasano}\\
+
+{\small\textit{FrameBench tests whether LLMs infer the implicit situation (``frame'') a verb evokes from context, in both English and Japanese.}}\\[1pt]
+{\footnotesize Introduces a multilingual, frame-semantics diagnostic: minimal context shifts where the same verb maps to different frames, grounded in FrameNet-style resources and validated by native speakers. Multiple-choice frame identification for target verbs; English/Japanese item creation via generation+verification, filtered with native-speaker judgments to ensure human-consistent frame labels. Small models struggle with context-sensitive frame disambiguation, while several large models exceed reported human reference scores; the benchmark cleanly separates weak/strong models across English and Japanese.}
+
+\medskip
+
+{\small\textbf{Lost in Reordering: Structural Sensitivity of Multilingual LLMs under Semantics-Preserving Perturbations}} {\scriptsize[\href{https://arxiv.org/abs/2609.03511}{arxiv}]}\\
+{\scriptsize Karthika Nhayakkat, Rajat Verma, Maharaj Brahma, Vetcha Gnana Mahesh, Maunendra Sankar Desarkar, Ganesh Ramakrishnan, Rohit Saluja}\\
+
+{\small\textit{Multilingual LLMs' reasoning in Hindi/Malayalam is brittle to meaning-preserving reordering and voice changes, exposing weak compositional/structural robustness.}}\\[1pt]
+{\footnotesize IndicReStruct: GSM8K-style problems rewritten with constituent reordering and active↔passive transforms to isolate structure from meaning; adds mechanistic localization of where reordering disrupts reasoning. Evaluate 6 multilingual LLMs on original vs. perturbed Hindi/Malayalam problems under multiple prompting setups; analyze errors; use residual-stream activation patching (clean→corrupted) across layers to identify where fixes restore accuracy. Accuracy drops consistently under structural perturbations; models often mis-bind entities/quantities after reordering/voice changes. Patching mid-layer activations restores performance most, suggesting the key structure-invariant representations are formed/disrupted in intermediate layers.}
+
+\medskip
+
+{\small\textbf{Contextual Tamil Spelling and Grammar Correction Using Progressively Fine-Tuned Sequence-to-Sequence Transformers}} {\scriptsize[\href{https://arxiv.org/abs/2609.03273}{arxiv}]}\\
+{\scriptsize Karthikeyan A, Jaya Nirmala S, Sangeetha Sivanesan, Indhu R, Pranav Kumar, Bharat Jude Johnson, Vishnu Ram}\\
+
+{\small\textit{Tamil correction improves sharply with a staged seq2seq curriculum: learn typos first, then contextual grammar, then increasingly complex sandhi.}}\\[1pt]
+{\footnotesize Progressive fine-tuning for mT5-small/mBART-50 across error types (surface noise→contextual grammar→single-boundary sandhi→multi-site sandhi), supported by a synthetic noisy--clean corpus and a balanced diagnostic set. End-to-end seq2seq correction on \textasciitilde{}657k synthetic pairs spanning 10 error categories; four-stage curriculum (v2--v5) on the same backbone; evaluate top-1 exact match on a disjoint 1,000-sentence diagnostic set plus identity (do-nothing) accuracy. Best model (mBART-50 v5) reaches 69.3\% exact match; sandhi is strong (87.5\%) while subject--verb agreement remains weak (43.5\%). Curriculum drives the gains: agreement rises from \textasciitilde{}1\% to >50\% when contextual grammar is introduced; sandhi goes 0\%→87.5\% with multi-site examples. Higher correction recall can reduce identity accuracy. Tamil-LLaMA-7B-Instruct only modestly beats copy baseline without supervision.}
+
+\medskip
+
+{\small\textbf{Typological Feature Prediction with Large Language Models: An In-Context Learning Approach}} {\scriptsize[\href{https://arxiv.org/abs/2609.03775}{arxiv}]}\\
+{\scriptsize Qianwen Wang, York Hay Ng, Aditya Khan, En-Shiun Annie Lee}\\
+
+{\small\textit{LLMs predict typological features far better when given in-context evidence from related and nearby languages, and their rationales usually track that evidence.}}\\[1pt]
+{\footnotesize Recasts typology prediction as evidence-based in-context learning using phylogenetic and geographic ``neighbor'' feature tables, improving accuracy and making explanations checkable against provided evidence. Prompts built from URIEL+ features and Glottolog metadata; compare zero-shot feature guessing vs. prompts augmented with family/tree and geographic neighbor feature values; collect rationales and check alignment with shown evidence. Zero-shot is not competitive, indicating LLMs' memorized typology is unreliable. With neighbor evidence, the LLM substantially outperforms prior baselines without sacrificing low-resource languages, and rationales are typically consistent with the provided neighbor cues.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Alignment-Free Text-Audiobox for Voice Dubbing and Full-Duplex Dialogue Synthesis}} {\scriptsize[\href{https://arxiv.org/abs/2609.03992}{arxiv}]}\\
+{\scriptsize Sanyuan Chen, Min-Jae Hwang, Sho Inoue, Anna Sun, Bokai Yu, David Kant, Dongmin Hyun, Dorian Desblancs, Gregory Antonovsky, Oleg Repin, Peng-Jen Chen, Xutai Ma, Zehai Tu, Juan Pino, Wei-Ning Hsu}\\
+
+{\small\textit{A single large latent diffusion model can do cross-lingual dubbing and full-duplex (overlapping) dialogue without forced alignments by generating in a highly compressed audio latent space.}}\\[1pt]
+{\footnotesize Text-Audiobox unifies dubbing and interactive dialogue in one alignment-free system; the key idea is compact, high-fidelity audio latents plus scale, letting cross-attention learn timing implicitly instead of using duration/alignment modules. Latent diffusion Transformer over DAC-VAE latents (48kHz→25Hz); text embeddings via cross-attention; 3B model pretrained with flow-matching on 480k hours, then fine-tuned for dubbing, full-duplex, and emotion-conditioned dialogue; long-form via multi-diffusion and candidate reranking. Improves dubbing on prosody match, speaker similarity, naturalness, and ``shareability'' vs. strongest internal baseline; for full-duplex, stays closer to human behavior (interruptions/backchannels) especially in long-form; emotion conditioning measurably improves emotion alignment and perceived quality.}
+
+\medskip
+
+{\small\textbf{VoxPrivacy: A Benchmark for Evaluating Interactional Privacy of Speech Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2601.19956}{arxiv}]}\\
+{\scriptsize Yuxiang Wang, Hongyu Liu, Dekun Chen, Xueyao Zhang, Zhizheng Wu}\\
+
+{\small\textit{Speech LMs often fail speaker-aware privacy in multi-user settings, leaking one user's context to another; VoxPrivacy measures this and shows targeted fine-tuning can reduce leaks.}}\\[1pt]
+{\footnotesize Defines and benchmarks ``interactional privacy'' (what to say depends on who is speaking); releases VoxPrivacy (bilingual, multi-speaker) plus a large training set and shows privacy can improve without major robustness loss. 32-hour bilingual benchmark with three tiers: follow secrecy instructions, conditional disclosure by speaker, and proactive privacy inference; evaluate 9 SLMs and a human-recorded Real-VoxPrivacy subset; mitigate by fine-tuning on a new 4,000-hour speaker-conditioned privacy dataset. On conditional privacy, most open models are near chance; closed models still struggle on proactive inference. Failures persist on real human speech. Fine-tuning on the 4,000-hour set materially improves privacy behavior while keeping general robustness stable.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{A Circuit for Plural Reference: How LLMs Represent and Retrieve Singular and Plural Entities}} {\scriptsize[\href{https://arxiv.org/abs/2609.03687}{arxiv}]}\\
+{\scriptsize Anh Danh, Rick Nouwen, Massimo Poesio}\\
+
+{\small\textit{Plural pronoun resolution in LLMs is partly implemented by a small, causally testable attention-head circuit that builds a plural ``group'' from multiple singular mentions and drives ``they'' vs. singular pronouns.}}\\[1pt]
+{\footnotesize Provides a circuit-level account of plural reference: heads that encode entity/coreference info, detect when mentions should be grouped, and route a grouped representation to downstream antecedent/pronoun selection---validated with causal interventions. Controlled coreference prompts requiring plural antecedents; identify candidate heads via attention patterns (pronoun→mentions, conjunct linking) and test necessity/sufficiency with activation patching and ablations across the proposed multi-step computation. A small set of heads forms a plural-reference circuit; intervening on them predictably shifts pronoun choice. The model's pluralization follows human-like cues (ontological similarity, explicit ``and''), implying sensitivity to both world knowledge and syntax.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{ObserverBench: Testing Mechanistic Estimates for Intervention and Control}} {\scriptsize[\href{https://arxiv.org/abs/2609.03026}{arxiv}]}\\
+{\scriptsize Vijay Erramilli}\\
+
+{\small\textit{ObserverBench shows interpretability ``observers'' should be judged by decision loss under real intervention/control contracts, not just estimation metrics like MSE/AUROC.}}\\[1pt]
+{\footnotesize Defines a contract-based benchmark where observers drive constrained actions (edits, steering, triage); highlights that accurate estimates can still yield bad interventions once coupled to a decision rule and limited action set. For each task: fix model, observer information boundary, allowed actions, decision rule, eval distribution, and loss; report estimation accuracy alongside action-induced loss; instantiate across circuit intervention-effect prediction/selection and monitoring/triage settings. Repeated estimate--action mismatches: better effect prediction doesn't reliably yield lower-loss interventions, while observers trained on action loss choose better actions despite worse pure accuracy. AUROC can mis-rank monitors vs. deployment loss; ``best'' info sources vary by model. Sparse SAE readouts underperform layer-matched dense controls in their Qwen panels (with noted caveats).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM agent engineering and post-training: at least \textasciitilde{}25 papers on harness/prompt evolution, long-horizon memory, tool-use protocols, and agent evaluation (e.g., harness optimization, memory retrieval/validation, terminal/GUI agents, multi-agent debate/monitoring). A second major cluster is efficiency for deployment---roughly \textasciitilde{}15 papers on KV-cache compression/eviction, speculative decoding, quantization (FP4/W4A4), and on-device/streaming inference (LeanStream, GrowPage, Random Attention, FlashAttention-4). Safety/measurement is also unusually prominent (≈10--15): multilingual jailbreak robustness, refusal circuits/representational alignment, deception detection, watermarking/auditing (including RAG watermarking), and multiple critiques of LLM-as-a-judge reliability and rubric artifacts. Finally, there's a noticeable multimodal + speech surge (≈15--20) spanning full-duplex voice agents, ASR/TTS/OCR, audio deepfake detection/traceability, and multimodal benchmarks (DocVQA, medical VQA/MM shortcuts), suggesting an emerging push to make agents ``real-time'' and accountable across modalities rather than text-only.}
+
+
+\end{document}
