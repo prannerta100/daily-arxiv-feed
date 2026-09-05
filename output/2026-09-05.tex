@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-05} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{CulturalMenuBench: Probing the Knowledge-Application Gap in Multimodal Culinary Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2609.03526}{arxiv}]}\\
+{\scriptsize Bo Zeng, Linfeng Gao, Peiqin Lin, Yu Zhao, Mingyan Zeng, Yu Tong, Xintong Wang, Linlong Xu, Longyue Wang, Weihua Luo, Qinggang Zhang, Jinsong Su}\\
+
+{\small\textit{Multimodal models can ace food recognition yet fail at culture: mapping a dish to the correct regional cuisine from visual/procedural evidence.}}\\[1pt]
+{\footnotesize CulturalMenuBench isolates a knowledge-application gap by shifting from label matching to procedure-grounded cultural attribution while keeping evaluation formats simple (often MCQ). 4,870 items, 10 tasks, 10 languages, 18 regions; inputs include dish photos plus ingredients, step images, and procedural text; evaluate 12 models with diagnostics (name vs image, error structure, ablate step images). Models >94\% on standard recognition can drop to near chance on cultural attribution (≤56\% on 4-way Chinese regional cuisine); performance is 7--18 points higher with dish names than images, and removing step images selectively hurts process-dependent tasks---evidence that visual/procedural grounding is the bottleneck.}
+
+\medskip
+
+{\small\textbf{MIRA: A Bilingual Benchmark for Medical Information Response Audit}} {\scriptsize[\href{https://arxiv.org/abs/2605.28025}{arxiv}]}\\
+{\scriptsize Mengyu Xu, Qiaoxin Yang, Qianqian Wang, Xiwei Dai, Weiyi Wu, Chongyang Gao}\\
+
+{\small\textit{LLMs often give less complete medical guidance to lower-health-literacy users or across languages; MIRA measures and reduces this inequity.}}\\[1pt]
+{\footnotesize Introduces MIRA, a bilingual audit benchmark for Differential Information Dilution (DID): same medical intent, different user language/register/literacy cues, revealing systematic omission of key info. 60 medically reviewed low-risk questions expanded into 4,320 controlled prompts varying language, register, and health-literacy signals; score responses for inclusion of key medical content and actionable guidance; validate trends on 300 real queries; test a knowledge-guided mitigation prompt. Across five LLMs, low-literacy cues reliably reduce key details and next steps despite identical intent; MIRA rankings correlate with real-query behavior; a mitigation prompt cuts dilution for most models (largest reported drops: Claude \textasciitilde{}8\%, Qwen \textasciitilde{}6\%).}
+
+\medskip
+
+{\small\textbf{Translation as a Decision Space: A Multi-Agent Perspective on Low-Resource Dialect Generation}} {\scriptsize[\href{https://arxiv.org/abs/2609.04048}{arxiv}]}\\
+{\scriptsize Hasan Alkhder, Mohammad Abboush, Igor Tchappi, Ahmet Zengin, Amro Najjar}\\
+
+{\small\textit{Low-resource dialect translation is best viewed as a ``decision space'' of plausible outputs, exposing controllable trade-offs between authenticity, normalization, and stability.}}\\[1pt]
+{\footnotesize Shows that agent disagreement in dialect settings is informative (not just noise) and proposes dialect-aware metrics to characterize where outputs drift toward standardized language or become unstable. Three Turkish→Syrian Arabic agents on one backbone: zero-shot direct, lightly fine-tuned ``dialect-stabilized,'' and pivot (Turkish→English→Syrian); evaluate via dialect marker frequency, proximity to standardized Arabic, and structural variance. Lightweight stabilization nearly doubles dialect markers (0.2266→0.4988) and reduces instability; pivoting pushes outputs toward standardized forms (``compression''); zero-shot shows highest variance, consistent with unconstrained competing realizations.}
+
+\medskip
+
+{\small\textbf{Toward Collective-Centric Evaluation of Preference Inference for Participatory Democracy}} {\scriptsize[\href{https://arxiv.org/abs/2609.02990}{arxiv}]}\\
+{\scriptsize Pierre-Antoine Lequeu, Salim Hafid, Paul Lerner, Nazanin Shafiabadi, Laur\`ene Cave, David Mas, Jean-Philippe Cointet, Benjamin Piwowarski, Fran\c{c}ois Yvon}\\
+
+{\small\textit{Preference-inference for civic deliberation must be judged by whether it preserves the group's consensus/polarization structure---not just individual vote accuracy.}}\\[1pt]
+{\footnotesize Introduces collective-centric evaluation and releases a large multilingual dataset (22 languages, \textasciitilde{}90k participants, \textasciitilde{}1M votes) from four real consultations to measure distortion of the ``collective map.'' Impute missing votes with existing PI models, then compare both user-centric accuracy and collective-centric properties (cluster geometry, consensus/conflict structure, minority visibility) against what observed data supports. Models tied on standard accuracy can produce sharply different collective narratives (coalitions, agreement strength, minority prominence), showing accuracy-only objectives are unsafe for participatory platforms; the suite makes such distortions measurable.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{X-Translator: A Real-Time Multilingual Speaker-Aware Speech-to-Speech Translation System}} {\scriptsize[\href{https://arxiv.org/abs/2607.17544}{arxiv}]}\\
+{\scriptsize Yuxiang Zhao, Yichi Zhang, Yanjie An, Yanqiao Zhu, Zhanxun Liu, Yushen Chen, Qixi Zheng, Haina Zhu, Yunchong Xiao, Keqi Deng, Shuai Fan, Kai Yu, Xie Chen}\\
+
+{\small\textit{An open, real-time S2ST system that stays low-latency in messy streaming audio while keeping translated voices tied to the right speaker.}}\\[1pt]
+{\footnotesize Releases X-Translator, emphasizing that deployability hinges on session-level control (when to commit/revise text; which speaker voice prompt to use), not just better ASR/MT/TTS models. Cascaded streaming ASR→MT→prompted TTS plus a runtime controller: (1) incremental segment commitment to translate only stabilized ASR spans; (2) online speaker-prompt manager that tracks speaker spans and binds them to consistent TTS prompts across long, fast-turn dialogues. On OpenSTBench, controller-driven commitment improves stability/latency trade-offs, and speaker-prompt tracking improves long-session voice consistency and speaker identity preservation; behavior is competitive with proprietary API baselines in long-form, multi-speaker settings.}
+
+\medskip
+
+{\small\textbf{VoxPrivacy: A Benchmark for Evaluating Interactional Privacy of Speech Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2601.19956}{arxiv}]}\\
+{\scriptsize Yuxiang Wang, Hongyu Liu, Dekun Chen, Xueyao Zhang, Zhizheng Wu}\\
+
+{\small\textit{Speech assistants often can't enforce ``who is allowed to know what'' in shared conversations; VoxPrivacy benchmarks and trains this interactional privacy skill.}}\\[1pt]
+{\footnotesize Formalizes interactional privacy for Speech Language Models and releases VoxPrivacy (bilingual, multi-speaker) plus a large training set, showing current systems are near chance on speaker-conditioned privacy decisions. Multi-user spoken interactions requiring answer/refuse/redact based on speaker identity and private context; three difficulty tiers (explicit→implicit inference); evaluate nine SLMs on 32 hours plus Real-VoxPrivacy human recordings; fine-tune on a new 4,000-hour privacy-focused dataset. Most open models are \textasciitilde{}50\% (chance) on speaker-dependent privacy decisions; closed systems still fail when privacy must be inferred; failures persist on real recordings; targeted large-scale fine-tuning substantially improves privacy-preserving behavior without breaking usability.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{The Geometry of Ignorance: LLMs Know When to Temper Bayesian Priors}} {\scriptsize[\href{https://arxiv.org/abs/2609.02959}{arxiv}]}\\
+{\scriptsize Toni J. B. Liu, Jiajun Bao, Yizhou Liu, Gurbir Arora, Nicolas Boull\'e, Rapha\"el Sarfati, Christopher J. Earls}\\
+
+{\small\textit{LLMs share a single ``ignorance'' direction that acts like a tunable Bayesian prior toward the unigram distribution---and it can be causally steered.}}\\[1pt]
+{\footnotesize Finds a robust unembedding-space direction aligned with log unigram frequencies (what the model predicts when uncertain) and interprets the hidden-state projection onto it as a prior-strength/tempering parameter comparable across models. Identify the unigram-aligned unembedding direction; decompose the final hidden state into ignorance vs orthogonal context components; show the resulting next-token distribution matches a tempered Bayes form with scalar loading λ controlling reliance on the unigram prior. The direction appears across Llama/Qwen/Gemma/Pythia (≈0.4B--405B); λ decreases with more informative context; directly adding/removing the ignorance component predictably moves outputs toward/away from unigram in KL, demonstrating causal control.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Caught in the Story: Narrative Captivity in Multi-turn LLMs Conversation}} {\scriptsize[\href{https://arxiv.org/abs/2609.03407}{arxiv}]}\\
+{\scriptsize Yuhe Wu, Guangyu Wang, Yujie Chen, Jiatong Zhang, Yuran Chen, Yutong Zhang, Xiyin Cheng, Wenpeng Cao, Zhuang Liu, Guang Zhang}\\
+
+{\small\textit{In multi-turn advice, LLMs get ``captured'' by a one-sided narrator and shift moral judgments substantially even when underlying facts are matched.}}\\[1pt]
+{\footnotesize Defines narrative captivity and provides a benchmark (5,078 conflict scenarios; six moral dimensions) comparing single-turn balanced prompts vs multi-turn self-exculpatory story unfolding. Hold scenario constant; vary interaction structure (compact balanced vs staged narration); measure judgment drift over turns; analyze when drift accumulates; test inference-time mitigations (clarifying questions, alternative viewpoints). Across 17 LLMs, multi-turn narration shifts final moral judgments by \textasciitilde{}25 percentage points vs matched single-turn; drift accumulates over stages and is linked to preference-optimization/agreeableness; mitigations help only partially.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM systems and their evaluation/infra: at least \textasciitilde{}25--35 titles focus on tool-using agents, multi-agent coordination, memory/retrieval, and agent benchmarks/protocols (e.g., KV/memory validation, terminal environments, GUI/meeting agents, MCP/agent harness security, Natural Language Interaction Protocol). A second major cluster is post-training and inference-time control for reasoning models---roughly \textasciitilde{}12--18 papers on RLVR/GRPO/OPD/distillation, verifier-grounded self-improvement, prompt optimization, and decoding/control primitives (plus several critiques of spurious CoT/trajectory confounds and judge reliability). Safety, governance, and measurement is unusually prominent (≈10--15): deception/rogue progression monitoring, refusal signals/geometry, multilingual jailbreak robustness, provenance/traceability, and multiple ``LLM-as-a-judge''/peer-review hallucination audits. Smaller but noticeable clusters include multimodal/embodied/world-model directions (≈8--12 across VLM agents, spatial reasoning/3D scene graphs, robotics/grasping/navigation, audio-video diffusion attention) and efficiency/serving/compression (≈6--10 on KV cache budgeting/eviction, quantization, video compression), with a sprinkling of domain deployments in medicine/education/finance and privacy/federated learning.}
+
+
+\end{document}
