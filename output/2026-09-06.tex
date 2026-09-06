@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-06} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Last Translation Benchmark}} {\scriptsize[\href{https://arxiv.org/abs/2609.04173}{arxiv}]}\\
+{\scriptsize Vilém Zouhar, Niyati Bafna, Mukund Choudhary, Maike Züfle, Sara Rajaee, Pinzhen Chen, Jannis Vamvas, Sara Papi, Ona de Gibert, Bhavitvya Malik, Eliya Habba, Orfeas Menis Mastromichalakis, Patrícia Schmidtová, Michelle Wastl, Sheriff Issaka, Leshem Choshen, Stella Biderman, Antonis Anastasopoulos, Jan Niehues, Rico Sennrich, Mrinmaya Sachan, Ondřej Bojar, Kenton Murray, Jörg Tiedemann, Alham Fikri Aji, Philipp Koehn, Christof Monz, Alexandra Birch, Sowmya Vajjala, Chalamalasetti Kranti, Cristina España-Bonet, Nobin Sarwar, David Kaczér, Shunta Asano, Malik Marmonier, Daban Q. Jaff, Vaisakhi Mishra, Hend Al- Khalifa, Gabriele Sarti, Sourajit Saha, Nils Rehlinger, Juan Daniel Cuervo Villa, Jonathan Tonglet, Saugata Purkayastha, Dominik Macháček, Jagannathan Ramanujam, Heejin Do, Zuzana Nadova, Fred Philippy, Fabian Retkowski, Maria Lymperaiou, Silvia Casola, Hanna Yukhymenko, Shubhashis Roy Dipta, Sangwon Ryu, Andrés Jerez, Ron Keinan, Shuaib Shuaib Yusuf, Avantica Vempati, Maria Carmen Staiano, Sukannya Purkayastha, Adrian Cosma, Vitalii Babenko, Erivan Inan, Aviral Nigam, Wafa Aissa, Fatima Haouari, Venkata Prasanth Kumar Gummadi, Mehdi Jafarzadeh, Valentin Scourneau, Lukas Edman, Kaiser Sun, Shaomu Tan, Mohammad Sadegh Gholizadeh, Johannes-Rudolf David, Dipankar Srirag, Javier García Gilabert, Ruta Binkyte, Manar Ali, Ana-Maria Bucur, Sabry E. Farrag, Youssef Saber, Yihong Liu, Jean Maillard, Cojocaru Nicoleta, Xiaochuang Yuan, Sina Ahmadi, Philipp Mondorf, Kaustubh Dhole, Roman Wixinger, Shenbin Qian, Manuel Tuor, Sergey Troshin, Jonathan Yahav, Fida Mohammad Thoker, Amir Arsalan Rezapour, Lance Calvin Lim Gamboa, Manon Reusens, Kätriin Kukk, Koel Dutta Chowdhury, Giuseppe Gallipoli, Christian Hoang, Shaswati Saha, Seth Aycock, Jan Kocoń, Bo Chen, Linh Vu, Vatsal Venkatkrishna, Arafat Ahsan, Luan Thanh Nguyen, Hassan Soliman, Daryna Dementieva, Theresia Veronika Rampisela, Ngoc Quynh Tram Do, Marius Huber, Kazuki Egashira, Azmine Toushik Wasi, Vladislav Poritski, Mike Zhang, Deep Shah, Paul Gavrikov, Luis Frentzen Salim, David Africa, R. Damanhuri, Bello Umar Bello, Anumit Garg, Gengyu Rao, Pawan Sasanka Ammanamanchi, Kamile Dementaviciute, Andrianos Michail, L D M S Sai Teja, Dawei Zhu, Yi Fan, Wei Liu, Farhan Farsi, Elias Herranen, Sankalan Pal Chowdhury, Karen Sanchez, Farzad Shami, Ashok Urlana, Zimu Wang, Tomasz Limisiewicz, Priyaranjan Pattnayak, Marii Ojastu, Hongbin Na, Emilian Radoi, Chenyi Zhao, Carlos Hinojosa, Andrea Gregor de Varda, Zaid Alyafeai, Reem Alzahrani, Nehal Kathrotia, Alex Flückiger, Ulysses Sekai Tully Carr, Jimson Paulo Layacan, Guy Kaplan, Ritwik Tiwari, Rishit Dagli, Oksana Volchek, Isaac R Caswell, Bowen Yi, Blanka Kövér, Amir Hossein Yari, Aicha Chorana, Zhengxiang Wang, Selja Keränen, Samuel Simko, Joy Olusanya, Jenny Chim, Enzo Doyen, Vivek Harsha Lakkamaneni, Sophia Conrad, Pouya Sadeghi, Panayiotis Panayiotou, Luis Lara, Jannatul Nayem, Eran Yahav, Debanshu Das, Antonia Karamolegkou, Anmol Goel, Aishik Mandal, Tommaso Cerruti, Raoyuan Zhao, Mykola Haltiuk, Thura Aung, Naser Almousa, Amir Hossein Kargaran, Rachel Bawden, Qiaoyuan Zheng, Mateusz Lango, Beni Egressy, Fidel Rodríguez Velásquez, Natchapon Jongwiriyanurak, Minh Ngoc Do, Marco Gaido, Lena Libon, Dzmitry Kuzmin, Badal Nyalang, Antoine Taroni, Andrei Niculae, Abdulaziz Nura Kani, Rushikesh Zawar, Marek Šuppa, Beatrice Savoldi, Andreas Simons, Rayyan Merchant, Ilai Yaron Levy, Francesco Pinto, Ziyi Yang, Yolanda Xavier, Samuel Frontull, Muhammad Ravi Shulthan Habibi, Kenneth Enevoldsen, Harris Abdul Majid, Francesca Padovani, Tim Graf, Tatiana Bielakova, Sharifa Djurabaeva, Shaoxiong Ji, Raia Abu Ahmad, Pavel Stepachev, Jirui Qi, Ayush Sunil Munot, Alireza Pakniat, Ayla Rigouts Terryn, Yuxing Lu, Yurii Paniv, Xiyan Fu, Tosin Adewumi, Sunisth Kumar, Stéphane J. P. S. Thunus, Shree Harsha Bokkahalli Satish, Shayan Bali, Prakhar Gupta, Papa Abdou Karim Karou Diallo, Matija Akrap, Marko Culjak, Kristýna Onderková, Joseph Attieh, Esrael Teferi Tensay, Elisabeth Fittschen, Benoît Sagot, Jingwei Ni, Yu Fan}\\
+
+{\small\textit{MT eval is saturating; LTB is a living adversarial benchmark with item-level checklists so failures stay hard, reproducible, and actionable.}}\\[1pt]
+{\footnotesize Proposes Last Translation Benchmark: community-submitted, human-reviewed ``model-breaking'' translation items across text/image/audio/video, each with explicit pass/fail verification rules instead of a single static score. Continuous submit--review pipeline; every accepted item includes handcrafted correctness criteria (entity/negation/tense, culturally loaded terms, multimodal grounding) to evaluate outputs without single-reference BLEU-style metrics. LTBv1 (cutoff Sept 1, 2026) already contains cases that reliably break top MT systems; the main result is the evaluation regime---a growing hard-case set with stable per-item checks that resists saturation and makes errors diagnosable.}
+
+\medskip
+
+{\small\textbf{Typological Feature Prediction with Large Language Models: An In-Context Learning Approach}} {\scriptsize[\href{https://arxiv.org/abs/2609.03775}{arxiv}]}\\
+{\scriptsize Qianwen Wang, York Hay Ng, Aditya Khan, En-Shiun Annie Lee}\\
+
+{\small\textit{LLMs predict missing typological features well only when given explicit evidence from related/nearby languages, and their rationales usually follow that evidence.}}\\[1pt]
+{\footnotesize Casts typology completion as evidence-conditioned in-context reasoning: language-name-only prompts are weak, but adding phylogenetic (family/genus) and areal (neighbor) cues makes LLMs strong; also evaluates rationale faithfulness. Use URIEL+/Glottolog to build prompts listing neighbor feature values for a target language; ask the LLM to infer a missing feature and justify it; compare zero-shot vs evidence-augmented ICL and check rationale--evidence consistency. Zero-shot underperforms; adding phylogenetic+geographic evidence yields large gains, beating non-LLM baselines without penalizing low-resource languages, and explanations are typically consistent with the provided neighbor evidence.}
+
+\medskip
+
+{\small\textbf{Lost in Reordering: Structural Sensitivity of Multilingual LLMs under Semantics-Preserving Perturbations}} {\scriptsize[\href{https://arxiv.org/abs/2609.03511}{arxiv}]}\\
+{\scriptsize Karthika Nhayakkat, Rajat Verma, Maharaj Brahma, Vetcha Gnana Mahesh, Maunendra Sankar Desarkar, Ganesh Ramakrishnan, Rohit Saluja}\\
+
+{\small\textit{Multilingual LLMs are brittle to meaning-preserving reordering/voice changes in free word-order languages, causing sharp reasoning drops.}}\\[1pt]
+{\footnotesize Introduces IndicReStruct: Hindi/Malayalam GSM8K-style problems rewritten with linguistically grounded, semantics-preserving structural transformations, exposing sensitivity to surface syntax over invariant meaning. Apply constituent reordering and active↔passive voice; evaluate six LLMs across prompting on original vs perturbed inputs; use residual-stream activation patching to localize where representations fail and where patching restores accuracy. Accuracy drops are large and consistent across models/prompts; errors often misbind numbers to entities. Mid-layer activation patching recovers more than early/late patching, implying entity--quantity alignment is formed (and disrupted) in intermediate layers.}
+
+\medskip
+
+{\small\textbf{How Far Can Synthetic Data Take Thai OCR?}} {\scriptsize[\href{https://arxiv.org/abs/2609.03595}{arxiv}]}\\
+{\scriptsize Kunat Pipatanakul}\\
+
+{\small\textit{Synthetic-only Thai OCR can nearly match real-label training if you model the right realism factors (fonts, layout, handwriting glyphs).}}\\[1pt]
+{\footnotesize Breaks synthetic ``realism'' into controllable ingredients, identifies which drive transfer, and uses the best recipe to adapt a 0.9B VLM OCR model to Thai with zero real Thai OCR labels (Wayu-Paxa-OCR-Zero). Document reconstruction pipeline toggling font diversity, 2D layout, non-text context, source-domain matching, and handwriting glyph variation; compare page-level vs crop-level supervision; adapt PaddleOCR-VL-1.6 using 45,723 synthetic pages. Non-text context helps little; font diversity, explicit layout, and real handwriting glyphs are key. Source-domain matching helps for page-level but can hurt for crop-level. Final model reduces median CER 6.64\%→1.24\% (printed) and 74.87\%→20.55\% (handwriting) and beats Typhoon OCR v1 7B on all five eval sets.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Alignment-Free Text-Audiobox for Voice Dubbing and Full-Duplex Dialogue Synthesis}} {\scriptsize[\href{https://arxiv.org/abs/2609.03992}{arxiv}]}\\
+{\scriptsize Sanyuan Chen, Min-Jae Hwang, Sho Inoue, Anna Sun, Bokai Yu, David Kant, Dongmin Hyun, Dorian Desblancs, Gregory Antonovsky, Oleg Repin, Peng-Jen Chen, Xutai Ma, Zehai Tu, Juan Pino, Wei-Ning Hsu}\\
+
+{\small\textit{A diffusion TTS model can learn text--audio timing without forced alignment, enabling better cross-lingual dubbing and natural full-duplex (overlapping) dialogue.}}\\[1pt]
+{\footnotesize Eliminates explicit alignment/duration modeling in Audiobox-style generation by learning alignment via large-scale cross-attention, yielding one system for dubbing (incl. cross-lingual) and interactive dialogue with interruptions/backchannels. Latent diffusion (DiT + flow-matching) over DAC-VAE audio latents (\textasciitilde{}25Hz from 48kHz), text-conditioned via cross-attention; multi-diffusion for >1-minute audio plus multi-stage candidate reranking for perceptual quality. Alignment-free conditioning improves dubbing (prosody match, voice similarity, naturalness) over strong internal baselines and generates human-like overlap/turn-taking in short and long dialogues; emotion conditioning improves emotion match without harming realism.}
+
+\medskip
+
+{\small\textbf{Confucius4-TTS: Transcript-Free Cross-Lingual Zero-Shot TTS with a Learnable Speaker Encoder}} {\scriptsize[\href{https://arxiv.org/abs/2608.11650}{arxiv}]}\\
+{\scriptsize Huaxuan Wang, Huimin Wang, Ruiyu Zhang, Yingjie Li, Yitao Duan}\\
+
+{\small\textit{Cross-lingual zero-shot voice cloning can be transcript-free by learning a speaker encoder from reference audio.}}\\[1pt]
+{\footnotesize Confucius4-TTS enables transcript-free speaker prompting for cross-lingual TTS by extracting timbre from self-supervised speech features, making in-the-wild cloning practical while staying competitive with transcript-based systems. Two-stage TTS: text→semantic token predictor, then semantic→acoustic generator via conditional flow matching to mel + vocoder; a learnable speaker encoder maps SSL features from reference audio to a timbre embedding, trained end-to-end. Transcript-free prompting preserves intelligibility/quality: 3.73\% average WER on CV3-Eval (six directions) and best average overall rank in internal cross-lingual human eval versus open-source/commercial baselines (naturalness + speaker similarity).}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{The Head Complexity of Boolean Functions in Single-Layer Attention}} {\scriptsize[\href{https://arxiv.org/abs/2609.04046}{arxiv}]}\\
+{\scriptsize Rajmohan Rajaraman, Ravi Sundaram, Amanuel Tesfaye}\\
+
+{\small\textit{In single-layer self-attention, head count is a true compute bottleneck---extra width/precision can't replace missing heads.}}\\[1pt]
+{\footnotesize Defines head complexity and proves a strict parity hierarchy: k heads compute k-bit parity but cannot compute (k+1)-bit parity even with unbounded dimension/precision; adds lower-bound tools and a compactness theorem (bounded dim/precision suffice when computable). Algebraic analysis of one-layer multi-head attention: clear softmax denominators to get rational/polynomial forms; an alternating-sum cancellation shows k heads force monomials omitting some variable, giving zero correlation with (k+1)-bit parity; discretization yields compactness. Unconditional separation: k heads suffice for k-bit parity and are insufficient for (k+1)-bit parity regardless of embedding dimension/precision. Also: any n-bit Boolean function is computable with 2\textasciicircum{}n heads, while almost all need \textasciitilde{}2\textasciicircum{}n/n\textasciicircum{}2 heads (near-tight worst-case).}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Clean Engineering, Unstable Measurement: A Preregistered Reliability Failure of Black-Box LLM Observers on Shared Endpoints}} {\scriptsize[\href{https://arxiv.org/abs/2609.04198}{arxiv}]}\\
+{\scriptsize Haoyaun Zhu, Jie Zhang}\\
+
+{\small\textit{Black-box LLM judges on shared APIs drift over time---even with identical prompts---making automated eval/leaderboards unreliable unless measured in situ.}}\\[1pt]
+{\footnotesize Preregistered validation showing the core assumption behind LLM-as-judge on shared endpoints (repeatable scores/rankings for the same model name) fails; proposes identity levels plus design/reporting practices to detect and mitigate drift. Two preregistered campaigns: same-window repeats and next-day byte-identical replays; measure rank agreement (Spearman) and exact-match vs fixed thresholds (0.90/0.99). Follow-ups vary label wording, gap size, providers, and self-hosting to isolate causes. Across \textasciitilde{}53k requests, same-window rank agreement is \textasciitilde{}0.40 (vs 0.90 target) and next-day replay \textasciitilde{}0.78 (vs 0.99), despite correct logging/replay. Label wording can shift outputs as much as the signal; many comparisons fall below the judge's noise floor; common fixes don't restore reliability; self-hosting helps only with tightly controlled serving---so reliability must be measured in the exact deployment setting.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by foundation-model engineering for long-horizon/agentic use: at least \textasciitilde{}25--35 papers on post-training and agent scaffolding (RLVR/GRPO/OPD variants, process rewards, trajectory evaluation, tool-use harnesses, terminal/GUI agents, proactive agents, and long-memory systems like RuleMem/MemoryLACE/VoiceMem). A second major cluster is efficiency/serving and compression---roughly \textasciitilde{}20--30 papers on KV-cache eviction/compression, speculative decoding, quantization (FP4/2-bit), pruning/LoRA/merging, and long-context attention optimizations (e.g., VestigeKV, Random Attention, SGD-KV, GrowPage, FlashAttention FP4). The most striking ``surprising'' concentration is audio: well over 100 papers spanning large audio-language models, TTS/voice agents, speech enhancement, codecs/tokenizers, and deepfake detection/watermarking/forensics (multiple new benchmarks like AT-ADD, TAG-Bench, AudioSpan, VocalAffectBench, StreamAV-Bench), suggesting audio is having a benchmark-and-systems moment similar to last year's VLM surge. Safety/trustworthiness is also heavily represented (\textasciitilde{}20+), with multilingual jailbreak robustness, watermarking, privacy/PII leakage, unlearning, evaluation realism/LLM-judge reliability, and auditing (e.g., IndicSafeEval, Counter-GEO-Bench, Rent-a-RAG, LeakageBench, Clean Engineering/Unstable Measurement).}
+
+
+\end{document}
