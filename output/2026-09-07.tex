@@ -1,0 +1,88 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-07} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{EuroAlpaca: Task-Preserving Localisation of Instruction Data for European Languages}} {\scriptsize[\href{https://arxiv.org/abs/2609.05043}{arxiv}]}\\
+{\scriptsize Aleix Sant, Jordi Luque, Carlos Escolano}\\
+
+{\small\textit{Naively MT-translating English instruction data can break task constraints and hurt verifiable instruction following; task-preserving localization fixes it and boosts performance across 50 European languages.}}\\[1pt]
+{\footnotesize EuroAlpaca: a localization pipeline that preserves instruction semantics/constraints when porting instruction-tuning data to 50 European languages, plus European-IFEval to measure verifiable constraint satisfaction (not just fluency). Treat each example as structured fields (instruction/input/output constraints); translate field-wise while freezing task-critical spans/structures, reconstruct task-equivalent instances when literal translation changes the task, then run consistency/validation checks to filter corrupted examples before tuning. LoRA-tuning on direct MT data improves soft metrics (ROUGE-L, F-BERT on Aya) yet drops European-IFEval accuracy by 29.8\% vs baseline; tuning on EuroAlpaca instead raises European-IFEval by 12.9\% over baseline while also achieving best ROUGE-L/F-BERT---showing constraint-preserving localization is decisive.}
+
+\medskip
+
+{\small\textbf{Recurrence Is Not Enough: Causally Validating Multilingual SAE Translation Features in Gemma 2 and 3}} {\scriptsize[\href{https://arxiv.org/abs/2609.04808}{arxiv}]}\\
+{\scriptsize Giang Son Nguyen, Nhi Ngoc-Yen Nguyen, Wray Buntine, Dung D. Le}\\
+
+{\small\textit{SAE features that recur across multilingual settings often aren't causal for translation; one language-agnostic translation-initiation feature per model actually is.}}\\[1pt]
+{\footnotesize Causal validation of multilingual SAE ``translation'' features in Gemma 2/3: recurrence across prompt/source/target languages can be misleading, so interventions are required to identify truly transferable translation-control directions. Replicate Wu et al. (2026) SAE feature discovery across many multilingual discovery settings; select recurring features; then amplify/ablate each feature at inference and measure translation quality changes with COMET; repeat in Gemma 2 and Gemma 3. Although >20 features recur across settings, most have small or inconsistent causal effects; one feature per model---Gemma 2 (L10, 5717) and Gemma 3 (L20, 2456)---consistently improves COMET when amplified and degrades it when ablated across 23 language settings.}
+
+\medskip
+
+{\small\textbf{Choosing the Right Language Mode at Inference Time for Multilingual Reliability}} {\scriptsize[\href{https://arxiv.org/abs/2609.04653}{arxiv}]}\\
+{\scriptsize Ekata Mitra, Ameeta Agrawal}\\
+
+{\small\textit{``Translate everything'' isn't reliably better: English can help accuracy, but bilingual redundancy can inflate overconfidence; a test-time router picks the best language mode to improve both accuracy and calibration.}}\\[1pt]
+{\footnotesize Reliability-Aware Adaptive Inference (RAAI): a training-free inference framework that routes between target-language, English, and bilingual modes (and gates extra reasoning) using reliability/calibration signals to reduce interference-driven overconfidence. Systematically vary language mode and translation scope on LLaMA/Qwen models; evaluate accuracy plus calibration (ECE). RAAI selects/fuses modes using ECE-aware signals, uses a mid-layer Risk Index to decide on sequential reasoning, and avoids bilingual redundancy when it tends to harm reliability. English context often boosts correctness, while bilingual prompts can worsen reliability by raising confidence without improving accuracy; RAAI recovers English benefits while suppressing redundancy, yielding 25--37.7\% accuracy gains in low-resource languages and \textasciitilde{}3--6\% lower ECE, strongest in the lowest-resource tier.}
+
+\medskip
+
+{\small\textbf{A Systematic Comparison of Multilingual Interpretability Methods Reveals Anisotropy-Driven Failures}} {\scriptsize[\href{https://arxiv.org/abs/2609.04819}{arxiv}]}\\
+{\scriptsize Oskar Holmstr\"om, Marcel Bollmann, Marco Kuhlmann}\\
+
+{\small\textit{Several cross-lingual ``representation sharing'' metrics are systematically fooled by embedding anisotropy; ILO remains predictive of real transfer once confounds are controlled.}}\\[1pt]
+{\footnotesize A unified comparison of multilingual interpretability metrics (CKA, ANC, GMM dominance, ILO) showing metric disagreement is often an anisotropy artifact, and recommending anisotropy diagnostics plus ILO when the goal is to explain/predict cross-lingual transfer. Compute four metric families across 21 multilingual models (5 families, \textasciitilde{}125M--14B) and correlate metric scores with downstream cross-lingual transfer on five tasks; test whether correlations survive controls for model size, family, and task effects; analyze anisotropy as the failure driver. Metrics frequently disagree, with inflated ``sharing'' tracking anisotropy rather than transfer; ILO is the only metric whose link to transfer stays strong after controls, with Spearman ≈0.90---implying many prior sharing claims may be measurement artifacts.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Training-Free Speech-Centric Omni Understanding with Frozen VLMs}} {\scriptsize[\href{https://arxiv.org/abs/2609.04242}{arxiv}]}\\
+{\scriptsize Ankan Deria, Hanoona Rasheed, Xilin He, Fahad Shahbaz Khan, Salman Khan}\\
+
+{\small\textit{Strong multilingual speech-centric AV understanding can come from feeding Whisper transcripts into a frozen VLM---often avoiding costly end-to-end ``omni'' training.}}\\[1pt]
+{\footnotesize Training-Free Omni (TFO): a plug-in front-end that adds speech-centric omni capability to an unchanged, frozen VLM by converting audio to text and reusing the VLM's language+vision reasoning, clarifying when richer acoustic modeling is actually needed. Run Whisper to get timestamped transcripts, filter low-confidence segments, then pass text through the VLM's existing language interface while keeping the visual pathway untouched; answer questions requiring spoken content, visual events, and temporal relations without multimodal re-alignment or new AVT training. On 56 benchmarks across 21 languages, TFO is competitive with native omni models on AV understanding and improves average audio-only performance across five model settings; it also better preserves the frozen backbone's prior strengths (e.g., image/video understanding, grounding, coding, math, medical QA) than native omni checkpoints.}
+
+\medskip
+
+{\small\textbf{TRILOGUE: A Trilingual Spoken Dialogue Fact-Checking Benchmark with Evidence and Paired Audio}} {\scriptsize[\href{https://arxiv.org/abs/2609.04452}{arxiv}]}\\
+{\scriptsize Chaewan Chun, Meruyert Aristombayeva, Jiyoung Choi, Mahjabin Nahar, Delvin Ce Zhang, Dongwon Lee}\\
+
+{\small\textit{TRILOGUE enables end-to-end evaluation of spoken, multi-speaker dialogue fact-checking in three languages, exposing how ASR noise and cross-lingual gaps break real misinformation detection pipelines.}}\\[1pt]
+{\footnotesize TRILOGUE: the first large benchmark for trilingual spoken dialogue fact-checking with paired audio, ASR transcripts, timestamps, evidence, and turn-level labels (English/Russian/Kazakh), supporting realistic pipeline evaluation under speech/ASR noise. Build \textasciitilde{}12K source-grounded dialogues (\textasciitilde{}187K turns, \textasciitilde{}390 hours audio) with word-level timestamps; annotate turn-level check-worthiness, evidence retrieval from source articles, and verification under claim-only/gold-evidence/retrieved-evidence settings; include substantial human-recorded Russian/Kazakh audio to ensure real acoustic variability. Baselines drop notably when using ASR transcripts vs clean text, showing ASR noise is a core bottleneck; cross-lingual transfer is difficult (Kazakh hardest). Retrieved evidence substantially improves verification and narrows the gap to gold evidence, making retrieval under ASR noise a key leverage point.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agent infrastructure, evaluation, and post-training: at least \textasciitilde{}30--40 papers/benchmarks on agentic workflows (tool-calling, harnesses, memory portability/compression, enterprise/GUI agents, and agent RL/distillation), including multiple ``Bench'' releases (e.g., τ\textasciicircum{}τ-Bench, ERPBench, FinalityBench, ElderBench, Harbor/EVOHARNESSBENCH). A second major cluster is reliability/safety/grounding for LLMs and multimodal models---roughly \textasciitilde{}25--35 papers on hallucination detection/mitigation, evidence-grounded RAG (GraphRAG, context compression, confidence-triggered retrieval), abstention/uncertainty/calibration, and jailbreak/prompt-injection defenses (including multilingual safety robustness). There's also a noticeable audio/voice surge (≈15--20 papers) spanning streaming TTS/ASR, ASR hallucinations, audio-LLMs diagnostics, and audio-video generation/editing benchmarks, alongside a steady interpretability/mechanistic thread (≈10--15) using SAEs, causal tracing, attention-head influence, and ``where refusal lives'' analyses. Emerging/surprising directions include industrial CAD intelligence and parametric design benchmarks, and multiple papers explicitly tying ``better models'' to system-level risk (finance, hiring, evaluation gaming), suggesting a shift from model capability to deployment ecology as a first-class research target.}
+
+
+\end{document}
