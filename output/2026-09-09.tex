@@ -1,0 +1,109 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-09} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Beyond Cross-Lingual Transfer: Benchmarking Propagation Boundaries in Multilingual LLM Unlearning}} {\scriptsize[\href{https://arxiv.org/abs/2609.05976}{arxiv}]}\\
+{\scriptsize Pengyang Shao, Chuanpeng Lu, Wei Qin, Yanzheng Jin, Xiaohao Liu, Xi Ai, Kenji Kawaguchi, Richang Hong}\\
+
+{\small\textit{Multilingual unlearning isn't just ``does it transfer,'' but ``does it stop at the right boundary''---current methods often under- or over-propagate forgetting across languages.}}\\[1pt]
+{\footnotesize CLLPU benchmark reframes evaluation around propagation boundaries: (i) common-goal forgetting should generalize to all languages; (ii) language-conditioned forgetting should stay confined to a target language, exposing both under- and over-forgetting plus neighbor-fact collateral damage. Build aligned multilingual QA for the same ``knowledge unit'' across 10 languages, plus matched neighboring units; use topic pairing, relation matching, and dual-anchor translation. Evaluate unlearning under common-goal vs language-conditioned protocols and measure target vs neighbor degradation. Across six methods on Llama-3.1-8B-Instruct, common-goal unlearning often fails to propagate (leaks in other languages), while language-conditioned unlearning often over-propagates (damages non-target languages). Utility can look fine even as neighbor knowledge is quietly harmed.}
+
+\medskip
+
+{\small\textbf{TurEngMix: A Text Corpus and Benchmark for Turkish-English Code-Mixed Language Identification and Named Entity Recognition}} {\scriptsize[\href{https://arxiv.org/abs/2609.06963}{arxiv}]}\\
+{\scriptsize Ilayda Dogan, Phuong-Anh Nguyen-Le, Julia Mendelsohn}\\
+
+{\small\textit{TurEngMix shows today's models break on Turkish--English code-mixing, especially single tokens that fuse an English stem with Turkish suffixes.}}\\[1pt]
+{\footnotesize Releases a realistic Turkish--English code-mixed corpus and an expert-annotated benchmark for language ID and NER, centered on morphologically integrated mixed tokens common in this pair. Collect 5.5K social posts (486,974 tokens); annotate 15K tokens for LID+NER. Evaluate decoder LLMs and fine-tuned encoders; compare monolingual vs mixed tokens, including intra-word mixing. Models handle monolingual tokens well but degrade sharply on mixed tokens; morphologically integrated tokens are worst, with NER error rates up to 5.2× higher for GPT-4o and 6.3× higher for Qwen (vs their reported baselines).}
+
+\medskip
+
+{\small\textbf{CantoneseLLM v2: Reasoning in a Low-Resource Language}} {\scriptsize[\href{https://arxiv.org/abs/2609.06970}{arxiv}]}\\
+{\scriptsize Tsz Chung Cheng, Chung Shing Cheng, Chaak Ming Lau, Cheuk Hei Chong}\\
+
+{\small\textit{CantoneseLLM v2 shows low-resource ``reasoning in Cantonese'' is mainly an objective/training-order problem: naive SFT can erase reasoning, while constrained RL restores it.}}\\[1pt]
+{\footnotesize Releases CantoneseLLM v2 and diagnoses why standard Cantonese SFT can reduce reasoning (shorter/missing traces, lower scores). Proposes a staged recipe---merge + preference training + RL with explicit Cantonese/Traditional constraints---to keep capability while forcing the right language/script. Start from Qwen3 (8B, 30B-A3B). Continued pretrain on 784M Cantonese/HK tokens; chat-vector merge for assistant behavior; then SFT, DPO, and RLVR with multiplicative rewards enforcing Cantonese + Traditional Chinese output. Merging imports instruction-following but preserves donor reasoning language. Small Cantonese SFT often collapses reasoning blocks and drops benchmarks; DPO partially recovers. RLVR both enforces Cantonese/Traditional and restores performance: 30B-A3B reaches 73.16 on HKCanto-Eval, within 1.20 points of the merged checkpoint while now reasoning in Cantonese.}
+
+\medskip
+
+{\small\textbf{Cross-Lingual Representation Alignment by Token-Level Optimal Transport in a Language-Agnostic Space}} {\scriptsize[\href{https://arxiv.org/abs/2609.06381}{arxiv}]}\\
+{\scriptsize Taisei Yamamoto, Ryoma Kumon, Danushka Bollegala, Hitomi Yanaka}\\
+
+{\small\textit{CAROT boosts cross-lingual transfer by aligning only language-agnostic token content (via optimal transport) while preserving language-identity signals to prevent output-language drift.}}\\[1pt]
+{\footnotesize Shows why ``make representations invariant'' can hurt: hidden states mix content and language ID. CAROT separates these components and aligns only the content subspace at token level, improving transfer without breaking language consistency. Identify a language-specific subspace in token representations; treat the remainder as language-agnostic. Use token-level optimal transport to align language-agnostic representations across languages; apply as inference-time steering and as training targets. Steering with CAROT yields up to +11.2 accuracy points while maintaining input--output language consistency. As a training target, it outperforms prior alignment baselines in 11/18 settings across models/tasks and in-/out-of-distribution languages.}
+
+\medskip
+
+{\small\textbf{Dynamic Lagging for Simultaneous Translation}} {\scriptsize[\href{https://arxiv.org/abs/2609.05799}{arxiv}]}\\
+{\scriptsize Hieu Hoang, Amittai Axelrod}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary says the stable prefix is computed as the longest target prefix shared by the model's full-source translation and *every model translation produced from all partial sources up to the current prefix* (i.e., across the history of prefixes). The abstract defines it differently: the longest prefix that *any translation up to the current partial source* has shared with the model's own full-source output (i.e., existence over translations, not necessarily all partial-source translations).}}\\[1pt]
+
+{\small\textit{Dynamic Lagging makes decoder-only LLMs usable for simultaneous MT by training them to emit only the translation prefix that won't change, then controlling latency with a simple confidence threshold.}}\\[1pt]
+{\footnotesize Introduces stable-prefix fine-tuning for flicker-free commitments: output the longest target prefix guaranteed stable across all earlier source prefixes (relative to the model's full-source translation), plus prompting that carries committed text forward. Fine-tune Qwen3-8B on mixed full-sentence MT and simulated streaming targets where each prefix's label is the stable prefix shared across the entire prefix history. At inference, include committed target in the prompt to prevent revisions; use token-level commit confidence and compare latency controls (threshold vs wait-k, etc.). Across En→De/Ja/Zh on FLEURS, WMT24++, CoVoST2, stable-prefix training preserves full-sentence quality while improving worst-prefix quality and calibrating commit confidence (lower ECE vs a stable-prefix oracle). A single training-free confidence threshold gives the best, smooth quality--latency frontier, outperforming wait-k and target-suffix deletion under COMET and MetricX.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{TamilEOT: A Dataset and Model for Semantic End-of-Turn Detection in Tamil Telephone Speech}} {\scriptsize[\href{https://arxiv.org/abs/2609.05631}{arxiv}]}\\
+{\scriptsize Santhoshkumar V}\\
+
+{\small\textit{TamilEOT makes semantic end-of-turn detection feasible for Tamil phone agents: small audio-only models beat silence heuristics, even under streaming/VAD constraints.}}\\[1pt]
+{\footnotesize First open Tamil telephone-speech dataset and deployable baselines for semantic EOT; emphasizes production-realistic evaluation (VAD, streaming adapters, latency) and reports labeling pitfalls and variance. From 116 real calls, cut 18,485 boundary clips and label true EOT vs mid-turn pause. Fine-tune compact Smart Turn v3-based detectors; test offline vs replay through real VAD/streaming pipeline; track CPU/size. Fine-tuning lifts accuracy 70.30\%→83.71\% (8.7MB) and 86.13\% (21MB); ROC-AUC 0.751→0.921. Rule labels are misleading (95.9\% on positives, 44.4\% on negatives). Run-to-run variance ≈0.87 accuracy; real VAD/streaming costs 2.60 points and drops 7.8\% of boundaries before the model.}
+
+\medskip
+
+{\small\textbf{Qwen-Audio-3.0-ASR Technical Report}} {\scriptsize[\href{https://arxiv.org/abs/2609.07549}{arxiv}]}\\
+{\scriptsize Chuanmeng Bian, Daren Chen, Peixin Chen, Zhigao Chen, Zhiyun Fan, Zhifu Gao, Bo Gong, Qing Gu, Jiajun He, Yawei Hu, Yunjie Ji, Jingbei Li, Xiangang Li, Xu Li, Zengxi Li, Zheng Li, Chengdong Liang, Baiji Liu, Ying Liu, Bin Ma, Yiping Peng, Yuezhang Peng, Zhendong Peng, Yu Pu, Yang Shi, Xin Shu, Jian Tang, Biao Tian, Peiyao Wang, Tianzi Wang, Wen Wang, Wupeng Wang, Cheng Wen, Yuzhong Wu, Zijian Xia, Yunchong Xiao, Nan Yang, Jianwei Yu, Jixing Yu, Binbin Zhang, Lei Zhang, Sitong Zhao, Guangdong Zhou, Yuan Zhou, Jianheng Zhuo}\\
+
+{\small\textit{Qwen-Audio-3.0-ASR scales an MoE LLM-based ASR into a production-style system with dialects, hotwords, long-context, and a streaming variant.}}\\[1pt]
+{\footnotesize Presents an instruction-following ASR family built on a Qwen MoE backbone, targeting deployment features beyond WER: multilingual + Chinese dialect ASR, domain entities, hotword customization, single-pass polishing, long-audio context, plus low-latency streaming. Train on tens of millions of hours with an MoE architecture for capacity/efficiency; unify behaviors via instruction interface; add hierarchical hotwords, entity handling, transcript polishing, and long-context modeling; build a dedicated streaming model. Reports highly competitive/SOTA recognition across Chinese, English, multilingual, and industrial test sets, with favorable comparisons to systems like GPT-4o Transcribe and Gemini 3.1 Pro; emphasizes strong accuracy plus production-oriented functionality.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Some Tokens Behave like Magnets: Revealing Linguistic Organization in the Layers of Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2609.05743}{arxiv}]}\\
+{\scriptsize Andrew Liu, Devan Srinivasan, Gerald Penn}\\
+
+{\small\textit{A small set of ``magnet'' token directions geometrically reshape residual space across layers, and ablations suggest early magnets support syntax while late magnets support semantics.}}\\[1pt]
+{\footnotesize Identifies probe-free attracting/repelling ``magnet'' tokens that stretch/squash nearby representations; links magnet types to linguistic categories (function words early) and shows magnets change with fine-tuning, implying a mechanism not just a correlation. Define magnets as token directions whose alignment predicts systematic norm expansion (attract) or compression (repel) of other tokens. Analyze polarity vs depth and token type; run layer-specific interventions removing magnet contributions; inspect changes after QA fine-tuning. Magnet structure is stable across architectures/scales. Early layers: function words skew repelling. Causally, removing early repelling magnets collapses syntactic performance (POS \textasciitilde{}91\%→<10\%) with smaller semantic impact; removing late attracting magnets harms semantic tasks more. After QA tuning, answer-span tokens become uniquely repelling magnets in the final layer.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLMs and their infrastructure: at least \textasciitilde{}40--60 papers touch long-horizon agents, tool use, skill libraries, memory systems, and ``harness''/orchestration (e.g., memory eviction/auditable deletion, skill routing/maintenance, cross-org communication costs, agent benchmarks like AhaBench/DAREBench/APPSim-Bench, and self-evolving agents). A second major cluster is safety/alignment and evaluation reliability (roughly \textasciitilde{}30--50): jailbreaks and prompt-injection (including multilingual/structural and multimodal resource-exhaustion), safety monitors/judges and their failure modes, value/bias measurement (political, gender, cultural adaptation), unlearning/forgetting, and ``audit design effects'' where the evaluation protocol changes the verdict. Efficiency for long context and serving is another strong theme (\textasciitilde{}20--35), with many papers on KV-cache reuse/eviction/compression, sparse/dynamic attention routing, speculative/block/diffusion decoding, quantization/pruning, and edge/CPU deployment benchmarks. Notable emerging directions include a surprisingly dense set of ``auditable/traceable'' work (citations/provenance, deletion certificates, evidence-grounded RAG, traceability specs for agent decisions) and a parallel surge in full-duplex / streaming speech + audio-language modeling (turn-taking/EOT, simultaneous translation, ASR/TTS technical reports, deepfake attribution/detection), suggesting voice-first agents are becoming a first-class research target rather than a side application.}
+
+
+\end{document}
