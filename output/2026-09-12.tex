@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-12} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{E-CONAN (Entailment, CONtradition And Neutral) Benchmarks: Arabic Textual Entailment and Natural Inference Datasets}} {\scriptsize[\href{https://arxiv.org/abs/2609.11334}{arxiv}]}\\
+{\scriptsize Khloud AL Jallad, Nada Ghneim, Ghaida Rebdawi}\\
+
+{\small\textit{Introduces a more diverse Arabic NLI benchmark suite that better stress-tests cross-dataset generalization than prior Arabic resources.}}\\[1pt]
+{\footnotesize E-CONAN: two Arabic inference datasets built from mixed ``naturalness'' sources---translation, human-validated translation, pedagogical hand-crafted pairs, and rumor/news headlines---released as E-CONAN-2 (2-way RTE) and E-CONAN-3 (3-way NLI). Constructs sentence pairs from four pipelines, then evaluates 9 multilingual pretrained models zero-shot plus 5 LLMs on E-CONAN-3, with MARBERT as an Arabic-specific baseline; compares transfer vs ArNLI/XNLI and reports qualitative/quantitative error analysis. Shows E-CONAN's diversity makes it a useful generalization benchmark (and a fine-tuning resource); provides broad zero-shot/LLM baselines and error analyses, arguing it offers a more robust assessment than XNLI/ArNLI (abstract reports no specific error-pattern conclusions).}
+
+\medskip
+
+{\small\textbf{Prompt Revision as a Source of Cultural Bias in Text-to-Image Systems}} {\scriptsize[\href{https://arxiv.org/abs/2609.11532}{arxiv}]}\\
+{\scriptsize Aleksandra Urman, Elsa Lichtenegger, Salima Jaoua, Azza Bouleimen, Robin Forsberg, Corinna Hertweck, Stefania Ionescu, Nicol\`o Pagan, Ancsa Hannak, Joachim Baumann}\\
+
+{\small\textit{Hidden prompt-rewrite layers in text-to-image products can *cause* cultural stereotyping, so auditing only generated images misses a major bias source.}}\\[1pt]
+{\footnotesize Identifies prompt revision as a causal bias mechanism and introduces WORLDVIEW, a multilingual benchmark spanning 15 languages and 31 language--context pairings to measure how systems differentially ``mark'' cultures. Collects revised prompts from three deployed systems; measures (i) cultural marking, (ii) vocabulary collapse/flattening into repeated culture terms, and (iii) stereotypical signifiers; tests causality by feeding original vs revised prompts into models without revision layers. Prompt revision marks non-Western/non-Anglophone contexts far more than a US/English baseline, often collapsing diverse intents into narrow stereotyped terms; swapping only to the revised prompt increases stereotyped imagery, isolating the rewrite step as a previously undocumented bias source.}
+
+\medskip
+
+{\small\textbf{Multilingual in Name Only? Cultural and Linguistic Weaknesses of LLMs in Urdu}} {\scriptsize[\href{https://arxiv.org/abs/2609.10758}{arxiv}]}\\
+{\scriptsize Farah Adeeba, Abdul Rafae Khan, Rajesh Bhatt, Hassan Sajjad}\\
+
+{\small\textit{``Multilingual'' LLMs still produce visibly broken, culturally off Urdu stories, and few-shot prompting doesn't reliably fix the core issues.}}\\[1pt]
+{\footnotesize Urdu-Stories: 93 Urdu stories from three LLMs (GPT-5.1, Qwen-3-Max, DeepSeek-3.1) with a human, nine-category error taxonomy covering linguistic, semantic, coherence, and cultural/context failures. Story-generation evaluation; manual annotation with nine labels; compares baseline prompting vs few-shot prompting to see which error types improve vs persist. Frequent grammar/semantic errors, coherence drift, and unnatural repetition; cultural shallowness and context mismatches remain pervasive even with few-shot prompting, indicating missing grounding/knowledge rather than simple instruction-following failures.}
+
+\medskip
+
+{\small\textbf{Cross-Lingual Clinical Annotation Projection as Constrained Text Generation: A Six-Language Study}} {\scriptsize[\href{https://arxiv.org/abs/2609.11450}{arxiv}]}\\
+{\scriptsize \'Alvaro Rey-Blanes, Francisco J. Moreno-Barea, Francisco J. Veredas}\\
+
+{\small\textit{Treating cross-lingual clinical label projection as constrained, text-preserving generation yields offset-exact spans that are actually usable for corpus building.}}\\[1pt]
+{\footnotesize Reframes projection as ``immutable text + inline tags,'' preventing paraphrase/normalization so annotations deterministically map back to character offsets; validated outputs enable reliable multi-language corpus creation. LLM outputs the target document unchanged except for inserted Disease/Symptom/Procedure tags; deterministic post-check ensures tag-stripped text exactly matches the original, enabling exact offset reconstruction; compared against supervised and hybrid projection pipelines on six languages. On MultiClinAI, constrained direct projection is best and most consistent across all 6 languages × 3 entity types: GLM 5.2 \textasciitilde{}0.92 mean Strict F1 over 18 settings; Gemma4:31B \textasciitilde{}0.913; beats prior SOTA in every setting by \textasciitilde{}0.056--0.151 Strict F1 and produces tens of thousands of offset-reconstructable mentions.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Beyond Word Error Rate: A Switch Aware Evaluation of ASR and Audio Language Models on English Yoruba Code-Switched Speech}} {\scriptsize[\href{https://arxiv.org/abs/2609.11786}{arxiv}]}\\
+{\scriptsize Chibuzor Okocha, Christan Earl Grant}\\
+
+{\small\textit{WER can hide the real failure in code-switched ASR: models break at English→Yoruba switches, so switch-aware metrics are necessary.}}\\[1pt]
+{\footnotesize A switch-aware evaluation suite for English--Yoruba code-switched speech, adding metrics like SETER, windowed switch error rates, language-specific error rates, and diacritic-insensitive WER; also characterizes non-transcription behaviors of audio LMs. Evaluates 11 systems (6 ASR, 5 audio LMs) on a fixed 2,000-utterance test set with a shared scoring pipeline; computes switch-localized and language-split metrics; checks audio LMs for translation, verbosity, and prompt leakage. Overall WER makes a top ASR model look tied with a leading audio LM, but switch-aware metrics show the audio LM is better at switches; Yoruba token recognition nearly collapses (\textasciitilde{}0.97 error for Yoruba tokens for most systems) with errors concentrated at switch points; some audio LMs also translate/add text or leak prompts, making them unreliable as exact transcribers.}
+
+\medskip
+
+{\small\textbf{X-AuT: Progressive Audio-Encoder Compression for Speech LLMs with Cross-Scale Distillation}} {\scriptsize[\href{https://arxiv.org/abs/2609.11412}{arxiv}]}\\
+{\scriptsize Haojun Zhang, Yi Zou, Min Chen, Qize Yu, Lianrui Fan, Xini Ding, Hao Li, Shuchang Zhou, Xianming Liu, Shiyu Huang}\\
+
+{\small\textit{X-AuT compresses speech-LLM audio encoders with minimal behavior drift by progressive pruning plus cross-scale distillation to preserve decoder compatibility.}}\\[1pt]
+{\footnotesize A staged compression recipe for the audio tower of speech LLMs that avoids deletion/early-EOS failures from naive layer dropping by keeping the frozen LM decoder's expected embedding distribution stable. Progressive pruning with behavioral probes to pick least-disruptive layer subsets; representation alignment + cross-scale distillation; scheduled student-policy supervision; trains only lightweight attention LoRA adapters (LM frozen) and uses transcript-consistency filtering plus data reweighting. On 10 Zh--En benchmarks (Qwen3-ASR-0.6B), 18→16 layers improves macro error 5.61\%→5.27\%; 18→14 yields 5.75\% with \textasciitilde{}20.7\% fewer audio parameters; progressive pruning beats direct pruning (5.75\% vs 6.73\%), and a 1.7B teacher helps (5.55\%) while self-distillation degrades (8.45\%).}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{From Parameters to Answers: How LLMs Retrieve and Use Their Internal Knowledge}} {\scriptsize[\href{https://arxiv.org/abs/2609.11859}{arxiv}]}\\
+{\scriptsize Wenkang Wei, Yuan Fang, Renhe Jiang, Hong Cheng, Xingtong Yu}\\
+
+{\small\textit{Causal interventions separate ``request routing'' from ``answer content'' inside LLMs and show the handoff timing differs across model families.}}\\[1pt]
+{\footnotesize Defines linear directions for request information (which entity/subquestion) and for answer-content candidates, then tests when each is merely detectable vs causally steering computation via layerwise interventions. Builds pair-conditioned and global request directions at the end-of-question state; constructs content ``selection candidate'' directions; intervenes on these components at chosen layers and measures downstream effects across Qwen/Llama/Gemma and answer types (nouns, adjectives, code). In Qwen, request info becomes detectable before it becomes causally effective, with a mid-layer window where routing interventions change later knowledge/content while content is still forming; in paired questions, dependence shifts from global request to content in later layers; Gemma partially matches this profile, while Llama lacks a sustained routing-effect window; some request variables (pair-conditioned) retain later causal influence even as global routing fades.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{HarvestBench: Measuring Whether LLM Agents Will Pay to Avoid Killing Animals}} {\scriptsize[\href{https://arxiv.org/abs/2609.04444}{arxiv}]}\\
+{\scriptsize Jasmine Brazilek, Miles Tidmarsh, Matthias Endres, Anshuman Singh, Jeremiah Miller}\\
+
+{\small\textit{HarvestBench quantifies whether LLM agents will *pay* to avoid harming animals---and shows harm avoidance is highly instruction-fragile and not tied to capability.}}\\[1pt]
+{\footnotesize A fully automated, logged, decision-theoretic benchmark for side-effect avoidance: agents choose between killing an animal for free or paying fuel to avoid it while completing a harvest task. Two-tractor gridworld harvest task; rocks test competence, animals test side effects; varies briefing (moral vs neutral), avoidance price, and animal type; computes kill rates from actions (no LLM-judge scoring). Kill rates span \textasciitilde{}0.4\%--98.8\% and are not monotonic with model strength; moral briefings keep most reasoning models <\textasciitilde{}6\% kills, but neutral briefings push all >84\%; models kill wild animals more than farmed, and small prompt changes can override the moral instruction.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents + evaluation/infra work: at least \textasciitilde{}25--30 papers touch agent definitions, long-horizon resilience/memory, multi-agent coordination, tool-use workflows, and agent benchmarking/auditing (e.g., resilience under accumulating challenge, update admission, incident registries, runtime harnesses, MCP/tool ecosystem sampling, reward-integrity instrumentation). A second major cluster is ``trustworthiness'' for LLMs---uncertainty/calibration, privacy, unlearning, hallucination, prompt-injection/security, and bias/low-resource language robustness---at least \textasciitilde{}15--20 papers (e.g., privacy-utility in interactions, unlearning audits, prompt-injection detection, cultural bias from prompt revision, Urdu weaknesses, domain hallucination detection). Generative modeling is also heavily represented, especially diffusion/flow-matching control and efficiency (LoRA rank tradeoffs, DiT control via activation flow, schedule design, physical consistency eval, video reasoning) with \textasciitilde{}8--12 papers. A notable emerging direction is ``LLMs for formal/verified reasoning and deterministic correctness'' (Lean verification loops, machine-checked proofs, deterministic math solvers, solver-informed distillation) plus multiple OR/optimization-via-LLM papers (\textasciitilde{}6--10), suggesting a push from fluent reasoning toward verifiable, tool-grounded reliability.}
+
+
+\end{document}
