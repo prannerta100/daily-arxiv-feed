@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-09-14} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{SWARM: A Multilingual Human-Annotated Dataset for Russian Propaganda Detection in Search Engine Results}} {\scriptsize[\href{https://arxiv.org/abs/2609.12653}{arxiv}]}\\
+{\scriptsize Manuel Tonneau, Abhinav Dubey, Farhan Shaikh, Ilaria Vitulano, Martha Stolze, Hale Dedeoglu, Clara Riechert, Ella Kuka, Maryna Sydorova, Mykola Makhortykh, Elizaveta Kuznetsova}\\
+
+{\small\textit{Shows Russian propaganda in search is a content-level issue (not just ``bad domains'') and releases a rare 9-language, human-labeled SERP dataset to evaluate real detectors.}}\\[1pt]
+{\footnotesize Introduces SWARM: 2,183 search-result documents labeled for *support* of recurring Russian state narratives across nine languages/domains, enabling content-based evaluation beyond outlet/blocklist proxies. Human annotate SERP documents for narrative endorsement; benchmark (i) domain blocklist, (ii) supervised text classifiers, (iii) zero-shot LLM judges to separate source-based vs content-based detection. Blocklists miss most propaganda-supporting docs because endorsement appears on mainstream/unflagged sites; best tested LLM reaches \textasciitilde{}0.73 positive-class F1 vs \textasciitilde{}0.5 for supervised classifiers, with smaller LLMs over-predicting ``support'' by confusing topic mention with endorsement.}
+
+\medskip
+
+{\small\textbf{Parameter-Efficient Retrievers for Polish and European Languages}} {\scriptsize[\href{https://arxiv.org/abs/2609.12913}{arxiv}]}\\
+{\scriptsize S\{\textbackslash{}l\}awomir Dadas, Rafa\{\textbackslash{}l\} Po\'swiata, Ma\{\textbackslash{}l\}gorzata Gr\k{e}bowiec, Micha\{\textbackslash{}l\} Pere\{\textbackslash{}l\}kiewicz}\\
+
+{\small\textit{Builds compact dense retrievers for Polish/European languages without human labels by distilling teacher ranking behavior, hitting a strong quality--cost Pareto frontier.}}\\[1pt]
+{\footnotesize A label-free recipe (plus PolDense 17M--1B and EuroDense 435M) that transfers retrieval preferences from strong embedding/reranker teachers, targeting Polish and nine European languages where off-the-shelf retrievers lag. Three stages: cross-lingual alignment; relational knowledge distillation from teacher rankings/similarity structure; contrastive fine-tuning with teacher-defined positives and hard negatives; supports long inputs (to 8,192 tokens). PolDense-1B outperforms compared retrievers up to 9B params on Polish tasks and the family forms a Pareto frontier; EuroDense ranks \#1 under 1B params on task- and language-averaged multilingual metrics, leading in 7/9 languages.}
+
+\medskip
+
+{\small\textbf{Doc2FRC: Length-Consistent Document-Level Machine Translation via Fixed-Range Chunking}} {\scriptsize[\href{https://arxiv.org/abs/2609.12674}{arxiv}]}\\
+{\scriptsize Xiaotian Wang, Youyuan Lin, Zhan Shen, Hitomi Yanaka}\\
+
+{\small\textit{Improves document-level MT robustness by enforcing the same chunk-length distribution in training and inference via fixed-range chunking.}}\\[1pt]
+{\footnotesize Fixed-Range Chunking (FRC) addresses a hidden train--test mismatch in DocMT: naive chunking changes length distributions, causing drift/repetition; FRC makes chunk lengths controllable and consistent end-to-end. Dynamic-programming segmentation to keep every chunk within [L\_min, L\_max]; dual-boundary matching to align source/target chunks for supervised training; fine-tune/evaluate under the identical chunking regime. FRC fine-tuning improves 7B LLM DocMT vs direct document-to-document training, beats DocMT baselines on IWSLT2017, and remains beneficial on GlobVDoc (new 10-language OOD document test set).}
+
+\medskip
+
+{\small\textbf{Meddies-PII: A Multilingual Framework for Personally Identifiable Information Extraction in Clinical De-identification}} {\scriptsize[\href{https://arxiv.org/abs/2609.12544}{arxiv}]}\\
+{\scriptsize Linh Uyen Le, Christian Hoang, Huy Hoang Ha}\\
+
+{\small\textit{Achieves strong multilingual clinical de-identification by training on a massive, tightly validated synthetic corpus instead of scarce human labels.}}\\[1pt]
+{\footnotesize Meddies-PII: 1M synthetic clinical documents in 17 languages with 9 PII labels, plus a trained token-classification model and benchmark suite; key idea is controllable generation + strict validation to avoid ``LLM-noisy'' labels. Attribute-conditioned prompting to force coverage of PII types; 13 deterministic validation ``gates'' to enforce structural/label consistency; train BIOES token classifier; evaluate with strict exact-match entity-level F1. Model trained on the synthetic corpus tops all reported external benchmarks: mean exact-match entity F1 = 0.827 across 15 benchmarks vs strongest baseline 0.658, indicating strong cross-dataset generalization.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{TokenMapper: A Step Toward Interoperable Speech Token Translation}} {\scriptsize[\href{https://arxiv.org/abs/2609.12563}{arxiv}]}\\
+{\scriptsize Tal Kozakov, Tal Rosenwein, Eliya Nachmani}\\
+
+{\small\textit{Learns direct codec token-to-token translation so speech models using different tokenizers can interoperate without waveform decode--reencode latency.}}\\[1pt]
+{\footnotesize TokenMapper: direction-specific mapping between discrete speech token spaces (including mismatched structures like single vs multi-codebook), enabling fast model chaining in speech pipelines. Train a token-translation model aligned at a shared effective token rate; predict target tokenizer streams directly from source tokens, with separate mappings per source→target pair. Token translation approaches waveform-bridge quality with much lower latency: WER only \textasciitilde{}2.5--6.8\% absolute worse than native reconstructions, MOS 2.29--4.39, and latency reduced 4.8\%--94.5\% (up to \textasciitilde{}972 ms saved/utterance).}
+
+\medskip
+
+{\small\textbf{Kraken: LLM-based Speech-to-Speech Translation via Low-bitrate VQ and Dual-path Source Conditioning}} {\scriptsize[\href{https://arxiv.org/abs/2609.13045}{arxiv}]}\\
+{\scriptsize Hayato Futami, Hassan Shahmohammadi, Tushar Dhyani, Alkis Koudounas, Rapha\"el Lafargue, Yosuke Kashiwagi, Quentin Jodelet, Emiru Tsunoo}\\
+
+{\small\textit{Makes LLM speech-to-speech translation more practical by predicting low-bitrate speech tokens and using a source-conditioned vocoder to preserve speaker/prosody.}}\\[1pt]
+{\footnotesize Kraken reduces S2ST difficulty by shifting the LLM to low-bitrate discrete token generation, while a source-conditioned waveform decoder carries non-linguistic cues, easing reliance on perfectly voice-matched training pairs. Extend Qwen3-8B to accept speech features and output low-bitrate VQ tokens (single-layer VQ trained to reconstruct SSL features); decode with Autowave-X token-to-waveform model conditioned on source speech; train on 150k hours multilingual multitask speech data. Outperforms SeamlessM4T-Large v2 and Qwen2.5-Omni on translation quality while improving speaker/prosody transfer, supporting the claim that low-bitrate token prediction + source-conditioned decoding improves both content and voice similarity.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{A retrieval conditioned rebinding circuit for dynamic entity tracking in large language models}} {\scriptsize[\href{https://arxiv.org/abs/2606.08644}{arxiv}]}\\
+{\scriptsize Soyoung Oh, Vera Demberg}\\
+
+{\small\textit{Finds a small, causal attention-head circuit that updates and later retrieves entity--attribute bindings, explaining dynamic state tracking in LLMs.}}\\[1pt]
+{\footnotesize Mechanistic identification of a ``retrieval-conditioned rebinding'' circuit: the model rewrites entity--attribute links when states change and later retrieves the updated binding conditioned on the query; shown across Gemma and Llama with differing internal geometry. Controlled dynamic tracking tasks; probe attention components to locate write/propagate/retrieve steps; perform causal interventions on specific heads and on Q/K subspaces to test necessity and manipulate retrieved attributes. A compact set of heads is causally required: disrupting them breaks updated-attribute answers, and targeted edits can flip which attribute is retrieved; same high-level mechanism appears in Gemma and Llama, but binding signal sits more in Q/K subspaces for Gemma and mainly in keys for Llama.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Can We Trust LLM Judges: A Study of Capability-Dependent Biases and Multi-Judge Ensemble for Bias Calibration}} {\scriptsize[\href{https://arxiv.org/abs/2609.12002}{arxiv}]}\\
+{\scriptsize Gemma Zhang, Prachi Badarayani, Asmi Kumar, Sadid Hasan, Sulaiman Vesal}\\
+
+{\small\textit{Shows LLM judges are systematically more lenient to stronger models and proposes a label-free multi-judge calibration using disagreement to estimate judge error rates.}}\\[1pt]
+{\footnotesize Identifies capability-dependent bias in absolute LLM judging (leniency rises with examinee strength) and introduces a calibration ensemble that infers each judge's FP/FN tendencies from inter-judge disagreement, avoiding gold labels. Run judge--examinee matrices across benchmarks; measure links between judge competence and judging accuracy and between examinee capability and leniency; apply weighted majority voting with online disagreement-based FP/FN estimation to set weights. Finds strong positive correlations: better models are better judges, and higher examinee capability reliably induces leniency; in simulated distribution shifts, the label-free weighted ensemble matches an oracle (true error rates known) within \textasciitilde{}0.5 percentage points on average and beats single-judge and unweighted voting.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent reliability and evaluation: at least \textasciitilde{}25 papers on agent benchmarking, harness effects, LLM-as-a-judge failure modes, and workflow/tool-use evaluation (e.g., GAUGE, ParaRecover, VRL-Bench, EvoHarnessBench, ``Measurement Without Validity,'' Praxa audit). A second major cluster is factuality/hallucination control and evidence-grounding---roughly \textasciitilde{}12 papers spanning fact-checking, RAG design/routing, benchmark leakage cleaning, and medical fact verification (R2VC, MedSNIP, EAR, ``Judging by the Cover,'' ``When Rubrics Fail''). There's also a surprisingly large audio/voice surge (≈15--20 papers) around full-duplex voice agents, speech-to-speech translation, TTS hallucinations/alignment, vocoders, and audio generation/token interoperability (Kraken, SteerDuplex, MP-Bench, AlignDPO, StepAudio 3 Gen, TokenMapper). Emerging directions include diffusion-for-language and efficiency (≈8--10 papers on diffusion LMs, KV-cache/attention sparsification/quantization, and subquadratic attention) and a noticeable privacy/personalization thread (≈8--10 papers on text anonymization, PII extraction, voice anonymization, membership inference, watermarking, and long-term memory frameworks).}
+
+
+\end{document}
