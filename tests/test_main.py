@@ -40,7 +40,8 @@ def test_run_pipeline_writes_staging(tmp_path):
                                 with patch("daily_arxiv_feed.main.compile_pdf") as mock_compile:
                                     with patch("daily_arxiv_feed.main.get_page_count", return_value=1):
                                         mock_compile.return_value = tmp_path / "2026-04-24.pdf"
-                                        result = run_pipeline(output_dir=tmp_path, date="2026-04-24")
+                                        with patch("daily_arxiv_feed.main._push_pdf"):
+                                            result = run_pipeline(output_dir=tmp_path, date="2026-04-24")
 
     staging = tmp_path / "staging" / "2026-04-24"
     assert staging.exists()

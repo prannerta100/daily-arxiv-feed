@@ -67,6 +67,9 @@ def _push_pdf(pdf_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     pdf_path = pdf_path.resolve()
     tex_path = pdf_path.with_suffix(".tex")
+    if not pdf_path.is_relative_to(repo_root):
+        logger.warning("PDF %s is outside the repo; skipping git push", pdf_path)
+        return
     files_to_push = [str(pdf_path.relative_to(repo_root))]
     if tex_path.exists():
         files_to_push.append(str(tex_path.relative_to(repo_root)))
