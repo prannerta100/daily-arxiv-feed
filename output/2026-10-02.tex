@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-02} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Where's Waldo? Query-language Preference under Cross-lingual Knowledge Disparities}} {\scriptsize[\href{https://arxiv.org/abs/2610.00606}{arxiv}]}\\
+{\scriptsize Dayeon Ki, Ruochen Zhang, Silviu Cucerzan, Ryen W. White, Ning Gao}\\
+
+{\small\textit{When languages disagree, multilingual LLMs often follow the query language---so the same question asked in different languages can yield different ``facts.''}}\\[1pt]
+{\footnotesize Creates Waldo, a Wikipedia-derived benchmark that separates cross-lingual missingness from true cross-lingual conflict, exposing query-language preference as a reliability issue specifically under disagreement. Mine 12K QA pairs across five languages with retrieval evidence labeled as gap vs conflict; test eight LLMs with equivalent multilingual queries; mitigate via (i) ablating attention heads linked to language preference and (ii) LoRA fine-tuning to reduce same-language bias under contradiction. Models usually cross languages in gap cases, but in conflict cases they strongly snap to the query language, producing inconsistent answers across languages; LoRA reduces the preference gap by up to 61.5\%, showing the bias is measurable and correctable.}
+
+\medskip
+
+{\small\textbf{Universal Byte-Level Encoding: UTF-8/UTF-16 Routing to Reduce Cross-Script Token-Budget Disparities}} {\scriptsize[\href{https://arxiv.org/abs/2610.01984}{arxiv}]}\\
+{\scriptsize Hyunsik Kim, Youngmoon Jung}\\
+
+{\small\textit{Routing Unicode through UTF-8 or UTF-16 before byte-level BPE makes token counts fairer across scripts without hurting quality or reversibility.}}\\[1pt]
+{\footnotesize Identifies the ``encoding floor'' as a root cause of token unfairness under UTF-8 BBPE and proposes Universal Byte-Level Encoding (UBE), a reversible dual-path byte view that lowers worst-case symbol counts for many non-Latin scripts. Keep UTF-8 for characters that are 1--2 bytes in UTF-8; represent 3--4 byte UTF-8 characters via UTF-16 code units instead, reducing fallback length (often 3→2 bytes for BMP-heavy scripts) while leaving BPE unchanged and ensuring exact round-trip decoding (validated via Unicode audits/tests). UBE reduces cross-language token-premium dispersion (largest gains for scripts dominated by 3-byte UTF-8 chars) without degrading multilingual LM quality vs standard UTF-8 BBPE; yields more usable context and faster prompt processing under fixed token budgets.}
+
+\medskip
+
+{\small\textbf{Assessing the Impact of Language Disparity on Multilingual Linguistic Ability in Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.00540}{arxiv}]}\\
+{\scriptsize Zhanyu Chen, Jaap Jumelet}\\
+
+{\small\textit{Multilingual ``grammar ability'' depends strongly on the probing method, and post-training often degrades syntactic judgments---especially in low-resource languages---unless evaluated with language-aware prompting.}}\\[1pt]
+{\footnotesize Systematic comparison across six model families (base vs post-trained) and 101 languages on MultiBLiMP, showing evaluation paradigm and prompting can flip conclusions about syntactic competence and disproportionately mis-measure low-resource languages. Use MultiBLiMP minimal pairs and test four paradigms (from raw probability preference to explicit grammaticality prompting); compare base vs instruction-tuned/aligned variants and stratify by language resource level to disentangle knowledge vs expressibility under a probe. Post-training generally worsens minimal-pair syntactic accuracy, with larger drops in low-resource languages; some grammatical knowledge becomes ``hidden'' under certain prompts (mostly detectable in high-resource languages), and native-language prompting can recover competence that looks absent under English/generic prompts---implying multi-paradigm, language-aware evaluation is necessary.}
+
+\medskip
+
+{\small\textbf{Cross-Lingual Alignment for Decoder-Only Models using MoE Routers}} {\scriptsize[\href{https://arxiv.org/abs/2610.01921}{arxiv}]}\\
+{\scriptsize Lucas Bandarkar, Clark Peng, Ahmed Haj Ahmed, Aditi Khandelwal, Nanyun Peng}\\
+
+{\small\textit{For decoder-only MoE LLMs, aligning languages via MoE router decisions (not token states) improves cross-lingual transfer without tokenization-alignment headaches.}}\\[1pt]
+{\footnotesize Proposes router-space contrastive alignment as a robust cross-lingual objective: router distributions live in a shared expert-choice space, avoiding brittle token-level matching while still pulling representations together. During continual pretraining, add an auxiliary contrastive loss on pooled router outputs for translation-equivalent sentence pairs (close) vs non-pairs (far); pooling stabilizes the signal and makes it comparable across languages despite different tokenizations. Across four open-source MoE models, router-alignment increases cross-lingual alignment in internal representations and improves performance on a broad multilingual evaluation suite, showing MoE routing is an effective alignment surface for decoder-only LLMs.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{AURAL: Adaptive Latent Reasoning with Joint Chunk for Speech Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.01560}{arxiv}]}\\
+{\scriptsize Yuxiang Wang, Kunyu Feng, Yuancheng Wang, Zihang Liu, Shengbo Cai, Qinke Ni, Wan Lin, Tao Feng, Yingda shen, Ming-Hao Hsu, Zhixian Zhao, Liqiang Zhang, Teddy Sun, Steve Yves, Zhizheng Wu}\\
+
+{\small\textit{Speech LMs can keep CoT-like reasoning quality while slashing latency by doing multi-step ``thinking'' in latent space and emitting only the final answer.}}\\[1pt]
+{\footnotesize Replaces verbose textual CoT with adaptive latent reasoning to cut time-to-first-audio/token, and releases AuralReason-683K (bilingual) to supervise speech reasoning in this setting. Learn latent reasoning trajectories (distribution over continuations) and predict them with a joint-chunk scheme to reduce sequential steps; train with supervised learning on AuralReason-683K then RL (AURAL-RL) rewarding correctness/quality while encouraging concise, difficulty-adaptive latent compute. AURAL-RL matches CoT-RL performance across two backbones and improves over supervised-only models; it uses more latent steps on harder inputs and cuts time-to-first-token on Qwen2.5-Omni by 11.8× vs CoT (≈1.22s→0.10s), near direct answering (0.05s).}
+
+\medskip
+
+{\small\textbf{SHAMS: An Audio-Grounded Pronunciation Benchmark for Levantine Arabic}} {\scriptsize[\href{https://arxiv.org/abs/2610.01427}{arxiv}]}\\
+{\scriptsize Ben Sapirstein, Roy Mattar, Guy Mor-Lan, Ahlam Mohamed, Letizia Cerqueglini, Morris Alper}\\
+
+{\small\textit{SHAMS provides a shared, audio-grounded benchmark to evaluate Levantine Arabic pronunciation and related speech-language tasks across dialect varieties.}}\\[1pt]
+{\footnotesize Introduces a 1,300-utterance dataset balanced across five Levantine varieties, with aligned audio plus multiple text/phonetic representations to enable consistent, dialect-stratified evaluation despite nonstandard orthography. Curate and balance utterances (Urban/Rural Palestinian, Urban Jordanian, Lebanese, Syrian) and annotate four aligned tiers per item: audio, unvocalized text, diacritized text, and phonetic transcription---supporting ASR, diacritization, G2P, and audio-to-phoneme evaluation. Benchmarks with open and proprietary models show SHAMS is practical as a multi-task evaluation suite across the five varieties; the resource is released publicly to standardize future comparisons.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Capturing In-Context Learning Dynamics with Task Operators}} {\scriptsize[\href{https://arxiv.org/abs/2610.01054}{arxiv}]}\\
+{\scriptsize Guangzhi Xiong, Zhenghao He, Bohan Liu, Sanchit Sinha, Wenqian Ye, Aidong Zhang}\\
+
+{\small\textit{ICL can be ``compiled'' into a small set of per-attention-head affine tweaks that can be replayed at inference, recovering much of demo-based adaptation without long prompts.}}\\[1pt]
+{\footnotesize Gives a mechanistic account of ICL at the attention-head level and turns it into a compression scheme: for a fixed task, each head's demo-induced change is well-approximated by a stable affine map, concentrated in a sparse set of heads/positions. Run two passes (full ICL vs. demo-masked), fit per-head scale/shift mapping masked head outputs to ICL head outputs, then convert these maps into a Task Operator applied via attention output projections at inference; identify salient heads/positions and average operators from different demo batches to mimic many-shot. Task Operators recover a large fraction of full-ICL gains across lexical/algorithmic/reasoning tasks and beat prior single-vector compression; task info is sparse and task-specific, and averaging operators approximates many-shot improvements without extra context.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents and how to make them reliable, auditable, and cost-effective: at least \textasciitilde{}60 papers cluster around agent harnesses/workflows, long-horizon evaluation (e.g., DAYJOB, Argo-Bench, Incident-Arena, ReLiveGym), memory/belief-state design (Mem++, MemFit, Madeleine, Causal Memory Policy), and verification/auditing of tool use and outcomes (Actions with Receipts, Praxa, VeriHarness, WebArena-Lite audits). A second major theme is evaluation/measurement pathology---especially LLM-as-a-judge instability, bias, and metric confounds---with \textasciitilde{}25+ papers on judge reliability, preference/rubric design, and benchmark leakage/contamination (e.g., ``First Token Is Not the Verdict,'' ``Pinned and Still Unstable,'' ``Old Ideas, Novel Problems,'' multiple auditing frameworks). Efficiency and deployment constraints are also heavily represented (\textasciitilde{}30+), spanning quantization/pruning/speculative decoding/KV-cache and on-device systems (FP4/FP4 pretraining, QK-Wanda, EchoPress/CommunityKV, CAST/AgSpec, on-device NER/intent retrieval). A notable emerging direction is diffusion/flow language modeling and its post-training/serving economics (roughly \textasciitilde{}15--20 papers on diffusion LMs, one-step/flow-map distillation, and inference-time scaling/cost modeling), alongside a surprisingly large audio/speech cluster (\textasciitilde{}25+ on full-duplex speech agents, TTS/VC robustness, deepfake detection, and audio benchmarks).}
+
+
+\end{document}
