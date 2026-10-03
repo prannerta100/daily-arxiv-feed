@@ -1,0 +1,107 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-03} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Universal Byte-Level Encoding: UTF-8/UTF-16 Routing to Reduce Cross-Script Token-Budget Disparities}} {\scriptsize[\href{https://arxiv.org/abs/2610.01984}{arxiv}]}\\
+{\scriptsize Hyunsik Kim, Youngmoon Jung}\\
+
+{\small\textit{A reversible byte-representation tweak before BBPE sharply reduces the ``token tax'' on many non‑Latin scripts without hurting English or model quality.}}\\[1pt]
+{\footnotesize Shows cross-script tokenization unfairness largely comes from the UTF‑8 ``encoding floor'' (raw-byte fallback) rather than BPE merges, and proposes Universal Byte-Level Encoding (UBE) as a drop-in replacement at the bytes-to-BPE interface with exact round-trip decoding. Route each Unicode character to UTF‑8 or UTF‑16 bytes before standard byte-level BPE: keep 1--2 byte UTF‑8 chars on UTF‑8; send 3--4 byte UTF‑8 chars (often BMP scripts) through UTF‑16 so fallback is typically 2 bytes. Keep BPE unchanged; audit round-trip correctness across Unicode/emoji/normalization tests. UBE narrows token-count disparities vs English, with largest reductions for scripts dominated by 3-byte UTF‑8 BMP characters; English is not worse (sometimes slightly better in mixed text). LM quality matches UTF‑8 BBPE, yielding more usable context and faster processing under fixed token budgets.}
+
+\medskip
+
+{\small\textbf{Index-Translate: A Multilingual Translation Model Family -- Text, Speech, Controlled Dubbing, and Long-Document Translation}} {\scriptsize[\href{https://arxiv.org/abs/2609.40181}{arxiv}]}\\
+{\scriptsize Tianjiao Li, Mengran Yu, Chenyu Shi, Lusheng Zhang, Qisi Chen, Yanshan Zhou, Ji Qi, Jingying Liu, Yuang Feng, Ziang Cui, Tianxing Yan}\\
+
+{\small\textit{Index-Translate shows one shared 150-language translation backbone can be specialized into strong text, speech, dubbing, and long-document translators instead of training separate giant models.}}\\[1pt]
+{\footnotesize Presents a ``translation family'' design: a common multilingual foundation (multiple sizes) plus targeted descendants for instruction-following translation, end-to-end speech translation, controlled dubbing, and native long-document translation. Train a shared multilingual MT model (2B/9B/35B-A3B) then specialize: instruction-tuned translation; Index-Echo for end-to-end speech-to-text and speech-to-speech; Index-Homura with syllable/timing controls for dubbing; Index-NativeLong with a long-input formulation and a dedicated long-doc consistency benchmark. Across regimes, specialized variants are competitive with much larger systems: strong general + instruction translation (near \textasciitilde{}100B-scale MT), improved end-to-end speech translation approaching frontier omni-models, and evaluated gains for controlled dubbing and long-document consistency via explicit mechanisms (syllable control, native long-doc setup).}
+
+\medskip
+
+{\small\textbf{Where's Waldo? Query-language Preference under Cross-lingual Knowledge Disparities}} {\scriptsize[\href{https://arxiv.org/abs/2610.00606}{arxiv}]}\\
+{\scriptsize Dayeon Ki, Ruochen Zhang, Silviu Cucerzan, Ryen W. White, Ning Gao}\\
+
+{\small\textit{When languages disagree, multilingual LLMs often follow the query language, so the same question in different languages can yield different ``facts''; Waldo measures this and targeted fixes reduce it.}}\\[1pt]
+{\footnotesize Separates cross-lingual knowledge gaps from true conflicts and shows query-language preference is mainly harmful under conflicts; introduces Waldo, a Wikipedia-based multilingual QA benchmark labeled for gap vs conflict cases. Build 12K QA instances across five languages with multilingual evidence; evaluate eight LLMs by asking equivalent questions in different languages and measuring alignment to query-language vs other-language evidence; mitigate via (1) attention-head ablation linked to preference and (2) LoRA fine-tuning to reduce preference under conflict. Models readily use other-language evidence to fill gaps, but under conflicts they disproportionately choose the query-language version, producing language-dependent answers. Both interventions reduce the preference gap; LoRA cuts it by up to 61.5\%.}
+
+\medskip
+
+{\small\textbf{Assessing the Impact of Language Disparity on Multilingual Linguistic Ability in Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.00540}{arxiv}]}\\
+{\scriptsize Zhanyu Chen, Jaap Jumelet}\\
+
+{\small\textit{Multilingual ``grammar ability'' depends heavily on evaluation style: post-training can hide or degrade syntactic competence, and common setups systematically understate low-resource performance.}}\\[1pt]
+{\footnotesize A controlled, multi-paradigm study (six model families; base vs post-trained) showing that conclusions about multilingual syntax shift with scoring method, especially for instruction-tuned models and low-resource languages. Use MultiBLiMP (101 languages) minimal pairs and evaluate the same models with four paradigms (implicit probability preference vs prompted judgments/explanations, including prompt-language choices). Analyze effects of post-training, scale, and language resource level; highlight near-chance baselines in low-resource settings. Post-training generally worsens implicit syntactic preference, with larger models degrading less and low-resource languages degrading most. Some competence becomes ``hidden'' (present in probabilities but not elicited by direct prompts), mainly in high-resource languages; for low-resource languages, near-chance baselines limit recoverable signal. Prompting in the target language can recover low-resource performance, implying many evaluations underestimate it.}
+
+\medskip
+
+{\small\textbf{Cross-Lingual Alignment for Decoder-Only Models using MoE Routers}} {\scriptsize[\href{https://arxiv.org/abs/2610.01921}{arxiv}]}\\
+{\scriptsize Lucas Bandarkar, Clark Peng, Ahmed Haj Ahmed, Aditi Khandelwal, Nanyun Peng}\\
+
+{\small\textit{For decoder-only multilingual MoE LLMs, aligning expert-router decisions across translation pairs yields robust cross-lingual alignment and better transfer without token-level matching.}}\\[1pt]
+{\footnotesize Replaces brittle token-level contrastive alignment (broken by differing tokenizations) with router-output alignment: MoE routing distributions provide a comparable, sequence-level signal that can drive cross-lingual consistency. During continual pretraining on parallel data, pool router outputs over each sequence to form a routing signature; apply a contrastive objective to bring signatures of translation pairs together and push non-pairs apart. This supervision backpropagates through the network, indirectly aligning hidden states. Router alignment makes routing behavior more language-invariant for the same meaning and also improves hidden-state cross-lingual alignment without direct token matching, translating into better multilingual/cross-lingual transfer on a broad evaluation suite.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{MultiTalk: Scaling Full-Duplex Speech Models to Long, Multi-Party, Bilingual Conversation}} {\scriptsize[\href{https://arxiv.org/abs/2609.36903}{arxiv}]}\\
+{\scriptsize Ke Wang, Houxing Ren, Zimu Lu, Yunqiao Yang, Zhuofan Zong, Mingjie Zhan, Hongsheng Li}\\
+
+{\small\textit{MultiTalk brings full‑duplex speech agents closer to meeting-like reality via massive structured synthetic data, a long multi-party bilingual benchmark, and a strong Moshi-style model.}}\\[1pt]
+{\footnotesize Addresses the long-context, multi-speaker gap in open full‑duplex systems by releasing (1) large bilingual multi-party synthetic training data and (2) MultiTalkBench, a real long-form multi-party English--Chinese evaluation with targeted conversational probes. Generate 57.6k hours of synthetic codec-frame training with controllable participants, turn-taking, overlap, interruptions, addressee shifts, and long-range dependencies; build a real-recorded benchmark with probes for entity tracking, topic coherence, and addressee selection; train a bilingual Moshi-style full‑duplex model and compare to open baselines. On MultiTalkBench, the trained bilingual model sustains coherent long multi-party EN--ZH interaction and outperforms Moshi, MiniCPM-o-4.5, and Qwen3-Omni-30B-A3B-Instruct, with gains visible on concrete skills (entity tracking, topic coherence, correct addressee).}
+
+\medskip
+
+{\small\textbf{MGhana-ST: A Low-Resource Speech Translation Dataset for Ghanaian Languages and an Analysis of Multilingual Training Trade-offs}} {\scriptsize[\href{https://arxiv.org/abs/2609.40041}{arxiv}]}\\
+{\scriptsize Frank Lawrence Nii Adoquaye Acquaye, Eric George Parakal, Jesse Johnson, Kishankumar Bhimani, Jochebed Afua Basil}\\
+
+{\small\textit{MGhana-ST releases scarce Ghanaian speech→English translation data and shows multilingual training can fail---or hurt---once you replicate across seeds in extreme low-resource settings.}}\\[1pt]
+{\footnotesize Introduces MGhana-ST (Ga, Twi, Ewe, Fante; \textasciitilde{}16 hours paired audio--English in current subset) and demonstrates that apparent multilingual gains can be seed artifacts; emphasizes replicated evaluation for tiny ST datasets. Curate audio from two Ghanaian speech resources; collect new English translations directly from audio via 37 native-speaker annotators (including verbal/non-verbal events). Fine-tune Whisper-small with monolingual-per-variety vs one flat multilingual model; report 3-seed averages; analyze variance and relate transfer to URIEL similarity and empirical transfer signals. With replication, flat multilingual training helps none and harms two varieties: Ga/Twi \textasciitilde{}unchanged; Ewe −\textasciitilde{}7 BLEU; Fante −\textasciitilde{}5 BLEU. Monolingual runs show large seed-to-seed swings, explaining fragile ``multilingual helps'' claims. Empirical transfer patterns track interactions better than URIEL, but neither reliably predicts benefit---replication is essential.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{The Geometry of Contextual Relations: Language Models Address Facts by Order of Mention}} {\scriptsize[\href{https://arxiv.org/abs/2610.00910}{arxiv}]}\\
+{\scriptsize Yufa Zhou}\\
+
+{\small\textit{LLMs often retrieve prompt facts by order-of-mention: internally, ``which fact'' is encoded as an ordinal address more than by the entity name in the question.}}\\[1pt]
+{\footnotesize Identifies ordinal addressing: stable representation-space directions that shift the model from fact k to fact k+1 across prompts and model families, implying a general positional indexing mechanism for contextual facts. Create prompts with multiple simple facts; compute activation differences when questions target different facts; average across random lists to extract ``ordinal vectors.'' Test causality by steering: add the +1 vector to a question's hidden state and see if answers switch to the next-mentioned fact. Query representations organize primarily by mention order, even when entity names suggest otherwise. Ordinal vectors causally steer answers to adjacent facts, lie in a low-rank subspace, favor early-mentioned facts, and appear across Qwen/Gemma/Llama (≈1.5B--32B), emerging in late-middle layers and early in pretraining.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM systems and how to evaluate/control them: at least \textasciitilde{}30 papers on long-horizon agents, harnesses, tool use, memory/compaction, and workflow optimization (e.g., DAYJOB, Argo-Bench, WebArena audits, Mem++/MemCodex/LatentHarness, Sapien/PACE, over-authorization and empty-commitment failures). A second major cluster is post-training and inference-time scaling for LLMs---roughly \textasciitilde{}25 papers on RLVR/RLHF variants, on-policy distillation, preference optimization, verifiers/judges, and test-time sampling/verification (CARM/GAW-PO/Range-GRPO, ``Cheap to Draw, Expensive to Trust,'' cross-model review, judge reliability). The most striking surprise is the sheer volume of audio/speech work---well over 150 titles---spanning full-duplex spoken agents, speech LLMs, TTS/voice conversion, deepfake detection/watermarking, diarization, and audio benchmarks (HEAR, VoxMem, SpeechConversationBench, many ADD/SDD papers), suggesting speech is having a ``benchmark + safety + deployment'' moment similar to text agents. Across modalities, efficiency/compute constraints (quantization/pruning/speculative decoding/token compression) and safety/fairness/unlearning (bias audits, safety routing fragility, multilingual unlearning loopholes, multimodal unlearning) form a consistent cross-cutting trend (\textasciitilde{}30+ papers).}
+
+
+\end{document}
