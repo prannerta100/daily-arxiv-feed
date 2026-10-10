@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-10} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Meddies-PII: A Multilingual Framework for Personally Identifiable Information Extraction in Clinical De-identification}} {\scriptsize[\href{https://arxiv.org/abs/2609.12544}{arxiv}]}\\
+{\scriptsize Linh Uyen Le, Ho Dinh Tri, Christian Hoang, Huy Hoang Ha}\\
+
+{\small\textit{High-quality synthetic data plus strict validation can yield strong multilingual clinical PII extraction without per-language human annotation.}}\\[1pt]
+{\footnotesize End-to-end framework: 1M synthetic clinical documents in 17 languages with 9 PII types (plus benchmark/model), emphasizing audited generation to make synthetic supervision reliable. Attribute-conditioned generation inserts targeted PII; 13 deterministic validation ``gates'' enforce note/label consistency; train a BIOES token-classifier and evaluate exact-match entity F1 on external benchmarks. Synthetic-only training transfers well: best system on all included benchmarks, mean exact-match entity F1 0.827 across 15 benchmarks vs 0.658 for the strongest baseline.}
+
+\medskip
+
+{\small\textbf{Adapting English Quality Classifiers for Multilingual LLM Pretraining Data Selection}} {\scriptsize[\href{https://arxiv.org/abs/2610.11585}{arxiv}]}\\
+{\scriptsize Vinko Sabol\v{c}ec, Bettina Messmer, Yassine Turki, Martin Jaggi}\\
+
+{\small\textit{An English web-text quality classifier can be distilled into a multilingual filter for 100+ languages using MT-based pseudo-labels.}}\\[1pt]
+{\footnotesize Practical recipe for multilingual pretraining data selection without native labels: reuse an English ``quality'' model and transfer its criteria cross-lingually. Translate non-English text to English, score with the English classifier to create pseudo-labels, then train a small MLP atop a multilingual encoder to predict scores directly from original-language text (no MT at inference). Using the distilled filter to select data for 1B/3B/8B LLMs matches existing multilingual filtering baselines and does not degrade regional/cultural knowledge benchmarks; generalizes to held-out languages.}
+
+\medskip
+
+{\small\textbf{How Narrative Wrapping Affects LLM Refusal: A Cross-Language Benchmark and Defense}} {\scriptsize[\href{https://arxiv.org/abs/2610.11005}{arxiv}]}\\
+{\scriptsize Zhankai Ye, Yanning Wang, Yukai Jin, Bo Mei, Fangyi Li, Wei Wang, Shangqian Gao, Xin Liu}\\
+
+{\small\textit{Narrative ``wrapping'' reliably weakens refusals across English, modern Chinese, and Classical Chinese by shifting representations away from a refusal direction; AXIS trains against this.}}\\[1pt]
+{\footnotesize Introduces GUISE, a cross-language/register benchmark with held-out wrapper styles, and links jailbreak success to a measurable representation-space displacement; proposes AXIS to counter it and prevent ``warn-then-answer.'' Benchmark with parallel harmful/benign pairs across three languages/registers; define a refusal direction and measure prompt displacement; AXIS combines preference optimization, representation alignment back toward refusal, and a commitment objective for clean refusals. Narrative wrappers cause larger refusal-direction shifts than language/register changes and can be strongest in Classical Chinese (e.g., Qwen3-1.7B); AXIS yields best safety--usability tradeoff across multiple models and reduces ``warn-then-answer'' failures.}
+
+\medskip
+
+{\small\textbf{Imperative Interference: Social Register Shapes Instruction Topology in Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2603.25015}{arxiv}]}\\
+{\scriptsize Tony Mason}\\
+
+{\small\textit{Instruction blocks can cooperate in English but interfere in Spanish because imperative phrasing carries different social force, making multilingual prompting brittle.}}\\[1pt]
+{\footnotesize Shows cross-lingual ``instruction topology'' can invert under faithful translation and identifies social register (imperative vs declarative) as a controllable lever to stabilize behavior. Decompose a production system prompt into blocks; run instruction-level ablations across four languages and four models; rewrite imperatives (e.g., ``NEVER...'') into declaratives (e.g., ``X is disabled'') and measure interaction changes. Register changes largely fix the inversion: rewriting one block reduces cross-linguistic variance by 81\% (p=0.029), and rewriting 3/11 blocks can flip Spanish from competitive to cooperative with spillover to untouched blocks.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Pretrained self-supervised speech models can recognize unseen consonants}} {\scriptsize[\href{https://arxiv.org/abs/2606.11542}{arxiv}]}\\
+{\scriptsize Chihiro Taguchi, \'Eric Le Ferrand, Hirosi Nakagawa, Hitomi Ono, Kanji Kato, Emily Prud'hommeaux, David Chiang}\\
+
+{\small\textit{Self-supervised speech models pretrained on mostly high-resource languages still learn phonetic structure that supports recognizing unseen consonants like Khoisan clicks.}}\\[1pt]
+{\footnotesize Directly tests whether skewed SSL pretraining (Wav2Vec2/HuBERT) creates a representational blind spot for extremely rare phonemes; finds it does not once fine-tuned on click languages. Fine-tune Wav2Vec2 and HuBERT for ASR on G|ui and West !Xoon, then analyze errors by phoneme class, comparing click vs non-click consonants under matched conditions. Clicks are recognized at least as well as---and often better than---non-click consonants, implying the main bottleneck is labeled adaptation data, not missing phonetic capacity from pretraining.}
+
+\medskip
+
+{\small\textbf{X2Streaming-ASR: wait when uncertain, emit when ready for streaming ASR}} {\scriptsize[\href{https://arxiv.org/abs/2609.08672}{arxiv}]}\\
+{\scriptsize Zhiwei Lin, Kaiqi Fu, Rime Wen, Zehan Liu, Shawn Qin, Roy Gan, Hao Wang}\\
+
+{\small\textit{Streaming ASR latency improves by learning an explicit ``wait vs commit'' policy that adapts to local uncertainty instead of using fixed delays.}}\\[1pt]
+{\footnotesize Separates *what to output* from *when to finalize* under a single-pass, no-revision constraint, enabling adaptive emission timing for stable partial transcripts. Three-stage training: (1) train streaming recognizer, (2) warm-start commit policy from probed commit trajectories, (3) refine with RL-style character rewards and group-relative rewards trading off accuracy vs latency. Across 10 Chinese/English test sets, achieves lowest mean commit latency vs prior streaming methods---32--109 ms (Chinese chars) and 12--85 ms (English words)---with comparable accuracy.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{RouterInterp: Understanding Superposed Specialisation in Mixture of Experts Routing}} {\scriptsize[\href{https://arxiv.org/abs/2610.11775}{arxiv}]}\\
+{\scriptsize Ilya Lasy, Nora Yinuo Cai, Kola Ayonrinde}\\
+
+{\small\textit{MoE experts aren't single ``domains''; routing is driven by superposed bundles of fine-grained features that can be surfaced and summarized.}}\\[1pt]
+{\footnotesize Proposes the Superposed Specialisation Hypothesis and introduces RouterInterp, which explains routing via sparse autoencoder (SAE) features rather than coarse domain labels. Identify SAE features predictive of routing to each expert, then compose their descriptions into natural-language explanations; evaluate prediction/explanation quality vs token-statistics baselines on gpt-oss-20b. RouterInterp explains/predicts expert selection much better than prior methods, with \textasciitilde{}65\% improvement in detection accuracy, supporting the ``feature bundle'' view of specialization.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic AI---especially long-horizon tool use, self-improvement loops, and the infrastructure to make them reliable. At least \textasciitilde{}40--60 titles explicitly center on LLM agents (planning, harnesses, memory, time/compute budgeting, monitoring, and ``self-evolving/RSI'' systems), with a noticeable sub-cluster on memory/context management alone (\textasciitilde{}12--18: persistent memory governance, context curation/compaction, KV-cache reuse, long-context windows, memory calibration). A second major theme is evaluation and governance: there are \textasciitilde{}20+ benchmark/auditing papers (StoreBench, AgentHorizon, OpenProblemBench, WorldBench/Mine Odyssey/BrickBench, SWE-Journey/VISTA/TestJack, judge reliability, peer-review automation) plus \textasciitilde{}15+ safety/security/guardrail works (prompt injection, typed decision model attacks, refusal bypass, deception/sabotage detection, policy compilation like NOMOS, incident lessons). Emerging directions include diffusion beyond images---diffusion language models for planning and decoding, diffusion/world models for driving/robotics, and multiple papers treating ``verifiers/judges'' as co-evolving components rather than fixed evaluators (a surprising cluster around evaluator evolution, contracts, and verifier reliability).}
+
+
+\end{document}
