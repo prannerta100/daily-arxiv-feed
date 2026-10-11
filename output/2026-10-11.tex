@@ -1,0 +1,88 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-11} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Adapting English Quality Classifiers for Multilingual LLM Pretraining Data Selection}} {\scriptsize[\href{https://arxiv.org/abs/2610.11585}{arxiv}]}\\
+{\scriptsize Vinko Sabolčec, Bettina Messmer, Yassine Turki, Martin Jaggi}\\
+
+{\small\textit{An English-only web-text quality classifier can be turned into a 100+ language filter by translating documents to English for teacher scores, enabling scalable multilingual pretraining data selection without per-language labels.}}\\[1pt]
+{\footnotesize Shows a practical distillation recipe: use machine translation to let a strong English quality classifier supervise a multilingual student, transferring a consistent notion of ``pretraining-quality'' to many languages where labeled quality data is unavailable. For non-English documents, translate to English, score with an English quality classifier, and train a multilingual student (encoder-only Transformer embeddings + small MLP) to predict the teacher score from the original-language text. At inference, score native text directly---no translation needed. Using the student for filtering and training 1B/3B/8B LLMs matches existing multilingual model-based filtering baselines on downstream benchmarks, without hurting regional/cultural knowledge evaluations. Analyses (synthetic vs web, correlations with LLM-based scoring, generalization to unseen languages) indicate the student largely reproduces the teacher's quality signal cross-lingually.}
+
+\medskip
+
+{\small\textbf{Bridge Routing Heads: Where Multilingual Multi-hop Reasoning Lives in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2610.09733}{arxiv}]}\\
+{\scriptsize Seunghan Kim, Minyeong Choe, Hyunil Kim, Haehyun Cho}\\
+
+{\small\textit{Multilingual multi-hop reasoning depends on identifiable attention-head circuits; amplifying the right heads can recover many cross-lingual failures without training.}}\\[1pt]
+{\footnotesize Introduces Bridge Routing Heads (BRHs) as the mechanistic locus of multilingual multi-hop reasoning and finds a dual-circuit organization: a general BRH pool plus largely disjoint language-specific BRH sets, implying some cross-lingual failures are circuit-selection issues rather than missing knowledge. Use a multi-stage identification pipeline to isolate BRHs, compare head-set overlap across five languages via Jaccard similarity, and test causality by (a) ablating general BRHs and (b) amplifying relevant heads during failing target-language runs to steer the model back to correct reasoning trajectories. Language-specific BRH sets are nearly mutually exclusive (mean Jaccard 0.017 in Llama 3.1 70B; 0.057 in Qwen 2.5 72B). Ablating general BRHs worsens two-hop NLL by 39--89× vs random-head ablations. Head amplification rescues up to 51.7\% of cross-lingual failures, with the same dual-circuit pattern in both models (different general vs language-specific allocation).}
+
+\medskip
+
+{\small\textbf{Latent Core Tokenizer: Compress, but Meaningfully}} {\scriptsize[\href{https://arxiv.org/abs/2610.12376}{arxiv}]}\\
+{\scriptsize Felermino D. M. A. Ali, Millicent Ochieng, Ogbemi Ekwejunor-Etchie, Ade Famoti, Jacki O'Neill, Debjit Paul}\\
+
+{\small\textit{LCT builds a compact shared multilingual tokenizer by first discovering reusable morpheme-like units, then allocating vocabulary---improving 104-language downstream performance at the same vocab size.}}\\[1pt]
+{\footnotesize Separates tokenizer learning into (1) language-agnostic discovery of stable, morphologically meaningful subword units and (2) explicit shared-vocabulary budget allocation, avoiding purely frequency-driven merges that overfit high-resource languages. Discover ``latent core'' units using an MDL objective plus entropy-based boundary cues and morphotactic constraints to favor plausible, reusable pieces. Construct the final shared 200K vocabulary from these units with an allocation strategy aimed at cross-language reuse rather than high-resource dominance. At 200K vocab over 104 languages, LCT lowers fertility and improves a morphology-oriented metric (MorphScore) vs BPE/Unigram/parity-aware BPE, while keeping cross-lingual tokenization disparity comparable. Downstream, it improves aggregate scores by \textasciitilde{}1.5--2 points across four multilingual benchmarks.}
+
+\medskip
+
+{\small\textbf{Language-Specific Effects of Tokenizer Choice in Multilingual Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.12144}{arxiv}]}\\
+{\scriptsize Clara Meister, Gül Sena Altıntaş, Antoine Bosselut}\\
+
+{\small\textit{Tokenizer choice is a major, language-dependent lever in multilingual LMs---especially for lower-resource languages---and no single tokenizer is best for all languages.}}\\[1pt]
+{\footnotesize Provides a controlled, large-scale study isolating tokenizer effects and shows tokenizer impact is strongly tied to language resource level: limited shared vocab makes tokenization a cross-language capacity tradeoff, so low-resource languages exhibit higher sensitivity and different ``good tokenizer'' correlates. Train 123 LMs across 54 tokenizers with architecture/data/token budget/optimization fixed; measure tokenizer sensitivity per language via BPB standard deviation across tokenizers. Relate sensitivity to each language's training-data share (Spearman). Run manipulations (exclude a language from tokenizer training; reweight tokenizer-training data) and test intrinsic tokenizer metrics for predicting pairwise BPB rankings. BPB varies more across tokenizers for languages with smaller training-data share (Spearman rho = -0.52 over 31 languages; rho = -0.69 over 28 word-boundary languages). Leaving a language out of tokenizer training increases its BPB for all studied languages, with larger penalties for lower-resource ones. Increasing tokenizer-training weight for low-resource languages is unreliable and can worsen BPB (notably with repeated LM training data). Some language-specific tokenizer metrics can predict pairwise BPB rankings, enabling cheaper pre-screening.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Phonological Interference in Multilingual Speech Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.11275}{arxiv}]}\\
+{\scriptsize Moran Yanuka, Raja Giryes, Moris Alper}\\
+
+{\small\textit{Multilingual speech models often commit to one language and then delete ``non-native'' sounds; a simple inference-time local language estimate restores many lost phonemes without retraining.}}\\[1pt]
+{\footnotesize Identifies a structured failure mode---phonological interference---where code-switching or unseen-language input triggers an implicit single-language commitment that systematically drops phonemes absent from the chosen language's inventory. Links the effect to a latent internal language-estimation signal and shows that steering this signal predictably changes which language-specific phonemes appear. Define an interference metric comparing preservation of language-exclusive vs shared phonemes across language pairs. Probe activations to extract a low-dimensional ``language estimate'' subspace; causally steer it to induce phoneme deletions/hallucinations matching the steered language. Propose Windowed Language Estimation (WLE): compute local (windowed) language estimates and inject them into the same subspace at inference to replace global utterance-level commitment. Across ASR and phoneme-conditioned TTS, code-switched input loses 32--79\% of exclusive phonemes while shared phonemes degrade far less; unseen languages get mapped toward a confident training-language assignment with more aggressive exclusive-phoneme deletion. The language subspace is causal (steering flips respected inventories). WLE cuts interference by 34--69\% on code-switching while keeping monolingual ASR essentially unchanged.}
+
+\medskip
+
+{\small\textbf{Local Prototype Reconstruction for Text-Compatible Speech-to-LLM Bridge Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2610.11159}{arxiv}]}\\
+{\scriptsize Xinnian Zhao, Chia-Hua Wu, Pu Wang, Hugo Van Hamme}\\
+
+{\small\textit{Speech-to-LLM bridges work better when their outputs sit in the LLM's local token-embedding neighborhoods; a simple local-prototype regularizer improves multilingual ASR and especially speech translation transfer.}}\\[1pt]
+{\footnotesize Recasts bridge pretraining as local geometry matching, not just global alignment. Contributes (1) a task-agnostic diagnostic for ``local lexical manifold compatibility'' of bridge outputs with frozen LLM token embeddings, and (2) Local Prototype Reconstruction (LPR), a lightweight regularizer that enforces this local compatibility. Freeze speech encoder and LLM; train only a small bridge into the LLM embedding space. Add LPR: each bridge token embedding must be reconstructable from a small neighborhood of frozen LLM token embeddings (prototypes), encouraging outputs to land on the LLM's lexical manifold. Use the compatibility diagnostic to compare objectives without task heads or timestamps. Standard bridge objectives can look good on global alignment yet yield poor token-level compatibility, explaining weak transfer. Adding LPR improves multilingual ASR and yields larger gains on harder transfer settings (speech translation, low-resource adaptation). The proposed compatibility diagnostic correlates with downstream performance across objectives, acting as a predictive ``meter'' for bridge quality.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLM work---especially post-training and evaluation for long-horizon agents---with at least \textasciitilde{}40--60 papers spanning on-policy distillation/GRPO/RLVR variants (e.g., OPD failure modes, token weighting, dropout, exploration/entropy collapse), agent harness co-evolution, and process-aware benchmarks for coding/search/research agents (SWE-Journey, StoreBench, LiveMACE, Production-session studies, study contracts). A second major cluster is efficiency for long context and serving---roughly \textasciitilde{}25--40 papers on KV-cache compression/quantization/reuse, sparse/linear/hybrid attention, speculative decoding, routing/MoE (RouterInterp, TokenRouter, PageWeaver, RaReCache, VFold, Read-What-Matters, hybrid long-context mechanics). The most surprising concentration is audio/speech: well over \textasciitilde{}150 papers on full‑duplex voice agents, speech LLMs, TTS control/steering, spatial audio-visual reasoning, and deepfake detection/watermarking/attribution (multiple new benchmarks like SAVU-BENCH, RMS-AQA, SCB, VoxMem, Logbook, SEAR/SE-ADD), suggesting a rapid shift toward ``real-time multimodal'' interaction as a primary frontier. Across modalities, there's also a clear governance/robustness thread (\textasciitilde{}30+ papers) on verifier/judge reliability, faithfulness/citation audits, deception/omission, prompt injection and guardrails, privacy leakage via routing metadata, and unlearning/memorization---often explicitly tied to agent deployment rather than static QA.}
+
+
+\end{document}
