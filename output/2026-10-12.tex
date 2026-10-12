@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-12} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Dialects of Translationese Shape Language Model Learning}} {\scriptsize[\href{https://arxiv.org/abs/2602.16469}{arxiv}]}\\
+{\scriptsize Jenny Kunz}\\
+
+{\small\textit{Machine-translated ``English'' isn't interchangeable: the source language leaves a fingerprint that measurably changes what an English LM learns.}}\\[1pt]
+{\footnotesize Treats translationese as a controllable training variable by holding everything fixed except the source language (24 diverse languages), showing distinct ``dialects of translationese'' induce different LM strengths/weaknesses and linking them to corpus factors (lexical diversity, typological distance, MT quality). Train small English LMs on English corpora produced via MT from different source languages; evaluate perplexity (incl. cross-domain) and grammatical/acceptability judgments; correlate performance with lexical diversity, source--English typological similarity, and translation quality. Source language reliably shifts behavior despite identical surface language. Perplexity differences track corpus properties (esp. lexical diversity) and MT quality; grammaticality/acceptability differences track typological similarity once data is sufficient, implying models absorb source-conditioned syntactic biases.}
+
+\medskip
+
+{\small\textbf{Copy First, Translate Later: Interpreting Translation Dynamics in Multilingual Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2604.17633}{arxiv}]}\\
+{\scriptsize Felicia K\"orner, Maria Matveev, Florian Eichin, Gitta Kutyniok, Barbara Plank, Michael A. Hedderich}\\
+
+{\small\textit{Multilingual pretraining yields a two-stage ``translation'' trajectory: early gains are mostly copying/surface overlap; later gains reflect more abstract cross-lingual mapping.}}\\[1pt]
+{\footnotesize Provides time-resolved evidence (many checkpoints) that apparent early translation is often string copying, with true translation emerging later; introduces a word-level translation probe sensitive to this shift and ties phases to responsible components via analyses/ablations. Pretrain a 1.7B model on 9 diverse languages with dense checkpointing; probe word-level translation at each checkpoint, separating copying from genuine translation and stratifying by surface similarity; run component/parameter ablations to localize mechanisms across phases. Clear two-phase dynamic: early ``translation'' is dominated by copying and overlap heuristics; later performance improves via more language-agnostic mechanisms while copying becomes more selective. Early cross-lingual scores can therefore overstate true translation ability if copying isn't controlled.}
+
+\medskip
+
+{\small\textbf{BLiMPPI: Benchmark of Linguistic Minimal Pairs for Polarity Items}} {\scriptsize[\href{https://arxiv.org/abs/2610.13607}{arxiv}]}\\
+{\scriptsize Arzu Burcu G\"uven, Anna Rogers, Leonie Weissweiler, Joakim Nivre, Rob van der Goot}\\
+
+{\small\textit{BLiMPPI enables large-scale multilingual testing of negative polarity item (NPI) licensing across 33 languages.}}\\[1pt]
+{\footnotesize Introduces a linguistically grounded benchmark (12k+ minimal pairs) targeting NPI licensing beyond English, with coverage across languages and licensing environments plus analyses of factors driving cross-language/construction variation. Automatic pipeline over Universal Dependencies: identify NPIs, label licensing environments, generate licensed/unlicensed minimal pairs via perturbations; evaluate 12 multilingual + 2 monolingual LMs against n-gram baselines; analyze effects of NPI typology, language family, licensing variability, and licenser--NPI distance. Multilingual models perform worst on lower-resource languages and struggle especially on pairs not solvable by n-grams, indicating reliance on surface heuristics rather than full syntactic/semantic licensing. Performance varies systematically with factors like licensing variability and licenser distance.}
+
+\medskip
+
+{\small\textbf{Overcoming Data Imbalances with Expert Selection Biases}} {\scriptsize[\href{https://arxiv.org/abs/2610.13370}{arxiv}]}\\
+{\scriptsize Ayush K. Tarun, Clara Meister, Antoine Bosselut}\\
+
+{\small\textit{MoE LLMs can mitigate category imbalance by adding category-conditioned routing biases so minority categories get more effective expert capacity.}}\\[1pt]
+{\footnotesize Identifies imbalance-driven MoE routing failures (minority categories collapsing into too few experts or scattering without specialization) and proposes a lightweight fix: category-conditioned expert-selection biases that encourage soft, category-aligned expert pools without hard partitioning. Modify the router by adding category-dependent bias terms to expert logits, nudging tokens from each category toward particular experts while preserving standard MoE routing/inference; evaluate across categories such as modalities, low-resource languages, and code. Improves disadvantaged categories in models up to 10.6B params; gains correspond to ``token-equivalent'' increases of \textasciitilde{}18.5\% (smallest scale) and \textasciitilde{}2.7\% (largest), showing routing can recover some benefits of more data via better capacity allocation.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Error Rate is Not Enough: Costs of Augmentation in Low-Resource ASR}} {\scriptsize[\href{https://arxiv.org/abs/2610.13807}{arxiv}]}\\
+{\scriptsize Katsumi Ibaraki, David Chiang}\\
+
+{\small\textit{In low-resource ASR, augmentations trade off distinct phoneme-level error types; combining them can be superadditive only when data is truly scarce.}}\\[1pt]
+{\footnotesize Moves beyond WER to show predictable ``cost profiles'' of augmentations: audio-only methods (e.g., SpecAugment) can harm rare single-cue phenomena (tone, palatalization), while text+TTS introduces different errors (e.g., consonant insertions); complementary profiles can yield superadditive gains in very low data. Controlled sweeps over 4 low-resource languages + English and 5 dataset sizes; compare speed perturbation/SpecAugment with text-based augmentation + TTS; analyze phoneme-level error shifts and relate them to phoneme exposure frequency and single-cue acoustic dependence. SpecAugment best improves aggregate error but increases tone/palatalization errors; text+TTS raises exposure to these rare phenomena (\textasciitilde{}37--38\%) and reverses that damage but increases consonant insertions. Combining methods reduces each other's induced errors and yields superadditive improvements, which vanish by \textasciitilde{}100 hours---i.e., complementarity is a low-resource-only bonus.}
+
+\medskip
+
+{\small\textbf{From 2.1M Hours of Raw Broadcast Audio to Finnish Speech SSL: Confidence Filtering and Architectural Analysis at Scale}} {\scriptsize[\href{https://arxiv.org/abs/2610.13102}{arxiv}]}\\
+{\scriptsize Yaroslav Getman, Tam\'as Gr\'osz, Tommi Lehtonen, Mikko Kurimo}\\
+
+{\small\textit{ASR-confidence filtering turns 2.1M hours of noisy broadcast audio into strong Finnish speech SSL, and fair architecture comparisons show backbone choice still matters at fixed size.}}\\[1pt]
+{\footnotesize Reframes large-scale SSL data filtering as quality estimation: ASR confidence better selects ``learnable'' speech than LID/VAD-style filters; additionally provides matched-parameter comparisons of Transformer/Macaron/Conformer/E-Branchformer backbones to isolate architectural effects. Start from 2.1M hours broadcast audio; rank/select segments by ASR confidence to build filtered pretraining sets; pretrain Finnish SSL models and evaluate on downstream ASR; swap SSL backbones under comparable parameter budgets and test in-/out-of-domain. Confidence filtering outperforms LID-based filtering despite using less data, yielding \textasciitilde{}3--7\% relative WER gains. With parameter count controlled, architecture still shifts results, with strongest gains at Base scale and in out-of-domain robustness.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Task Context Shapes Component Roles in Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.13895}{arxiv}]}\\
+{\scriptsize Sovesh Mohapatra, Dani S Bassett}\\
+
+{\small\textit{Attention heads don't have fixed roles: task context changes what heads read and how their effects propagate through the model.}}\\[1pt]
+{\footnotesize Shows ``shared components'' ≠ ``shared function'': with weights fixed, changing task framing reshapes both head selectivity (which facts they track) and influence (downstream impact), motivating a context-dependent view of circuits. Use prompts encoding identical graph facts but different task contexts; perform activation edits and measure (i) influence on later activations/heads and (ii) importance for final answers; fit context-specific linear response maps predicting downstream changes from upstream edits and compare across contexts. Across five open models (≈1.5B--14B), context redistributes influence so the same heads drive different downstream components. Context-matched linear response maps predict interventions much better than averaged maps (MSE ↓53.6\% in Gemma-2-9B; ↓5.0\% in Qwen3-14B), evidencing genuinely context-specific interaction patterns.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{SWE-Duel: Towards a Self-Scaling Arena for Coding Agents}} {\scriptsize[\href{https://arxiv.org/abs/2610.12569}{arxiv}]}\\
+{\scriptsize Wei Minn, Zhensu Sun, Lwin Khin Shar, David Lo}\\
+
+{\small\textit{SWE-Duel evaluates coding agents via a live Red/Blue arena where agents generate fresh, solvable repo tasks at test time, reducing leakage and saturation.}}\\[1pt]
+{\footnotesize Replaces static benchmarks with a self-scaling protocol: agents author new feature PRs with subtle planted bugs plus sealed tests, gated by strict admission checks (realistic, passes public tests, fails only sealed tests, and is fixable), so difficulty rises with agent strength. On real repos, Red adds a feature + tests and inserts a bug with sealed tests; PR is admitted only if it passes existing+feature tests, fails exactly sealed tests, and a fresh Red session can later fix it blind; Blue reviews/edits without being told about the bug and wins by passing all tests; roles alternate across turns. In a 1,500-turn tournament (11 participants, 15 repos, 5 languages), systems split by skill: GPT-5.5+Codex CLI fixed 98.3\% of reviewed defects; Claude Opus 4.8+mini-swe-agent achieved 27.3\% Red win rate. Newer-model-authored tasks beat a fixed solver far more often than older ones (42.9\% vs 4.0\%), supporting the self-scaling claim.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by agentic LLMs and their training/evaluation stack: at least \textasciitilde{}40--60 papers touch long-horizon agents (coding/web/terminal/embodied), including multiple new arenas/benchmarks (e.g., SWE-Duel, SpireBench, ProgramGym, MAGMA-Bench, APEX-Harm, SmartSalesBench) and many methods for agent RL/OPD/GRPO credit assignment, curriculum, and self-improvement (TreeHCA, State-OPD, Branching OPD, Matched-Context GPO, Rollout-Time Intervention, EvoBelief/RSI/JANUS). A second heavy cluster is efficiency/serving for foundation models---especially speculative decoding and KV-cache/memory compression/reuse (Contextual Correction for speculative decoding, Surfing the Activation Wave, Adaptive DHiSparse, KV-Repurpose, Kronecker Product Attention, zip2zip++, tokenization off-host, mixed precision for recurrent-depth LMs), plus quantization/MoE serving (DualQuant, DuoRate, CoMoE, MoE bias/exposure work). Safety/reliability is unusually prominent and agent-specific: roughly \textasciitilde{}15--25 papers on prompt injection, deception/reward hacking, unlearning, abstention/calibration, and risk benchmarks (ReasoningShield, VEPA, APEX-Harm, SWE-DeceptionBench, X-AgentRed, ``AI Models Can Provably Hide Arbitrary Capabilities,'' backdoor/distillation attacks). A notable emerging direction is multimodal/audio-heavy foundation modeling and evaluation (≈20+ papers on speech/audio LLMs, TTS, full-duplex dialogue, audio grounding/hallucination, anonymization, and efficient audio token handling), alongside a steady stream of domain benchmarks in geospatial, legal, clinical, and biosecurity (GeopoliticalQA, GeoFitBench-LLM, legal KG reasoning, DRYLAB-Bench).}
+
+
+\end{document}
