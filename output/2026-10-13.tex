@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-13} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Language-Specific Effects of Tokenizer Choice in Multilingual Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.12144}{arxiv}]}\\
+{\scriptsize Clara Meister, Gül Sena Altıntaş, Antoine Bosselut}\\
+
+{\small\textit{Tokenizer choice is a first-order factor in multilingual LMs: it can strongly help or hurt specific languages (especially low-resource ones), and cheap intrinsic metrics can often predict the better tokenizer before training.}}\\[1pt]
+{\footnotesize A tightly controlled causal-style study of tokenization effects: 123 LMs trained across 54 tokenizers with architecture/data/compute/optimization fixed, showing tokenizer ``quality'' is language-specific and can amplify existing data imbalance; plus a practical finding that intrinsic tokenizer diagnostics can rank tokenizers per language. Train many tokenizers (varying training mixtures/weighting and inclusion/exclusion of languages), then repeatedly train the same multilingual LM while swapping only the tokenizer; evaluate per-language bits-per-byte (BPB). Run interventions (omit a language from tokenizer training; reweight tokenizer data toward low-resource languages) and test intrinsic segmentation/vocab-allocation metrics as predictors of BPB rankings. BPB sensitivity to tokenizer choice is much larger for low-data languages; excluding a language from tokenizer training reliably degrades that language's BPB (often more when it is low-resource in LM training). Naively upweighting low-resource languages in tokenizer training can backfire (especially with data repetition), and intrinsic tokenizer metrics predict pairwise tokenizer BPB rankings well enough to screen tokenizers cheaply.}
+
+\medskip
+
+{\small\textbf{BLiMPPI: Benchmark of Linguistic Minimal Pairs for Polarity Items}} {\scriptsize[\href{https://arxiv.org/abs/2610.13607}{arxiv}]}\\
+{\scriptsize Arzu Burcu Güven, Anna Rogers, Leonie Weissweiler, Joakim Nivre, Rob van der Goot}\\
+
+{\small\textit{BLiMPPI provides the first large multilingual minimal-pair benchmark for negative polarity items, enabling controlled tests of whether LMs know when NPIs (e.g., ``ever'') are grammatical across languages.}}\\[1pt]
+{\footnotesize Releases BLiMPPI: 12k+ NPI-focused minimal pairs in 33 languages, built to scale beyond English and probe a syntax--semantics phenomenon where surface heuristics are insufficient; includes analyses by typology, family, licensing context, and licenser distance. Automatic pipeline from Universal Dependencies: identify candidate NPIs, label licensing environments, and generate grammatical/ungrammatical minimal pairs via targeted perturbations. Evaluate models by whether they assign higher probability to the grammatical sentence; compare to n-gram baselines to separate shallow cues from deeper generalization. Across 12 multilingual and 2 monolingual models, performance is weak cross-lingually and worst for lower-resource languages. Models drop on pairs not solvable by n-grams, indicating reliance on surface cues; difficulty varies with linguistic factors like licensing variability and NPI--licenser distance.}
+
+\medskip
+
+{\small\textbf{Latent Core Tokenizer: Compress, but Meaningfully}} {\scriptsize[\href{https://arxiv.org/abs/2610.12376}{arxiv}]}\\
+{\scriptsize Felermino D. M. A. Ali, Millicent Ochieng, Ogbemi Ekwejunor-Etchie, Ade Famoti, Jacki O'Neill, Debjit Paul}\\
+
+{\small\textit{A multilingual tokenizer can be both compact and linguistically reusable: LCT discovers transferable subword structure first, then allocates vocabulary, improving multilingual downstream performance without increasing cross-language tokenization unfairness.}}\\[1pt]
+{\footnotesize Latent Core Tokenizer (LCT) reframes multilingual tokenization: optimize for reusable linguistic units rather than pure compression by decoupling (1) discovering morphology-like segments from (2) selecting a fixed shared vocabulary---reducing language-specific fragment memorization. Two-stage training: (i) discover candidate ``core'' segments using MDL/entropy boundary evidence plus morphotactic constraints to favor plausible within-word structure; (ii) build the final shared vocabulary from these candidates, using frequency only after structural discovery, under a fixed 200K vocab budget. Across 104 languages (200K vocab), LCT lowers fertility and improves MorphScore versus BPE/Unigram/parity-aware BPE, while keeping cross-lingual tokenization-cost disparity comparable to baselines. Swapping in LCT yields consistent gains (\textasciitilde{}1.5--2 points) on four multilingual downstream benchmarks.}
+
+\medskip
+
+{\small\textbf{Adapting English Quality Classifiers for Multilingual LLM Pretraining Data Selection}} {\scriptsize[\href{https://arxiv.org/abs/2610.11585}{arxiv}]}\\
+{\scriptsize Vinko Sabolčec, Bettina Messmer, Yassine Turki, Martin Jaggi}\\
+
+{\small\textit{An English-only web-text quality filter can be extended to 100+ languages by using MT to create pseudo-labels, enabling multilingual pretraining data selection without hurting downstream quality or cultural coverage.}}\\[1pt]
+{\footnotesize A teacher--student recipe for multilingual quality scoring: translate non-English text to English, score with a strong English classifier, and train a multilingual student to predict those scores from source text---transferring ``quality'' signals without labeled data per language. For each multilingual document: machine-translate to English → score with English quality classifier → use score as pseudo-label. Train a small MLP head over a multilingual encoder-only Transformer to predict the teacher score from original-language text; deploy without translation at inference. Filtering data with the adapted classifier for 1B/3B/8B LLM pretraining matches multilingual filtering baselines on downstream benchmarks and does not reduce regional/cultural knowledge scores. Additional probes show the student's scores align with teacher/LLM-based scoring and generalize to languages beyond those seen in training.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Local Prototype Reconstruction for Text-Compatible Speech-to-LLM Bridge Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2610.11159}{arxiv}]}\\
+{\scriptsize Xinnian Zhao, Chia-Hua Wu, Pu Wang, Hugo Van Hamme}\\
+
+{\small\textit{For speech-to-LLM systems, the bridge must land on the LLM's local token-embedding manifold; enforcing local ``text-likeness'' during pretraining improves multilingual transfer, especially in low-resource adaptation.}}\\[1pt]
+{\footnotesize Defines and measures local lexical manifold compatibility for bridge outputs (head-free, timestamp-free), and introduces Local Prototype Reconstruction (LPR), a regularizer that makes bridge token vectors reconstructable from nearby frozen LLM token embeddings---turning ``bridge quality'' into a measurable, optimizable geometric property. Frozen speech encoder → trainable bridge → frozen LLM. Diagnose each bridge token by how well it can be expressed from a small neighborhood of frozen LLM input embeddings. Add LPR: penalize bridge tokens that cannot be reconstructed from nearby LLM token embeddings (with a single-prototype limit as a special case), encouraging locally on-manifold representations. Standard bridge objectives can look good on their own losses yet produce off-manifold token vectors and weak transfer. Adding LPR improves multilingual ASR and especially speech translation, with largest gains in low-resource adaptation; the lexical-manifold diagnostic correlates with downstream performance across objectives.}
+
+\medskip
+
+{\small\textbf{Lossless Inference Acceleration for ASR via EAGLE-Style Speculative Decoding}} {\scriptsize[\href{https://arxiv.org/abs/2610.13506}{arxiv}]}\\
+{\scriptsize Sen Zhang, Xianghu Yue, Yiming Chen, Wenhuan Lu, Jianguo Wei, Haizhou Li}\\
+
+{\small\textit{Speculative decoding can accelerate autoregressive ASR without accuracy loss by using a universal, attachable draft module rather than a separate bespoke draft model.}}\\[1pt]
+{\footnotesize EAGLE-ASR adapts EAGLE-style speculative decoding to ASR with Speech-Draft, a lightweight internal drafter that better matches the target model's distribution (higher acceptance) and delivers practical, lossless latency reductions across model families. Target ASR model verifies; Speech-Draft proposes multi-token drafts conditioned on encoder acoustics plus hierarchical decoder representations from the target. Train Speech-Draft with multi-step generation and self-distilled data to improve multi-token drafting consistency and acceptance rate. Reports lossless decoding speedups up to 1.9× on Whisper and 2.4× on Conformer AED models, outperforming prior ASR speculative decoding baselines; also generalizes to multilingual ASR and speech translation.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Understanding Mamba-3 Through Oscillatory Dynamics}} {\scriptsize[\href{https://arxiv.org/abs/2610.13341}{arxiv}]}\\
+{\scriptsize Shutian Liang, Yue Song}\\
+
+{\small\textit{Mamba-3's input-dependent rotations implement underdamped oscillatory dynamics that help recurrent models retain and mix long-range information; phase is a functional control knob for long-context behavior.}}\\[1pt]
+{\footnotesize Provides a mechanistic account of Mamba-3 by mapping its rotation-augmented update to a second-order dynamical system, then uses regime comparisons and interventions to argue oscillation (and learned phase) causally improves state tracking and long-context modeling. Reinterpret the update as damped second-order dynamics; compare overdamped/critical/underdamped regimes under controlled settings. Evaluate on synthetic state-tracking tasks and LM pretraining (long-context/length generalization). Perform interventions that disrupt learned phase and analyze state geometry to see how rotation changes accumulation and interference. Underdamped (oscillatory) dynamics outperform non-oscillatory regimes on state-tracking and improve long-context prediction and length generalization in LM pretraining. Perturbing learned phase degrades performance, tying phase directly to long-context capability; analyses show rotation regulates alignment between stored state and new updates over long horizons.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by agentic LLMs and self-improvement loops: at least \textasciitilde{}40--60 papers on long-horizon agents, recursive self-improvement/world models, and agent training/evaluation (e.g., RSI/JANUS/Memento/EvoBelief, orchestration, memory, tool use, and many new benchmarks like SpireBench, MAGMA-Bench, SWE-* suites). A second major cluster is LLM/VLM efficiency and post-training mechanics---roughly \textasciitilde{}30--50 papers on KV-cache compression/reuse, speculative decoding, tokenization/compression, routing/MoE, and RL/OPD/GRPO variants (plus multiple ``verifier/judge reliability'' audits and rubric/metric critiques). The most surprising concentration is the sheer volume of audio/speech work---well over 200 titles---spanning full‑duplex spoken agents, audio-language models, TTS controllability/steering, ASR robustness, diarization, spatial audio, and deepfake detection/watermarking, suggesting ``voice-native agents + safety/provenance'' is rapidly becoming a parallel hotspot to text agents. Finally, there's a noticeable applied-evaluation push in high-stakes domains (law/clinical/geo/politics) with \textasciitilde{}15--25 papers on verifiable retrieval, legal faithfulness audits, clinical multimodal RAG/prognosis, and geospatial reasoning benchmarks, indicating a trend toward domain-grounded, audit-friendly systems rather than pure capability scaling.}
+
+
+\end{document}
