@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-18} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Scaling Multilingual Mixture-of-Experts: How Language Coverage Changes Capacity and Compute Allocation}} {\scriptsize[\href{https://arxiv.org/abs/2610.20247}{arxiv}]}\\
+{\scriptsize Joel Dag, Nikit Srivastava, Hamada M. Zahera, Axel-Cyrille Ngonga Ngomo}\\
+
+{\small\textit{A fitted scaling law predicts the ``language tax'' from adding languages, and MoE sharply reduces it at fixed per-token compute.}}\\[1pt]
+{\footnotesize Introduces a repetition-aware joint scaling law linking per-language loss to active parameters, tokens per language, number of experts, and language coverage---turning multilingual capacity competition into a quantitative planning tool. Shows MoE changes compute/capacity allocation as coverage grows. Empirical grid of 64 multilingual pretraining configs with 26,300 per-language loss measurements. Fit a scaling law that treats coverage as an explicit variable and adjusts for repeated/duplicated multilingual data. Validate by predicting held-out configurations vs strong baselines. At matched active parameters and tokens per language, 32-expert MoE cuts the loss penalty of expanding from 12→200 languages by 83\% vs dense. The law improves held-out prediction error by 28\% over the best baseline, implying MoE becomes increasingly compute-optimal as language coverage increases.}
+
+\medskip
+
+{\small\textbf{Translation Circuit Discovery and Targeted Optimization for Low-Resource Multilingual Translation}} {\scriptsize[\href{https://arxiv.org/abs/2610.21456}{arxiv}]}\\
+{\scriptsize Atai Waris Khan, Abdullah Mazhar, Raghu Kumar, Md Shad Akhtar}\\
+
+{\small\textit{You can locate small causal ``translation circuits'' in a multilingual decoder-only LM and improve low-resource translation by updating only those parts.}}\\[1pt]
+{\footnotesize Provides a mechanistic account of low-resource translation as sparse internal circuits and turns it into TITAN: discover causally important components, then apply targeted preference optimization to just that circuit (<5\% parameters). Argues translation uses a shared semantic space rather than an English pivot. Causal interventions identify components that change Hindi→Urdu/Sindhi translation behavior; sparse feature decomposition isolates translation-relevant pathways/features. Preference-optimization-style fine-tuning is restricted to circuit parameters to keep adaptation focused and parameter-efficient. On Hindi→Urdu and Hindi→Sindhi (Devanagari), TITAN yields large gains over strong multilingual baselines: BLEU improves by 33.75\% and 45.86\%. Human experts confirm better adequacy/fluency; interventions support the shared-semantic-space (non-English-pivot) mechanism.}
+
+\medskip
+
+{\small\textbf{Multi-SFT: Permissively-Licensed Multilingual Instruction-Following}} {\scriptsize[\href{https://arxiv.org/abs/2610.22086}{arxiv}]}\\
+{\scriptsize Daniela Baiamonte, Kamyar Zeinalipour, Elena Fano, Stefano Simonazzi, Andrea Zugarini}\\
+
+{\small\textit{Multi-SFT delivers a large, permissively licensed multilingual SFT dataset that yields strong and safer chat behavior without proprietary data dependencies.}}\\[1pt]
+{\footnotesize Releases Multi-SFT (500k+ instruction--response pairs) across five European languages with commercial-friendly licensing, addressing data provenance as the key bottleneck for open multilingual post-training. Shows careful translate-vs-regenerate choices preserve quality, including safety content. Translate pairs when intent/evaluation survives translation; regenerate responses when translation would distort culture/safety/policy phrasing. Human evaluation shows high agreement (≥0.87). SFT nine models across EuroLLM/OLMo2/Qwen3 (1B--32B) and evaluate on 13 benchmarks. Multi-SFT alone is competitive with larger instruction mixes and some official instruction-tuned releases across 13 benchmarks. It shows clear advantages on safety-oriented evaluations, indicating curated/regenerated safety data transfers well across languages while remaining legally clean.}
+
+\medskip
+
+{\small\textbf{Language Is a Security Surface for Agent Guards}} {\scriptsize[\href{https://arxiv.org/abs/2610.22244}{arxiv}]}\\
+{\scriptsize Hasan Demirkiran, Jens Ernstberger}\\
+
+{\small\textit{Translating only the user request can flip agent-guard safety verdicts even with identical tool trajectories---language is a real security surface.}}\\[1pt]
+{\footnotesize Isolates language as the sole variable in step-level guard decisions and shows many guards are not language-invariant. Introduces LinguaGuardBench: parallel trajectories where only the initial instruction is translated, proving verdict flips come from language cues rather than changed agent actions. From 1,220 labeled decision points (TS-Bench AgentDojo-Traj), create German/French/Turkish/Swahili/Amharic variants with byte-identical tool calls/observations/labels. Add controls (English paraphrases, whitespace placebo, repeated runs for API noise). Evaluate 19 guards and measure placebo-adjusted flip rates and recall/FP shifts. Many guards---especially smaller open/purpose-built---flip beyond their noise floor, worsening with rarer languages: for <13B guards, placebo-adjusted flips rise from \textasciitilde{}+1.5pp (French) to \textasciitilde{}+4.4pp (Amharic). Recall drops appear mainly for <10B guards (worst \textasciitilde{}-7.4pp), while 12--30B guards skew toward more false positives. Frontier guards are comparatively stable (\textasciitilde{}≤1pp shift); Gemini 3.8 Flash is extremely stable, suggesting heavier reliance on trajectory than user-language. Flips cluster when agent reasoning restates the request in English, hinting at cross-channel inconsistency as a trigger.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Anuvani-LID: Robust and Calibrated Spoken Language Identification for Indian Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.20263}{arxiv}]}\\
+{\scriptsize Stephen Fernandes, Narayan Choudhary}\\
+
+{\small\textit{Foundation speech models' ``free'' language ID is unreliable for Indian audio; a dedicated, calibrated LID model is far safer for short, noisy clips.}}\\[1pt]
+{\footnotesize Shows LID errors silently poison multilingual speech pipelines and that Whisper-style tokens/prompted audio LLMs fail on India's 22 scheduled languages (+ Indian English), especially on short/shifted audio; releases Anuvani-LID, a production-oriented LID model emphasizing calibration for routing/fallback. Train a 115M-parameter Conformer classifier on 54,643 hours across 23 languages with robustness targets (1s clips, noise, narrowband, code-mixing). Evaluate with held-out speaker/corpus splits and a large condition grid (102 conditions; 37 highlighted). Report accuracy plus calibration via ECE. Prompted audio LLMs collapse on 1s inputs (Gemini 3.5 Flash 0.52 macro-F1; GPT-audio 0.14), and Whisper-like models lack language tokens for all targets (15/23). Anuvani-LID reaches \textasciitilde{}0.914 mean macro-F1 across 37 conditions, \textasciitilde{}0.897 macro-F1 over all 23 languages (others ≤0.713), beats Gemini by 24 points at 1s, and is tightly calibrated (ECE 0.008).}
+
+\medskip
+
+{\small\textbf{Anuvani-Diarization: Zero Shot Speaker Diarization and Annotation Conventions Across 22 Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.20327}{arxiv}]}\\
+{\scriptsize Stephen Fernandes, Narayan Choudhary}\\
+
+{\small\textit{Strong zero-shot diarization is achievable across 22 Indic languages, but DER can shift by multiple points purely from annotation conventions.}}\\[1pt]
+{\footnotesize Introduces Anuvani-Diarization, a zero-shot diarizer adapted to noisy, code-switching Indian conversational audio using uncertainty-aware silver supervision. Separately demonstrates that utterance-level annotation conventions are a major hidden confound that can distort cross-dataset DER comparisons. End-to-end segmentation diarization trained with pseudo (silver) labels that explicitly encode uncertainty around overlaps/backchannels/boundaries. Evaluate zero-shot on IndicDiarBench (1,164 recordings; 22 languages) and analyze DER sensitivity to differing turn-annotation conventions. Achieves 16.78\% duration-weighted DER on IndicDiarBench (best of nine tested; near cited best 16.0\%) and leads top competitors in 14/22 languages. Changing annotation convention shifts DER by \textasciitilde{}1.9--4.1 points depending on system, and conventions don't transfer reliably across Indian transcription sources.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Lexical Reference Frames: Interpreting LM Residual Streams in Native Semantics}} {\scriptsize[\href{https://arxiv.org/abs/2610.22169}{arxiv}]}\\
+{\scriptsize Jian Gu, Hongyu Zhang, Chunyang Chen, Aldeida Aleti}\\
+
+{\small\textit{LexFrames interpret hidden states in an LM's own context-dependent vocabulary basis, outperforming fixed linear lenses for attribution, steering, and early-exit decisions.}}\\[1pt]
+{\footnotesize Argues residual-stream ``meaning'' is defined by how the remaining layers will read it, yielding a context-dependent native reference frame. Proposes Lexical Reference Frames (LexFrames) to approximate that frame without probes, plus a coherence bound showing why fixed lenses blur mid-layer semantics. Approximate ``what this state would unembed to after remaining computation'' by partially running the model forward with a budgeted number of real cross-token attention rounds; replace remaining cross-position effects with typical (average) attention output. Produce LexFrame[k] lexical bases/coefficients aligned to the model's own readout. Fixed lenses face low mid-network coherence ceilings (sqrt-coherence \textasciitilde{}0.30--0.35 on SmolLM3-3B/OLMo3-7B). LexFrame[1] nearly matches the model readout (\textasciitilde{}0.97 coherence; \textasciitilde{}0.16 nats from output distribution), enabling more faithful attributions, targeted steering with minimal collateral change, and early-exit that could skip \textasciitilde{}40--45\% of layers (vs almost none with lens-based confidence).}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{DialFork: Going Beyond Factuality to Evaluate Procedural Hallucination in Conversational Agents}} {\scriptsize[\href{https://arxiv.org/abs/2610.21561}{arxiv}]}\\
+{\scriptsize Sergio Burdisso, Esaú Villatoro-Tello, Dairazalia Sánchez-Cortés, Yanis Labrak, Jordi Luque, Milos Cernak, Petr Motlicek}\\
+
+{\small\textit{Chatbots can be semantically plausible yet ``hallucinate the procedure''; DialFork makes this failure measurable with flow-aware metrics.}}\\[1pt]
+{\footnotesize Defines procedural hallucination (deviating from required dialogue workflow) and introduces DialFork: forked dialogues with controlled procedural deviations. Adds deployment-relevant tasks (fleet monitoring, procedural retrieval, first-off-track turn detection) and flow-aware metrics that score trajectory adherence, not just semantic similarity. Start from correct procedure-following dialogues, then fork at chosen turns and inject one of four deviation types while keeping local text plausible. Build three evaluation tasks; propose FlowKL/FlowScore to compare dialogues as sequences of procedural states rather than bags of meanings. Semantic similarity baselines miss procedural drift; FlowScore consistently outperforms semantic metrics at dialogue-level evaluation across encoders. Dataset: 36,278 dialogues over 24 tasks/12 domains with human validation, enabling direct measurement of process adherence and drift.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents and their infrastructure: at least \textasciitilde{}60--80 papers touch agentic tool use, orchestration, harness design, and long-horizon evaluation (e.g., tool-graph memory, multi-agent discussion failures, computer-use benchmarks, weak-to-strong routing/escalation, and ``RSI''/self-improvement loops). A second major cluster is memory/long-context and KV-cache systems---roughly \textasciitilde{}30--40 papers on external/latent memory, compaction, cache eviction/compression, and ``sharing internal state'' (KV handoff, remote KV tiers, selective memory, consolidation into weights). Safety/robustness/privacy is also heavy (\textasciitilde{}25--35): unlearning and privacy leakage (including federated unlearning), multilingual safety/eval awareness, guard bypass via language, backdoors/poisoning, and reliability of LLM judges/rubrics. The most surprising concentration is audio/speech: well over 150 papers on large audio-language models, full‑duplex spoken dialogue/turn-taking, TTS control and evaluation, deepfake detection/anonymization/watermarking, and long-audio grounding---suggesting ``voice agents + audio foundation models'' is the day's standout emerging direction.}
+
+
+\end{document}
