@@ -1,0 +1,96 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-19} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{HeRE: A Novel Benchmark for Hebrew Relation Extraction via LLM-Guided Denoising of Knowledge Graph Alignments}} {\scriptsize[\href{https://arxiv.org/abs/2610.22542}{arxiv}]}\\
+{\scriptsize Ron Keinan, Amir David Nissan Cohen, Reut Tsarfaty}\\
+
+{\small\textit{Build a large native-Hebrew RE benchmark by treating noisy KG--sentence matches as an NLI entailment check and using LLMs to denoise at scale---no translation, little manual labeling.}}\\[1pt]
+{\footnotesize HeRE: a Hebrew relation-extraction benchmark from weak KG-to-text alignments, with the key idea of validating each candidate triple by asking whether the sentence entails a Hebrew verbalization of the triple (NLI framing), enabling \textasciitilde{}1.5M silver instances while avoiding English-centric artifacts. Mine candidate KG triple--sentence pairs where both entities appear; convert each triple to a Hebrew hypothesis and run entailment filtering (premise=sentence). Compare 5 denoising strategies across few-shot prompting, NLI fine-tuning, and label-free cross-training; test Hebrew vs English prompting; evaluate multilingual vs Hebrew-specific models. Multilingual LLMs lead in few-shot prompting, but Hebrew-specific encoders become strongest with NLI fine-tuning and in label-free cross-training. Hebrew prompts match or slightly beat English prompts. Best open model (Gemma-4-31B-it) reaches F1≈0.915 vs best API (GPT-5.4) F1≈0.921; pipeline scores F1≈0.844 on a fully held-out dual-annotated test set.}
+
+\medskip
+
+{\small\textbf{Disentangling Language Effects on Tool Admission and Post-Retrieval Safety}} {\scriptsize[\href{https://arxiv.org/abs/2610.23093}{arxiv}]}\\
+{\scriptsize Aditya Nawal, Manit Baser, Mohan Gurusamy}\\
+
+{\small\textit{Changing the language of a harmful request can sharply increase whether agents choose to retrieve risky URLs, so multilingual safety must separate ``tool admission'' from ``post-retrieval harm.''}}\\[1pt]
+{\footnotesize Separates two often-confounded safety failures: (1) tool admission (does the agent retrieve?) and (2) post-retrieval safety (is the final answer harmful). Introduces SLIP (Safety Loss through Interlingual Processing): safety degrades systematically across languages, and ``non-harmful'' outputs can mask refusal vs deflection vs capability failure. Controlled URL-retrieval testbed with independently set languages for request, retrieved page, and required answer. Evaluate 10 models across 7 languages; measure admission rate on harmful requests and harmfulness conditional on matched tool calls; replicate in a more autonomous retrieval setting; audit ``safe'' outputs into refusal/deflection/unusable categories. Non-English harmful requests raise tool admission from 46.9\% to 67.4\% on average (increase for every model). For matched tool calls, forcing answers in the page language increases pooled harmfulness (50.3\%→57.4\%) for several closed models, especially in Chinese/Hindi; translating pages alone shows no consistent increase. ``Non-harmful'' labels often hide qualitatively different behaviors, so single-score safety evaluations can misdiagnose failures.}
+
+\medskip
+
+{\small\textbf{On the Tip of the Tongue: First-Token Cueing as a Behavioral Probe of Recall Failures in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2610.23400}{arxiv}]}\\
+{\scriptsize Jaewon Sok, Jewon Yeom, Seonghyeon Park, Jeongjae Park, Hwiyeong Lee, Taesup Kim}\\
+
+{\small\textit{Many LLM factual errors are first-step decoding failures: forcing just the gold first token often unlocks the correct multi-token answer, across languages.}}\\[1pt]
+{\footnotesize First-Token Cueing as a behavioral probe: prefill the model's response with the first token of the correct answer to test ``tip-of-the-tongue'' failures. Argues a sizable share of QA hallucinations reflect recoverable retrieval/decoding bottlenecks at the first token, not missing knowledge. Compare standard closed-book QA generation vs generation constrained to start with the gold answer's first token (and, in analysis, longer gold prefixes). Measure accuracy recovery on multi-token answers; analyze uncertainty/confidence around the first token; test whether models more confidently continue correct starts and whether alternative sampled paths can solve the same items. Across 16 open models, a single gold first token fixes \textasciitilde{}20--50\% of multi-token answer errors; the first token yields the largest recovery among all prefix lengths, localizing the failure to the initial decoding decision. Gains hold on a 7-language multilingual benchmark, and models often continue the correct start with higher confidence despite rarely finding it unaided.}
+
+\medskip
+
+{\small\textbf{KiranaBench: Can a Language Model Run a Neighbourhood Shop?}} {\scriptsize[\href{https://arxiv.org/abs/2610.22980}{arxiv}]}\\
+{\scriptsize Bhuvan Arora, Ankita Karmakar, Chaitanya Jain, Dilesh Churiwal, Harshit Jain, Shivansh Manish Dubey, Manish Prasad, Raja Piyush, Kshitij Tayal, Dhruv Kumar, Jagat Sesh Challa, Raunak Manekar, Yash Sinha}\\
+
+{\small\textit{In a realistic multilingual, multi-role Indian kirana simulation, open LLM agents can underperform simple rules and sometimes make the shop worse than doing nothing.}}\\[1pt]
+{\footnotesize KiranaBench: long-horizon neighbourhood-shop simulation emphasizing operational retail work (inventory, customers, cash, bookkeeping) with four separate LLM roles and interactions in English/Hindi/Hinglish, using India-calibrated demand---exposing coordination and multilingual brittleness missed by prior agent benchmarks. Simulate manager/cashier/helper/bookkeeper as separate agents with partial information that must communicate. Generate supplier/customer interactions in English, Hindi, Hinglish; demand grounded in India's Household Consumption Expenditure Survey. Evaluate open-weight LLMs vs a fixed-rule baseline using business outcomes (profit; whether performance is worse than unmanaged). All tested open models fail to run the shop competitively: best earns \textasciitilde{}1/8 the profit of the fixed-rule baseline; two models perform so poorly the shop ends worse than unmanaged. Performance drops when supplier communication is in Hindi/Hinglish vs English, indicating a real multilingual reliability cliff in long-horizon multi-agent settings.}
+
+\medskip
+
+{\small\textbf{Steering beyond Language: Improving Multilingual Training-Free Text Embeddings via Paired-Residual Subspace Removal}} {\scriptsize[\href{https://arxiv.org/abs/2610.23807}{arxiv}]}\\
+{\scriptsize Ailiang Lin, Zhuoyun Li, Yusong Wang, Keyu Mao, Kotaro Funakoshi, Manabu Okumura}\\
+
+{\small\textit{Frozen LLM embeddings are skewed by a low-rank ``language identity'' component; subtracting a residual subspace learned from parallel text improves multilingual alignment without training.}}\\[1pt]
+{\footnotesize Paired-Residual Subspace Removal (PRSR): a training-free inference-time fix that treats language effects as a removable low-dimensional nuisance factor. Uses translation pairs to estimate directions that change with language (not meaning) and projects them out to make embeddings more language-invariant. From parallel sentence pairs, compute residual vectors capturing representation shifts across languages; fit a low-rank subspace (layer-wise) summarizing language-induced variation. At inference, take the chosen embedding (e.g., last-token hidden state) and remove its projection onto this residual subspace---no weight updates. PRSR yields consistent gains over training-free embedding baselines across multilingual retrieval evaluations (MTEB/MMTEB) covering 18 languages and cross-lingual bitext mining with English paired to 200+ languages, supporting the claim that much multilingual embedding weakness in frozen LLMs comes from a cheap-to-remove low-dimensional language component.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{SEA-HELM Audio: Evaluating Multilingual ASR-LLM Pipeline Performance Across SEA-HELM Subsets}} {\scriptsize[\href{https://arxiv.org/abs/2610.19869}{arxiv}]}\\
+{\scriptsize Aulia Adila, Yixian Tan, Jonathan Heng, Kunat Pipatanakul, Donghang Wu, Anocha Sutaveephamochanon}\\
+
+{\small\textit{Text-strong models can fail badly as voice agents; SEA-HELM Audio quantifies the end-to-end ``speech gap'' across Southeast Asian languages and tasks.}}\\[1pt]
+{\footnotesize SEA-HELM Audio adds a speech layer to SEA-HELM, showing ASR is not a neutral front-end: transcription errors interact with downstream reasoning/instruction following. Introduces the ``speech gap'' (text accuracy − speech accuracy) as a comparable metric for multilingual voice-agent reliability. Run SEA-HELM tasks in parallel: (1) original text prompts to the LLM, (2) prompts synthesized to speech → ASR transcript → same LLM. Keep scoring/verifiers identical so differences isolate ASR+downstream effects. Evaluate open and commercial ASR-LLM pipelines across Chinese, English, Malay, Indonesian, Tamil. Speech input causes large drops: multiple-choice speech gap ≈9.00--18.50 points; instruction-following gap ≈20.00--42.86 points. Tamil is most fragile, with >40-point degradation, highlighting language equity issues and showing text-only benchmarks poorly predict spoken performance.}
+
+\medskip
+
+{\small\textbf{Anuvani-LID: Robust and Calibrated Spoken Language Identification for Indian Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.20263}{arxiv}]}\\
+{\scriptsize Stephen Fernandes, Narayan Choudhary}\\
+
+{\small\textit{Spoken language ID is not ``free'' for Indian languages in general speech/audio-LLM systems; a dedicated Conformer model (Anuvani-LID) is far more accurate and well-calibrated.}}\\[1pt]
+{\footnotesize Demonstrates concrete LID gaps in general-purpose models (limited language-token coverage; poor short-clip performance) and releases Anuvani-LID: a robust, calibrated Indian spoken LID model evaluated under many controlled real-world conditions, not just clean accuracy. Train a 115M-parameter Conformer classifier on 54,643 hours spanning 22 Indian languages + Indian-accented English. Evaluate on a 102-condition controlled benchmark with speaker-held-out and corpus-held-out splits; stress short/noisy/narrowband/code-mixed audio; report calibration via ECE for routing reliability. General systems underperform on 1-second clips (Gemini 3.5 Flash macro-F1=0.52; GPT-audio=0.14) and Whisper-like models expose LID tokens for only 15/23 languages. Anuvani-LID reaches 0.914 mean macro-F1 over 37 conditions (5.2 points above Gemini), is +24 points over Gemini at 1 second, scores 0.897 macro-F1 on all 23 languages (no other system >0.713), and is tightly calibrated (ECE=0.008).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Across the list, the dominant theme is LLM/agent reliability, safety, and evaluation: at least \textasciitilde{}20 papers focus on prompt injection/jailbreaks, refusal/harms, watermarking/detection, PII/de-identification, and uncertainty/hallucination measurement (e.g., multiple works on tool-use safety, RAG hallucination risk, watermarkability, PII detection, and jailbreak backdoors). A second major cluster is agentic systems engineering---roughly \textasciitilde{}20 papers on long-horizon agents, memory (filesystem/secure/governed memory, memory selection/gating), tool discovery/recommendation, routing/cascades, and new benchmarks/auditing frameworks (RealCLI, KiranaBench, AuditKIT, SIT-Eval, Annotrace, etc.). Efficiency and inference/training optimization is also heavily represented (≈15+): speculative decoding variants, MoE routing/expert reduction, width slicing/elastic models, embedding/tokenizer alternatives, quantization/low-rank optimizers, and attention variants. A notable emerging direction is multimodal/audio + clinical integration (≈10--15 papers) spanning medical audio for LLMs, speech emotion/judging, TTS/one-step generation, and robust ASR/deepfake/spoof detection, alongside a steady stream of multilingual/low-resource language work (≈8--12) including dialectal Arabic, Luganda, Hebrew RE, Bengali idioms/hallucination detection, and cross-lingual safety/tooling.}
+
+
+\end{document}
