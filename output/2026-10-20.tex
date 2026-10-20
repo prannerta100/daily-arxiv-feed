@@ -1,0 +1,112 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-20} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{DeepSEA: A Multilingual Evaluation Benchmark for Southeast Asia}} {\scriptsize[\href{https://arxiv.org/abs/2610.26155}{arxiv}]}\\
+{\scriptsize Jiuzhou Han, Abhishek Bijay Mishra, Trevor Cohn, Shubham Mittal}\\
+
+{\small\textit{DeepSEA benchmarks 12 Southeast Asian languages and shows many ``multilingual'' models reason better by pivoting through English than directly in-language.}}\\[1pt]
+{\footnotesize DeepSEA: professionally translated, task-diverse evaluation (reasoning, QA, summarization, MT) for SEA languages, enabling diagnosis of true in-language capability vs translation dependence. Human-translate established English datasets into 12 SEA languages; evaluate proprietary and open models; test ``English pivoting'' (solve via English) and analyze cross-lingual errors plus tokenizer fertility. Big resource-tier gap: frontier models stay more robust, while smaller models degrade sharply on Burmese/Khmer/Lao. For reasoning/summarization, many models improve with English pivoting, revealing English-anchored ``thinking''; tokenization/script issues further explain failures.}
+
+\medskip
+
+{\small\textbf{One Head Away from Language Confusion: Single Attention Heads Across Model Families}} {\scriptsize[\href{https://arxiv.org/abs/2610.25026}{arxiv}]}\\
+{\scriptsize Jiwon Jeong, Anjelo Jann Laroza, Chaewoon Yoon, Arjun Pillai, Pranav Kokati, Christian Hoang, Seunghyeok Hong}\\
+
+{\small\textit{Wrong-language replies can hinge on a single attention head; ablating or replacing it can reliably induce or steer language switching.}}\\[1pt]
+{\footnotesize Causal localization of language control: across many instruction-tuned multilingual models, one dominant head disproportionately enforces the requested output language, acting like a controllable switch. Head-by-head ablations on FLORES-style continuations and the Language Confusion Benchmark; validate with mean ablation and mean-replacement at language-name tokens; steer by replacing the head's output with another language's mean. 10/12 models have a single head whose removal uniquely spikes language confusion; in 7 models, ablation shifts \textasciitilde{}8\%--51.5\% of continuations out of-language (others ≤\textasciitilde{}1.4\%). Mean-replacement redirects 84\%--99\% of non-English LCB replies into a chosen language in 5 models; effect is weaker in base (non-instruction) models.}
+
+\medskip
+
+{\small\textbf{Training with Ciphers to Enhance In-Context Terminology Learning For Translation from Rare Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.24593}{arxiv}]}\\
+{\scriptsize Deevyanshu Malu, Deeptanshu Malu, Sunita Sarawagi}\\
+
+{\small\textit{Cipher-based fine-tuning forces translation models to learn rare term translations from in-context examples, boosting terminology recall without hurting overall quality.}}\\[1pt]
+{\footnotesize Defines in-context term learning (ICTL) as a missing capability and proposes RareCipherFT, a resource-free recipe (no dictionaries/term lists) to strengthen rare-term uptake from provided context while preserving general translation. During in-context fine-tuning, choose context examples sharing a rare term with the target, replace that term with a consistent character-shuffled cipher in both context and reference, and anneal the ciphered fraction over training. Across 7 directions (English↔Tamil/Assamese/Mizo/Nepali/Hausa) and 1B--7B models, RareCipherFT improves rare-term recall by \textasciitilde{}5--15 absolute points vs standard IC-Train with no COMET drop; controls suggest gains come from true context-based term linking, not shortcuts.}
+
+\medskip
+
+{\small\textbf{Efficiency Measured in English: Tokeniser Coverage Bounds Small Language Models on Indic Scripts}} {\scriptsize[\href{https://arxiv.org/abs/2610.24818}{arxiv}]}\\
+{\scriptsize Anna Pramod}\\
+
+{\small\textit{Small-model ``efficiency'' can be English-only: poor tokenizer coverage on Indic scripts forces byte fallback, exploding token counts and shrinking usable context.}}\\[1pt]
+{\footnotesize Identifies tokenizer vocabulary coverage as a binding constraint for multilingual SLMs; shows byte fallback can hide catastrophic script failure (0\% UNK yet mostly bytes), so efficiency claims must include tokenization diagnostics. On a 131k-sentence, 11-script Indic corpus, measure fertility (tokens/word), codepoint coverage, and UTF-8 byte-fallback rates; compare tokenizers/models (e.g., TinyLlama, mBERT, MuRIL). TinyLlama tokenization jumps from \textasciitilde{}1.34 tokens/word (Latin) to 22.60 (Kannada) due to near-zero script coverage (0\% Odia, 1\% Telugu, 2\% Kannada) and heavy byte fallback (e.g., Odia at 99.6\% of byte ceiling; 93.6\% tokens are bytes) while still reporting 0\% UNK. Practical hit: a 2048-token window fits \textasciitilde{}1,528 English words but \textasciitilde{}91 Kannada words; MuRIL shows better Indic coverage can fix this with fewer parameters.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{TeleASR-Amharic: A Benchmark for Robust Amharic ASR in Realistic Telecommunication Conditions}} {\scriptsize[\href{https://arxiv.org/abs/2610.26448}{arxiv}]}\\
+{\scriptsize Dagnachew Mekonnen Marilign, Enrique Molero, Abrham Haile, Louis Powell, Israel Abebe Azime}\\
+
+{\small\textit{They release a telecom-realistic Amharic ASR benchmark and show clean-audio gains don't translate: WER can collapse under channel/noise shifts.}}\\[1pt]
+{\footnotesize TeleASR-Amharic: a reproducible evaluation suite capturing real telecommunication degradations (channel + environment) to measure robustness, exposing that low-resource ASR progress is overstated on overly clean test sets. Analyze degradations in real telecom recordings, build multi-condition benchmark, and test robustness via training-data scaling and telecom-aware augmentation; evaluate with WER across severity levels. Severe telecom conditions can make a strong clean model unusable (WER 0.23→0.79; +243\% relative errors). More data plus telecom-aware augmentation recovers robustness, with up to 23.6\% relative WER reduction under extreme noise.}
+
+\medskip
+
+{\small\textbf{Monsoon: Scalable Spontaneous Speech Collection for Low-Resource ASR in 50 Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.26776}{arxiv}]}\\
+{\scriptsize Shobhit Banga, Manas Dhir, Aaditya Pareek, Amritansh Walecha, Bhaskar Singh, Hanuman Sidh, Manmeet Kaur, Sagar Jain, Supriya Paul, Vanshika Chhabra, Utkarsh Singh}\\
+
+{\scriptsize\textcolor{red}{! Summary may contain inaccuracies: The summary states they ``do not claim to release the collected corpora themselves.'' The abstract says they ``release the framework, its quality-control models, and the fine-tuned models,'' but it does not state whether the collected corpora are released or not. Claiming they do not release the corpora adds information not supported by the abstract.}}\\[1pt]
+
+{\small\textit{Monsoon argues data---not architectures---is the ASR bottleneck, and provides a scalable pipeline to collect high-quality spontaneous speech in 50 languages with large conversational gains.}}\\[1pt]
+{\footnotesize Monsoon: end-to-end framework for eliciting, filtering, and multi-stage correcting spontaneous conversational speech for low-resource ASR; releases the framework, QC models, and fine-tuned ASR models (not necessarily the raw corpora). Pair contributors to elicit unscripted dialogue; automated screening for low-quality/problematic audio; five-stage human transcript review; coverage-aware segment selection to broaden lexical/acoustic diversity. Collected across 50 languages; analysis on seven \textasciitilde{}3,500-hour corpora shows the staged QC reduces semantic WER 10--39\% at fixed hours vs conventional collection. Whisper fine-tuned on Monsoon matches a public-corpora baseline on that baseline's tests but improves 20--44 semantic WER points on conversational benchmarks; gains transfer to another ASR architecture and scale with more Monsoon data.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Cognitive Map in Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.25596}{arxiv}]}\\
+{\scriptsize Albert Qin, Jonathan Cohen, Gautam Reddy}\\
+
+{\small\textit{LLMs encode relations via a separable ``structure + entity binding'' representation that can be causally swapped or edited to change inferred relationships.}}\\[1pt]
+{\footnotesize Turns ``cognitive map'' from metaphor into mechanism: relational structure is represented independently of entity identities and combined via role--filler binding, enabling predictable activation splicing and targeted memory edits. Relational inference tasks (incl. novel entity tokens) plus causal ``mosaic'' activation splicing to swap structure vs identity; identify sparse key--value-like binding components and perturb them to rewrite stored links. Large (\textasciitilde{}10B+) open models generalize relational inference to new entities; mosaics yield hybrid answers consistent with factorized structure/identity. Editing the sparse binding substrate can implant specific false relational memories with targeted downstream effects.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Rubrics Carry the Standard: Shapley Attribution for Checklist-Based LLM Judges}} {\scriptsize[\href{https://arxiv.org/abs/2610.24971}{arxiv}]}\\
+{\scriptsize Saeid Asgari, Rui Ying, Sara Malvar, Rakshanda Agarwal, Bruce Sun, Claire Wang, Leonardo de Oliveira Nunes, Ranveer Chandra}\\
+
+{\small\textit{Checklist rubrics largely set LLM-judge strictness, and LLM ``self-review'' of rubrics drifts standards; Shapley attribution can detect and block harmful edits.}}\\[1pt]
+{\footnotesize Shows the rubric---not the judge model---dominates outcomes, and introduces exact, linear-time Shapley attribution for all-must-pass checklists to quantify each check's unique value vs false-fail harm; adds change-control and provenance freeze to prevent drift. Evaluate rubric sensitivity on a planted-flaw grading task plus SummEdits and RAGTruth; compute closed-form Shapley per check; use these signals to gate rubric revisions and prevent deletion of human-derived checks. With judge/output fixed, rubric edits swing correct-output pass rates from 2\% to 100\%, while swapping judge models or re-rendering checks changes only a few points. Self-review drifts across 3 revisers and all datasets, often deleting uniquely useful checks; the Shapley-based gate + provenance freeze blocks nearly all degrading revision chains and yields identical decisions across three judge models.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Across today's 1556 papers, the dominant theme is LLM agents and their infrastructure: at least \textasciitilde{}120 titles focus on agent memory (persistent/latent memory, context compression, KV-cache reuse), tool use, long-horizon evaluation harnesses, and multi-agent coordination (e.g., many ``Bench/Env/Harness'' papers plus memory governance and trace auditing). A second major cluster is reasoning/post-training mechanics---roughly \textasciitilde{}70 papers on RLVR/GRPO/OPD/self-distillation, test-time scaling/early stopping, rubric/judge reliability, and diffusion language models/parallel decoding/speculative decoding (often tied to efficiency and cost). Multilingual/low-resource + safety is another noticeable concentration (\textasciitilde{}40+), with multiple Bangla/African/Arabic/SEA benchmarks and cross-lingual safety defenses, tokenizer coverage issues, and culturally aligned MT. A surprising emerging direction is ``System-1 / decision models'' (Jev-style typed decision models, calibration under shift, cost-aware routing) appearing repeatedly alongside agent governance, suggesting a shift toward probabilistic, auditable decision components rather than pure text generation.}
+
+
+\end{document}
