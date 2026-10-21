@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-21} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{One Head Away from Language Confusion: Single Attention Heads Across Model Families}} {\scriptsize[\href{https://arxiv.org/abs/2610.25026}{arxiv}]}\\
+{\scriptsize Jiwon Jeong, Anjelo Jann Laroza, Chaewoon Yoon, Arjun Pillai, Pranav Kokati, Christian Hoang, Seunghyeok Hong}\\
+
+{\small\textit{In many multilingual instruction-tuned LLMs, a single attention head largely controls output language, and intervening on it can flip the response language.}}\\[1pt]
+{\footnotesize Identifies ``outlier'' language-control heads across 12 checkpoints (7 model families) where ablating one head causes far more language drift than any peer head, and shows targeted mean-replacement can steer language choice---causal, cross-family evidence for a localized language-routing circuit. Measure language confusion on FLORES-200 continuations and a chat Language Confusion Benchmark; ablate heads one-by-one (zero and mean ablation) to find outliers; then do surgical mean-replacement at the language-mention token and at the head output to test controllable steering vs generic degradation. 10/12 models contain a single head whose ablation disproportionately triggers language departures (FLORES: 8.0\%--51.5\% vs ≤\textasciitilde{}1.4\% for other heads in-layer). Mean ablation preserves a weaker but specific effect. Replacing that head's output with another language's mean redirects 84\%--99\% of non-English monolingual chat replies in five models, implying a causal language-selection mechanism tied especially to instruction/chat behavior.}
+
+\medskip
+
+{\small\textbf{Scaling Synthetic Pre-training Data and Evaluation for Indic LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2610.26006}{arxiv}]}\\
+{\scriptsize Abhinav Khattar (NVIDIA), Aishwarya Chhabra (NVIDIA), Ameya Velingker (NVIDIA), Anusha Kamath (NVIDIA), Brandon Norick (NVIDIA), Kanishk Singla (NVIDIA), Kiran Praveen (NVIDIA), Markus Kliegl (NVIDIA), Mohammad Qazim Bhat (NVIDIA), Mostofa Patwary (NVIDIA), Niket Agarwal (NVIDIA), Rajpreet Thethy (NVIDIA), Ramani Akkati (NVIDIA), Raviraj Joshi (NVIDIA), Sai Nishanth Padala (NVIDIA), Shuoyang Ding (NVIDIA), Sriharsha Niverty (NVIDIA), Utkarsh Vaidya (NVIDIA), Vitaly Lavrukhin (NVIDIA), Yev Meyer (NVIDIA), Anoop Kunchukuttan (AI4Bharat), Mitesh Khapra (AI4Bharat), Mohammed Safi Ur Rahman Khan (AI4Bharat), Rudra Murthy (AI4Bharat), Sumanth Doddapaneni (AI4Bharat), Thanmay Jayakumar (AI4Bharat), Ujjwal Sharma (AI4Bharat)}\\
+
+{\small\textit{You can scale high-quality Indic pretraining and evaluation by translating curated English sources---if you engineer translation QC and task validation.}}\\[1pt]
+{\footnotesize Releases a trillion-token-scale synthetic Indic corpus (22 scheduled languages + some romanized variants) with auditable QC/repair, and an Indic evaluation suite built via a translation-and-validation pipeline to enable meaningful cross-language comparisons. GPU-accelerated translation of curated English documents into Indic languages; automatic quality scoring + targeted repair while preserving terms/formatting and traceability; continued-pretraining with mixes of synthetic+natural data; ablate Indic share, script coverage, and mixture trade-offs; build/validate translated eval tasks with human-in-the-loop checks. Continued pretraining with the synthetic corpus improves Indic knowledge/reasoning beyond using public natural Indic text alone, indicating translations carry learnable content. Increasing Indic share and script coverage boosts Indic capability but can trade off with English, enabling tunable mixtures. The eval suite shows large variation by language/task and that translation validation is necessary to avoid benchmark noise.}
+
+\medskip
+
+{\small\textbf{Safety Kernel: Mechanistic Alignment for Cross-Lingual Defense in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2610.24614}{arxiv}]}\\
+{\scriptsize Chengyu Xie, Fei Shen, Shuyi Miao, Yue Feng, Jian Yu, Pengyang Shao, Yijun Tian, Xiaoyu Du}\\
+
+{\small\textit{Cross-lingual jailbreaks persist because safety isn't uniformly implemented across languages; editing a small shared ``safety kernel'' improves multilingual defense.}}\\[1pt]
+{\footnotesize Defines a compact, cross-language set of safety-relevant neuron dimensions (``safety kernel'') and uses it as a mechanistic alignment target, enabling cross-lingual safety transfer without broad capability damage. Use parallel multilingual safe/unsafe prompts; compute per-language neuron SCAR scores; intersect top neurons across languages to form the kernel; validate causally via activation suppression/transfer; apply masked LoRA restricted to kernel FFN output dimensions. A small shared neuron set meaningfully controls safe/unsafe behavior: manipulating it predictably changes guardrail compliance. Kernel-restricted LoRA hardens models against jailbreaks across multiple languages, including languages not used to find the kernel, while altering general capabilities less than unconstrained alignment.}
+
+\medskip
+
+{\small\textbf{Efficiency Measured in English: Tokeniser Coverage Bounds Small Language Models on Indic Scripts}} {\scriptsize[\href{https://arxiv.org/abs/2610.24818}{arxiv}]}\\
+{\scriptsize Anna Pramod}\\
+
+{\small\textit{``Efficiency'' claims for small LMs often only hold in English: poor tokenizer coverage can shrink usable context by >10× on Indic scripts.}}\\[1pt]
+{\footnotesize Turns tokenizer coverage/byte-fallback/UNK behavior into a practical efficiency metric across scripts, showing that token budgets and context windows are not comparable across languages when tokenizers silently fail. Tokenize 131k sentences across 11 Indic scripts with TinyLlama-1.1B, mBERT, and MuRIL; measure fertility (tokens/word), codepoint vocabulary coverage, byte-fallback rates, and UNK rates to expose silent failure modes. TinyLlama is \textasciitilde{}1.34 tokens/word in Latin but up to 22.60 in Kannada due to near-total byte fallback (e.g., 0\% codepoint coverage for Odia; \textasciitilde{}1--2\% for Telugu/Kannada; \textasciitilde{}93.6\% byte tokens with 0.0\% UNK). Conversely, mBERT can show low fertility (1.10 on Odia) while dropping text as UNK (87.9\%). A 2048-token window fits \textasciitilde{}1,528 English words but only \textasciitilde{}91 Kannada words---context length isn't transferable without tokenizer coverage.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Monsoon: Scalable Spontaneous Speech Collection for Low-Resource ASR in 50 Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.26776}{arxiv}]}\\
+{\scriptsize Shobhit Banga, Manas Dhir, Aaditya Pareek, Amritansh Walecha, Bhaskar Singh, Hanuman Sidh, Manmeet Kaur, Sagar Jain, Supriya Paul, Vanshika Chhabra, Utkarsh Singh}\\
+
+{\small\textit{Low-resource ASR improves most when you can reliably collect and clean real conversational speech at scale; Monsoon does this for 50 languages.}}\\[1pt]
+{\footnotesize An end-to-end, scalable pipeline for spontaneous (paired conversation) speech collection with automated filtering plus staged human review and coverage-based segment selection, shown to translate directly into large WER gains---not just more data. Elicit unscripted paired conversations; run automatic QC (bad audio/wrong language/etc.); apply five-stage human transcript refinement; select segments to maximize lexical/acoustic coverage; fine-tune ASR models (incl. Whisper) and test scaling/transfer. At fixed data volume, Monsoon's QC pipeline reduces semantic WER \textasciitilde{}10--39\% vs conventional collection. Whisper fine-tuned on Monsoon remains competitive on baseline test sets but improves sharply on conversational benchmarks (semantic WER down \textasciitilde{}20--44 points). Gains transfer to another model family and increase with more Monsoon data.}
+
+\medskip
+
+{\small\textbf{TeleASR-Amharic: A Benchmark for Robust Amharic ASR in Realistic Telecommunication Conditions}} {\scriptsize[\href{https://arxiv.org/abs/2610.26448}{arxiv}]}\\
+{\scriptsize Dagnachew Mekonnen Marilign, Enrique Molero, Abrham Haile, Louis Powell, Israel Abebe Azime}\\
+
+{\small\textit{Amharic ASR that looks strong on clean data can fail catastrophically on phone-call audio; TeleASR-Amharic makes this gap measurable and improvable.}}\\[1pt]
+{\footnotesize A realistic telecom-condition benchmark for Amharic plus analysis of which channel/noise degradations dominate errors, turning ``robustness'' into a reproducible evaluation target and motivating telecom-aware training. Curate call-like Amharic speech and organize evaluation by channel artifacts, environmental noise, and telecom-domain variations; benchmark existing models per condition/severity; test practical levers: more training data and telecom-aware augmentation. Severe telecom degradation can raise best-model WER from \textasciitilde{}0.23 to \textasciitilde{}0.79, showing clean-benchmark progress doesn't transfer to phone deployments. Data scaling + telecom-aware augmentation recovers robustness, including a 23.6\% relative WER reduction under extreme noise, but a large gap remains.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Where Are Language-Specific Features Represented in Multilingual LLMs? Everywhere}} {\scriptsize[\href{https://arxiv.org/abs/2610.25505}{arxiv}]}\\
+{\scriptsize Mikaela Martins, Jonathan Dunn}\\
+
+{\small\textit{In a multilingual LLM, language identity stays decodable across nearly all layers---there isn't a clean ``language-agnostic middle.''}}\\[1pt]
+{\footnotesize Refutes the common early/agnostic/late layer partition for language features (tested on Llama 3.2 1B) via probing plus representation manipulations, and highlights a Portuguese--Spanish asymmetry where ambiguous strings skew ``Spanish.'' Probe layerwise contextual embeddings for language ID in (i) Portuguese vs Spanish and (ii) 200+ languages; complement probes with embedding perturbations to test whether language signals are robust/distributed rather than probe artifacts. Language ID remains strongly recoverable throughout depth, contradicting a middle-layer interlingua that discards language identity. The PT--ES setting confirms this isn't just script/token cues. Ambiguous strings are resolved as Spanish more than Portuguese, diverging from human judgments.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{LEAPS: Long-context Evaluation of Adaptive Pattern Learning and State Tracking}} {\scriptsize[\href{https://arxiv.org/abs/2610.25919}{arxiv}]}\\
+{\scriptsize Howard Yen, Nitya Mani, Alex Renda, Christopher S. Hardin}\\
+
+{\small\textit{Long-context ability isn't just retrieval: many models fail at state tracking and in-context pattern learning as contexts grow.}}\\[1pt]
+{\footnotesize Introduces LEAPS, 12 contamination-resistant long-context datasets targeting two under-evaluated skills---evolving state tracking and adaptive pattern learning---scalable up to million-token contexts and designed to resist ``grep-the-fact'' shortcuts. Construct trajectory-style tasks where answers require integrating many updates or learning distributions from many observations; evaluate diverse API/open models across \textasciitilde{}8K--512K contexts; track performance as identical tasks are stretched to longer inputs with robust metrics. Retrieval strength poorly predicts LEAPS performance: models that are near-perfect on recall can be weak on state/pattern tasks. Accuracy often drops sharply with longer contexts---even for pattern learning where more evidence should help. Reasoning-augmented variants can underperform base models, often wasting budget on verbosity or losing details.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's submissions are dominated by agentic LLM systems and their failure modes: at least \textasciitilde{}60--80 papers touch agents (tool use, long-horizon workflows, harness/self-improvement, routing), with especially dense clusters on memory (≈15--25 on persistent/parametric memory, context compression, KV reuse) and on security/safety for agents (≈15--25 on prompt injection, jailbreak metrics, authorization/compliance, privacy leakage). A second major theme is post-training and evaluation methodology for reasoning models---RLVR/GRPO/on-policy distillation, rubric/judge design, and test-time scaling/early stopping---again roughly ≈30--50 papers, often framed as ``what RL adds,'' credit assignment, and how benchmarks/judges can be gamed. Efficiency is everywhere (≈20--30 on speculative decoding, diffusion/parallel decoding, low-bit/FP4 training, KV-cache pruning/compaction, MoE routing/pruning), and a notable emerging direction is diffusion language models as a parallel alternative to autoregressive LMs (≈10--15 papers specifically on dLLMs and their samplers/decoding). Surprising cluster: an unusually large audio/speech wave (≈25--40) spanning full-duplex voice agents, prosody/nonverbal cues, low-resource ASR benchmarks, and audio-language model reasoning/robustness---suggesting ``voice-first agents'' are becoming a primary battleground alongside web/coding agents.}
+
+
+\end{document}
