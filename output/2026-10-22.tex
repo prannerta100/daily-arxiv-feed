@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-22} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Same Answer, Different Reasons: Trace-Level Divergence in Multilingual Large Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.29092}{arxiv}]}\\
+{\scriptsize Rui Sun, Peizhao Mei, Xiewei Cheng, Kaizhuo Chen, Taoran Li, Zhiyuan Yu, Varun Chandrasekaran}\\
+
+{\small\textit{Multilingual LLMs often give the same answer across languages but follow different intermediate reasoning, so answer agreement or whole-response similarity can hide real cross-lingual inconsistency.}}\\[1pt]
+{\footnotesize Proposes evaluating cross-lingual consistency at the level of step/claim structure (not just final answers or embedding similarity), showing that globally similar explanations can disagree in which intermediate claims appear and how they're ordered. Segment each visible reasoning trace into steps, align/compare traces with metrics for structural similarity and order consistency, and contrast against a whole-response embedding cosine baseline; calibrate scores per language pair and validate with blind bilingual human judgments. Across 6 multilingual LLMs, 7 languages, and 3 reasoning benchmarks, holistic similarity systematically overstates agreement: among top-quartile holistic-similarity pairs, \textasciitilde{}52.1--67.3\% are not top-quartile structurally similar; the effect is robust to encoders/segmentation, humans prefer the structure-aware metric, and same-language controls indicate the divergence is language-specific.}
+
+\medskip
+
+{\small\textbf{How to Use Parallel Data for Multilingual Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2610.28838}{arxiv}]}\\
+{\scriptsize Zhihong Huang, Yao Lu, Derek F. Wong, Hamid Alinejad-Rokny, Min Yang}\\
+
+{\small\textit{Parallel document--translation pretraining isn't a free win, but doing it first and then switching back to standard multilingual pretraining reliably improves cross-lingual transfer at fixed compute.}}\\[1pt]
+{\footnotesize Provides a matched-budget study showing parallel-pretraining alone often fails to beat standard multilingual pretraining on understanding benchmarks, then introduces a simple two-stage schedule (parallel then standard) that consistently helps by fixing a train--test context mismatch. Parallel pretraining (PPT): build sequences by concatenating a document with its translation to force bilingual alignment in-context; diagnose mismatch because downstream inputs are typically monolingual; fix with PPT→standard pretraining (SPT) while keeping total token budget constant. PPT alone strengthens cross-lingual sharing signals but does not reliably improve downstream language understanding vs standard pretraining at equal budget. PPT followed by SPT yields consistent gains over standard pretraining in both high- and low-resource settings, improving cross-lingual task performance without extra compute.}
+
+\medskip
+
+{\small\textbf{Scaling Multilingual Pretraining of Pixel Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.29681}{arxiv}]}\\
+{\scriptsize Ilker Kesen, Jenny Kunz, Kasra Malihi, Desmond Elliott}\\
+
+{\small\textit{Pixel-based multilingual LMs scale mostly locally: added languages/scripts mainly benefit themselves, while larger models chiefly reduce multilingual interference rather than producing broad transfer everywhere.}}\\[1pt]
+{\footnotesize A scaling study of pixel LMs (text as rendered glyph images) disentangling effects of number of languages, scripts, and model size, and linking performance trends to internal representational shifts (visual-processing depth and cross-lingual alignment). Train MPIXEL variants varying languages, scripts, and capacity while holding per-language compute fixed; evaluate on 5 tasks across 83 languages, including transfer to unseen languages/scripts; probe representations for visual vs linguistic layer allocation and alignment changes with multilinguality. Adding languages helps primarily those languages; adding scripts helps those scripts; increasing capacity mitigates the curse of multilinguality (less average degradation from interference). Transfer to unseen scripts improves with multilingual pretraining but plateaus with further scaling. Internally, larger models devote more layers to visual processing, and cross-lingual alignment weakens as more languages are added---matching the limited global transfer.}
+
+\medskip
+
+{\small\textbf{A Parallel Multi-Dialect Arabic Dependency Treebank}} {\scriptsize[\href{https://arxiv.org/abs/2610.28823}{arxiv}]}\\
+{\scriptsize Noor Abo Mokh, Mohamed Adel, Jamila El-Gizuli, Go Inoue, Ahmed Elshabrawy, Nizar Habash}\\
+
+{\small\textit{MADARTB provides sentence-aligned dependency trees for MSA plus five Arabic dialects, enabling controlled study and benchmarking of syntactic variation across varieties.}}\\[1pt]
+{\footnotesize Releases a parallel multi-dialect Arabic dependency treebank (Beirut, Cairo, Doha, Rabat, Tunis, plus MSA) annotated consistently with CATiB, removing domain/genre confounds that plague cross-dialect syntax comparison and transfer evaluation. Annotate parallel sentences across all varieties with shared CATiB guidelines; analyze both global construction distributions and local structural divergences; benchmark with a supervised dependency parser and LLM-based parsing setups on the same aligned data. Dialects/MSA look similar in coarse construction profiles but often diverge locally in structure on the same sentences---showing ``overall similarity'' doesn't guarantee parser interchangeability. A supervised parser reaches \textasciitilde{}87.5\% LAS across varieties; best LLM-based setup is close but lower at \textasciitilde{}85.7\% LAS. The main deliverable is the released dataset/models as a reproducible benchmark.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Qwen-Audio-3.1-ASR Technical Report}} {\scriptsize[\href{https://arxiv.org/abs/2610.28711}{arxiv}]}\\
+{\scriptsize Chuanmeng Bian, Daren Chen, Peixin Chen, Zhigao Chen, Chong Deng, Zhiyun Fan, Zhifu Gao, Bo Gong, Qing Gu, Jiajun He, Yawei Hu, Yunjie Ji, Wei Ju, Jingbei Li, Xiangang Li, Xu Li, Zengxi Li, Zheng Li, Chengdong Liang, Baiji Liu, Yaming Liu, Ying Liu, Bin Ma, Yiping Peng, Yuezhang Peng, Zhendong Peng, Yu Pu, Yang Shi, Xin Shu, Jian Tang, Biao Tian, Peiyao Wang, Tianzi Wang, Wen Wang, Wupeng Wang, Cheng Wen, Yuzhong Wu, Zijian Xia, Yunchong Xiao, Nan Yang, Jianwei Yu, Jixing Yu, Binbin Zhang, Lei Zhang, Sitong Zhao, Guangdong Zhou, Yuan Zhou, Jianheng Zhuo}\\
+
+{\small\textit{Qwen-Audio-3.1-ASR extends multilingual ASR into a deployable audio system that supports diarized, timestamped transcription (including overlap) plus broader audio understanding.}}\\[1pt]
+{\footnotesize Unifies transcription, speaker diarization (stable speaker IDs, timestamps, overlap), and general audio understanding (captioning, event detection, temporal grounding, audio QA) under instruction-following audio-language models with structured outputs. Train a family of variants for offline, streaming/low-latency, interactive, and non-streaming use; use instruction control for context conditioning, hierarchical hotwords, and transcription polishing; represent diarized ASR as structured text with speaker labels/timestamps and explicit overlap. Demonstrates credible performance across (1) multilingual/dialect ASR (30 languages, 16 Chinese dialects), (2) diarized ASR with overlap handling and consistent speaker labeling, and (3) temporal audio understanding tasks---positioning the model as more than WER-focused transcription by producing downstream-ready structured outputs.}
+
+\medskip
+
+{\small\textbf{How Far Can the Gemma 4 Speech Encoder Go Without Changing Its Weights? Saudi and Gulf Arabic Speech Recognition with a Frozen and an Adapter-Augmented Encoder}} {\scriptsize[\href{https://arxiv.org/abs/2610.28673}{arxiv}]}\\
+{\scriptsize Amr Abdelkhalik}\\
+
+{\small\textit{A frozen Gemma 4 speech encoder can deliver strong Saudi/Gulf Arabic ASR with only small readers/adapters, approaching commercial accuracy while improving efficiency.}}\\[1pt]
+{\footnotesize Shows, with matched comparisons, that keeping the 305M Gemma 4 audio encoder fully frozen plus a modest CTC reader can match commercial CER in most conditions, and that adding only \textasciitilde{}3.1M adapter params plus a stronger decoder closes much of the WER gap---shifting adaptation budget to lightweight components. Two setups: (1) frozen encoder + 22.6M CTC reader using a learned mix of multiple encoder layers; (2) frozen encoder + 3.1M low-rank adapters + 41.5M hybrid CTC/attention reader with joint decoding including a subword LM. Evaluate vs strong baselines (incl. Cohere Transcribe Arabic), report significance, and measure CPU/GPU throughput. Frozen system matches the commercial baseline in CER on 5/6 conditions and is \textasciitilde{}3.4× faster on CPU (greedy). Adapter+hybrid system becomes statistically indistinguishable in WER on a public Saudi call-center set and clean Emirati speech, significantly better on telephone-coded Emirati, lowers CER on all 6 conditions, and beats a 0.6B fine-tuned recognizer on all 6 WER comparisons; remaining WER gap is mainly long-form Saudi, while joint decoding reaches \textasciitilde{}139× real-time on one GPU.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Reader--Writer Coupling in Transformer MLPs}} {\scriptsize[\href{https://arxiv.org/abs/2610.29340}{arxiv}]}\\
+{\scriptsize Giyeong Oh, Sunghee Ahn, Youngjae Yu}\\
+
+{\small\textit{Transformer MLP channels learn tight reader--writer coupling, with a small stable core that mostly writes in the opposite direction from what its gate reads, affecting how MLPs function and how interventions work.}}\\[1pt]
+{\footnotesize Introduces a Jacobian-based, per-channel measure of joint reader--writer pairing/alignment that can't be recovered from W\_in or W\_out alone, revealing a strongly coupled core of mostly ``opposed'' channels and validating it via training dynamics and causal interventions. Compute the MLP Jacobian J (residual→residual) on data; compare J and Jᵀ to derive a signed coupling coordinate per channel indicating aligned vs opposed reader--writer direction and coupling strength; track this through training and test flips/permutations of writers/readers. Each MLP block contains a small set of highly coupled channels that rapidly become predominantly opposed early in training (sign stabilizes quickly while magnitude grows). Flipping opposed writers shifts outputs toward more common tokens, and permuting writers causes writers to regrow toward the new reader while readers stay relatively fixed---evidence training actively maintains these couples.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by LLM agents and their infrastructure: at least \textasciitilde{}25--35 papers focus on agent training/evaluation (agentic RL/RLVR/GRPO, harness design/evolution, verifier/judge reliability, multi-agent coordination/topology, and long-horizon coding/research agents---e.g., FrontierCS2, VerifierBench, SWE-style multi-turn evals). A second major cluster is retrieval and grounding (roughly \textasciitilde{}10--15 on RAG, long-context pretraining/scaling laws, document ingestion, query clarification, KG/RAG compositionality, and evidence coverage/cost tradeoffs), often tied to safety and auditability (another \textasciitilde{}10--15 on refusal directions, prompt injection/persistent memory compromise, calibration/uncertainty, bias/fairness, and auditable detection). There's also a noticeable surge in diffusion/flow alternatives to autoregressive LMs and inference acceleration (≈10+ on diffusion language models, speculative decoding variants, and sampling/faithfulness), plus a sizable audio/speech/music block (≈15--25 on ASR, TTS/prosody, codecs, target speaker extraction, and music understanding/production). A slightly surprising emerging direction is ``memory as a first-class security and systems problem'' for agents (multiple papers on persistent memory managers, MemoryTax, PerMIT, and injection risks), suggesting the field is shifting from pure capability gains to operational robustness in deployed agent stacks.}
+
+
+\end{document}
