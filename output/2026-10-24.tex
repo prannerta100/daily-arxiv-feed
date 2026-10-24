@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-24} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{AQL-Lite: Enabling Efficient Knowledge Acquisition for Arabic LLMs via Data-Centric Continual Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2610.30344}{arxiv}]}\\
+{\scriptsize Houssam Eddine Boukhalfa, Mourad Bouache, Mourad Dahmane}\\
+
+{\small\textit{Arabic gains come from curated Modern Standard Arabic data plus partial-parameter continual pretraining---not raw web text or full retraining.}}\\[1pt]
+{\footnotesize AQL-Lite: a practical, data-centric MSA curation pipeline paired with an efficient continual-pretraining recipe that updates only selected weights, delivering most of full-parameter gains at much lower cost. Build an MSA-focused ``AQL-curated'' corpus via cleaning/filtering, MSA selection, and deduplication; continual pretrain with RS-LoRA adapters plus unfreezing embeddings and last 8 transformer blocks using layer-wise learning rates. At 1B tokens, raw-web Arabic yields \textasciitilde{}no improvement, while AQL-curated improves mean over 4 Arabic benchmarks by +3.51; at 5B tokens, partial-parameter training reaches 94\% of full-parameter gain (73.19 vs 73.58) in 52\% wall-clock; scaled to 40B MSA + 1M instruction-tune hits 75.3 on OALL v2 (7 benchmarks) for a 12B model.}
+
+\medskip
+
+{\small\textbf{Same Entity, Different Script: Diagnosing Cross-Script Entity Matching Failures in Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2610.31407}{arxiv}]}\\
+{\scriptsize Athira Gopal, Patil Prathamesh Pravin, Ankush Kadu, Arpit Jain, Ashwanth Krishnan}\\
+
+{\small\textit{Cross-script entity matching fails mainly due to a miscalibrated decision threshold, not missing knowledge---and a targeted activation intervention fixes much of it.}}\\[1pt]
+{\footnotesize Diagnoses a script-specific ``same person?'' failure where internal representations still separate matches from non-matches, but the final criterion is too conservative in native scripts; localizes a causal site and derives a fact-independent intervention direction. Create audited Latin↔native-script identity-pair datasets with controlled templates; evaluate same/different asymmetry; train probes on Latin hidden states and transfer to native-script states; show scalar calibration explains much of the gap; use activation patching in Qwen2.5-7B to find where entity-2 info affects the decision and apply a sensitivity-direction edit. Qwen2.5-7B (Marathi): same-person accuracy 35.1\% (Latin) vs 8.5\% (Devanagari) while different-person stays >98\%; Malayalam set: same-person 5.3\% but AUROC 0.925; calibration explains 87\% of probe--model gap; intervention boosts held-out Marathi same-person 6.5\%→33.5\% with different-person 98.5\%.}
+
+\medskip
+
+{\small\textbf{CrisiLangs: A Multilingual Resource for Crisis Warning Generation}} {\scriptsize[\href{https://arxiv.org/abs/2610.31356}{arxiv}]}\\
+{\scriptsize Giacomo Gonella, Stefano Menini, Marco Guerini}\\
+
+{\small\textit{CrisiLangs provides expert-aligned, parallel multilingual crisis-warning data and shows fine-tuning beats zero-shot for reliable public alerts.}}\\[1pt]
+{\footnotesize Extends English CrisiText into a controlled multilingual benchmark (Italian, Bulgarian, German, Greek) with expert translations aligned to professional warning guidelines, enabling apples-to-apples multilingual generation studies. Translate 1,000 crisis events' guideline-based English warnings into 4 languages (5,000 aligned pairs total); fine-tune a multilingual model jointly; test prompting with vs without guidelines; evaluate with ROUGE-L/BLEU/BERTScore plus human preferences across decoding temperatures. Multilingual fine-tuning consistently outperforms zero-shot across all languages/metrics; humans prefer low-temperature (more deterministic) warnings; guideline-in-prompt effects vary by language, suggesting prompt transfer is not uniform.}
+
+\medskip
+
+{\small\textbf{Measuring Research Progress and Linguistic Inclusion in Low-Resource Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.30296}{arxiv}]}\\
+{\scriptsize Atnafu Lambebo Tonja, Tadesse Destaw Belay, Jesujoba Oluwadara Alabi, Israel Abebe Azime, Benjamin Rosman, Ehsan Shareghi, Thamar Solorio, Pontus Stenetorp, Monojit Choudhury}\\
+
+{\small\textit{Low-resource NLP output is growing fast, but linguistic inclusion is not---this paper introduces metrics to measure whether coverage is actually becoming equitable.}}\\[1pt]
+{\footnotesize Builds a 2020--2025 dataset of 1,158 low-resource/multilingual NLP papers and proposes the Linguistic Inclusion Framework (LIF) with four measurable dimensions to separate ``more papers'' from ``broader, sustained, equitable language coverage.'' Extract languages per paper and aggregate over time/region; compute LIF: (1) research growth, (2) representation expansion (new languages), (3) representation continuity (repeat attention), (4) distributional equity (representation share vs speaker-population share) at continent/country levels. Papers rise 52→415/year (5.4× share within ACL Anthology), but growth concentrates on already-studied languages; Asia has \textasciitilde{}64.1\% of speakers but only 46.7\% representation (\textasciitilde{}0.7×), while Europe gets \textasciitilde{}5.3× its proportional share; sub-Saharan Africa and Southeast Asia are especially undercovered, and no continent scores well across all LIF dimensions.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Group Relative Policy Optimisation Improves Multilingual Speech Recognition in Low-Resource Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.30663}{arxiv}]}\\
+{\scriptsize Tim Wenjie Hu, Evelyn Nafula Ouma, Benjamin Akera, John A. Quinn}\\
+
+{\small\textit{GRPO RL fine-tuning reliably improves multilingual Whisper on 51 low-resource African languages, especially under noise and scarce data.}}\\[1pt]
+{\footnotesize Shows GRPO transfers from high-resource/LLM-style settings to a standard encoder--decoder ASR model in a truly low-resource multilingual regime, mitigating exposure bias by training on the model's own rollouts; releases SunflowerASR. Start from Whisper-large-v3, add a GRPO stage: sample a small group of candidate transcripts per utterance, score with a sequence-level ASR reward (WER-aligned), and increase probability of better candidates relative to worse ones (no separate value baseline), encouraging recovery after early errors. Best cited macro-WER on African benchmarks: 0.227 on AfriVox-v2 and 0.372 on SimbaBench; gains are largest with limited data and degraded/noisy audio, matching the exposure-bias hypothesis.}
+
+\medskip
+
+{\small\textbf{Synthetic-to-Real Code-Switched ASR: A Spontaneous Nepali-English Podcast Benchmark}} {\scriptsize[\href{https://arxiv.org/abs/2610.30860}{arxiv}]}\\
+{\scriptsize Firoj Paudel}\\
+
+{\small\textit{A new audited Nepali--English code-switched podcast benchmark shows synthetic fine-tuning drives most gains; RL adds little once SFT converges.}}\\[1pt]
+{\footnotesize Releases a real-world spontaneous code-switched ASR benchmark with contamination audits and diagnostics (switch-point errors, script confusion), and tests a low-cost synthetic-to-real adaptation recipe when labeled code-switched audio is scarce. Stage 1: generate \textasciitilde{}0.95h multi-speaker code-switched TTS audio and do supervised fine-tuning; Stage 2: optional GRPO with group-sampled transcripts and rewards for transcription quality and optionally script correctness; evaluate with MER, SPER, and script confusion rates. Synthetic SFT reduces MER 23.40\%→21.52\% and SPER 35.89\%→28.77\% on the podcast test set; GRPO yields only marginal changes (e.g., English script confusion 6.45\%→6.36\%, SPER 28.77\%→28.70\%); explicit script reward doesn't help because GRPO samples show near-zero script variation post-SFT; Nepali improves while English is largely preserved on monolingual tests.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Verbalizing Activation Differences with Natural Language Autoencoders}} {\scriptsize[\href{https://arxiv.org/abs/2610.30934}{arxiv}]}\\
+{\scriptsize Andrea Blasi N\'u\~nez, Gianluca Barmina, Federico Torrielli, Thiusius Rajeeth Savarimuthu, Peter Schneider-Kamp, Lukas Galke Poech}\\
+
+{\small\textit{Natural language autoencoders can ``read'' activation differences, enabling reusable model-diff verbalizations that often reveal finetuning objectives or hidden trigger words.}}\\[1pt]
+{\footnotesize Demonstrates NLAs generalize beyond their exact training setup and extends them to verbalize activation *differences* between base and finetuned models, turning them into a human-readable internal change detector. Test (1) compositionality via activation arithmetic/analogies, (2) reuse of an NLA across lightweight finetunes without retraining, (3) diffing by feeding activation deltas from ``Taboo model organisms'' vs base to recover secret words/objectives, and (4) RL/specialized training on differences to improve held-out diffing. Verbalizations behave compositionally (often naming the intended target and not the subtracted concept); an NLA transfers to related finetunes with modest degradation (largest model drops more); diff verbalization frequently recovers concealed secret words, and RL on differences improves recovery on held-out organisms; informative positions can occur pre-prompt, though NLAs still trail specialized misalignment-diff methods while beating black-box baselines.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM evaluation/reliability and agentic systems: at least \textasciitilde{}25--30 papers focus on benchmarks and measurement issues (LLM-as-a-judge robustness, reward-score comparability, fact-checker evaluation, hallucinated citations, prompt sensitivity, open-book/RAG scoring, and domain benchmarks like IFC-MCQ, TutorCaseBench, TRIAD, IndoNutriQA). A second major cluster is long-horizon agents with memory and policy control (at least \textasciitilde{}12--15 on memory-conditioned planning, preference acquisition, personal-agent memory benchmarks, post-deletion persistence, confidentiality ``mosaic'' leaks, and compiling natural-language policies/guardrails). Multilingual/low-resource inclusion is also unusually prominent (at least \textasciitilde{}10--12 on Arabic/Bashkir/Vietnamese/Slovak/Nepali-English code-switching, cross-script entity matching, crisis warnings, and linguistic inclusion/bias), alongside a smaller but clear efficiency/architecture thread (\textasciitilde{}6--8 on KV-cache compression, low-bit n-gram embeddings/VQ training, model fusion, sparse MoE, and recurrent/looped models). A notable emerging direction is ``safety as systems engineering'' for agents---papers connect guardrails, privacy leakage, and memory persistence into end-to-end risk models rather than single-turn moderation.}
+
+
+\end{document}
