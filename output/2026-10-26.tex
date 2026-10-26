@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-26} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{"Not" is Not Lost in Translation: A Causal Analysis of Negation Representations in Multilingual LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2610.32281}{arxiv}]}\\
+{\scriptsize Giang Son Nguyen, Wray Buntine, Dung D. Le, Wenya Wang}\\
+
+{\small\textit{Multilingual LLMs encode negation as a shared, causally controllable internal concept: the same direction (or even one sparse feature) can flip polarity across languages.}}\\[1pt]
+{\footnotesize Moves from correlational claims (``negation translates'') to causal control: extract a negation-vs-nonnegation activation direction in one language, intervene on it to add/remove negation in other languages; further shows a single SAE feature can act as a cross-lingual ``negation knob.'' Build contrastive negation pairs (synthetic) plus FLORES-200--derived negation translation data (EN/FR/VI/ZH; extra languages for generalization). Compute contrastive activation directions at chosen layers and intervene by adding/subtracting them. Train/use sparse autoencoders on activations, identify a negation-selective feature, and intervene directly on that feature; test cross-lingual transfer of both interventions. Across six open multilingual models, directions extracted in one language reliably induce/remove negation in others; directions from different languages are aligned. A single SAE feature per model both activates on negated inputs and can flip polarity across languages, generalizing beyond the main four languages and beyond the synthetic set.}
+
+\medskip
+
+{\small\textbf{LAMB: A Modern Contextual Language Model for Latin}} {\scriptsize[\href{https://arxiv.org/abs/2610.31723}{arxiv}]}\\
+{\scriptsize Aidan McCarthy}\\
+
+{\small\textit{A ModernBERT-based Latin encoder with morphology-aware masking and large-scale Latin pretraining yields broad, consistent gains across Latin NLP tasks.}}\\[1pt]
+{\footnotesize Introduces LAMB, pretrained on 74B+ Latin tokens with morphologically informed masking; releases Acervus (large Latin corpus incl. repaired OCR) and Corpus Trinum (semantic triplets), plus a wide evaluation grid with ablations to isolate what helps Latin encoders. ModernBERT-style two-phase pretraining with morphology-guided masking to target stems/endings rather than arbitrary subwords. Scale data via Acervus, including OCR repaired using a Latin ByT5 text-repair model. Evaluate against prior encoders across many tasks/subtasks, finetuning setups, subword aggregation choices, checkpoints, and masking ablations. Best on 16/17 subtasks and within 0.8 points on the remaining one across a 5-task/17-subtask suite. Ablations show the masking scheme materially contributes beyond architecture/data scale. Also highlights practical sensitivity to tokenization/aggregation and finetuning choices; late-training ``terminal decay'' still shifts open-class lexical knowledge.}
+
+\medskip
+
+{\small\textbf{Disentangling Question, Response, and Verifier Languages in Multilingual P(True) Self-Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2610.32144}{arxiv}]}\\
+{\scriptsize Jewon Yeom, Jaewon Sok, Seonghyeon Park, Jeongjae Park, Hwiyeong Lee, Taesup Kim}\\
+
+{\small\textit{Multilingual P(True) self-evaluation depends separately on question, response, and verifier languages; changing any one can alter accuracy, calibration, discrimination, and even model rankings.}}\\[1pt]
+{\footnotesize Recasts multilingual self-evaluation as a three-language factorial problem (Q/A/verifier), showing each factor can move different metrics in different directions; warns that many multilingual confidence results are incomparable without controlling/reporting all three and validating judges. Six-language factorial experiments on LSQA, MMMLU, TriviaQA across 10 open models (≈3B--14B). Use first-token P(True) probing (``True/False'') and hold answer content fixed when varying verifier language to isolate verifier effects. Analyze accuracy, discrimination, calibration; test sensitivity to judge/scoring choices. Verifier language alone can shift calibration error by up to 0.04 with unchanged accuracy; aligning response language with question/verifier often improves discrimination but not calibration. An unvalidated judge can nearly erase a real English--Hindi MMMLU gap (0.198→0.038), showing evaluation infrastructure can dominate multilingual conclusions.}
+
+\medskip
+
+{\small\textbf{BabelArena: A Large-Scale Multilingual Benchmark for LLM Agents}} {\scriptsize[\href{https://arxiv.org/abs/2609.23490}{arxiv}]}\\
+{\scriptsize Peng Kuang, Yuchun Fan, Jiangnan Li, Minghao Wu, Jialong Tang, Hao-Ran Wei, Weixuan Wang, Jianhong Tu, Baosong Yang, Tong Xiao}\\
+
+{\small\textit{BabelArena shows multilingual agent failures aren't just lower accuracy: tool use, control flow, cost, and language drift degrade in language-specific ways that English-only agent benchmarks miss.}}\\[1pt]
+{\footnotesize Introduces BabelFlow to translate agent benchmarks while preserving runtime invariants (tools, schemas, structured outputs, eval scripts), enabling BabelArena: 16k+ agent tasks across four benchmark families in 23 languages, with failure-mode and cost analyses. BabelFlow inspects each task's invariants (tool names/args, API formats, control-flow constraints, structured outputs), performs structure-preserving translation, and applies layered verification plus human review. Evaluate multiple frontier LLM agents across 23 languages; analyze beyond success rate: tool/control-flow errors, answer errors, token cost, interaction length, and drift toward English. No model dominates across benchmark families; multilingual gaps vary by workflow type. Low-resource languages show more tool-use/control-flow failures (not just worse answers), up to \textasciitilde{}2× input-token cost vs English without more informative interactions, and stronger English drift on structured-output tasks---implying multilingual agent reliability needs execution/formatting robustness, not only better multilingual understanding.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{X-Dubbing: Speech-to-Speech Translation under Temporal and Visual Constraints}} {\scriptsize[\href{https://arxiv.org/abs/2610.32042}{arxiv}]}\\
+{\scriptsize Jeongsoo Choi, Ji-Hoon Kim, Junseok Ahn, Joon Son Chung}\\
+
+{\small\textit{X-Dubbing enables practical speech-to-speech dubbing without paired dubbing data by enforcing a shared timing budget and training translation with feedback from synthesized, video-synced speech.}}\\[1pt]
+{\footnotesize Treats dubbing as coupled translation+TTS under temporal/visual constraints, not a loose pipeline: a time-structured translator and video-aware ``voice actor'' are linked by a language-agnostic timing budget and a feedback loop that optimizes for dub-ability. Dubbing Translator outputs temporally structured target scripts constrained by a timing budget derived from source speech/video. Voice Actor performs video-conditioned TTS to match visible speaking activity. After synthesis, compute dubbing-relevant signals (timing mismatch, A/V correspondence) and use them as feedback to refine the translator, using speech-text and monolingual audio-visual data rather than paired dubbing. Full system improves dubbing-specific metrics (e.g., isochrony and audio-visual correspondence) over baselines that decouple translation and TTS. Results support that paired dubbing supervision isn't required if translation is time-aware and is refined using synthesized, video-synced feedback---making synchronization a first-class training objective.}
+
+\medskip
+
+{\small\textbf{Pseudo-Labels as Rewards, Not Targets: Group-Relative Policy Optimization for Semi-Supervised ASR}} {\scriptsize[\href{https://arxiv.org/abs/2610.32572}{arxiv}]}\\
+{\scriptsize Shashi Kumar, Yanis Labrak, Sergio Burdisso, Esa\'u Villatoro-Tello, Petr Motlicek, Kadri Hacioglu, Andreas Stolcke}\\
+
+{\small\textit{For semi-supervised ASR, treating pseudo-labels as rewards (GRPO) adapts to unlabeled audio while avoiding teacher-error imitation that plagues supervised fine-tuning on pseudo-transcripts.}}\\[1pt]
+{\footnotesize Reframes pseudo-label adaptation from ``imitate the teacher tokens'' to RL-style optimization: GRPO updates the student toward better-than-other-samples transcripts scored against pseudo-labels, naturally downweighting teacher mistakes outside the student's on-policy support. Generate pseudo-transcripts with strong teachers (e.g., Whisper variants). Instead of token-level SFT to the pseudo-label sequence, sample a group of on-policy transcripts per utterance, score each via similarity-to-pseudo-label reward, and apply group-relative advantages (GRPO) to reduce sensitivity to noisy reward scales and avoid forcing wrong tokens into support. Across languages/domains/teacher families and Whisper sizes, GRPO consistently beats SFT. In banking-domain adaptation, reports \textasciitilde{}29\%--56\% relative WER reductions vs SFT. Error-copying drops sharply: SFT reproduces nearly all teacher errors, while GRPO passes through only \textasciitilde{}27\%, consistent with rollout statistics showing wrong pseudo-label words rarely appear on-policy.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Agreement rather than normalisation keeps depth reusable in looped language models}} {\scriptsize[\href{https://arxiv.org/abs/2610.31943}{arxiv}]}\\
+{\scriptsize Ivan Viakhirev, Kirill Borodin, Maxim Abramov, Grach Mkrtchian}\\
+
+{\small\textit{Depth reusability in looped LMs is mainly an ``agreement with trained loop dynamics'' issue, not boundary-normalization preventing norm blow-ups; failures concentrate near the readout/last layer.}}\\[1pt]
+{\footnotesize Clean surgery on released Ouro weights removes loop-boundary normalization in a parameter-free, one-step-identity way, showing performance collapse without norm explosion; training new models without the normalization extrapolates better, reframing the phenomenon as dynamics mismatch rather than magnitude control. (1) Modify Ouro-1.4B/2.6B to remove boundary normalization while keeping readout path bit-identical and provably identical at one loop step; track norms and behavior on a balanced binary task. (2) Train many 19M looped models with/without normalization across 16 seeds on two synthetic tasks; test beyond-budget extrapolation. Localize mismatch via refits: head-only vs head+last repeated-layer. Removing normalization in released Ouro drives accuracy to chance while hidden-state norms stay within \textasciitilde{}2×; the head collapses to confidently outputting one wrong token. From-scratch 19M models without normalization are never worse and extrapolate better (Cliff's delta up to 0.867 beyond budget). Refitting head+last layer restores nearly all performance, implicating the final-block/readout interface; looping-vs-stacking gains shrink/vanish when overshoot is matched.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Validating the Comparison, Not Just the Scorer: Why Overall Accuracy Can Mislead in Interactive LLM Evaluation}} {\scriptsize[\href{https://arxiv.org/abs/2610.31678}{arxiv}]}\\
+{\scriptsize Ancil Crayton}\\
+
+{\small\textit{High overall scorer accuracy can still bias prompt comparisons: prompt-dependent scorer errors can shrink, inflate, or flip measured interactive effects unless you validate the comparison on matched cases with uncertainty.}}\\[1pt]
+{\footnotesize Identifies and formalizes a key evaluation failure mode in interactive LLM studies: what matters is differential error rates across prompt conditions, not global F1/accuracy; proposes prompt-matched audits and uncertainty propagation for effect estimates. Derive how prompt-specific false positives/negatives distort difference-in-rates between prompts. Empirically test on invented-entity questions (unsupported-claim detection) across six prompts and multiple base models. Run matched-case audits (same model--question under both prompts) comparing an automatic scorer to LLM raters, tracking uncertainty in prompt-specific error rates. A scorer with overall F1=0.916 still shows prompt-dependent false-flag rates from \textasciitilde{}2.6\% to 33.3\% (288-response audit). In a matched 300-case audit, an apparent 9.3-point prompt effect drops to \textasciitilde{}2.3 points under two raters, with the primary rater's interval including zero---showing overall scorer validation can yield overconfident, wrong prompt-effect conclusions.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents and how to evaluate/control them: at least \textasciitilde{}35--45 papers on agent benchmarks/harnesses, long-horizon memory/compaction, tool-use reliability (MCP faults, authorization/retry, provenance binding), and multi-agent interaction dynamics (negotiation, cooperation bypass, communication failures). A second major cluster is LLM/VLM safety, monitoring, and evaluation methodology (roughly \textasciitilde{}20--30): jailbreaks/guardrails, hallucination detection, judge reliability, calibration/confidence, and mechanistic interpretability (SAEs, Jacobian lens, concept erasure/steering). There's also a noticeable audio/speech surge (≈15--20) around full‑duplex conversational speech, speech-to-speech translation, target speaker extraction, and Audio‑LLM evaluation toolkits/benchmarks. Emerging directions include diffusion language models and non‑autoregressive text generation/control (≈5--8) plus systems/efficiency work for long context and low‑bit training/quantization (≈10--15), suggesting a push toward deployable, auditable, long-running agentic systems rather than just higher raw benchmark scores.}
+
+
+\end{document}
