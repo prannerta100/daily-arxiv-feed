@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-27} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{A Russian, a Brazilian, and a German Walk into a Bar, Ask the Same Question-- And Get Three Different Answers: Profiling LLM Perspective Diversity on Contested Topics}} {\scriptsize[\href{https://arxiv.org/abs/2610.34278}{arxiv}]}\\
+{\scriptsize Wiem Ben Rim, Yao Lu, Pontus Stenetorp, Emine Yilmaz}\\
+
+{\small\textit{LLMs can shift stance on contested questions across languages; the paper introduces a dataset and framework to measure this cross-lingual ``perspective drift.''}}\\[1pt]
+{\footnotesize Introduces PerspectivesQA: manually verified contested questions in 18 languages, and ROOTS: a profiling framework that disentangles language effects, stance/perspective variation, and framing/surface-form sensitivity to quantify worldview changes beyond English-only evals. Curate multilingual contested questions with manual verification; profile eight open/proprietary LLMs with ROOTS by varying query language, framing, and small prompt perturbations, then measure stance/commitment and sensitivity across conditions. Across eight models, answers hedge more in English but commit more in lower-resource languages; larger models are more cross-lingually consistent than smaller ones, yet all models show notable stance shifts from minor surface-level prompt changes.}
+
+\medskip
+
+{\small\textbf{When the Weakest Language Keeps Moving: ARMOR-DP for Multilingual BabyLM}} {\scriptsize[\href{https://arxiv.org/abs/2610.33583}{arxiv}]}\\
+{\scriptsize Hanyu Liao, Yijing Chen, Tao Ji}\\
+
+{\small\textit{In multilingual training, the ``weakest language'' changes over time; dynamic sampling based on current per-language loss beats static protection of a pre-chosen language.}}\\[1pt]
+{\footnotesize ARMOR-DP: a diagnose-then-control framework that identifies why a language is lagging (tokenization, exposure, capacity, objective) and adjusts sampling using per-language validation loss so protection follows the moving bottleneck. Wrap BabyLM multilingual training in a control loop: monitor per-language validation loss, update sampling to upweight the current worst language, and separately test/attribute imbalance sources (representation artifacts, exposure, capacity, objective pressure). Weakness can be an artifact (e.g., equal character budgets hurt Chinese; byte-level encoding reduces this), and once one language is protected another (e.g., English) can become weakest. ARMOR-DP tracks these shifts, improves balance vs static ``protect Chinese,'' and matches/beat a static baseline with fewer Chinese epochs; scaling capacity further helps.}
+
+\medskip
+
+{\small\textbf{Merge-Based Vocabulary Extension Stalls at the Pre-Tokenizer: An English-Preserving Repair for Nepali, Tested in Continued Pretraining}} {\scriptsize[\href{https://arxiv.org/abs/2610.33016}{arxiv}]}\\
+{\scriptsize Aarjan Chaudhary (Naamche Labs)}\\
+
+{\small\textit{Nepali tokenization in several LLMs is bottlenecked by a regex pre-tokenizer (not BPE merges); a tiny backward-compatible regex fix enables near-English token efficiency.}}\\[1pt]
+{\footnotesize Identifies a pre-tokenizer bug: ``word'' regex includes Unicode letters but excludes combining marks, so Devanagari vowel signs split words before BPE. Proposes a minimal regex repair that preserves English token IDs for text without Devanagari/combining marks; releases repaired tokenizers and code. Analyze the regex→BPE pipeline and show BPE cannot merge across regex-created boundaries; modify regex to keep Devanagari combining marks within word spans; evaluate token counts and run continued pretraining on Llama-3.2-1B and Qwen3-0.6B. Broken pre-tokenization imposes a \textasciitilde{}2.2× Nepali token ``floor'' vs English even with unlimited merges; many existing Nepali extensions already hit this ceiling. With the regex fix + 32k merges, Nepali drops to \textasciitilde{}1.01× English token usage (\textasciitilde{}54\% fewer tokens vs standard extension). Continued-pretraining gains are recipe/compute-dependent: token savings don't automatically improve held-out Nepali bits-per-byte without controlling steps/data exposure.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Preserve to Expand: Source-Aware Adaptation and Model Merging for Multilingual LLM-Based ASR}} {\scriptsize[\href{https://arxiv.org/abs/2610.35846}{arxiv}]}\\
+{\scriptsize Yuchen Zhang, Haralambos Mouratidis, Ravi Shekhar}\\
+
+{\small\textit{New ASR languages can be added to a frozen-LLM Speech LLM without source-data replay by building source-aware connector updates and merging them to reduce forgetting.}}\\[1pt]
+{\footnotesize Systematic study of connector-only adaptation for multilingual ASR under a no-source-data constraint, showing forgetting depends on update geometry and how multiple language updates are merged (not just training amount). Use a connector-based Speech LLM (speech encoder → trainable connector → frozen LLM). Compare target-language connector update construction (naive target FT vs source-aware/importance-aware like SSU-Wanda) and update combination (e.g., TIES; multi-target merge vs sequential/recursive expansion). Naive target-only connector tuning (and straightforward TIES) often learns the target but severely degrades source languages. Best single-target trade-off: SSU-Wanda + TIES. For multiple targets, merging several target updates is usually more source-stable than sequential expansion, though ordering in recursive expansion can improve target performance.}
+
+\medskip
+
+{\small\textbf{SimPOTrans: Self-Adaptation for Offline-to-Simultaneous Speech Translation via Reinforcement Learning}} {\scriptsize[\href{https://arxiv.org/abs/2610.35042}{arxiv}]}\\
+{\scriptsize Haotian Tan, Hiroki Ouchi, Sakriani Sakti}\\
+
+{\small\textit{A simple RL post-training turns an offline speech translation model into a strong simultaneous translator without explicit read/write policies; latency is controlled by chunk size at test time.}}\\[1pt]
+{\footnotesize SimPOTrans: self-adaptation via RL that rewards useful partial-context translations, avoiding synthetic read/write trajectories and explicit latency losses while still enabling quality--latency trade-offs at inference. Reframe SimulST as multi-turn incremental translation over growing audio chunks; apply a two-stage RL post-training on an offline ST model with rewards defined on translation behavior under partial audio, then deploy with adjustable chunk sizes (no separate policy). On ACL 60/60 and MCIF (En→De/Zh/Ja), RL-adapted models achieve better quality--latency trade-offs than strong dialogue-style SimulST baselines, without trajectory supervision or explicit latency objectives.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{The Emergence and Sparsification of a Syntactic Circuit}} {\scriptsize[\href{https://arxiv.org/abs/2610.33299}{arxiv}]}\\
+{\scriptsize Qing Yao, Sasha Boguraev, Tiago Pimentel, Kyle Mahowald}\\
+
+{\small\textit{A model can learn a syntactic skill early, yet the causal circuit implementing it keeps reorganizing and becomes much sparser later in training.}}\\[1pt]
+{\footnotesize Tracks the subject--verb number agreement circuit across training (not just at convergence), showing a two-phase dynamic: early behavioral acquisition followed by prolonged internal reconfiguration and sparsification---so ``the circuit for X'' is not fixed. At many checkpoints, causally identify attention heads/MLP neurons mediating number information from subject to verb in Pythia-1B and across 10 seeds of Pythia-410M; compare stable task performance to changing internal pathways. Agreement accuracy emerges early and stabilizes, but the mediating components keep changing (e.g., dominant heads shift; in Pythia-1B a later head replaces early ones). Over time the mechanism contracts into a strikingly sparse late-training circuit, implying late training consolidates implementation even after capability plateaus.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{LLM-as-a-Judge Version Shift: The Instrument Changed, Not the Standard}} {\scriptsize[\href{https://arxiv.org/abs/2610.32986}{arxiv}]}\\
+{\scriptsize Guijia Zhang, Harry Yang}\\
+
+{\small\textit{Updating an LLM judge can change the evaluation instrument (criteria weighting and score resolution), not just shift scores---causing silent pipeline drift.}}\\[1pt]
+{\footnotesize Preregistered study of judge version shifts showing changes in rubric geometry and discrimination power; proposes a low-cost ``anchor audit'' to detect offset vs reweighting vs resolution collapse before deploying a new judge. Hold judged items fixed (ML research proposals) and vary only judge version across three adjacent transitions (Qwen/Gemma/Mistral). Randomize information ``packets'' to separate formatting/presentation effects; fit a measurement view (origin shift, criterion rotation/warp, resolution change) and operationalize via \textasciitilde{}200-call stratified anchor audit. Version changes aren't simply ``harsher'': two transitions are more lenient; one is inconsistent (anchors vs non-anchors). One transition collapses ranking power (93\% of scores at one value), and identical facts don't remove gaps; packet tests implicate formatting sensitivity. Global recalibration fixes means but not item-level disagreement; the anchor audit flags real post-registration API judge swaps.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's arXiv batch is dominated by LLM agents and their infrastructure: at least \textasciitilde{}40--60 papers touch agent workflows, long-horizon interaction, memory (e.g., SLICE-Mem/FlexA-Mem/Memory Tax/ActionRAG), and agent evaluation/harness design (e.g., Δτ-Bench, Trial by Trace, Async-RBench, Compact-Bench, SWE-Shift), with a noticeable subcluster on multi-agent coordination and failure modes (collusion/deception, communication failures, negotiation/ToM). A second major theme is reliability/safety/calibration for both base models and agentic RAG---roughly \textasciitilde{}30+ papers on hallucination detection/mitigation, evidence sufficiency/abstention, jailbreaks and prompt-injection/tool-output attacks, and calibrated decision models (Jev-style, conformal factuality, confidence targets). Efficiency is the other big pillar (another \textasciitilde{}25--40): long-context compression/KV-cache reuse, speculative decoding, quantization/FP4 training, sparsity/MoE compression, and looped/recurrent-depth Transformers (StateLoop/LoopFold/Accordion/halting heads). A somewhat surprising cluster is the breadth of audio/speech foundation work (≈20--30 papers) spanning ASR/TTS, full-duplex spoken agents, audio reasoning with RL, and voice security/deepfake/impersonation---suggesting ``agentic + multimodal'' is expanding beyond vision into speech as a first-class frontier.}
+
+
+\end{document}
