@@ -1,0 +1,110 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-30} \hfill 8 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Leaving the Cave by Breaking the Symmetry: Identifiable Structure Can Enable Cross-Lingual Generalization}} {\scriptsize[\href{https://arxiv.org/abs/2610.38509}{arxiv}]}\\
+{\scriptsize Frederick Riemenschneider, Anette Frank}\\
+
+{\small\textit{Cross-lingual zero-shot transfer can arise without shared vocabulary when the world's relational structure makes the correct entity alignment the only stable solution.}}\\[1pt]
+{\footnotesize Proposes the Relational Identifiability Hypothesis: relations in the underlying ``world'' can break symmetry among many possible cross-lingual matchings, predicting when internal entity alignment (and thus transfer) should emerge; shows models can share computations across languages without aligning entities unless identifiability holds. Train bilingual Transformers with disjoint vocabularies on a shared modular-arithmetic world; vary which operations/relations are available; probe for a shared answer subspace vs. alignment of corresponding entities (e.g., number tokens) and relate both to zero-shot transfer. Models can learn a shared task/answer subspace while leaving number representations unaligned; alignment appears selectively only for identifiable entities (e.g., subtraction uniquely identifies zero → only zero aligns) and becomes broad when relations identify many numbers (order-sensitive op), and these alignment patterns predict zero-shot transfer success.}
+
+\medskip
+
+{\small\textbf{Mobilizing the Archive: Bitext Extraction at Scale from Archival Documents for Extremely Low-resource Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.40233}{arxiv}]}\\
+{\scriptsize Chutong Meng, Alec J. Bateman, Antonios Anastasopoulos}\\
+
+{\small\textit{Scanned grammars/dictionaries can be mined into parallel sentence pairs at scale using layout-aware multimodal extraction, enabling MT for languages with near-zero web text.}}\\[1pt]
+{\footnotesize Shows archival linguistic documents are a practical parallel-data source if treated as multimodal pages; combines OCR with vision-language layout reasoning to reliably locate and align example--translation pairs despite messy formatting and noise. Run OCR to get text spans, then use a vision-language model to ground spans to page regions and infer layout patterns (tables, interlinear glosses, columns) to extract visually aligned bitext; package pairs for MT training and LLM in-context prompting. Across 20 languages, mined bitext improves both MT training and LLM in-context translation; ICL gains reach about +15.78 chrF2++ into low-resource languages and +6.94 into high-resource languages vs zero-shot, demonstrating archival pages as a scalable, usable bitext source.}
+
+\medskip
+
+{\small\textbf{Gold vs.\textasciitilde{}Translation: Are We Measuring Language, Knowledge, or Locality in Translated Benchmarks?}} {\scriptsize[\href{https://arxiv.org/abs/2610.38788}{arxiv}]}\\
+{\scriptsize Klaudia-Doris Thellmann, Bernhard Stadler, Dan Saattrup Nielsen, Michael F\"arber, Jens Lehmann}\\
+
+{\small\textit{Translated English benchmarks are unreliable proxies for native-language evaluation; a stricter incremental-validity test reveals when translation scores add real predictive signal vs just tracking confounders.}}\\[1pt]
+{\footnotesize Frames translated-benchmark use as proxy validity: asks whether translated MMLU predicts native-benchmark performance after controlling for drivers like model size/language proficiency, avoiding misleading rank/correlation agreement. Create language-matched pairings between DeepL-translated MMLU and native benchmarks across Nordic/Baltic languages; evaluate many models; run incremental validity regressions and report ΔR² (with uncertainty) from adding translated scores beyond baseline predictors across seven pairings. Validity is uneven: translated MMLU adds meaningful predictive power for some native exams (e.g., Skolprov, ΔR² ≈ 0.13) but adds essentially none for locality-heavy tasks like SwedishFacts once controls are included. The null case is confounded by SwedishFacts being open-ended, warning that locality and response-format differences can both break translated multiple-choice proxies.}
+
+\medskip
+
+{\small\textbf{One Confidence Threshold, Unequal Coverage: Language Gaps in Typed Decision Interfaces and How Translating Inputs Reduces Them}} {\scriptsize[\href{https://arxiv.org/abs/2610.37688}{arxiv}]}\\
+{\scriptsize Junwei Yao, Yongxi Zhou, Zike Yang, Zhijun Wang, Jianan Liu, Yanxian Chen, Wenbo Ye}\\
+
+{\small\textit{A single global confidence threshold in multilingual decision APIs yields systematically lower non-English coverage even at similar accuracy; translating inputs to English largely reduces the gap.}}\\[1pt]
+{\footnotesize Highlights a deployment fairness issue missed by accuracy/ECE: thresholded ``act only if confident'' interfaces can treat languages unequally because confidence (when correct) is higher for English; proposes measuring per-language coverage at the operating threshold and tests mitigations. Pre-registered study on three commercial typed decision interfaces using MASSIVE: 1,000 items × 51 languages; accept predictions only if max prob ≥ 0.9 else defer; compare per-language coverage and errors; reweight to control for accuracy; test per-language thresholds (fixed error target) and translate-to-English before inference. English clears the 0.9 threshold more often by \textasciitilde{}8.6--11.7 coverage points on average, so all non-English languages get less automatic service despite low error among accepted predictions; the gap persists after accuracy reweighting and can be invisible to ECE. Translating inputs to English nearly eliminates the fixed-threshold gap, though English still retains an advantage when thresholds are tuned per language to meet a 5\% error target.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{How Architecture, Typology, and Adaptation Strategies Shape ASR for Low-Resource African Languages: A Controlled Empirical Study}} {\scriptsize[\href{https://arxiv.org/abs/2610.39004}{arxiv}]}\\
+{\scriptsize Mercy Muchai (Microsoft Research Africa, Nairobi), Kevin Chege (Microsoft Research Africa, Nairobi), Nick Mumero Mwangi (Microsoft Research Africa, Nairobi), Samuel Chege Maina (Microsoft Research Africa, Nairobi), Felermino Ali (Microsoft Research Africa, Nairobi), Elizabeth Ankrah (Microsoft Research Africa, Nairobi), Ignatius Ezeani (Lancaster University)}\\
+
+{\small\textit{A controlled comparison shows which ASR architectures and adaptation strategies actually work for low-resource African languages, where gains saturate, and how typology/domain mismatch shape errors.}}\\[1pt]
+{\footnotesize Disentangles architecture, adaptation strategy, and language typology in a multi-language low-resource ASR study, yielding actionable guidance beyond single-benchmark ``model X wins'' claims, including where additional labeled data stops paying off. Fine-tune Phi-4-multimodal-instruct, Whisper-large-v3-turbo, and MMS-1B-all on five low-resource African languages (plus Swahili as mid-resource); vary data amount and monolingual vs multilingual adaptation; test domain fine-tuning; evaluate MMS proxy-language adapter transfer vs training new adapters; analyze errors by typology. Architecture dominates: Phi-4 is best overall; MMS can be competitive on CER; Whisper performs poorly (high CER consistent with hallucination/repetition issues). Each model hits a distinct data-saturation point. Typological complexity correlates with higher error. Domain fine-tuning helps Phi-4/Whisper but can hurt MMS. MMS adapter transfer from a proxy language beats training adapters from scratch under scarcity/mismatch.}
+
+\medskip
+
+{\small\textbf{Pronunciation-Supervised Text-to-Speech for Irish (Gaeilge)}} {\scriptsize[\href{https://arxiv.org/abs/2610.38384}{arxiv}]}\\
+{\scriptsize William Lane}\\
+
+{\small\textit{Irish TTS can be improved with little audio by turning pronunciation documentation into an automatic verifier that filters training via rejection fine-tuning.}}\\[1pt]
+{\footnotesize Recasts low-resource TTS as lacking paired audio more than pronunciation knowledge; adapts Qwen3-TTS to Irish with 12.8h speech, then uses a Wiktionary-derived lexicon plus phoneme-level critic to enforce documented pronunciations through rejection fine-tuning. Fine-tune Qwen3-TTS on 12.8h Common Voice Irish (including fixes to vendor scripts affecting output quality); compile Irish pronunciations from Wiktionary into a lexicon; build a phoneme critic to score synthesized audio vs expected phoneme sequences; run one rejection fine-tuning round on high-scoring samples; use critic for diagnostics (e.g., dialect steering). Basic adaptation reaches cross-corpus CER 0.225 (better than from-scratch 0.397 and zero-shot cloning 0.437). Adding pronunciation-supervised rejection fine-tuning improves to 0.159 cross-corpus and 0.067 in-domain CER while keeping the voice effectively anonymous across 202 speakers. The critic also shows dialect steering fails mainly due to skewed training data (Munster-heavy, few Ulster clips).}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{What a Weight Update Buys: Leverage Across Training Stages}} {\scriptsize[\href{https://arxiv.org/abs/2610.37719}{arxiv}]}\\
+{\scriptsize Shikhar Shiromani}\\
+
+{\small\textit{``Leverage'' quantifies behavior change per unit weight movement and shows post-training updates are orders of magnitude more behaviorally efficient than pretraining steps.}}\\[1pt]
+{\footnotesize Introduces leverage: a normalized Fisher-metric measure of how special an update direction is (distribution change per parameter displacement vs random directions), enabling apples-to-apples comparison across checkpoints, stages, and implementation choices. For update Δθ at a checkpoint, compute ΔθᵀFΔθ and normalize by the same quantity averaged over random same-norm directions; estimate efficiently via forward-mode AD; apply across pretraining, SFT, DPO/RL, precision variants, and DARE-style perturbations. Leverage separates stages: pretraining near random baseline, SFT modestly higher, and DPO/RL-style post-training hundreds to tens-of-thousands× higher. bf16 without an fp32 master copy can freeze many coordinates and cut leverage by \textasciitilde{}7×. A sign-flip null model predicts DARE damage, and rerunning a released DPO stage reproduces both displacement and leverage, pinpointing which recipe components actually drive behavior change.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Scoring Explanations Without Reading Them: Structural Shortcuts in Automated-Interpretability Evaluation Data}} {\scriptsize[\href{https://arxiv.org/abs/2610.37676}{arxiv}]}\\
+{\scriptsize Xupeng Chen}\\
+
+{\small\textit{Several automated-interpretability benchmarks can be ``solved'' by structural cues without reading explanations, inflating reported scores and requiring explanation-free baselines as a control.}}\\[1pt]
+{\footnotesize Identifies and quantifies label leakage/shortcuts in SAE-feature explanation evaluations (Neuronpedia fuzzing, Delphi variants, OpenAI neuron simulation), arguing evaluation must report the best explanation-free baseline alongside explanation-using methods. Recreate scoring setups, remove explanations, and test simple structure-only heuristics (marked-token position/count, fixed mark slots, ordering of top activations); provide analytic performance bounds; build/propose cue-removed variants (e.g., random-offset natural-text windows) and re-evaluate. Trivial heuristics beat intended scorers: on Neuronpedia fuzzing (500 GPT-2 small features), ``center token marked ⇒ yes'' gets balanced accuracy 0.979 vs stored LLM scorers' 0.838; mark-count alone reaches 0.969. On OpenAI's simulation benchmark, exploiting list order outperforms GPT-4's published simulator correlation in post hoc analysis. When position cues are removed (random-offset windows), fixed-offset priors collapse (\textasciitilde{}0.015), and real explanations again help (e.g., Jev 0.331 pooled correlation over 49 features; an 8B simulator shows a clear real-vs-shuffled explanation gap).}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's arXiv dump is dominated by LLM agent reliability/safety and evaluation: at least \textasciitilde{}60--80 papers touch tool-using agents, multi-agent orchestration, memory, and auditing (e.g., prompt injection/role spoofing, agent backdoors, ``stale screenshots,'' proof-carrying messages, harness self-evolution, and benchmarks like WebAnything, EnvOS, Bank-World, ASIWorld, AgentDecept). A second big cluster is post-training and efficiency for LLMs---roughly \textasciitilde{}40--60 papers on on-policy distillation/RLVR, rubric/judge alignment, speculative decoding, KV-cache compression/quantization, looped/recurrent/SSM/Mamba/MoE architectures, and serving/energy measurement (e.g., FAD-KV, CopyLoop, TableTune, GAUSS, power/latency accounting). There's also a noticeable ``evaluation of evaluation'' wave (\textasciitilde{}20--30 papers) focused on LLM-as-a-judge brittleness, translated benchmark validity, metric pathologies, and causal/mechanistic auditing of features/CoT reliance. Surprising emerging direction: many papers explicitly treat the *agent harness/memory/protocol layer* (skills files, routing, governance, proof-carrying comms, privacy ledgers) as the primary object of optimization and attack surface---suggesting a shift from model-centric to system-centric AI research.}
+
+
+\end{document}
