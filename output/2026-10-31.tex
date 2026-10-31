@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-10-31} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Statutory Article Retrieval from Arabic Judicial Narratives: Family Law and Law of Evidence in Saudi Arabia}} {\scriptsize[\href{https://arxiv.org/abs/2610.38336}{arxiv}]}\\
+{\scriptsize Zarah Shibli, Areej Alhothali, Lulwah Alharigy}\\
+
+{\small\textit{Arabic statute retrieval breaks because case narratives state concrete facts while statutes encode abstract rules; rewriting narratives into statute-like queries largely fixes it, especially for Evidence law.}}\\[1pt]
+{\footnotesize Identifies a domain-shift failure in Arabic legal retrieval across subdomains and proposes Decompose-and-Refine (DaR): an LLM splits a narrative into disputed issues and generates multiple statute-shaped query views (paraphrase, keywords, taxonomy hint) to stabilize retrieval. Benchmark of 200 synthetic Saudi case narratives mapped to 381 articles from Family Law + Law of Evidence. Compare BM25 (word/char-4), dense encoders, per-law retrieval, and dense--sparse RRF fusion vs DaR-generated multi-issue, multi-view queries fed into the same retrievers. A strong dense encoder (Qwen3-Embedding-8B) looks great overall (MRR@10 0.849) but collapses on Evidence (0.087; RRF only 0.207). DaR changes the query and lifts Evidence MRR@10 to 0.696 while keeping Family high (0.864), making one approach work well across both laws.}
+
+\medskip
+
+{\small\textbf{How I Aligned Your Model: Scaling Up Multilingual Safety Training with Templates}} {\scriptsize[\href{https://arxiv.org/abs/2610.40516}{arxiv}]}\\
+{\scriptsize Max Neuwinger, Hanna Yukhymenko, Imanol Schlag}\\
+
+{\small\textit{``Safe in English'' doesn't generalize: template-based, culturally localized multilingual safety data exposes failures and enables scalable safety training across 60 languages.}}\\[1pt]
+{\footnotesize MSafeTemp: a scalable way to build multilingual safety train/eval data by extracting reusable refusal/response templates from harmful prompts, translating them, and re-instantiating slots with culturally authentic entities---avoiding tiny datasets and brittle direct translation. Derive structured templates with slots (e.g., target group, location, weapon/drug/public figure), translate into 60 languages, then localize by filling slots with region-appropriate content. Create harmful prompts (for refusal) plus benign counterparts (to reduce over-refusal), with validation for usability. English-only evaluation is misleading: models that resist English attacks may comply in other languages, and localized prompts reveal additional failures beyond plain translation. Training with MSafeTemp improves multilingual safety behavior while maintaining response diversity/quality (not just repetitive refusals).}
+
+\medskip
+
+{\small\textbf{Red-Teaming Large Language Models in Low-Resource African Languages: A Case Study of Yoruba and Nigerian Pidgin}} {\scriptsize[\href{https://arxiv.org/abs/2610.39590}{arxiv}]}\\
+{\scriptsize Paula Chikaodinaka Anyanwu, Valdini Douglace Lemofouet, Blessing Ngozi Uzor, Ifeoluwa Dorcas Awotunde, Danielle Blanche Kapsa, Tassallah Abdullahi, Clemencia Siro, Idris Abdulmumin, Seid Muhie Yimam, Shamsuddeen Hassan Muhammad}\\
+
+{\small\textit{Low attack success in low-resource languages can be fake safety: models often look ``safe'' because they don't understand the prompt, not because they refuse.}}\\[1pt]
+{\footnotesize Red-teaming Yoruba and Nigerian Pidgin with a key evaluation fix: separately label comprehension/engagement vs harmfulness using native speakers, revealing hidden multilingual safety gaps. 400 adversarial prompts in Yoruba/Pidgin across four harm categories (incl. stereotypes/discrimination). Test 6 LLMs. Native-speaker annotation for harmfulness plus whether the model understood/responded to the request; report inter-annotator reliability (Cohen's kappa). Models that refuse many harmful English prompts may appear to refuse almost none in Yoruba largely due to non-understanding. Conditioning on cases where models do engage, harmful rates are high (up to 0.50 in Pidgin; 0.63 in English). Stereotypes/discrimination are especially weak in Pidgin (attack success \textasciitilde{}0.44), showing comprehension-aware evaluation is necessary.}
+
+\medskip
+
+{\small\textbf{One Confidence Threshold, Unequal Coverage: Language Gaps in Typed Decision Interfaces and How Translating Inputs Reduces Them}} {\scriptsize[\href{https://arxiv.org/abs/2610.37688}{arxiv}]}\\
+{\scriptsize Junwei Yao, Yongxi Zhou, Zike Yang, Zhijun Wang, Jianan Liu, Yanxian Chen, Wenbo Ye}\\
+
+{\small\textit{One global confidence threshold in multilingual classifier APIs yields unequal service: English gets much higher auto-accept coverage than other languages, and translating inputs toward English reduces the gap.}}\\[1pt]
+{\footnotesize Defines and measures per-language coverage gaps in typed decision interfaces (probability-returning multi-choice APIs): systems can be high-precision and seemingly calibrated yet still abstain far more on non-English inputs; proposes translation-to-English as a deployable mitigation. Pre-registered evaluation on 3 commercial typed-decision APIs using MASSIVE (51 languages × 1,000 items). Apply a production-like rule: accept only if top-prob ≥0.9; measure coverage and error among accepted. Control for accuracy (including reweighting), check whether ECE flags issues, test per-language thresholds for fixed error, and test translating inputs to English. At 0.9 confidence, English coverage exceeds other languages by \textasciitilde{}8.6--11.7 points on average---even when predictions are correct in both languages---so non-English users are routed to humans more. ECE can miss the disparity. Translating inputs to English nearly closes coverage to English levels at the same threshold, though English still retains some advantage when thresholds are tuned to equalize error; the pattern holds on natively written African-language queries too.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{VoiceLongMemEval: Do Assistants Remember How You Sounded?}} {\scriptsize[\href{https://arxiv.org/abs/2609.00570}{arxiv}]}\\
+{\scriptsize Ramit Pahwa, Parivesh Priye, Apoorva Beedu}\\
+
+{\small\textit{Long-context ``memory'' tests miss voice: VLME forces assistants to remember paralinguistic cues (emotion/prosody/events) across sessions, not just transcript content.}}\\[1pt]
+{\footnotesize VoiceLongMemEval (VLME) benchmarks long-horizon conversational memory that depends on paralinguistic metadata intentionally unrecoverable from words alone, using adversarial filtering to prevent transcript-only guessing. Multi-session dialogues annotated with paralinguistic labels; questions require retrieving/reasoning over those labels. Three-stage adversarial gate removes items solvable from transcript alone. Evaluate transcript-only, transcript+metadata-as-text, and audio-native speech models to isolate where signal is lost. Transcript-only systems underperform due to a confirmed ``affect gap.'' Adding paralinguistic metadata boosts accuracy by \textasciitilde{}0.09--0.38, and evidence-style prompting reaches \textasciitilde{}0.61--0.69. ASR-centric pipelines discard needed acoustic cues; audio-native models recover some signal (≈0.354--0.412 vs 0.325 baseline).}
+
+\medskip
+
+{\small\textbf{Do Audio LLMs HEAR Pain? Tracing Acoustic Evidence from Speech to Language Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2610.38570}{arxiv}]}\\
+{\scriptsize Wenqi Li, Xiangjue Dong, Sulaiman Vesal}\\
+
+{\small\textit{Audio LLMs can encode pain cues from speech early, but often fail to use them during reasoning---pain evidence fades before the final answer.}}\\[1pt]
+{\footnotesize HEAR: a diagnostic framework tracing non-lexical acoustic evidence through audio-LLM pipelines, demonstrated on pain perception with TAME-Pain (pain-neutral sentences + spoken pain ratings). Apply HEAR across 7 audio LLMs: compare Harvard sentences (pain only in acoustics) vs spoken pain ratings; layer-wise probing in open models; acoustic cue discrimination tests; recover cues and re-inject them as structured text to test causal impact on predictions. On Harvard sentences all models are at chance; same-speaker references/few-shot help ≤6 balanced-accuracy points. On spoken pain ratings, models reach 87.5--99.7\% balanced accuracy. Probing shows pain is decodable early (74.1\% binary; 45.0\% 3-class) but fades in deeper layers; reinjecting recovered cues improves pairwise pain prediction by up to 32 points.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Proving and Improving the Platonic Representation Hypothesis with JEPAs}} {\scriptsize[\href{https://arxiv.org/abs/2610.39302}{arxiv}]}\\
+{\scriptsize Randall Balestriero, Yann LeCun}\\
+
+{\small\textit{Cross-modal ``platonic'' representations aren't magic: with JEPA training on true same-scene positive pairs, alignment across modalities is guaranteed (up to rotation) and far more sample-efficient than next-token prediction.}}\\[1pt]
+{\footnotesize Turns the Platonic Representation Hypothesis into a theorem: independently trained JEPAs on different modalities learn representations that match up to a single orthogonal transform under a ``good views'' assumption; reframes next-token prediction as a weak-view JEPA that needs scale to align. Formal analysis of JEPA objectives with good-view positive pairs; show optimal embeddings across modalities differ only by rotation. Interpret next-token prediction as adjacent-text views (bad views). Empirically train text JEPAs vs LMs, measure alignment to vision encoders (DINOv2/CLIP), and fit scaling laws for alignment vs compute/data. Good views yield large efficiency gains: text JEPA matches next-token alignment with \textasciitilde{}42× fewer samples. A 109M text JEPA aligns better with DINOv2/CLIP than all tested LMs up to 72B, even surpassing CLIP's text encoder. Learned rotations enable cross-modal tasks (e.g., captioning), and rotation can be recovered without paired data on a pair-free benchmark where JEPA beats reported zero-shot results from LMs up to 8B.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's list is dominated by agentic LLM work: at least \textasciitilde{}40--60 titles explicitly center on tool-using agents, multi-agent orchestration/communication, and agent evaluation (e.g., WebAnything, EnvOS, DynaRev, Bank-World, ATLAS-Bench, AgentDecept, PCM, Agent Transfer Protocol), with a noticeable sub-cluster on long-horizon memory and context management (\textasciitilde{}10+; CALM, MemSteer, Retrieval as Traversal, Long-Term Agent Memory, Compact-Bench, Context Compaction). A second major theme is safety/reliability/oversight for agents and LLMs---prompt injection, deception/collusion, red-teaming, and verification layers---again \textasciitilde{}20+ papers (e.g., Detecting Covert Collusion, Pre-Crime for Agents, Masked Erosion, Value Probes, RoleFUZZER, REALM, Poisoned Skills, Scan Before You Install, jailbreak discovery). Efficiency and systems for serving/training (especially MoE routing, KV-cache compression, speculative decoding, energy/latency accounting) form another strong cluster (\textasciitilde{}15--25; LRMoE, GAAC, GAUSS, Raincheck, TableTune, ``Real Cost of Context'', ``Only Accepted Tokens Count'', Nemotron MoE report). A surprising emerging direction is ``scientific rediscovery/autonomous research'' benchmarks and pipelines (\textasciitilde{}8--12; OpenFrontiers, SciGame, PAPERBENCHX, FARMS, Ramanujan Challenge Results, autonomous lab/quantum measurement papers), suggesting evaluation is shifting from single tasks to end-to-end research workflows with verifiability and evidence tracking.}
+
+
+\end{document}
