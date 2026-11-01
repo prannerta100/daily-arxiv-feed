@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-11-01} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Red-Teaming Large Language Models in Low-Resource African Languages: A Case Study of Yoruba and Nigerian Pidgin}} {\scriptsize[\href{https://arxiv.org/abs/2610.39590}{arxiv}]}\\
+{\scriptsize Paula Chikaodinaka Anyanwu, Valdini Douglace Lemofouet, Blessing Ngozi Uzor, Ifeoluwa Dorcas Awotunde, Danielle Blanche Kapsa, Tassallah Abdullahi, Clemencia Siro, Idris Abdulmumin, Seid Muhie Yimam, Shamsuddeen Hassan Muhammad}\\
+
+{\small\textit{Low attack success in Yoruba/Pidgin can mean the model didn't understand the prompt, so English-only red-teaming can badly misread safety in African languages.}}\\[1pt]
+{\footnotesize Red-teams six frontier LLMs in Yoruba and Nigerian Pidgin while treating prompt comprehension as a confound, separating ``safe refusal'' from ``confusion'' via native-speaker judgments. 400 adversarial prompts across four harm categories in Yoruba/Pidgin (plus English comparisons); native speakers label response harmfulness and whether the model understood the prompt; report agreement (Cohen's κ) and analyze attack success vs comprehension jointly. Safety doesn't transfer reliably: models strong in English can fail in Yoruba/Pidgin; when models do understand, harmful output can be high (up to 0.50 harmful in Pidgin; 0.63 in English) and stereotypes/discrimination are especially vulnerable (ASR 0.44 in Pidgin). ``African-language trained'' isn't sufficient: Aya 101 shows low Yoruba comprehension (0.28) and high English attack success (0.60).}
+
+\medskip
+
+{\small\textbf{How I Aligned Your Model: Scaling Up Multilingual Safety Training with Templates}} {\scriptsize[\href{https://arxiv.org/abs/2610.40516}{arxiv}]}\\
+{\scriptsize Max Neuwinger, Hanna Yukhymenko, Imanol Schlag}\\
+
+{\small\textit{``Safe in English'' doesn't imply multilingual safety; template-based, culturally localized data is a scalable way to close the gap.}}\\[1pt]
+{\footnotesize Introduces MSafeTemp (60 languages) and a pipeline that turns harmful prompts into reusable refusal templates, then translates and culturally localizes them---separating policy-consistent refusal writing from scalable multilingual coverage. Extract ``safe refusal shapes'' as templates with slots; translate templates; fill slots with region/culture-specific entities and scenarios (not just literal translations) to generate multilingual training/eval data. Models that look robust in English become vulnerable under translation, and even more under cultural localization---showing translation-only testing misses failures. Training on template-augmented multilingual data improves non-English safety, supporting the need for both linguistic coverage and cultural grounding.}
+
+\medskip
+
+{\small\textbf{Leaving the Cave by Breaking the Symmetry: Identifiable Structure Can Enable Cross-Lingual Generalization}} {\scriptsize[\href{https://arxiv.org/abs/2610.38509}{arxiv}]}\\
+{\scriptsize Frederick Riemenschneider, Anette Frank}\\
+
+{\small\textit{Cross-lingual generalization without shared tokens emerges when world structure makes the correct alignment identifiable, breaking symmetry that otherwise allows arbitrary permutations.}}\\[1pt]
+{\footnotesize Mechanistic account of when multilingual Transformers align entities across languages: alignment is not guaranteed by shared tasks, but by identifiability constraints from relational structure. Toy bilingual Transformer with disjoint vocabularies over a shared modular-arithmetic world; vary available relations/operations; probe representation alignment (entity-to-entity) vs shared ``answer subspace,'' and link regimes to zero-shot transfer. Models can solve both languages while keeping entity codes permuted (no true alignment). Adding relations that break symmetry yields selective alignment (e.g., subtraction makes zero identifiable), and stronger order-sensitive operations induce broad alignment; these alignment regimes predict when zero-shot transfer succeeds.}
+
+\medskip
+
+{\small\textbf{Mobilizing the Archive: Bitext Extraction at Scale from Archival Documents for Extremely Low-resource Languages}} {\scriptsize[\href{https://arxiv.org/abs/2610.40233}{arxiv}]}\\
+{\scriptsize Chutong Meng, Alec J. Bateman, Antonios Anastasopoulos}\\
+
+{\small\textit{Archival grammars/dictionaries can be mined into parallel sentences at scale, yielding real MT gains for languages with little or no web text.}}\\[1pt]
+{\footnotesize Builds a scalable, vision-aware bitext extraction pipeline for archival documents and shows the recovered parallel data improves translation across 20 extremely low-resource languages, including for LLM in-context translation. OCR plus vision-language layout grounding to recover page structure (interlinear glosses, multi-column examples, numbered sentences) and align source--target spans into bitext pairs tied to visual layout cues. Extracted archival bitext measurably improves downstream translation in the regimes that matter; for LLM in-context translation, chrF2++ gains over zero-shot reach +15.78 into low-resource languages and +6.94 into high-resource languages, demonstrating archives as scalable parallel supervision when layout is exploited.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{How Architecture, Typology, and Adaptation Strategies Shape ASR for Low-Resource African Languages: A Controlled Empirical Study}} {\scriptsize[\href{https://arxiv.org/abs/2610.39004}{arxiv}]}\\
+{\scriptsize Mercy Muchai, Kevin Chege, Nick Mumero Mwangi, Samuel Chege Maina, Felermino Ali, Elizabeth Ankrah, Ignatius Ezeani}\\
+
+{\small\textit{In low-resource African ASR, architecture + adaptation strategy (especially adapter transfer) often matter more than simply adding data.}}\\[1pt]
+{\footnotesize Controlled, apples-to-apples comparison across five African languages (plus Swahili) and three model families (Phi-4, Whisper large v3 turbo, MMS-1B-all), mapping when multilingual/domain adaptation helps or hurts and how typology shapes difficulty. Systematic fine-tuning sweeps over labeled-data scale; monolingual vs multilingual adaptation; domain fine-tuning; for MMS, adapters trained from scratch vs transferred from proxy languages; interpret trends via typological complexity. Phi-4 is best overall; MMS is often competitive on CER; Whisper performs poorly (high CER consistent with hallucination/repetition issues). Returns saturate at different data scales by model/language; typological complexity correlates with higher error. Domain fine-tuning helps Phi-4/Whisper but can degrade MMS, and proxy-language adapter transfer beats training MMS adapters from scratch.}
+
+\medskip
+
+{\small\textbf{Beyond Aggregate WER: In-domain Adaptation, Learner Speech, Code-Switching, and Speaker Attribution in Online Spanish Learning Classrooms}} {\scriptsize[\href{https://arxiv.org/abs/2610.38016}{arxiv}]}\\
+{\scriptsize Olga Kellert, Samhitha Harish, Johnatan E Bonilla, Nemika Tyagi, Phanos Kareen, Nelvin Licona-Guevara}\\
+
+{\small\textit{Overall WER hides the real classroom ASR failures---learner speech, code-switching, and speaker attribution---and can mislead adaptation choices.}}\\[1pt]
+{\footnotesize Condition-aware ASR evaluation for online L2 Spanish classes: stratify errors by speaker role and language context and include diarization (DER); shows small, truly in-domain classroom data can beat larger mismatched corpora for adaptation. Real online Spanish-learning sessions (learner/instructor/tutor; Spanish, English, code-switched turns); evaluate open-weight and commercial systems with WER/CER by condition plus DER; LoRA-adapt Whisper large-v3 and MOSS-Transcribe-Diarize on human-corrected classroom transcripts. Learner, English-only, and code-switched segments are much harder than instructor Spanish-only, so aggregate WER can look fine while key pedagogical cases fail. In-domain LoRA helps, especially for MOSS (consistent gains across conditions), while Whisper improves less. Domain match beats volume: larger out-of-domain bilingual/learner data underperforms smaller classroom-specific data. Adapted MOSS becomes competitive with a commercial system on WER/CER and achieves lower system-provided DER where applicable.}
+
+\medskip
+
+
+\section*{LLM Evaluation}
+
+{\small\textbf{Judged in Company: In-Context Batching Makes LLM Verdicts Depend on Other Items}} {\scriptsize[\href{https://arxiv.org/abs/2610.40241}{arxiv}]}\\
+{\scriptsize Peng Xie, Amr Alanwar}\\
+
+{\small\textit{Batching many ``independent'' LLM judgments in one prompt can change individual verdicts substantially depending on neighbors and position, making common evaluation/moderation pipelines unstable.}}\\[1pt]
+{\footnotesize Quantifies non-separability in in-context batching and decomposes decision flips into order, slot, and batch-membership effects; explains why AUROC can stay stable while binary decisions swing. Repeatedly re-batch the same labeled items (e.g., 2,000) into random size-25 prompts; measure per-item verdict variance across batchings; exact flip-rate decomposition; thresholding analysis; compare batched vs single-item judging. Rebatching alone flips \textasciitilde{}11--22\% of decisions for 4--9B models and \textasciitilde{}6--15\% for 14--32B, while AUROC changes little. Order/slot drive most variance, but membership remains irreducible; even voting over nine permutations removes less than half the flips. Batched-majority can still disagree with single-item judgments \textasciitilde{}8--18\%, mediated by both neighboring texts and the model's earlier in-prompt outputs.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent work: at least \textasciitilde{}70--100 titles are about agentic systems (computer-using/web/GUI agents, multi-agent debate/coordination, long-horizon memory, verification/repair, benchmarks like Bank-World/TreasuryQA/EnvOS/DynaRev/ATLAS-Bench) and their training loops (RLVR/GRPO, on-policy distillation, rubric/reward design). A second major cluster is efficiency + architecture for scaling/serving (≈30--50 on MoE routing/balancing, speculative decoding, KV-cache/quantization, looped/linear attention/Mamba hybrids, scheduling/energy accounting, inference infra), often explicitly tied to agent workloads. Safety/trust/measurement is another heavy theme (≈25--40 on jailbreak/prompt injection, backdoors/poisoning, watermarking \& detection, unlearning, judge reliability/prompt sensitivity, hallucination taxonomies), with a noticeable multilingual/low-resource safety subcluster (African languages, multilingual refusal evaluation, translated-benchmark validity). The most surprising concentration is the very large audio/speech wave (well over 150 papers): audio-language models and ``speech agents'' (full-duplex dialogue, ASR/TTS, diarization, deepfake detection, watermarking, temporal grounding, music understanding/editing), suggesting audio is rapidly becoming a first-class frontier alongside text+vision.}
+
+
+\end{document}
