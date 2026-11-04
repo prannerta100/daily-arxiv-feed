@@ -1,0 +1,91 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-11-04} \hfill 6 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{HERIT: Enabling Global Access to Hanja-to-English Historical Translation by Mitigating Temporal Bias}} {\scriptsize[\href{https://arxiv.org/abs/2611.04949}{arxiv}]}\\
+{\scriptsize Dayeon Jeong, Kyeongpil Kang}\\
+
+{\small\textit{Uses retrieval-augmented pseudo-labeling from abundant Hanja--Korean data to adapt Hanja→English translation models while reducing overfitting to specific historical periods.}}\\[1pt]
+{\footnotesize Introduces HERIT, a domain-adaptation pipeline for historical Hanja archives that tackles both label scarcity and temporal bias by converting large Hanja--Korean resources into higher-quality pseudo-labeled supervision, enabling translation beyond the narrow periods covered by human labels. Apply retrieval-augmented generation over large Hanja--Korean corpora to create pseudo-labeled training instances; fine-tune/adapt translation models on this expanded data with the explicit goal of mitigating temporal overfitting across historical periods (no claim that retrieval is explicitly time-conditioned). HERIT consistently outperforms baselines on automatic metrics and human evaluation, and it enables translation of previously untranslated archive portions---evidence that RAG-based pseudo-label scaling improves real historical translation quality while reducing period-specific bias.}
+
+\medskip
+
+{\small\textbf{Typological Feature Induction as a Benchmark for Inductive Metalinguistic Reasoning}} {\scriptsize[\href{https://arxiv.org/abs/2611.04421}{arxiv}]}\\
+{\scriptsize Chen Zhang, Seth Aycock, Yusuke Miyao}\\
+
+{\small\textit{TFI is a scalable typology-induction benchmark showing LLMs often succeed by recognizing languages/using priors, not by inferring typological features from the provided bilingual examples.}}\\[1pt]
+{\footnotesize Proposes Typological Feature Induction (TFI): given a few unnamed target-language sentences with pivot-language translations, predict a Grambank typological feature. Automatically generated at scale (195 languages) and paired with interventions (misalignment, enciphering) to separate true induction from prior-knowledge shortcuts. Build items from multi-parallel corpora + Grambank: show small sets of target/pivot sentence pairs (target language unnamed) and ask for a typological property. Diagnose reliance on priors via (i) translation misalignment, (ii) enciphering to block language ID, and (iii) analysis split by whether the model can identify the language from few examples. Models can identify \textasciitilde{}59--80\% of languages from just 16 pairs; misaligning translations barely affects accuracy, implying heavy prior reliance. With enciphering, gains mainly occur when target and pivot share the feature value. On languages the model cannot identify, open models fail to beat a majority baseline---suggesting weak genuine typological induction from text.}
+
+\medskip
+
+{\small\textbf{Beyond Accuracy: What Language-Subspace Interventions Capture, Remove, and Improve}} {\scriptsize[\href{https://arxiv.org/abs/2611.05278}{arxiv}]}\\
+{\scriptsize Shaanil Punglia, Dadhichi Telwadkar, Vaibhav Rathore, Siddharth Sureka, Neha Bhargava}\\
+
+{\small\textit{Projecting out a purported ``language subspace'' can raise multilingual reasoning accuracy while making models answer in the wrong language, because language information remains decodable after projection.}}\\[1pt]
+{\footnotesize Re-evaluates language-subspace interventions with a joint lens: correctness plus response-language fidelity. Shows accuracy-only reporting can be misleading, and probes reveal the interventions do not actually erase language signals, challenging the clean ``remove language → better reasoning'' narrative. Extract candidate language subspaces from translation-linked activation differences using Mean-SVD and a new DiffPCA; project these directions out at chosen mid-layers. Test whether language is removed via linear probes on post-projection activations. Evaluate on MATH/MGSM across open-weight models, measuring both correctness and whether outputs stay in the requested language. Although extracted subspaces capture consistent translation-associated variation, projection does not remove language: probes still predict language near-perfectly. Configurations that most boost MGSM accuracy can substantially reduce language fidelity; only one setup slightly improves the strict joint metric (correct + target language) by \textasciitilde{}1.60 points. Small prompt tweaks can mimic the apparent accuracy gains while similarly harming language fidelity, underscoring that accuracy alone is an unreliable success signal.}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{GigaSpeech 3: Scaling Multi-Dialect Arabic Speech Recognition with Weakly Labeled Data}} {\scriptsize[\href{https://arxiv.org/abs/2611.02476}{arxiv}]}\\
+{\scriptsize Junzhe Liu, Yujie Tu, Yifan Yang, Peng Wang, Haoran Wang, Guodong Lin, Leyan Liao, Chengquan Zhang, Zhifu Gao, Xiangang Li, Qinyuan Cheng, Xipeng Qiu, Wei-Qiang Zhang, Guoguo Chen, Kai Yu, Xie Chen}\\
+
+{\small\textit{Bootstraps large, dialect-aware Arabic ASR from \textasciitilde{}60h/dialect by iteratively filtering and refining weak web transcripts, yielding a 39k-hour corpus that transfers well and even improves strong external recognizers.}}\\[1pt]
+{\footnotesize Releases GigaSpeech 3: 39,000 hours of Arabic speech across five dialects with \textasciitilde{}10M weakly transcribed segments, plus a recipe (small dialect-labeled seed + weak labeling + aggressive selection + noisy-student refinement) that turns abundant audio into usable dialect-resolved ASR training data and validates it in- and cross-domain. Train initial dialect ``labeling models'' from \textasciitilde{}60h manual transcripts per dialect; generate weak transcripts on dialect-matched web audio; keep only reliable/dialect-consistent segments via filtering; run multi-round noisy-student refinement (notably 4 rounds for Saudi/Syrian). Train dialect-specific and unified multi-dialect(+MSA) ASR, using self-predicted dialect IDs to exploit dialect cues without perfect tags at test time. Models trained on the weak corpus outperform the label-generating models, indicating real denoising. On GigaSpeechBench, dialect-specific systems reach 23.86\% macro WER (16.6\% relative better than the strongest third-party multi-dialect system) and win on 3/5 dialects; the unified model gets 25.51\% macro WER while covering 5 dialects + MSA. Cross-domain: a Zipformer trained on GigaSpeech 3 is best in all 8 external conditions, and adapting Qwen3 speech on GigaSpeech 3 improves all 8, showing broad transfer.}
+
+\medskip
+
+{\small\textbf{Do Multi-Turn Conversational Capabilities Carry Over from Text to Speech? A Parallel Multilingual Benchmark}} {\scriptsize[\href{https://arxiv.org/abs/2611.04390}{arxiv}]}\\
+{\scriptsize Jiaming Zhou, Pei Zhang, Shiwan Zhao, Zhijun Wang, Baosong Yang, Yong Qin}\\
+
+{\small\textit{Multi-turn dialogue performance on transcripts does not reliably transfer to speech input; the size and pattern of the drop depend strongly on model and language, often due to failures in retaining spoken history.}}\\[1pt]
+{\footnotesize Creates Omnilingua-AudioMC: strictly parallel transcript-vs-audio multi-turn conversations in 10 languages (354 dialogues, 1,404 rubric items), enabling controlled measurement of what breaks when moving from text to speech and whether errors stem from the current turn or accumulated spoken context. Evaluate six speech-language models on matched transcript and audio versions using rubric-level paired comparisons. Localize degradation by swapping in model-generated transcripts for (i) prior turns, (ii) current turn, or (iii) both, to see which substitution recovers performance. The transcript→speech gap is highly model- and language-dependent; transcript rankings can invert under audio. Aggregate scores can mask rubric-level churn (losses on some requirements, gains on others). For models with large gaps, replacing spoken history with transcripts helps more than replacing only the current turn across all 10 languages, implicating long-range spoken-context representation; the strongest direct-speech model gains little from substitution, indicating robust spoken-context handling.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{A Circuit for In-Context Learning}} {\scriptsize[\href{https://arxiv.org/abs/2611.05344}{arxiv}]}\\
+{\scriptsize Andrew Gao, William Gao}\\
+
+{\small\textit{Few-shot in-context classification is implemented by a small, reusable transformer circuit: attention heads write label mappings into prompt ``memory slots,'' gated on prompt structure, then read them out for the query.}}\\[1pt]
+{\footnotesize Provides an end-to-end mechanistic account of ICL with arbitrary label tokens: distinct writer, reader, gating, and suppression components compose an associative-memory algorithm, validated causally (patching/ablation/steering) and observed across multiple 3--4B models, scales, and training setups. Trace information flow in few-shot classification prompts: mid-layer heads write class keys into residual stream at label-token positions; upper-layer heads query with the test example and copy the matching label. An early-layer gate detects learnable prompt structure (e.g., repeated labels) to enable lookup, while suppression heads reduce a ``copy last label'' recency heuristic. Causal interventions on the identified heads/streams predictably break or restore ICL, with effects stronger than random-head controls. The circuit generalizes: a simple per-head softmax readout (two constants/head) transfers across prompt distributions; the same component types recur across models (0.6B--8B), persist after instruction tuning, and appear in a model trained from scratch---supporting a stable ``gated associative lookup'' algorithm.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM/agent engineering and evaluation: at least \textasciitilde{}40--60 papers revolve around long-horizon agents (tool use, memory, harnesses, benchmarks like SLATE/ToolSpace/GM League Arena/DeliverBench/LOLPlay, and self-evolving or multi-agent coordination such as EvoGroup/Meta²/ATC/Drift No More). A second dense cluster targets efficiency for deployment---especially KV-cache/long-context and low-bit inference/training (e.g., FlagRot, EchoKV/LoopKV/LoopVQ, sparse attention/indexing, speculative decoding, FP4/FP8, routing/escalation)---on the order of \textasciitilde{}25--40 papers. Evaluation reliability/safety is unusually prominent (\textasciitilde{}20--30): multiple works on LLM-as-judge instability/replicability, hallucination labeling, unlearning/privacy leakage, guardrails and adversarial manipulation of agents (MCPGuard, poisoning RAG retrieval, weaponized warnings, backdoored LoRA, watermark evasion). A notable emerging direction is ``AI for audio/speech as an agentic modality'' (spatial audio agents, long-form speech memory, TTS/deepfake detection/watermarking) with \textasciitilde{}15--25 papers, plus a steady stream of domain deployments in medicine/finance/science (EHR datasets/benchmarks, medical QA/physics, financial agents/decision models, drug/protein design) suggesting agents are being stress-tested in high-stakes settings rather than just toy tasks.}
+
+
+\end{document}
