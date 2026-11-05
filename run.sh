@@ -8,12 +8,9 @@ poetry install --quiet --no-interaction
 export WEBEX_TOKEN
 WEBEX_TOKEN=$(token-generator personal bts)
 
-TODAY=$(date +%Y-%m-%d)
-PDF="$(pwd)/output/${TODAY}.pdf"
-
-if poetry run python -m daily_arxiv_feed.main; then
-    osascript -e 'display notification "Your daily arxiv digest is ready — opening now." with title "Arxiv Digest" sound name "Glass"'
-    open "$PDF"
+if poetry run python -m daily_arxiv_feed.main --digest all --open; then
+    osascript -e 'display notification "Daily run complete: NLP first, then quantum. Available PDFs have been opened." with title "Arxiv Digests" sound name "Glass"'
 else
-    osascript -e 'display notification "Pipeline failed — check logs/" with title "Arxiv Digest" sound name "Basso"'
+    osascript -e 'display notification "A digest failed — check logs/. Any earlier completed PDF remains available." with title "Arxiv Digests" sound name "Basso"'
+    exit 1
 fi

@@ -1,0 +1,63 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{amsmath,amssymb,mathrsfs,braket}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\hypersetup{colorlinks=true,urlcolor=blue!60!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+\pagestyle{plain}
+\begin{document}
+{\footnotesize\textbf{Quantum Computing Digest --- 2026-11-05} \hfill 6 papers}
+
+{\scriptsize Full author abstracts}
+
+\section*{Machine Learning for Quantum Control and Pulse Optimization}
+
+{\small\textbf{Efficient training of a 128-modes 3D continuously coupled photonic chip via limited quantum resources}} {\scriptsize[\href{https://arxiv.org/abs/2611.05681}{arxiv}]}\nopagebreak\\
+{\scriptsize Denis Stanev, Simone Di Micco, Francesco Hoch, Taira Giordani, Nicol\`o Spagnolo, Marco Gardina, Andrea Crespi, Francesco Ceccarelli, Roberto Osellame, Fabio Sciarrino}\nopagebreak\\[2pt]
+{\footnotesize Integrated photonics provides a promising route towards the development of large-scale, stable and low-loss quantum hardware. Existing implementations of universal quantum photonic chips generally rely on architectures consisting of localised interactions between the modes that can be programmed with known algorithms to implement specific operations. Recent advances have shown that interferometers based on 3D continuously coupled waveguide arrays may allow to significantly scale up the number of modes with reduced overhead. However, for this class of devices, optimal strategies to set the controllable parameters and obtain the desired transformation have not been demonstrated generally. In this work, we report the use of a machine learning algorithm driven by quantum data to program the operation of a reconfigurable three-dimensional continuously coupled photonic device comprising 128 modes. We show experimentally the capability of reaching a target unitary matrix, among those achievable by the device, through a limited number of one- and two-photon measurements. Our results demonstrate that this approach results to be effective in the presence of noise and with a limited amount of resources, also allowing to partially compensate imperfections in the experimental setup. This method can thus represent a viable route towards programming large scale integrated photonic devices, unlocking the possibility of controlling photonic systems for which an analytical decomposition is not trivial.\par}
+\medskip
+
+
+\section*{Machine Learning for Error Correction, Mitigation and Fault Tolerance}
+
+{\small\textbf{Discovering correlated error mechanisms: data-driven augmentation of detector error models improving decoding}} {\scriptsize[\href{https://arxiv.org/abs/2611.06605}{arxiv}]}\nopagebreak\\
+{\scriptsize Zohar Schwartzman-Nowik, Matthew P. Stafford, Boris M. Varbanov, Joan Camps}\nopagebreak\\[2pt]
+{\footnotesize Accurate decoder priors are essential for high-performance quantum error correction. Theoretical noise models inevitably omit physically relevant error mechanisms, most notably correlated errors, which appear consistently in experimental error budgets yet are absent from standard models. We introduce a data-driven method for augmenting detector error models (DEMs) by discovering entirely new error mechanisms directly from experimental detector-firing statistics, going beyond most existing approaches that merely refine the probabilities of already-known mechanisms. Our method generates candidates by combining pairs of existing mechanisms as building blocks, then filters and validates them using pairwise and higher-order detector correlations. Crucially, this construction provides each newly discovered mechanism with a well-defined logical effect derived from the constituent error mechanisms, enabling its direct use in decoding. Furthermore, each mechanism is accompanied by a natural decomposition into lower-order components, preserving compatibility with the original decoder. This is particularly valuable in settings that rely on correlated graph-based decoders such as correlated matching. We evaluate the method on surface-code simulations with correlated noise and correlated-matching decoding, demonstrating that, in a realistic near-term noise scenario, DEM augmentation increases the Lambda parameter by 20\% across code distances 7-15 and reduces the logical error rate by 75\% at code distance 15 relative to the unaugmented DEM. On experimental data from Google's superconducting device, the augmented DEM increases the Lambda parameter by 9\% across code distances 5-7 and yields a reduction of 14\% in logical error rate over the baseline for distance 7. To our knowledge, this is the first data-driven DEM augmentation method that produces decomposed hyperedges with assigned logical effects.\par}
+\medskip
+
+{\small\textbf{GFlowQEC: Generative Flow Networks that Learn to Sample Quantum LDPC Codes}} {\scriptsize[\href{https://arxiv.org/abs/2611.06819}{arxiv}]}\nopagebreak\\
+{\scriptsize Nuno Batista, Gabriel Falcao, Penousal Machado}\nopagebreak\\[2pt]
+{\footnotesize Choosing a quantum error-correcting code for a real device means scoring candidates with circuit-level simulations so slow that only a few hundred can be run. So every evaluation counts, and a search is judged by how many good codes it finds per paid evaluation. Quantum LDPC codes built from a few group elements protect many logical qubits, but good ones are rare in a huge space. We introduce GFlowQEC, to our knowledge the first generative flow network (GFlowNet) for quantum code design. It builds a code one group element at a time and learns to propose codes in proportion to a power of their score. We train it once on scores from earlier searches, freeze it, and let it propose lifted-product codes with 180 physical qubits, scored by their distances. Ranking ten of its draws per paid call, it finds more than twice as many new top-scoring codes (inequivalent to any it was trained on) as tuned parallel tempering, even when tempering starts from GFlowQEC's training codes. It finds more than three and a half times as many as a supervised screen ranking ten random candidates per call. When both rank a hundred, the screen beats GFlowQEC, and does best ranking GFlowQEC's draws. Soft Q-learning, which shares the GFlowNet's optimal policy, does as well at one noise bias and better at the other, so the gain does not depend on the GFlowNet's training loss. Trained proposers can make a budget of expensive evaluations go further when good codes are rare.\par}
+\medskip
+
+{\small\textbf{Large-Language-Model Discovery of Quantum LDPC Codes through Structured Concept Evolution}} {\scriptsize[\href{https://arxiv.org/abs/2606.24808}{arxiv}]}\nopagebreak\\
+{\scriptsize Zidu Liu, Florian Marquardt}\nopagebreak\\[2pt]
+{\footnotesize Quantum low-density parity-check codes promise low-overhead error correction, but high-performing constructions remain hard to find. Here we introduce structured concept evolution, in which a large language model (LLM) evolves construction programs and their internal search strategies by modifying the finite group, protograph shapes or entry-assignment rule. We search for codes with fewer than $600$ data qubits and check weight at most $12$, optimizing $kd^2/n$ or the circuit-level logical error rate. Our method improves on published lifted-product benchmarks in selected parameter regimes, with exactly certified distances for the leading results. Circuit-level optimization typically yields lower logical error rates than $kd^2/n$ optimization, often despite smaller code distances. With the same evolution framework and step budget, the best LLM outperforms all random-mutation and hill-climbing runs on both objectives. Our results point to LLM-driven program search as an approach to designing general quantum LDPC codes.\par}
+\medskip
+
+
+\section*{Notable Quantum Computing Research}
+
+{\small\textbf{Dynamically modulated light-matter interactions for ancilla-tolerant bosonic control}} {\scriptsize[\href{https://arxiv.org/abs/2611.05460}{arxiv}]}\nopagebreak\\
+{\scriptsize Aniket Maiti, John W. O. Garmon, Daniel K. Weiss, Takahiro Tsunoda, Yao Lu, Steven M. Girvin, Robert J. Schoelkopf}\nopagebreak\\[2pt]
+{\footnotesize Strong light-matter interactions are central to state-of-the-art quantum technologies, spanning platforms as diverse as Rydberg atoms, trapped ions, and superconducting circuits. In superconducting circuits, the strong dispersive coupling between microwave photons (light) and ancillary qubits (matter) has enabled universal bosonic control and quantum error correction. However, this always-on dispersive interaction propagates errors from the ancillary qubits to the bosonic systems both while idling and when performing operations, introducing a trade-off between control strength and fidelity. We break this trade-off by introducing a parametrically activated hybridization between the bosonic modes and ancilla qubits, keeping both elements decoupled when not active. When activated, this hybridization mediates a dynamic light-matter coupling with non-trivial engineered symmetries, permitting resilience to ancilla decay and dephasing. This dynamic coupling functions as a new control primitive that offers a route to bosonic processors whose performance is set by the oscillator, rather than the ancilla.\par}
+\medskip
+
+{\small\textbf{Cryogenic suppression of correlated loss in Rydberg atom arrays}} {\scriptsize[\href{https://arxiv.org/abs/2611.06613}{arxiv}]}\nopagebreak\\
+{\scriptsize Zhenpu Zhang, Brendan P. Marsh, Ting You Tan, Quinn Manning, Daniel H. Slichter, Adam M. Kaufman, Cindy A. Regal}\nopagebreak\\[2pt]
+{\footnotesize Blackbody radiation (BBR) poses a central challenge for quantum science with Rydberg atoms. By driving transitions to nearby opposite-parity states, BBR shortens Rydberg lifetimes and has long been suspected to trigger "avalanche" events known to cause correlated atom loss. Here, we suppress avalanche decay and establish BBR as its dominant trigger using a Rydberg atom array that operates either cryogenically or at room temperature. A $45~\text{K}$ radiation shield reduces ambient BBR, extending Rydberg $nS$ lifetimes for $n$ ranging from 50 to 75. BBR-induced decay rates are suppressed by 30\%-50\%, corresponding to an effective blackbody temperature \$T\_\{\textbackslash{}rm eff\}\textbackslash{}approx190\textasciitilde{}\textbackslash{}text\{K\}\$. This enables controlled comparisons of Rydberg-dressed atom arrays operating in different BBR environments. Arrays of up to 70 atoms demonstrate cryogenically suppressed avalanche rates, tracking the suppression in BBR-induced decay, for both $n=50$ and $n=60$ dressing. A parameter-free rate model agrees with the measured avalanche rates after accounting for frequency-dependent cryogenic shielding, photoionization-triggered avalanches, laser phase noise, BBR decay channels, and Rydberg interaction effects. We demonstrate a quantitative description of avalanche decay and show that improved BBR shielding should further suppress correlated loss to the $T_\text{eff}=45~\text{K}$ achievable in the current apparatus. Our results establish a route to mitigating correlated errors that otherwise impede fault-tolerant operation in neutral-atom quantum processors.\par}
+\medskip
+
+
+\end{document}

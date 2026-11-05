@@ -1,0 +1,32 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{amsmath,amssymb,mathrsfs,braket}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\hypersetup{colorlinks=true,urlcolor=blue!60!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+\pagestyle{plain}
+\begin{document}
+{\footnotesize\textbf{Quantum Computing Digest --- \VAR{date}} \hfill \VAR{paper_count} papers}
+
+{\scriptsize Full author abstracts}
+\BLOCK{for section in sections}
+\section*{\VAR{section.name|e}}
+\BLOCK{for paper in section.papers}
+{\small\textbf{\VAR{paper.title|arxiv}}} {\scriptsize[\href{\VAR{paper.url}}{arxiv}]}\nopagebreak\\
+{\scriptsize \VAR{paper.authors_str|arxiv}}\nopagebreak\\[2pt]
+{\footnotesize \VAR{paper.abstract|abstract}\par}
+\medskip
+\BLOCK{endfor}
+\BLOCK{endfor}
+\end{document}

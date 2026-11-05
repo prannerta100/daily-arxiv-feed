@@ -1,4 +1,7 @@
+import hashlib
+import json
 import logging
+from pathlib import Path
 
 from openai import OpenAI
 
@@ -62,33 +65,65 @@ def parse_filter_response(response: str) -> list[dict]:
     return data["papers"]
 
 
-def filter_papers(client: OpenAI, papers: list[Paper]) -> tuple[list[Paper], list[dict]]:
+def filter_papers(client: OpenAI, papers: list[Paper], *,
+                  filter_system_prompt: str = FILTER_SYSTEM_PROMPT,
+                  rank_system_prompt: str = RANK_SYSTEM_PROMPT,
+                  max_papers: int | None = None, batch_size: int = 20,
+                  checkpoint_path: Path | None = None) -> tuple[list[Paper], list[dict]]:
     if not papers:
         return [], []
 
-    batch_size = 20
+    if batch_size<1:
+        raise ValueError("Filter batch size must be positive")
     all_decisions = []
+    completed_batches = 0
+    fingerprint = hashlib.sha256(json.dumps({"prompt":filter_system_prompt,"batch_size":batch_size,
+        "papers":[[p.arxiv_id,p.title,p.abstract] for p in papers]},ensure_ascii=False).encode()).hexdigest()
+    if checkpoint_path and checkpoint_path.exists():
+        try:
+            cached = json.loads(checkpoint_path.read_text())
+            if cached["fingerprint"]==fingerprint:
+                all_decisions = cached["decisions"]
+                completed_batches = cached["completed_batches"]
+                logger.info("Resuming filter after %d completed batches",completed_batches)
+        except (ValueError,KeyError):
+            logger.warning("Ignoring invalid filter checkpoint %s",checkpoint_path)
 
-    for i in range(0, len(papers), batch_size):
+    for i in range(completed_batches*batch_size, len(papers), batch_size):
         batch = papers[i : i + batch_size]
         user_prompt = build_filter_prompt(batch)
-        response = chat(client=client, system=FILTER_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
-        decisions = parse_filter_response(response)
+        response = chat(client=client, system=filter_system_prompt, user=user_prompt, json_mode=True)
+        returned = {d["arxiv_id"]:d for d in parse_filter_response(response)}
+        # Candidate-only profiles need not spend tokens listing unrelated papers.
+        # Record omissions as intentional non-nominations, not scorer failures.
+        decisions = [returned.get(p.arxiv_id,{"arxiv_id":p.arxiv_id,"selected":False,
+                     "categories":[],"reasoning":"Not nominated in first-pass selection"}) for p in batch]
         all_decisions.extend(decisions)
+        if checkpoint_path:
+            checkpoint_path.parent.mkdir(parents=True,exist_ok=True)
+            temporary = checkpoint_path.with_suffix(".tmp")
+            temporary.write_text(json.dumps({"fingerprint":fingerprint,
+                "completed_batches":i//batch_size+1,"decisions":all_decisions},indent=2))
+            temporary.replace(checkpoint_path)
+        logger.info("Filtered batch %d/%d",i//batch_size+1,(len(papers)+batch_size-1)//batch_size)
 
-    candidates = [d for d in all_decisions if d.get("selected")]
+    paper_map = {p.arxiv_id: p for p in papers}
+    candidates = [d for d in all_decisions if d.get("selected") and d.get("arxiv_id") in paper_map]
     logger.info("First pass: %d candidates from %d papers", len(candidates), len(papers))
 
     if not candidates:
         return [], all_decisions
 
-    paper_map = {p.arxiv_id: p for p in papers}
     rank_prompt = _build_rank_prompt(candidates, paper_map)
-    rank_response = chat(client=client, system=RANK_SYSTEM_PROMPT, user=rank_prompt, json_mode=True)
+    rank_response = chat(client=client, system=rank_system_prompt, user=rank_prompt, json_mode=True)
     rank_decisions = parse_filter_response(rank_response)
 
-    final_ids = {d["arxiv_id"] for d in rank_decisions if d.get("selected")}
-    selected = [paper_map[aid] for aid in final_ids if aid in paper_map]
+    candidate_ids = {d["arxiv_id"] for d in candidates}
+    final_ids = list(dict.fromkeys(d["arxiv_id"] for d in rank_decisions
+                                  if d.get("selected") and d.get("arxiv_id") in candidate_ids))
+    if max_papers is not None:
+        final_ids = final_ids[:max_papers]
+    selected = [paper_map[aid] for aid in final_ids]
 
     for d in all_decisions:
         rank_match = next((r for r in rank_decisions if r["arxiv_id"] == d["arxiv_id"]), None)
@@ -96,6 +131,7 @@ def filter_papers(client: OpenAI, papers: list[Paper]) -> tuple[list[Paper], lis
             d["selected"] = rank_match["selected"]
             d["reasoning"] = rank_match["reasoning"]
             d["categories"] = rank_match["categories"]
+        d["selected"] = d.get("arxiv_id") in final_ids
 
     logger.info("Final selection: %d papers", len(selected))
     return selected, all_decisions

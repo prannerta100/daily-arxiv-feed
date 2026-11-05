@@ -41,9 +41,9 @@ def _retry_request(url: str, **kwargs) -> httpx.Response:
             time.sleep(wait)
 
 
-def fetch_via_rss() -> list[Paper]:
+def fetch_via_rss(categories: list[str] | None = None) -> list[Paper]:
     papers = []
-    for cat in CATEGORIES:
+    for cat in (CATEGORIES if categories is None else categories):
         url = f"https://rss.arxiv.org/rss/{cat}"
         resp = _retry_request(url)
         feed = feedparser.parse(resp.text)
@@ -69,9 +69,9 @@ def fetch_via_rss() -> list[Paper]:
     return papers
 
 
-def fetch_via_api() -> list[Paper]:
+def fetch_via_api(categories: list[str] | None = None) -> list[Paper]:
     papers = []
-    for cat in CATEGORIES:
+    for cat in (CATEGORIES if categories is None else categories):
         url = "https://export.arxiv.org/api/query"
         params = {
             "search_query": f"cat:{cat}",
@@ -102,9 +102,9 @@ def fetch_via_api() -> list[Paper]:
     return papers
 
 
-def fetch_via_scrape() -> list[Paper]:
+def fetch_via_scrape(categories: list[str] | None = None) -> list[Paper]:
     papers = []
-    for cat in CATEGORIES:
+    for cat in (CATEGORIES if categories is None else categories):
         url = f"https://arxiv.org/list/{cat}/new"
         resp = _retry_request(url)
         html = resp.text
@@ -140,7 +140,7 @@ def deduplicate(papers: list[Paper]) -> list[Paper]:
     for p in papers:
         if p.arxiv_id in seen:
             existing = seen[p.arxiv_id]
-            merged_cats = list(set(existing.categories + p.categories))
+            merged_cats = list(dict.fromkeys(existing.categories + p.categories))
             seen[p.arxiv_id] = Paper(
                 arxiv_id=p.arxiv_id,
                 title=existing.title,
@@ -154,7 +154,7 @@ def deduplicate(papers: list[Paper]) -> list[Paper]:
     return list(seen.values())
 
 
-def fetch_papers() -> list[Paper]:
+def fetch_papers(categories: list[str] | None = None) -> list[Paper]:
     sources = [
         ("RSS", fetch_via_rss),
         ("API", fetch_via_api),
@@ -163,7 +163,7 @@ def fetch_papers() -> list[Paper]:
     for name, fetcher in sources:
         try:
             logger.info("Fetching papers via %s...", name)
-            papers = fetcher()
+            papers = fetcher() if categories is None else fetcher(categories=categories)
             if papers:
                 logger.info("Fetched %d papers via %s", len(papers), name)
                 return deduplicate(papers)

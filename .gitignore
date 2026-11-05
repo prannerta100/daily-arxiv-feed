@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .venv/
 output/staging/
+output/quantum/staging/
 logs/
 dist/
 *.egg-info/

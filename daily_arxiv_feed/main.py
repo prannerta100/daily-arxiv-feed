@@ -76,10 +76,11 @@ def _push_pdf(pdf_path: Path) -> None:
         files_to_push.append(str(tex_path.relative_to(repo_root)))
 
     date = pdf_path.stem
+    label = "quantum digest" if pdf_path.parent.name=="quantum" else "digest"
     try:
         subprocess.run(["git", "add"] + files_to_push, cwd=repo_root, check=True)
         subprocess.run(
-            ["git", "commit", "-m", f"digest: {date}"],
+            ["git", "commit", "-m", f"{label}: {date}"],
             cwd=repo_root, check=True,
         )
         subprocess.run(["git", "push"], cwd=repo_root, check=True)
@@ -88,7 +89,7 @@ def _push_pdf(pdf_path: Path) -> None:
         logger.warning("Git push failed: %s", e)
 
 
-def run_pipeline(output_dir: Path | None = None, date: str | None = None) -> Path | None:
+def run_pipeline(output_dir: Path | None = None, date: str | None = None, *, publish: bool = True) -> Path | None:
     if output_dir is None:
         output_dir = Path(__file__).resolve().parent.parent / "output"
     if date is None:
@@ -135,11 +136,31 @@ def run_pipeline(output_dir: Path | None = None, date: str | None = None) -> Pat
     logger.info("=== Stage 5: Compile ===")
     pdf_path, verified = _compile_digest(client, selected, verified, output_dir, date, overview)
 
-    logger.info("=== Stage 6: Push to remote ===")
-    _push_pdf(pdf_path)
+    if publish:
+        logger.info("=== Stage 6: Push to remote ===")
+        _push_pdf(pdf_path)
 
     logger.info("Done! PDF at %s", pdf_path)
     return pdf_path
+
+
+def run_daily_digests(output_dir: Path | None = None, date: str | None = None, *,
+                      publish: bool = True, open_pdfs: bool = False) -> dict[str, Path | None]:
+    """Complete NLP before starting any quantum fetch/filter work."""
+    from daily_arxiv_feed.quantum import run_quantum_pipeline
+    output_dir = output_dir or Path(__file__).resolve().parent.parent / "output"
+    date = date or datetime.now().strftime("%Y-%m-%d")
+    logger.info("=== Daily sequence 1/2: NLP ===")
+    nlp_pdf = run_pipeline(output_dir=output_dir,date=date,publish=publish)
+    if open_pdfs and nlp_pdf:
+        subprocess.run(["open",str(nlp_pdf)],check=True)
+    # No executor, background process, or concurrent API requests: the first call
+    # must return (including compilation) before this second pipeline can start.
+    logger.info("=== Daily sequence 2/2: quantum ===")
+    quantum_pdf = run_quantum_pipeline(output_dir=output_dir/"quantum",date=date,publish=publish)
+    if open_pdfs and quantum_pdf:
+        subprocess.run(["open",str(quantum_pdf)],check=True)
+    return {"nlp":nlp_pdf,"quantum":quantum_pdf}
 
 
 def rebuild_digest(date: str, output_dir: Path | None = None) -> Path:
@@ -187,6 +208,11 @@ def rebuild_digest(date: str, output_dir: Path | None = None) -> Path:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rebuild", metavar="YYYY-MM-DD", help="Rewrite cached digest locally without fetching, committing or pushing")
+    parser.add_argument("--digest",choices=["all","nlp","quantum"],
+                        help="Default: NLP then quantum; --rebuild defaults to NLP for compatibility")
+    parser.add_argument("--date",metavar="YYYY-MM-DD",help="Output date for a fresh run")
+    parser.add_argument("--no-push",action="store_true",help="Generate local PDFs without committing or pushing")
+    parser.add_argument("--open",action="store_true",dest="open_pdfs",help="Open each PDF as it completes")
     args = parser.parse_args()
     log_dir = Path(__file__).resolve().parent.parent / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
@@ -203,7 +229,26 @@ def main():
     )
 
     try:
-        result = rebuild_digest(args.rebuild) if args.rebuild else run_pipeline()
+        digest = args.digest or ("nlp" if args.rebuild else "all")
+        if args.rebuild:
+            if digest=="quantum":
+                from daily_arxiv_feed.quantum import rebuild_quantum_digest
+                result = rebuild_quantum_digest(args.rebuild)
+            elif digest=="all":
+                from daily_arxiv_feed.quantum import rebuild_quantum_digest
+                result = {"nlp":rebuild_digest(args.rebuild)}
+                result["quantum"] = rebuild_quantum_digest(args.rebuild)
+            else:
+                result = rebuild_digest(args.rebuild)
+        elif digest=="all":
+            result = run_daily_digests(date=args.date,publish=not args.no_push,open_pdfs=args.open_pdfs)
+        elif digest=="quantum":
+            from daily_arxiv_feed.quantum import run_quantum_pipeline
+            result = run_quantum_pipeline(date=args.date,publish=not args.no_push)
+        else:
+            result = run_pipeline(date=args.date,publish=not args.no_push)
+        if args.open_pdfs and digest!="all" and result:
+            subprocess.run(["open",str(result)],check=True)
         if result:
             logging.info("Pipeline complete: %s", result)
         else:

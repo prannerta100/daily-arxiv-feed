@@ -78,7 +78,9 @@ def _latex_passthrough(text: str) -> str:
     return text
 
 
-def render_latex(summaries: list[dict], date: str, overview: str = "") -> str:
+def render_latex(summaries: list[dict], date: str, overview: str = "", *,
+                 category_names: dict[int, str] | None = None,
+                 template_name: str = "neurips_digest.tex") -> str:
     """Render summaries into LaTeX using the neurips_digest template.
 
     Args:
@@ -102,8 +104,12 @@ def render_latex(summaries: list[dict], date: str, overview: str = "") -> str:
     env.filters["e"] = _latex_escape
     env.filters["raw"] = _latex_passthrough
     env.filters["arxiv"] = _latex_escape_preserving_commands
+    # Import here to avoid a cycle through the shared plain-text escaping helper.
+    from daily_arxiv_feed.abstract_rendering import latex_abstract
+    env.filters["abstract"] = latex_abstract
 
-    template = env.get_template("neurips_digest.tex")
+    template = env.get_template(template_name)
+    category_names = CATEGORY_NAMES if category_names is None else category_names
 
     summaries = [dict(s, authors_str=", ".join(s["authors"])) for s in summaries]
 
@@ -116,7 +122,7 @@ def render_latex(summaries: list[dict], date: str, overview: str = "") -> str:
     sections = []
     for cat_id in sorted(grouped.keys()):
         sections.append({
-            "name": CATEGORY_NAMES.get(cat_id, "Other"),
+            "name": category_names.get(cat_id, "Other"),
             "papers": grouped[cat_id],
         })
 
