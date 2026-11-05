@@ -21,6 +21,29 @@ QUANTUM_SECTIONS = {
 }
 MAX_QUANTUM_PAPERS = 8
 
+EXPERIMENT_PREFERENCE = """
+The reader has an experimental and implementation-oriented research inclination.
+Actively seek working hardware demonstrations, experiments on physical devices,
+methods tested on measured device data, and useful implementations with credible
+benchmarks. Include calibration, real-time feedback, decoder latency/throughput,
+resource overhead, robustness, reproducibility and practical constraints when
+supported by the abstract. Useful demonstrated progress need not claim a grand
+theoretical breakthrough. Do not discard experimental work simply because it is
+not ML: meaningful hardware/control/QEC implementations can enter section 3.
+Keep strong theory eligible, especially when it enables experiments, but do not
+let elegant theory or speculative scalability crowd out strong practical work.
+When suitable candidates exist, aim to include at least two papers with physical
+experiments or measured-device-data validation across the digest. This is a soft
+balance preference, not a reason to admit weak papers or invent evidence.
+Treat hardware experiments, measured-data validation, realistic noisy simulation,
+idealized numerical benchmarks and theory as distinct forms of evidence. State
+the actual evidence type in each selection reason; distinguish experimental device
+data from running the proposed method on hardware. Consider released code only
+when explicitly mentioned. Never describe a simulation as an experiment on a
+physical device. Concrete implementations and strong realistic simulations are
+valuable too; do not equate implementation with a theorem or a proposed design.
+"""
+
 FILTER_PROMPT = """Select candidates for a quantum computing research digest.
 Prioritize these interests, in order, while allowing major general quantum work:
 1. Machine learning for quantum control and pulse optimization: reinforcement
@@ -43,7 +66,7 @@ Respond with JSON: {"papers": [{"arxiv_id":"...", "selected":true,
 "categories":[1], "reasoning":"brief evidence-based selection reason"}]}.
 Return only plausible candidates. Omit unrelated papers entirely; do not spend
 output tokens listing obvious rejections. An empty papers list is valid.
-"""
+""" + EXPERIMENT_PREFERENCE
 
 RANK_PROMPT = """Make the final, ordered selection for a quantum computing digest
 whose entries will contain the FULL author abstracts, not generated summaries.
@@ -51,7 +74,7 @@ Use these primary sections:
 1. ML for quantum control and pulse optimization.
 2. ML for error correction, mitigation and fault tolerance.
 3. Notable general quantum computing research.
-Aim for 2-3 strong papers in each ML-focused section and 1-2 exceptional general
+Aim for 2-3 strong papers in each ML-focused section and 1-2 strong general
 papers when the candidates warrant it; these are preferences, NOT minimum quotas.
 Select at most 8 total, and fewer (including none) on a weak day. Do not fill space
 with irrelevant papers. Give focused ML work priority, but retain genuine major
@@ -74,7 +97,7 @@ analytical decoding-complexity results, conventional decoders and non-ML code
 constructions belong in section 3, regardless of their fault-tolerance relevance.
 Respond with JSON: {"papers":[{"arxiv_id":"...", "selected":true,
 "categories":[1], "reasoning":"why it earns a place, based on abstract evidence"}]}.
-"""
+""" + EXPERIMENT_PREFERENCE
 
 
 def full_abstract(text: str) -> str:

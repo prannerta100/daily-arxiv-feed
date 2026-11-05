@@ -45,6 +45,14 @@ quotas: weak or irrelevant papers do not get added just to fill a section. Routi
 quantum classifiers on classical datasets and quantum-inspired classical
 optimization are excluded unless the work establishes a substantial advance.
 
+Selection favors experiments and working implementations: physical-device
+demonstrations, measured-device-data validation, credible benchmarks and practical
+constraints. When strong candidates exist, it aims to include at least two papers
+with physical experiments or measured-device-data validation, including non-ML
+work in the general section. This is a soft preference; strong theory remains
+eligible. Selection reasons distinguish hardware, measured data, realistic noisy
+simulation, idealized benchmarks and theory rather than conflating their evidence.
+
 The LLM selects papers but **never rewrites their abstracts**. Only the RSS
 announcement header is removed. Full text, source hashes, selection reasons and
 run populations are saved under `output/quantum/staging/<date>/`. Safe math

@@ -11,7 +11,7 @@ varphi chi psi omega Gamma Delta Theta Lambda Xi Pi Sigma Upsilon Phi Psi Omega
 frac dfrac tfrac sqrt mathrm mathbf mathit mathsf mathtt mathbb mathcal mathscr
 boldsymbol text operatorname left right big Big bigg Bigg overline underline
 hat widehat tilde widetilde bar vec dot ddot dagger ddots cdots ldots vdots
-otimes oplus times cdot pm mp le leq ge geq neq approx sim simeq equiv propto
+otimes oplus times ltimes rtimes cdot pm mp le leq ge geq neq approx sim simeq equiv propto
 in notin subset subseteq supset supseteq cup cap emptyset forall exists neg land
 lor to rightarrow leftarrow leftrightarrow Rightarrow Leftarrow Leftrightarrow
 mapsto langle rangle lvert rvert lVert rVert vert Vert ket bra braket Ket Bra
