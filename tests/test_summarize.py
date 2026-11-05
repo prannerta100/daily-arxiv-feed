@@ -23,15 +23,11 @@ def test_summarize_papers_calls_llm_per_paper():
         {"arxiv_id": "2504.1", "categories": [1], "reasoning": "r1"},
         {"arxiv_id": "2504.2", "categories": [2], "reasoning": "r2"},
     ]
-    summary_json = json.dumps({
-        "one_line_takeaway": "Key insight",
-        "key_contribution": "They did X.",
-        "method": "Using Y.",
-        "most_important_result": "Z improved.",
-    })
+    summary_json = json.dumps({"excerpt": "The authors study transfer between languages. Their method improves recognition."})
     mock_client = MagicMock()
     with patch("daily_arxiv_feed.summarize.chat", return_value=summary_json):
         results = summarize_papers(mock_client, papers, decisions)
         assert len(results) == 2
         assert results[0]["arxiv_id"] == "2504.1"
-        assert results[0]["summary"]["one_line_takeaway"] == "Key insight"
+        assert results[0]["summary"]["excerpt"].startswith("The authors")
+        assert results[0]["summary_limits"]["max_words"] == 130

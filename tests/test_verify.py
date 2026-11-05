@@ -48,14 +48,10 @@ def test_verify_flags_and_regenerates_bad_summary():
         },
     }]
     fail_response = json.dumps({"passed": False, "issues": ["Paper is English-only, summary claims multilingual"]})
-    regen_summary = json.dumps({
-        "one_line_takeaway": "English sentiment analysis improved.",
-        "key_contribution": "They study English sentiment.",
-        "method": "Fine-tuning on English data.",
-        "most_important_result": "State-of-the-art on SST.",
-    })
+    regen_summary = json.dumps({"excerpt": "The authors study English-only sentiment analysis."})
     pass_response = json.dumps({"passed": True, "issues": []})
     mock_client = MagicMock()
-    with patch("daily_arxiv_feed.verify.chat", side_effect=[fail_response, regen_summary, pass_response]):
-        result = verify_summaries(mock_client, papers, summaries)
-        assert result[0]["summary"]["one_line_takeaway"] == "English sentiment analysis improved."
+    with patch("daily_arxiv_feed.verify.chat", side_effect=[fail_response, pass_response]):
+        with patch("daily_arxiv_feed.summarize.chat", return_value=regen_summary):
+            result = verify_summaries(mock_client, papers, summaries)
+            assert result[0]["summary"]["excerpt"] == "The authors study English-only sentiment analysis."

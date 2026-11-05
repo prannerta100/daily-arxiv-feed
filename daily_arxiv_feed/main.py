@@ -1,15 +1,18 @@
+import argparse
 import json
 import logging
+import shutil
 import subprocess
 import sys
 from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 
-from daily_arxiv_feed.llm import get_client, chat, parse_json_response
-from daily_arxiv_feed.fetch import fetch_papers
+from daily_arxiv_feed.llm import get_client
+from daily_arxiv_feed.fetch import Paper, fetch_papers
 from daily_arxiv_feed.filter import filter_papers
-from daily_arxiv_feed.summarize import summarize_papers
+from daily_arxiv_feed.summarize import generate_excerpt, summarize_papers
+from daily_arxiv_feed.excerpts import fits_budget, summary_limits, summary_text
 from daily_arxiv_feed.verify import verify_summaries
 from daily_arxiv_feed.overview import generate_overview
 from daily_arxiv_feed.compile import render_latex, compile_pdf, get_page_count
@@ -19,48 +22,46 @@ logger = logging.getLogger(__name__)
 MAX_PAGES = 3
 MAX_COMPRESS_ITERATIONS = 3
 
-COMPRESS_SYSTEM_PROMPT = """You are compressing paper summaries to fit a strict 2-page PDF limit. The current digest is too long. Rewrite ALL summaries to be shorter while preserving the key insight and most important result for each paper. Use tighter prose — fewer words, same information density. Do not drop any paper.
-
-Respond with JSON: {"summaries": [{"arxiv_id": "...", "one_line_takeaway": "...", "key_contribution": "...", "method": "...", "most_important_result": "..."}]}"""
-
 
 def _write_staging(staging_dir: Path, filename: str, data) -> None:
     staging_dir.mkdir(parents=True, exist_ok=True)
     (staging_dir / filename).write_text(json.dumps(data, indent=2, default=str), encoding="utf-8")
 
 
-def _compress_summaries(client, summaries: list[dict]) -> list[dict]:
-    lines = []
+def _compress_summaries(client, summaries: list[dict], papers: list[Paper]) -> list[dict]:
+    """Shorten from source abstracts, keeping complete prose and explicit limits."""
+    paper_map = {p.arxiv_id: p for p in papers}
+    results = []
     for s in summaries:
-        lines.append(f"arxiv_id: {s['arxiv_id']}")
-        lines.append(f"Title: {s['title']}")
-        for k, v in s["summary"].items():
-            lines.append(f"  {k}: {v}")
-        lines.append("")
-    user_prompt = "\n".join(lines)
+        current = summary_text(s["summary"])
+        original_limits = s.get("summary_limits") or summary_limits()
+        limits = {"max_words": min(original_limits["max_words"], max(70, int(len(current.split()) * .85))),
+                  "max_chars": min(original_limits["max_chars"], max(450, int(len(current) * .85)))}
+        if limits["max_words"] >= len(current.split()) and limits["max_chars"] >= len(current):
+            results.append(s)
+            continue
+        summary, source = generate_excerpt(client, paper_map[s["arxiv_id"]], limits,
+            ["The PDF exceeds its page budget. Select fewer claims; preserve full sentences and readability."])
+        results.append({**s, "summary": summary, "summary_limits": limits, "summary_source": source})
+    return results
 
-    for attempt in range(2):
-        try:
-            response = chat(client=client, system=COMPRESS_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
-            compressed = parse_json_response(response)
+
+def _compile_digest(client, papers, summaries, output_dir, date, overview):
+    staging_dir = output_dir / "staging" / date
+    for iteration in range(MAX_COMPRESS_ITERATIONS + 1):
+        tex = render_latex(summaries, date, overview=overview)
+        pdf_path = compile_pdf(tex, output_dir, date)
+        pages = get_page_count(pdf_path)
+        logger.info("PDF: %d pages (limit %d)", pages, MAX_PAGES)
+        if pages <= MAX_PAGES or iteration == MAX_COMPRESS_ITERATIONS:
             break
-        except Exception:
-            if attempt == 1:
-                logger.warning("Compression failed twice, keeping original summaries")
-                return summaries
-            logger.warning("Compression JSON parse failed, retrying")
-
-    summary_map = {c["arxiv_id"]: c for c in compressed["summaries"]}
-    for s in summaries:
-        if s["arxiv_id"] in summary_map:
-            c = summary_map[s["arxiv_id"]]
-            s["summary"] = {
-                "one_line_takeaway": c["one_line_takeaway"],
-                "key_contribution": c["key_contribution"],
-                "method": c["method"],
-                "most_important_result": c["most_important_result"],
-            }
-    return summaries
+        summaries = _compress_summaries(client, summaries, papers)
+        # Compression changes claims too; verify the text readers will see.
+        summaries = verify_summaries(client, papers, summaries)
+        _write_staging(staging_dir, "04_verified.json", summaries)
+    if pages > MAX_PAGES:
+        logger.warning("PDF still %d pages after %d compression attempts", pages, MAX_COMPRESS_ITERATIONS)
+    return pdf_path, summaries
 
 
 def _push_pdf(pdf_path: Path) -> None:
@@ -119,9 +120,12 @@ def run_pipeline(output_dir: Path | None = None, date: str | None = None) -> Pat
     except Exception:
         logger.exception("Overview generation failed, continuing without it")
         overview = ""
+    _write_staging(staging_dir, "05_overview.json", {"overview": overview})
 
     logger.info("=== Stage 3: Summarize ===")
-    summaries = summarize_papers(client, selected, all_decisions)
+    previous_path = staging_dir / "04_verified.json"
+    previous = json.loads(previous_path.read_text()) if previous_path.exists() else None
+    summaries = summarize_papers(client, selected, all_decisions, previous=previous)
     _write_staging(staging_dir, "03_summaries.json", summaries)
 
     logger.info("=== Stage 4: Verify ===")
@@ -129,24 +133,7 @@ def run_pipeline(output_dir: Path | None = None, date: str | None = None) -> Pat
     _write_staging(staging_dir, "04_verified.json", verified)
 
     logger.info("=== Stage 5: Compile ===")
-    tex = render_latex(verified, date, overview=overview)
-    pdf_path = compile_pdf(tex, output_dir, date)
-    pages = get_page_count(pdf_path)
-    logger.info("Initial PDF: %d pages", pages)
-
-    for i in range(MAX_COMPRESS_ITERATIONS):
-        if pages <= MAX_PAGES:
-            break
-        logger.info("PDF is %d pages (max %d), compressing (iteration %d)...", pages, MAX_PAGES, i + 1)
-        verified = _compress_summaries(client, verified)
-        _write_staging(staging_dir, "04_verified.json", verified)
-        tex = render_latex(verified, date, overview=overview)
-        pdf_path = compile_pdf(tex, output_dir, date)
-        pages = get_page_count(pdf_path)
-        logger.info("After compression: %d pages", pages)
-
-    if pages > MAX_PAGES:
-        logger.warning("PDF still %d pages after %d compression attempts", pages, MAX_COMPRESS_ITERATIONS)
+    pdf_path, verified = _compile_digest(client, selected, verified, output_dir, date, overview)
 
     logger.info("=== Stage 6: Push to remote ===")
     _push_pdf(pdf_path)
@@ -155,7 +142,52 @@ def run_pipeline(output_dir: Path | None = None, date: str | None = None) -> Pat
     return pdf_path
 
 
+def rebuild_digest(date: str, output_dir: Path | None = None) -> Path:
+    """Rebuild cached selections locally; this path never commits or pushes."""
+    output_dir = output_dir or Path(__file__).resolve().parent.parent / "output"
+    staging = output_dir / "staging" / date
+    previous = json.loads((staging / "04_verified.json").read_text())
+    all_papers = [Paper(**p) for p in json.loads((staging / "01_fetched.json").read_text())]
+    paper_map = {p.arxiv_id: p for p in all_papers}
+    selected = [paper_map[s["arxiv_id"]] for s in previous]
+    decisions = [{"arxiv_id":s["arxiv_id"], "categories":s["categories"], "reasoning":"Previously selected"}
+                 for s in previous]
+    backup = staging / "readability-before"
+    backup.mkdir(exist_ok=True)
+    for path in [staging / "03_summaries.json", staging / "04_verified.json",
+                 output_dir / f"{date}.tex", output_dir / f"{date}.pdf"]:
+        if path.exists() and not (backup / path.name).exists():
+            shutil.copy2(path, backup / path.name)
+    client = get_client()
+    overview_file = staging / "05_overview.json"
+    if overview_file.exists():
+        overview = json.loads(overview_file.read_text())["overview"]
+    else:
+        overview = generate_overview(client, all_papers)
+        _write_staging(staging, "05_overview.json", {"overview":overview})
+    summaries = summarize_papers(client, selected, decisions, previous=previous)
+    _write_staging(staging, "03_summaries.json", summaries)
+    verified = verify_summaries(client, selected, summaries)
+    _write_staging(staging, "04_verified.json", verified)
+    pdf, verified = _compile_digest(client, selected, verified, output_dir, date, overview)
+    comparison = []
+    baseline = json.loads((backup / "04_verified.json").read_text())
+    for old,new in zip(baseline,verified,strict=True):
+        assert old["arxiv_id"] == new["arxiv_id"]
+        before, after = summary_text(old["summary"]), summary_text(new["summary"])
+        assert fits_budget(new["summary"],summary_limits(old))
+        comparison.append({"arxiv_id":new["arxiv_id"], "title":new["title"],
+            "before":before,"after":after,"before_words":len(before.split()),"after_words":len(after.split()),
+            "before_chars":len(before),"after_chars":len(after),"source":new.get("summary_source"),
+            "limits":new["summary_limits"]})
+    _write_staging(staging,"06_readability_comparison.json",comparison)
+    return pdf
+
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--rebuild", metavar="YYYY-MM-DD", help="Rewrite cached digest locally without fetching, committing or pushing")
+    args = parser.parse_args()
     log_dir = Path(__file__).resolve().parent.parent / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
     today = datetime.now().strftime("%Y-%m-%d")
@@ -171,7 +203,7 @@ def main():
     )
 
     try:
-        result = run_pipeline()
+        result = rebuild_digest(args.rebuild) if args.rebuild else run_pipeline()
         if result:
             logging.info("Pipeline complete: %s", result)
         else:

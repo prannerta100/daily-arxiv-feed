@@ -4,53 +4,43 @@ from openai import OpenAI
 
 from daily_arxiv_feed.fetch import Paper
 from daily_arxiv_feed.llm import chat, parse_json_response
-from daily_arxiv_feed.summarize import SUMMARIZE_SYSTEM_PROMPT
+from daily_arxiv_feed.summarize import generate_excerpt
+from daily_arxiv_feed.excerpts import abstract_excerpt, clean_abstract, fits_budget, summary_limits, summary_text
 
 logger = logging.getLogger(__name__)
 
 VERIFY_SYSTEM_PROMPT = """You are verifying a summary of an arxiv paper against its original abstract.
 
-Only flag ACTUAL factual errors — things that contradict the abstract or materially misrepresent the work. Do NOT flag:
-- Reasonable inferences or explanations that are consistent with the abstract
-- Minor wording choices or paraphrasing that doesn't change meaning
-- Causal explanations that logically follow from stated findings
-- Slight generalizations that don't mislead the reader
-- Attributions to authors (e.g., "they show..." or "Smith et al. find...")
-
-The bar for failure is: would a reader of this summary walk away with a WRONG understanding of what the paper did or found?
+Check both faithfulness and readability. Every factual claim must be supported by
+the abstract or title. The title can establish a paper or benchmark name.
+Flag invented mechanisms, causal explanations, stronger conclusions,
+incorrect numbers/comparisons, and omitted qualifications that change meaning.
+Also flag telegram-style fragments, missing subjects or verbs, unexplained acronym
+chains, and compressed noun piles that a researcher must decode rather than read.
+Flag a central named mechanism that is mentioned without explaining what it does.
+Do not require more detail: selective coverage of the abstract is intentional.
+Omitting an independent result, model size, or comparison is not itself an error.
+An excerpt should read as connected, complete sentences in one compressed abstract.
 
 Respond with JSON:
-{"passed": true/false, "issues": ["list of specific FACTUAL errors only, empty if passed"]}"""
+{"passed": true/false, "issues": ["specific factual or readability issues, empty if passed"]}"""
 
 
-def _verify_one(client: OpenAI, abstract: str, summary: dict) -> dict:
-    user_prompt = f"""Original abstract:
-{abstract}
+def _verify_one(client: OpenAI, abstract: str, summary: dict, title: str = "") -> dict:
+    user_prompt = f"""Title: {title}
+
+Original abstract:
+{clean_abstract(abstract)}
 
 Summary to verify:
-- Takeaway: {summary['one_line_takeaway']}
-- Key contribution: {summary['key_contribution']}
-- Method: {summary['method']}
-- Most important result: {summary['most_important_result']}"""
+{summary_text(summary)}"""
 
     response = chat(client=client, system=VERIFY_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
     return parse_json_response(response)
 
 
-def _regenerate_summary(client: OpenAI, paper: Paper, feedback: list[str]) -> dict:
-    regen_prompt = f"""Regenerate a summary for this paper. Your previous summary had these issues:
-{chr(10).join('- ' + issue for issue in feedback)}
-
-Fix these issues. Be accurate to the abstract. Write in full, natural prose — complete sentences with subjects and verbs, minimum 50 words per field (except one_line_takeaway which should be 20+ words). Do NOT compress into shorthand or telegram-style fragments.
-
-Title: {paper.title}
-Abstract: {paper.abstract}
-
-Respond with JSON:
-{{"one_line_takeaway": "...", "key_contribution": "...", "method": "...", "most_important_result": "..."}}"""
-
-    response = chat(client=client, system=SUMMARIZE_SYSTEM_PROMPT, user=regen_prompt, json_mode=True)
-    return parse_json_response(response)
+def _regenerate_summary(client: OpenAI, paper: Paper, feedback: list[str], limits: dict) -> tuple[dict, str]:
+    return generate_excerpt(client, paper, limits, feedback)
 
 
 def verify_summaries(client: OpenAI, papers: list[Paper], summaries: list[dict]) -> list[dict]:
@@ -63,21 +53,31 @@ def verify_summaries(client: OpenAI, papers: list[Paper], summaries: list[dict])
             results.append(entry)
             continue
 
-        verification = _verify_one(client, paper.abstract, entry["summary"])
+        limits = entry.get("summary_limits") or summary_limits()
+        verification = _verify_one(client, paper.abstract, entry["summary"], paper.title)
+        if not fits_budget(entry["summary"], limits):
+            verification = {"passed": False, "issues": verification["issues"] + ["Excerpt exceeds its length budget."]}
 
         if verification["passed"]:
-            results.append(entry)
+            results.append({**entry, "summary_verification": {"status":"passed", "attempts":1}})
             logger.info("Verified OK: %s", entry["arxiv_id"])
             continue
 
         logger.warning("Verification failed for %s: %s", entry["arxiv_id"], verification["issues"])
-        new_summary = _regenerate_summary(client, paper, verification["issues"])
-        entry_copy = {**entry, "summary": new_summary}
+        new_summary, source = _regenerate_summary(client, paper, verification["issues"], limits)
+        entry_copy = {**entry, "summary": new_summary, "summary_source": source, "summary_limits": limits}
+        entry_copy.pop("verification_warning", None)
 
-        re_verification = _verify_one(client, paper.abstract, new_summary)
+        re_verification = _verify_one(client, paper.abstract, new_summary, paper.title)
+        entry_copy["summary_verification"] = {"status":"passed", "attempts":2,
+                                                "initial_issues":verification["issues"]}
         if not re_verification["passed"]:
-            entry_copy["verification_warning"] = "Summary may contain inaccuracies: " + "; ".join(re_verification["issues"])
-            logger.warning("Re-verification still failed for %s, adding warning", entry["arxiv_id"])
+            # Do not publish the same unsupported interpretation with a warning.
+            entry_copy["summary"] = abstract_excerpt(paper.abstract, limits)
+            entry_copy["summary_source"] = "abstract_sentences"
+            entry_copy["summary_verification"]["status"] = "source_sentence_fallback"
+            entry_copy["summary_verification"]["rewrite_issues"] = re_verification["issues"]
+            logger.warning("Re-verification failed for %s; using complete abstract sentences", entry["arxiv_id"])
         else:
             logger.info("Re-verification passed for %s", entry["arxiv_id"])
 

@@ -17,3 +17,14 @@ def test_generate_overview_returns_string():
         result = generate_overview(mock_client, papers)
         assert "scaling" in result
         assert "multilingual" in result
+
+
+def test_overview_retries_oversized_output_and_uses_real_abstract_snippet():
+    paper=Paper("id","Title",["A"],"arXiv:id Announce Type: new\nAbstract: The paper studies multilingual speech.",["cs.CL"],"url")
+    with patch("daily_arxiv_feed.overview.chat",side_effect=[
+        json.dumps({"overview":"long topic "*100}),
+        json.dumps({"overview":"Researchers study multilingual speech."})]) as call:
+        result=generate_overview(MagicMock(),[paper])
+    assert result=="Researchers study multilingual speech."
+    assert call.call_count==2
+    assert "Announce Type" not in call.call_args.kwargs['user']

@@ -1,6 +1,14 @@
 from daily_arxiv_feed.compile import render_latex
 
 
+def test_render_single_compressed_abstract_without_legacy_takeaway():
+    rows=[{"arxiv_id":"id","title":"Title","authors":["Author"],"url":"url","categories":[1],
+           "summary":{"excerpt":"The model improves translation by 10% & preserves accuracy."}}]
+    tex=render_latex(rows,"2026-11-05")
+    assert r"The model improves translation by 10\% \& preserves accuracy." in tex
+    assert r"\textit{" not in tex
+
+
 def test_render_latex_produces_valid_tex():
     summaries = [{
         "arxiv_id": "2504.1",

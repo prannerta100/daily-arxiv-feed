@@ -4,37 +4,17 @@ from openai import OpenAI
 
 from daily_arxiv_feed.fetch import Paper
 from daily_arxiv_feed.llm import chat, parse_json_response
+from daily_arxiv_feed.excerpts import (
+    PROSE_RULES, abstract_excerpt, budget_instruction, clean_abstract,
+    fits_budget, summary_limits,
+)
 
 logger = logging.getLogger(__name__)
 
-SUMMARIZE_SYSTEM_PROMPT = """You are explaining an arxiv paper to a smart colleague. They haven't read it. Your job is to give them genuine understanding of the core idea — what insight drives this work and why it matters.
-
-Write like a human, not like an abstract compressor. Narrate the crux. If the idea is deep or subtle, take the space you need — there is no hard word limit. If the idea is simple, keep it short. Match length to the complexity of the insight.
-
-BAD: "Identifies a post-answer newline activation as a second-order confidence signal predicting error detection beyond logprobs"
-GOOD: "They found a hidden signal inside LLMs — the activation pattern right after the model finishes its answer — that reveals when the model knows it got something wrong, even when its stated confidence says otherwise. This matters because it means we can catch errors without asking the model to self-evaluate."
-
-Rules:
-- Narrate the actual insight — what's the core idea and why does it work?
-- Use plain, natural English — no stacking nouns or jargon from the abstract
-- Specific model names, dataset names, and benchmark scores are fine when they add understanding, but don't list them mechanically
-- Each field should be 2-4 complete sentences written in full prose
-- NEVER omit subjects from sentences (bad: "Identifies X..." good: "They identify X...")
-- NEVER compress by removing articles, spaces, or connectives
-- NEVER write in telegram/shorthand style — write how you'd actually explain it out loud
-- one_line_takeaway: minimum 20 words, a complete thought
-- key_contribution, method, most_important_result: minimum 50 words each
-
-Respond with JSON:
-{
-  "one_line_takeaway": "Why should I care about this paper? (full sentence, 20+ words)",
-  "key_contribution": "What did they actually do? Narrate the core insight. (50+ words, full prose)",
-  "method": "How does it work? Explain the key mechanism or approach. (50+ words, full prose)",
-  "most_important_result": "What happened when they tried it? What did we learn? (50+ words, full prose)"
-}"""
+SUMMARIZE_SYSTEM_PROMPT = "You edit scientific abstracts for a readable research digest.\n\n" + PROSE_RULES
 
 
-def build_summarize_prompt(paper: Paper, decisions: list[dict]) -> str:
+def build_summarize_prompt(paper: Paper, decisions: list[dict], limits: dict | None = None) -> str:
     decision = next((d for d in decisions if d["arxiv_id"] == paper.arxiv_id), None)
     cats = decision["categories"] if decision else []
     reasoning = decision["reasoning"] if decision else ""
@@ -45,18 +25,41 @@ def build_summarize_prompt(paper: Paper, decisions: list[dict]) -> str:
 Title: {paper.title}
 Authors: {', '.join(paper.authors)}
 Matched categories: {matched}
-Selection reasoning: {reasoning}
+Selection context (not evidence for factual claims): {reasoning}
+
+{budget_instruction(limits or summary_limits())}
 
 Abstract:
-{paper.abstract}"""
+{clean_abstract(paper.abstract)}"""
 
 
-def summarize_papers(client: OpenAI, papers: list[Paper], decisions: list[dict]) -> list[dict]:
+def generate_excerpt(client: OpenAI, paper: Paper, limits: dict, feedback: list[str] | None = None) -> tuple[dict, str]:
+    prompt = build_summarize_prompt(paper, [], limits)
+    if feedback:
+        prompt += "\nCorrect these issues:\n" + "\n".join(feedback)
+    for attempt in range(2):
+        response = chat(client=client, system=SUMMARIZE_SYSTEM_PROMPT, user=prompt, json_mode=True)
+        try:
+            candidate = parse_json_response(response)
+            if set(candidate) != {"excerpt"} or not isinstance(candidate["excerpt"], str):
+                raise ValueError('Return exactly {"excerpt": "one paragraph"}')
+            candidate = {"excerpt": " ".join(candidate["excerpt"].split())}
+            if not fits_budget(candidate, limits):
+                raise ValueError(budget_instruction(limits))
+            return candidate, "compressed_abstract"
+        except (ValueError, TypeError) as e:
+            logger.warning("Invalid excerpt for %s (attempt %d): %s", paper.arxiv_id, attempt + 1, e)
+            prompt += f"\nThe previous response was rejected: {e}. Rewrite by omitting secondary details."
+    return abstract_excerpt(paper.abstract, limits), "abstract_sentences"
+
+
+def summarize_papers(client: OpenAI, papers: list[Paper], decisions: list[dict],
+                     previous: list[dict] | None = None) -> list[dict]:
     results = []
+    previous_map = {s["arxiv_id"]: s for s in (previous or [])}
     for paper in papers:
-        user_prompt = build_summarize_prompt(paper, decisions)
-        response = chat(client=client, system=SUMMARIZE_SYSTEM_PROMPT, user=user_prompt, json_mode=True)
-        summary = parse_json_response(response)
+        limits = summary_limits(previous_map.get(paper.arxiv_id))
+        summary, source = generate_excerpt(client, paper, limits)
         results.append({
             "arxiv_id": paper.arxiv_id,
             "title": paper.title,
@@ -64,6 +67,8 @@ def summarize_papers(client: OpenAI, papers: list[Paper], decisions: list[dict])
             "url": paper.url,
             "categories": next((d["categories"] for d in decisions if d["arxiv_id"] == paper.arxiv_id), []),
             "summary": summary,
+            "summary_limits": limits,
+            "summary_source": source,
         })
         logger.info("Summarized: %s", paper.arxiv_id)
     return results
