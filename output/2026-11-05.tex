@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-11-05} \hfill 7 papers}
+
+\smallskip
+
+\section*{Multilingual NLP}
+
+{\small\textbf{Familiar letters, not related languages, let unseen languages into a shared space of meaning}} {\scriptsize[\href{https://arxiv.org/abs/2611.06006}{arxiv}]}\\
+{\scriptsize Yuliang Liu, Xinyu Wang, Xiang Bai}\\
+
+{\small\textit{Unseen languages join a multilingual meaning space mainly via familiar letter shapes; transliteration can unlock access more than having a related seen language.}}\\[1pt]
+{\footnotesize Disentangles script overlap from language relatedness with a causal intervention: keep meaning fixed while swapping scripts, showing script familiarity---not genealogical proximity---is the main ``admission ticket'' to shared semantics. GlyphMind, a tokenizer-free ViT that embeds rendered text images. Pretrain on multilingual translation alignment; then transliterate/rewrite the same sentences into different scripts and test cross-lingual retrieval (e.g., English translation retrieval) to isolate script effects. Adapting on untranslated Lao enables strong English retrieval vs a simple baseline, but rewriting Lao into unfamiliar letters blocks alignment despite Thai being seen. Santali succeeds when written in familiar Devanagari but fails in its native script---evidence that script familiarity dominates related-language transfer.}
+
+\medskip
+
+{\small\textbf{Adapting Qwen3 to Tajik from 0.6B to 8B: Lower Text Loss Did Not Mean Better Understanding}} {\scriptsize[\href{https://arxiv.org/abs/2611.06062}{arxiv}]}\\
+{\scriptsize Tohir Saidzoda, Madina Abdusalomzoda, Nasimjon Rajabov, Akhrorkhon Ikromov, Komron Giyosiev, Abubakr Abdullozoda, Amin Jalilov, Jonibek Kishvarov, Rahmonali Sharipov, Mariyamkhon Shodyeva}\\
+
+{\small\textit{Lowering Tajik next-token loss with LoRA can make Qwen3 look better on Tajik text modeling without improving Tajik comprehension; heavier continued pretraining + SFT does.}}\\[1pt]
+{\footnotesize A careful negative result: perplexity/loss reductions from lightweight adapters are a poor proxy for low-resource language understanding, contrasted with a recipe that yields real comprehension gains and quantified tradeoffs. Two interventions: (1) LoRA adapters trained on Tajik news/books across Qwen3 sizes, evaluated on Belebele reading comprehension; (2) full continued pretraining of Qwen3-8B on \textasciitilde{}375M Tajik tokens plus supervised fine-tuning. Track English capability (e.g., MMLU) in a consistent eval harness. LoRA cuts Tajik loss by \textasciitilde{}0.60--1.45 nats/token but Belebele stays flat (1.7B/8B), drops (4B), and the 0.6B ``gain'' looks like answer-letter bias near chance. Continued pretraining at 8B gives \textasciitilde{}+9.9 Belebele, and +SFT reaches \textasciitilde{}+11.4 over baseline, with small English MMLU change (\textasciitilde{}−1.2).}
+
+\medskip
+
+{\small\textbf{ALTO: African and Levantine Tech-Facilitated Gender-Based Violence Corpus}} {\scriptsize[\href{https://arxiv.org/abs/2611.06706}{arxiv}]}\\
+{\scriptsize Tianwei Zhang, Ivy Njoki Nyagwencha, Zahraa Dirani, Shalini Joshi, Scott A. Hale}\\
+
+{\small\textit{ALTO provides community-grounded TFGBV data in Levantine Arabic, African French, and Swahili, revealing that current harm detectors miss covert abuse---especially in Swahili.}}\\[1pt]
+{\footnotesize A CSO-partnered, culturally specific TFGBV corpus (3,022 examples) plus taxonomy and models, emphasizing that indirect/coded harassment is central and poorly captured by English-centric safety benchmarks. Community-led collection with regional civil society partners; annotate with an explicit TFGBV taxonomy; use active learning to target informative/uncertain samples. Benchmark existing detectors and fine-tune on ALTO to measure recoverable performance. Off-the-shelf harmful-content detectors show low recall on ALTO; fine-tuning improves, confirming the gap is largely data/domain mismatch. Covert harms are consistently missed across settings, and Swahili shows notably higher error rates than the other language contexts.}
+
+\medskip
+
+{\small\textbf{NaijaFacts: A Framework for Disentangling Language from Knowledge in Facts about Nigeria}} {\scriptsize[\href{https://arxiv.org/abs/2611.06504}{arxiv}]}\\
+{\scriptsize Zainab Afolabi, Nikita Kozodoi, Jack Butler, Babs Khalidson}\\
+
+{\small\textit{NaijaFacts shows multilingual benchmarks can conflate language skill with regional knowledge; models mostly fail because they don't know Nigeria-specific facts.}}\\[1pt]
+{\footnotesize Introduces naija: Nigeria-grounded factual/statistical QA authored by native speakers and backed by official statistics, provided in English, Nigerian Pidgin, Yoruba, Igbo, and Hausa to separate language degradation from knowledge gaps. ``Country × language'' evaluation: ask comparable fact/stat questions about Nigeria vs UK/US across multiple languages. Diagnose language effects (English success, local-language failure) vs knowledge effects (failure across all languages for a country). Main failure is missing Nigeria knowledge: English accuracy \textasciitilde{}49--50\% for US/UK but \textasciitilde{}20\% for Nigeria across models. Language degradation exists but is smaller (e.g., English→Yoruba \textasciitilde{}−9 on Nigeria; up to −24 on US/UK). Scale doesn't fix it: top models hit 66--79\% on UK/US, none >31\% on Nigerian statistics; similar patterns appear across 54 African countries (strong on culture/politics, weak on statistics).}
+
+\medskip
+
+
+\section*{Multilingual Speech Processing}
+
+{\small\textbf{Confucius4-R2T2: A Stable-Prefix Streaming ASR Model for Real Real-Time Transcription}} {\scriptsize[\href{https://arxiv.org/abs/2611.06043}{arxiv}]}\\
+{\scriptsize Daniel Huang, Qi He, Shaoxiong Duan, Yingjie Li, Qiao Cheng, Yitao Duan}\\
+
+{\small\textit{Train a streaming ASR model to output only the offline model's ``longest stable prefix,'' yielding real-time transcripts that never revise earlier tokens.}}\\[1pt]
+{\footnotesize Defines and optimizes the Longest Stable Prefix (LSP) target for streaming ASR, making stability a provable property (monotonic growth, consistency with full-audio output, maximal safe prefix) rather than a heuristic. Start from an offline ASR (Qwen3-ASR-1.7B). For many partial-audio prefixes, run the base model, compute the LSP label, and post-train the decoder to emit exactly that prefix. Freeze encoder/projector; adapt remaining components on \textasciitilde{}1,500 hours Chinese+English audio. Confucius4-R2T2 produces strictly non-revising streaming output while keeping final accuracy close to the offline model and maintaining low emission lag (commits early when safe). The stable-streaming behavior generalizes beyond Chinese/English; weights and code are released.}
+
+\medskip
+
+{\small\textbf{Holistic Parallel Supervision for Expressive Speech to Speech Translation}} {\scriptsize[\href{https://arxiv.org/abs/2611.06010}{arxiv}]}\\
+{\scriptsize Hao Zhang, Ismail Rasim Ulgen, Bismarck Bamfo Odoom, Rui Liu, Zihan Zhang, Berrak Sisman, Philipp Koehn}\\
+
+{\small\textit{Expressive speech-to-speech translation improves when training pairs are parallel in content, prosody, timing, and speaker identity---not just words.}}\\[1pt]
+{\footnotesize Argues supervision is the bottleneck for expressive S2ST and provides a practical ``holistic parallel supervision'' data recipe; shows it boosts multiple systems and enables strong end-to-end DirectS2ST. Create holistically aligned source--target speech via professional dubbing (prosody/timing alignment) plus multilingual voice conversion (speaker identity alignment). Train/evaluate existing expressive S2ST methods and an end-to-end DirectS2ST that maps source speech directly to target-speech representations. Holistic supervision improves not only intelligibility/translation but also prosody match, timing/rhythm alignment, and speaker similarity. Gains hold across systems; DirectS2ST benefits most and achieves best overall content+expressiveness on En--De and En--Es with higher human-rated expressiveness.}
+
+\medskip
+
+
+\section*{Foundation Model Theory}
+
+{\small\textbf{Phonological Knowledge of Chinese Characters in Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2611.05803}{arxiv}]}\\
+{\scriptsize Xiaozhe Ji, Renfen Hu, Hai Hu}\\
+
+{\small\textit{Chinese tone can be decodable inside LMs yet still be weakly used or controllable in generation---decodability ≠ functional knowledge.}}\\[1pt]
+{\footnotesize Separates (i) behavioral phonology competence, (ii) linear decodability in representations, and (iii) causal use in generation, showing a sharp tone vs segmental (initial/final) mismatch in how phonology is represented and utilized. PinyinBench with homophone and feature-comparison tasks (including polyphonic characters). Evaluate 17 models via end-to-end accuracy, layer-wise probes for initials/finals/tone, and activation steering to test whether manipulating phonological directions changes outputs. Models handle homophony well when differences are segmental but struggle when only tone differs. Tone is often decodable already from embeddings (little depth gain), while segmental info becomes more decodable in deeper layers. Steering affects segmental generation reliably but has weak effects for tone---even when training increases tone decodability---implying limited causal access to tone.}
+
+\medskip
+
+
+
+\section*{Field Overview}
+{\footnotesize Today's batch is dominated by LLM agents + infrastructure: at least \textasciitilde{}25--35 papers on long-horizon agents, memory/compaction, tool/harness design, and agent evaluation (e.g., SRRM, Twists and Turns, Prospective Memory, SpecCompact/SUMONE, HarnessFlow, LifeVal, ViBench/ServerBench/CompressionBench, agent failure attribution). A second major cluster is efficient serving and model-systems work---especially long-context acceleration, KV-cache reuse/eviction/compression, speculative decoding, and MoE routing/pruning/quantization---at least \textasciitilde{}20--30 papers (e.g., Accelerating Long-Context Decoding, KV-cache repair budgets, LoopKV/LoopVQ, EchoKV, FlagRot, HybridSpec/Hybrid Spark, Split-KV, SafeStart, GC-MoE). Safety/assurance and auditing is unusually prominent (roughly \textasciitilde{}15--25 papers) spanning watermarking/deepfake detection, unlearning/privacy, benchmark validity, and governance/authorization for agents (e.g., Reconciling Privacy with Provenance for Watermarks, GraphSeal/CLRM, Auditable Unlearning, Does Context Compression Preserve Refusal Alignment?, Assurance-Conditioned Authorization, agent-safety benchmark audits). A notable emerging direction is ``decision models'' as a parallel track to generative LMs (several papers: Zuse, executor-relative consultation value, finance decision models, typed decision model presentation sensitivity), suggesting growing interest in calibrated, auditable non-generative interfaces for deployment.}
+
+
+\end{document}
