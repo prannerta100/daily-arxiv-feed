@@ -1,0 +1,63 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{amsmath,amssymb,mathrsfs,braket}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\hypersetup{colorlinks=true,urlcolor=blue!60!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+\pagestyle{plain}
+\begin{document}
+{\footnotesize\textbf{Quantum Computing Digest --- 2026-11-06} \hfill 6 papers}
+
+{\scriptsize Full author abstracts}
+
+\section*{Machine Learning for Quantum Control and Pulse Optimization}
+
+{\small\textbf{FNO-Based Inverse Co-Design of Semiconducting Quantum-Dot Devices}} {\scriptsize[\href{https://arxiv.org/abs/2611.06994}{arxiv}]}\nopagebreak\\
+{\scriptsize Marek Rychetsky, Valentin Duruisseaux, Freya Shah, David L. Craig, Ming Ni, Georgios Katsaros, Taylor L. Patti, Anima Anandkumar, Natalia Ares}\nopagebreak\\[2pt]
+{\footnotesize Gate-defined semiconductor quantum dots are promising building blocks for scalable spin-based quantum processors, however their operational properties depend on several fabrication and control parameters, such as lithographic gate layout and applied voltages. Existing device architectures have been refined through repeated fabrication and experimental testing, producing layouts that support reliable device operation. However, this process does not exhaustively explore the design space, limiting the ability to obtain qubits with targeted properties. We address these challenges by presenting a differentiable inverse co-design framework for electrostatically defined quantum dots that jointly optimises gate voltages and the gate electrode layout. A semiclassical Thomas--Fermi electrostatic simulator provides reference data for a Fourier neural operator (FNO) surrogate, which predicts the two-dimensional charge-density field. The desired spatial distribution of the confined charge defines the target quantum-dot geometry for inverse design. The FNO reproduces charge densities with a relative $L^2$ test error of just 0.6\textbackslash{}\% and enables millisecond-scale differentiable evaluations. Relative to the CPU-based physics simulator, the FNO achieves a 17,000-fold speed-up on GPU for a single design, with further performance gains enabled by batched inference. When embedded in a gradient-based design loop with fabrication constraints, the FNO can produce both vertically and horizontally elongated double-dot confinement geometries from the same initial conditions. The ability to engineer these distinct confinement configurations demonstrates control over quantum-dot shape and position, providing a route towards designing devices with distinct qubit-relevant operating properties prior to fabrication.\par}
+\medskip
+
+
+\section*{Machine Learning for Error Correction, Mitigation and Fault Tolerance}
+
+{\small\textbf{Machine learning quantum data to accelerate quantum Monte Carlo}} {\scriptsize[\href{https://arxiv.org/abs/2611.08151}{arxiv}]}\nopagebreak\\
+{\scriptsize Tong Jiang, Andrew Zhao, Shashwat Kumar, Jigyasa Nigam, Eliott Rosenberg, Ryan Babbush, Andrew D. Baczewski, William J. Huggins, Joonho Lee}\nopagebreak\\[2pt]
+{\footnotesize Simulating strongly correlated electrons in molecules and materials remains a central goal for quantum computing. A promising strategy uses quantum processors to prepare trial wavefunctions that guide classical quantum Monte Carlo (QMC). However, the enormous computational cost of repeatedly processing quantum measurements has severely limited the practical scalability of this approach. Here, we overcome this bottleneck by compressing quantum measurement data into machine-learning models that efficiently provide the wavefunction overlaps needed by QMC. This accelerates quantum-classical QMC by orders of magnitude, enabling chemically accurate simulations on up to 40 qubits, more than doubling the scale of previous hardware demonstrations with comparable accuracy. We demonstrate our approach on hydrogen chains and strongly correlated iron-sulfur clusters using measurements from Google's Willow processor. By enabling efficient reuse of quantum-state information on the classical coprocessor, our framework addresses a fundamental bottleneck in hybrid quantum algorithms that will persist even into the fault-tolerant era.\par}
+\medskip
+
+{\small\textbf{Accelerating Quantum-Classical Auxiliary-Field Quantum Monte Carlo with Shadow-Trained Neural Quantum States}} {\scriptsize[\href{https://arxiv.org/abs/2611.08129}{arxiv}]}\nopagebreak\\
+{\scriptsize Justin Provazza, Oliver Knitter, Joshua Goings, Evgeny Epifanovsky, Chi Chen, Martin Roetteler, Luning Zhao}\nopagebreak\\[2pt]
+{\footnotesize Quantum-classical auxiliary-field quantum Monte Carlo (QC-AFQMC) uses a trial state prepared on a quantum computer to improve the accuracy of the classical AFQMC algorithm. State-of-the-art QC-AFQMC represents this state with matchgate shadows, so every trial-walker overlap and local energy must be averaged over many snapshots, making this classical computation a bottleneck. Here we distill the matchgate shadow data into a symmetry-constrained, noise-aware, autoregressive transformer neural quantum state (NQS). Used as the AFQMC trial state, the NQS evaluates overlaps, force biases, and local energies without repeatedly summing over the matchgate shadows. For a nickel-catalyzed oxidative-addition reaction, the noise-awareness of our NQS design successfully recovers the ideal-upCCD AFQMC barrier and reaction energy within statistical uncertainty, while standard QC-AFQMC execution with the same shadow data yields qualitatively inaccurate results as a result of hardware noise. Since the shadow data are needed only for training, the estimated classical cost for the nickel system falls by approximately 99\% relative to our previous QC-AFQMC implementation.\par}
+\medskip
+
+
+\section*{Notable Quantum Computing Research}
+
+{\small\textbf{Dithered Belief Propagation for Real-Time Quantum Memory Decoding}} {\scriptsize[\href{https://arxiv.org/abs/2611.07144}{arxiv}]}\nopagebreak\\
+{\scriptsize Zhengyu Cai, Mohamad Ali Jarkas, Bokun Zhao, Warren J. Gross}\nopagebreak\\[2pt]
+{\footnotesize We introduce dithered belief-propagation decoding for circuit-level quantum memory to mitigate the oscillations and trapping behavior that limit standard belief-propagation (BP) decoders for qLDPC codes. Our approach combines a quantum-adapted sign-flip mechanism with chained randomized prior perturbation. Evaluated under circuit-level noise on the distance-11 rotated surface code and the distance-12 bivariate-bicycle code, the proposed dithered decoder significantly outperforms BP and BP+OSD+CS-10. The proposed decoder achieves accuracy comparable to or better than state-of-the-art Relay-BP, especially at higher physical error rates, while trading a moderate increase in additions for about 98\% fewer multiplications on average and eliminating node-level RNGs. These results suggest that dithering is a promising approach toward real-time decoding of quantum memories.\par}
+\medskip
+
+{\small\textbf{Autler-townes energy-level engineering for high-quality all-microwave qubit gate}} {\scriptsize[\href{https://arxiv.org/abs/2611.07967}{arxiv}]}\nopagebreak\\
+{\scriptsize Wan-Peng Gao, Xiao-Liang He, Zheng-Qi Niu, Si-Qi Li, Da-Qiang Bao, Kuang Liu, Jian-Qiang You, Jaw-Shen Tsai, Zhen Wang, Zhi-Rong Lin}\nopagebreak\\[2pt]
+{\footnotesize High-fidelity entangling gates are essential for realizing large-scale fault-tolerant superconducting quantum computing, yet existing approaches are limited: frequency-tuning techniques induce decoherence, while all-microwave-driven schemes suffer the trade-off between gate speed and leakage rate. Here, we introduce an energy-level engineering technique that employs the Autler-Townes effect to manipulate the nonlinearity of qubits without perturbing the computational subspace or degrading coherence time. This approach enables an experimentally validated, fast (97 ns) and high-fidelity (99.40(9)\%) CZ gate, where error analysis reveals that gate errors arise mainly from static decoherence. The scheme facilitates fast, high-quality all-microwave gate operations with a simple topology and can be applied across various quantum platforms.\par}
+\medskip
+
+{\small\textbf{Monopoles, Scattering and Generalized Symmetries on a Quantum Computer}} {\scriptsize[\href{https://arxiv.org/abs/2611.07960}{arxiv}]}\nopagebreak\\
+{\scriptsize Oliver O'Brien, Atsushi Ueda, Etienne Granet, Henrik Dreyer, Frank Verstraete}\nopagebreak\\[2pt]
+{\footnotesize Quantum computers have advanced to the stage that interesting many-body quantum phenomena can be observed. A striking example is the magnetic monopole paradox, a problem that was only solved recently using the language of generalized symmetries. Here we demonstrate a quantum spin chain analogue of magnetic monopole scattering on Quantinuum System Model H2. We implement a novel protocol for preparing a localized quasiparticle wavepacket on top of the ground state. By combining this protocol with time evolution across a duality defect, we efficiently convert local particles into non-local string-like excitations. We demonstrate this particle-to-string conversion in the transverse-field Ising model and a symmetry-protected topological (SPT) phase of the cluster model. Our results establish duality defects and generalized symmetries as practical resources for preparing and probing non-local excitations on quantum hardware.\par}
+\medskip
+
+
+\end{document}
