@@ -94,6 +94,8 @@ def render_latex(summaries: list[dict], date: str, overview: str = "", *,
     """
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATE_DIR)),
+        trim_blocks=True,
+        lstrip_blocks=True,
         block_start_string=r"\BLOCK{",
         block_end_string="}",
         variable_start_string=r"\VAR{",

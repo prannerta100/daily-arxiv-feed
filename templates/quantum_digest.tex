@@ -19,12 +19,15 @@
 \begin{document}
 {\footnotesize\textbf{Quantum Computing Digest --- \VAR{date}} \hfill \VAR{paper_count} papers}
 
-{\scriptsize Full author abstracts}
+{\scriptsize Full author abstracts; italic lines are generated one-line summaries}
 \BLOCK{for section in sections}
 \section*{\VAR{section.name|e}}
 \BLOCK{for paper in section.papers}
 {\small\textbf{\VAR{paper.title|abstract}}} {\scriptsize[\href{\VAR{paper.url}}{arxiv}]}\nopagebreak\\
 {\scriptsize \VAR{paper.authors_str|arxiv}}\nopagebreak\\[2pt]
+\BLOCK{if paper.one_line_takeaway}
+{\footnotesize\textit{\VAR{paper.one_line_takeaway|e}}\par}\nopagebreak
+\BLOCK{endif}
 {\footnotesize \VAR{paper.abstract|abstract}\par}
 \medskip
 \BLOCK{endfor}

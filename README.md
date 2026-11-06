@@ -1,6 +1,12 @@
 # daily-arxiv-feed
 
-Two daily arxiv digests run **serially**: the NLP PDF finishes first, then the quantum computing pipeline starts. NLP uses readable compressed abstracts (up to 3 pages); quantum includes the selected papers' **full author abstracts**, with no summary or page-limit compression.
+Two daily arxiv digests run **serially**: the NLP PDF finishes first, then the quantum computing pipeline starts. Both show a short italic one-line summary per paper. NLP uses readable compressed abstracts (up to 3 pages); quantum includes the selected papers' **full author abstracts**, without shortening them to a page limit.
+
+One-line summaries are separate reading aids capped at 16 words and 110 characters.
+They are generated from the title and original abstract, then checked for factual
+support and readability, with a retry on failure. Cached lines are reused only
+when their source and generation rules match. NLP paragraphs retain their existing
+length budgets, and quantum abstracts are never rewritten by this step.
 
 ## What It Does
 

@@ -34,10 +34,15 @@
 \BLOCK{if paper.verification_warning}
 {\scriptsize\textcolor{red}{! \VAR{paper.verification_warning|e}}}\\[1pt]
 \BLOCK{endif}
+\BLOCK{if paper.one_line_takeaway}
+{\footnotesize\textit{\VAR{paper.one_line_takeaway|e}}}\\[2pt]
+\BLOCK{endif}
 \BLOCK{if paper.summary.excerpt is defined}
 {\footnotesize \VAR{paper.summary.excerpt|e}}
 \BLOCK{else}
+\BLOCK{if not paper.one_line_takeaway}
 {\small\textit{\VAR{paper.summary.one_line_takeaway|e}}}\\[1pt]
+\BLOCK{endif}
 {\footnotesize \VAR{paper.summary.key_contribution|e} \VAR{paper.summary.method|e} \VAR{paper.summary.most_important_result|e}}
 \BLOCK{endif}
 \end{minipage}

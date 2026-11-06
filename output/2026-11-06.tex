@@ -25,82 +25,57 @@
 {\footnotesize\textbf{Arxiv Digest --- 2026-11-06} \hfill 6 papers}
 
 \smallskip
-
 \section*{Multilingual NLP}
-
 \begin{minipage}{\linewidth}
 {\small\textbf{Familiar letters, not related languages, let unseen languages into a shared space of meaning}} {\scriptsize[\href{https://arxiv.org/abs/2611.06006}{arxiv}]}\\
 {\scriptsize Yuliang Liu, Xinyu Wang, Xiang Bai}\\
-
-
+{\footnotesize\textit{Familiar scripts, not related languages, help unseen languages share meaning representations.}}\\[2pt]
 {\footnotesize Many written languages lack translations, and it is unclear whether models can map an unseen language into a shared meaning space because of related languages or because they recognize the letters. The authors test this by pretraining GlyphMind, a tokenizer-free vision transformer that reads text as pixels, to align translations across 27 writing systems, then adapting it on untranslated Lao, a language and script it had never seen. GlyphMind retrieved English translations seven times as often as the strongest simple baseline. When Lao was rewritten in unfamiliar letters it failed to enter the shared space even though related Thai was in pretraining, while Santali entered in Devanagari but not in its own script.}
-
 \end{minipage}
 
 \medskip
-
 \begin{minipage}{\linewidth}
 {\small\textbf{NaijaFacts: A Framework for Disentangling Language from Knowledge in Facts about Nigeria}} {\scriptsize[\href{https://arxiv.org/abs/2611.06504}{arxiv}]}\\
 {\scriptsize Zainab Afolabi, Nikita Kozodoi, Jack Butler, Babs Khalidson}\\
-
-
+{\footnotesize\textit{NaijaFacts shows models lack Nigerian factual knowledge more than African-language ability.}}\\[2pt]
 {\footnotesize Multilingual benchmarks for African languages often translate generic questions, so they test language ability more than knowledge about Africa. The authors introduce NaijaFacts, a set of factual and statistical questions about Nigeria written by native speakers and grounded in official statistics, with each question available in English, Nigerian Pidgin, Yoruba, Igbo, and Hausa, and compare it with similar UK and US questions to separate language effects from missing knowledge. Across eight frontier and Nigeria-adapted models, missing knowledge dominates: English accuracy is about 49--50\% for US/UK but 20\% for Nigeria. Even the strongest models do not exceed 31\% on Nigerian statistics, suggesting scale alone does not close the gap.}
-
 \end{minipage}
 
 \medskip
-
 \begin{minipage}{\linewidth}
 {\small\textbf{Phonological Knowledge of Chinese Characters in Language Models}} {\scriptsize[\href{https://arxiv.org/abs/2611.05803}{arxiv}]}\\
 {\scriptsize Xiaozhe Ji, Renfen Hu, Hai Hu}\\
-
-
+{\footnotesize\textit{Language models encode Chinese segmental sounds better than tones, and use them differently.}}\\[2pt]
 {\footnotesize Language models may encode how Chinese characters sound, but it is unclear how this phonological knowledge is represented and used. The authors introduce PinyinBench, a controlled benchmark covering homophones, phonological features, and polyphonic characters, and evaluate 17 text-only and multimodal models using behavioral tests, layer-wise probing, and activation steering. A frontier model exceeds 90\% accuracy on homophone judgments when two characters share no phonological features, but drops to 72\% when they differ only in tone. Probing and steering suggest segmental information is easier to use to influence generation than tone, and audio training improves decodability without improving steering.}
-
 \end{minipage}
 
 \medskip
-
 \begin{minipage}{\linewidth}
 {\small\textbf{Adapting Qwen3 to Tajik from 0.6B to 8B: Lower Text Loss Did Not Mean Better Understanding}} {\scriptsize[\href{https://arxiv.org/abs/2611.06062}{arxiv}]}\\
 {\scriptsize Tohir Saidzoda, Madina Abdusalomzoda, Nasimjon Rajabov, Akhrorkhon Ikromov, Komron Giyosiev, Abubakr Abdullozoda, Amin Jalilov, Jonibek Kishvarov, Rahmonali Sharipov, Mariyamkhon Shodyeva}\\
-
-
+{\footnotesize\textit{Lower Tajik text loss from small adapters did not improve reading comprehension.}}\\[2pt]
 {\footnotesize The authors test whether adapting Qwen3 to Tajik improves understanding, not just next-word prediction. Small LoRA adapters trained on Tajik news and books reduced Tajik text loss across model sizes from 0.6B to 8B, but did not improve Tajik reading comprehension on Belebele where it could be measured. In contrast, for Qwen3-8B, continued pretraining on about 375 million tokens of raw Tajik text followed by supervised fine-tuning produced a model 11.4 points above Qwen3-8B on Belebele, with English MMLU changing by -1.2 points. They also report documentation and release problems that limit interpretability.}
-
 \end{minipage}
 
 \medskip
-
-
 \section*{Multilingual Speech Processing}
-
 \begin{minipage}{\linewidth}
 {\small\textbf{Human-like cross-language generalisation in deep neural speaker embeddings and its acoustic foundations}} {\scriptsize[\href{https://arxiv.org/abs/2611.05384}{arxiv}]}\\
 {\scriptsize Tianze Xu, Xiyang Li, Xiaoming Jiang, Volker Dellwo}\\
-
-
+{\footnotesize\textit{Speaker embeddings generalize across languages in ways that match human voice judgments.}}\\[2pt]
 {\footnotesize Deep neural speaker embeddings raise a central question of whether they generalise across languages and whether their similarity judgments match human perception and acoustic structure. The authors tested Cantonese--English bilingual speech in within- and cross-language conditions, computed similarity from 18 state-of-the-art models, and compared it with human ratings and acoustic features using linear mixed models and representational similarity analysis. The embeddings showed cross-language generalisation that broadly paralleled human behaviour, supporting identity discrimination while remaining sensitive to language switching. This pattern relied on largely shared acoustic cues, but with language-sensitive weighting, mirroring human judgments.}
-
 \end{minipage}
 
 \medskip
-
 \begin{minipage}{\linewidth}
 {\small\textbf{Holistic Parallel Supervision for Expressive Speech to Speech Translation}} {\scriptsize[\href{https://arxiv.org/abs/2611.06010}{arxiv}]}\\
 {\scriptsize Hao Zhang, Ismail Rasim Ulgen, Bismarck Bamfo Odoom, Rui Liu, Zihan Zhang, Berrak Sisman, Philipp Koehn}\\
-
-
+{\footnotesize\textit{Holistic parallel speech supervision improves expressive speech-to-speech translation across multiple systems.}}\\[2pt]
 {\footnotesize Expressiveness is central to speech-to-speech translation, but datasets rarely align source and target speech in content, prosody, timing, and speaker identity, so systems often rely on indirect conditioning. The authors propose a training-data construction strategy that pairs professional dubbing, which provides human-performed matches in content, prosody, and timing, with multilingual voice conversion to reduce speaker mismatch. They test this ``holistic parallel supervision'' on English--German and English--Spanish using existing expressive systems and an end-to-end model they develop, DirectS2ST, which predicts the full target-speech representation from source speech. Holistic supervision improves expressive realization across systems, with DirectS2ST showing the largest gains, including higher human-rated expressiveness.}
-
 \end{minipage}
 
 \medskip
-
-
-
 \section*{Field Overview}
 {\footnotesize Researchers are building more capable language-model agents by improving long-context memory, retrieval, tool use, and test-time compute, while also making inference cheaper through cache compression, quantization, and faster decoding. A second theme is trust and governance: measuring and reducing hallucinations, bias, jailbreaks, backdoors, and privacy leakage, plus creating better benchmarks and evaluation methods for judges and agents. A third theme is broadening real-world and multilingual coverage, including speech, low-resource languages, healthcare, law, and robotics, with datasets and interfaces that better ground model behavior in evidence.}
-
 
 \end{document}

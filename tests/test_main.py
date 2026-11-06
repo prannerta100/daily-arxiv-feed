@@ -27,6 +27,7 @@ def test_rebuild_preserves_selection_bounds_and_originals_without_pushing(tmp_pa
     with patch('daily_arxiv_feed.main.get_client'), \
          patch('daily_arxiv_feed.main.summarize_papers',return_value=current) as summarize, \
          patch('daily_arxiv_feed.main.verify_summaries',return_value=current), \
+         patch('daily_arxiv_feed.main.add_takeaways',side_effect=lambda client,papers,entries: entries), \
          patch('daily_arxiv_feed.main._compile_digest',return_value=(tmp_path/'digest.pdf',current)), \
          patch('daily_arxiv_feed.main._push_pdf') as push, \
          patch('daily_arxiv_feed.main.fetch_papers') as fetch:
@@ -57,7 +58,8 @@ def test_run_pipeline_writes_staging(tmp_path):
     summaries = [{"arxiv_id": "2504.1", "title": "T", "authors": ["A"], "url": "url", "categories": [1], "summary": {"one_line_takeaway": "t", "key_contribution": "c", "method": "m", "most_important_result": "r"}}]
     verified = summaries
 
-    with patch("daily_arxiv_feed.main.get_client"):
+    with patch("daily_arxiv_feed.main.get_client"), \
+         patch("daily_arxiv_feed.main.add_takeaways",side_effect=lambda client,papers,entries: entries):
         with patch("daily_arxiv_feed.main.fetch_papers", return_value=papers):
             with patch("daily_arxiv_feed.main.filter_papers", return_value=(selected, decisions)):
                 with patch("daily_arxiv_feed.main.summarize_papers", return_value=summaries):

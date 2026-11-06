@@ -87,6 +87,8 @@ def test_quantum_pipeline_preserves_full_long_abstract_and_separate_outputs(tmp_
     pdf=destination/'2026-11-05.pdf'
     with patch("daily_arxiv_feed.quantum.fetch_papers",return_value=papers), \
          patch("daily_arxiv_feed.quantum.get_client"), \
+         patch("daily_arxiv_feed.quantum.add_takeaways",side_effect=lambda client,papers,entries: [
+             {**entry,"one_line_takeaway":"The method improves quantum gate control."} for entry in entries]), \
          patch("daily_arxiv_feed.quantum.filter_papers",return_value=([papers[0]],decisions)) as select, \
          patch("daily_arxiv_feed.quantum.render_latex",return_value="tex") as render, \
          patch("daily_arxiv_feed.quantum.compile_pdf",return_value=pdf), \
@@ -100,6 +102,7 @@ def test_quantum_pipeline_preserves_full_long_abstract_and_separate_outputs(tmp_
     assert select.call_args.kwargs['max_papers']==8
     entry=render.call_args.args[0][0]
     assert entry['abstract']==body
+    assert entry['one_line_takeaway']=="The method improves quantum gate control."
     assert entry['abstract_sha256']==hashlib.sha256(body.encode()).hexdigest()
     manifest=json.loads((destination/'staging/2026-11-05/04_manifest.json').read_text())
     assert manifest['fetched_unique_papers']==2

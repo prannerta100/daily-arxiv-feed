@@ -1,4 +1,4 @@
-"""Quantum selection and unabridged author abstracts; never summarize/compress."""
+"""Quantum selection and full author abstracts with separate short reading aids."""
 import hashlib
 import json
 import logging
@@ -11,6 +11,7 @@ from daily_arxiv_feed.compile import compile_pdf, get_page_count, render_latex
 from daily_arxiv_feed.fetch import fetch_papers
 from daily_arxiv_feed.filter import filter_papers
 from daily_arxiv_feed.llm import get_client
+from daily_arxiv_feed.takeaways import add_takeaways
 
 logger = logging.getLogger(__name__)
 QUANTUM_CATEGORIES = ["quant-ph", "cs.LG", "physics.app-ph"]
@@ -172,10 +173,19 @@ def run_quantum_pipeline(output_dir: Path | None = None, date: str | None = None
         entries.append({"arxiv_id":paper.arxiv_id,"title":paper.title,"authors":paper.authors,
                         "url":paper.url,"categories":categories,"abstract":abstract,
                         "abstract_sha256":hashlib.sha256(abstract.encode()).hexdigest()})
+    manifest.update(selected_papers=len(selected),eligible_not_selected=len(eligible)-len(selected),
+                    status="adding_takeaways")
+    _write_staging(staging,"04_manifest.json",manifest)
+    try:
+        entries = add_takeaways(client, selected, entries)
+    except Exception as error:
+        manifest.update(status="takeaway_failed",error_type=type(error).__name__)
+        _write_staging(staging,"04_manifest.json",manifest)
+        raise
     _write_staging(staging,"03_full_abstracts.json",entries)
     manifest.update(selected_papers=len(selected),eligible_not_selected=len(eligible)-len(selected),status="rendering")
     _write_staging(staging,"04_manifest.json",manifest)
-    # Full abstracts have no word cap, summary generation, overview, or page-budget rewrite.
+    # The separate reading aid never changes or shortens the author abstract.
     tex = render_latex(entries,date,category_names=QUANTUM_SECTIONS,template_name="quantum_digest.tex")
     try:
         pdf = compile_pdf(tex,output_dir,date)

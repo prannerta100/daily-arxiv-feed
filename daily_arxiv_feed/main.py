@@ -14,6 +14,7 @@ from daily_arxiv_feed.filter import filter_papers
 from daily_arxiv_feed.summarize import generate_excerpt, summarize_papers
 from daily_arxiv_feed.excerpts import fits_budget, summary_limits, summary_text
 from daily_arxiv_feed.verify import verify_summaries
+from daily_arxiv_feed.takeaways import add_takeaways
 from daily_arxiv_feed.overview import generate_overview
 from daily_arxiv_feed.compile import render_latex, compile_pdf, get_page_count
 
@@ -131,6 +132,7 @@ def run_pipeline(output_dir: Path | None = None, date: str | None = None, *, pub
 
     logger.info("=== Stage 4: Verify ===")
     verified = verify_summaries(client, selected, summaries)
+    verified = add_takeaways(client, selected, verified)
     _write_staging(staging_dir, "04_verified.json", verified)
 
     logger.info("=== Stage 5: Compile ===")
@@ -189,6 +191,7 @@ def rebuild_digest(date: str, output_dir: Path | None = None) -> Path:
     summaries = summarize_papers(client, selected, decisions, previous=previous)
     _write_staging(staging, "03_summaries.json", summaries)
     verified = verify_summaries(client, selected, summaries)
+    verified = add_takeaways(client, selected, verified)
     _write_staging(staging, "04_verified.json", verified)
     pdf, verified = _compile_digest(client, selected, verified, output_dir, date, overview)
     comparison = []
