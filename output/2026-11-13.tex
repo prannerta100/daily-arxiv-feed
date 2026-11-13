@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-11-13} \hfill 8 papers}
+
+\smallskip
+\section*{Multilingual NLP}
+\begin{minipage}{\linewidth}
+{\small\textbf{Lara Mini Base: Language Diversity as a Resource, Not a Trade-off}} {\scriptsize[\href{https://arxiv.org/abs/2611.16956}{arxiv}]}\\
+{\scriptsize Translated, Maria Pia Adinolfi, Isabelle Andrieu, Grazia Fiorella Anfuso, Melania Annunziata, Daniele Antonini, Marta Arena, Luca Barone, Dana Barras Franco, Francesca Basiric\`o, Francesca Bee, Sofia Bertini, Nicola Bertoldi, Giorgio Biancini, Alessandra Bigi, Giulia Boccalini, Tommaso Bonomo, Enrico Boscardi, Sebastien Bratieres, Francesco Brigante, Giulia Brignola, Romolo Buondestino, Brenda Patricia Byrne, Giorgia Campora, Edoardo Cappelli, Veronica Carascosi, Francesca Carducci, Cody Carlson, Davide Caroselli, Ambra Cascio, Dario Cascio, Mauro Cassani, Andrea Castro, Alessandro Cattelan, Giulia Ceccacci, Paola Cellini, Giulia Chiriatti, Federico Cialini, Valentina Ciarlariello, Daniele Cocozza, Emanuela Coghe, Kathleen Compares, Marco Comunit\`a, Davide Conti, Helen Rebecca Corfield, Michele Cortellessa, Anna Cracco, Aurora Cuppone, Arianna D'Andrea, Maurizio Davoli, Andrea De Angelis, Andrea De Blasi, Rebecca De Giorgi, Annalisa De Petra, Arianna De Pilla, Joris Demiraj, Elena Deufemia, Federica Di Antonio, Pierluigi Di Cianni, Vincenzo Di Cicco, Michela Di Clemente, Alan Di Francesco, Ylenia Di Gese, Federica Di Iulio, Claudia Di Lorenzo, Andrea Di Paola, Giulia Di Pilla, Jessica Dickson, Francesco Elefante, Ilaria Fabrizio, Alessandro Falappa, Viviana Fantozzi, Antonio Farina, Andrea Fernandez Tostado Ro. Diego Andrea, Andrea Ferrari, Sara Ferri, Simona Ferri, Fabio Fioramonti, Stefano Florio, Mariachiara Fornaro, Anna Maria Foti, Niccol\`o Fransoni, Alessandro Fusacchia, Emma Gamba, Francesco Gasperoni, Davide Gattini, Marta Giani, Claudia Giannetti, Valerio Giannini, Antonella Giudici, Mara Gramendola, Michele Grandinetti, Eleonora Graziani, L'Meese Hope Greaney, Dario Gubernari, Filomena Guglielmi, Jonathan Hammond, Stephen William Harris, Rowena Elizabeth Hogg, Marta Hontanon Del Olmo, Marco Ilari, Kenneth Larry Jackson Jr, Sagar Joshi, Bartosz Alberto Karman, Iuliia Khimenko, Valerio Lanni, Giulio Leonardi, Veronica Levco, Matteo Licci, Alessio Ligios, Noemi Lomartire, Domenico Lupinetti, Jennifer Mirjam Maechtlen, Chiara Maggiori, Maria Luisa Malerba, Francesco Marconi, Domenico Marini, Francesca Marsili, Andrea Martinelli, James Mc Groary, Matteo Menicacci, Andrew Steven Miller, Marco Moauro, Giuliana Molon, Ilaria Mongelluzzi, Emiliano Morghen, Giovanni Moscati, Filippo Musmeci, Flavia Napoleoni, Nicola Giuseppe Ninni, Beatrice Ottoni, Federica Pagliani, Nicol\`o Palmiero, Daniele Palumbo, Chiara Pantani, Stefano Paolucci, Deborah Paritario, Michela Pascale, Thomas Passera, Daniele Patrioli, Chiara Patrizi, Silvia Patrizi, Giulia Pelos, Simone Giovanni Perone, Cristiano Perrone, Joshua Peterson, Katia Piredda, Francesca Piscitelli, Alessandra Posca, Lorenzo Pratesi, Francesca Prencipe, Daniela Proietto Cuco, Mattia Pupino Marangio, Disheng Qiu, Mirco Ramo, Federica Rapagn\`a, Waldo Luis Ribeiro, Federico Ricciuti, Alessia Ridoni, Eleonora Risi Valdettaro, Jon Matthew Ritzdorf, Serena Rivera, Federico Roma, Arianna Ruggiero, Eleonora Ruggiu, Mariafrancesca Sagliocco, Vanessa Salvi, Alessio Sampieri, Elena Santanelli, Roberto Sastre, Luca Scofano, Alessandro Sdei, Giuseppe Sebastiani, Claudia Nicole Siegenthaler, Monica Signoretti, Nicola Sobieski, Biancamaria Soellner, Valentina Stati, Michael Stevens, Arianna Stissi, Fabiana Stomaci, Leonardo Taddei, Christopher Thomas, Maurizio Tiberi, John Tinsley, Riccardo Tittarelli, Carla Tocco, Martina Totaro, Barbara Veronika Totzauer, Alessio Tranzocchi, Letizia Treossi, Mara Trombetti, Marco Trombetti, Andrea Valenzi, Kirti Vashee, Giulia Vestita, Teodosio Vezza, Giulia Vignola, Sara Virtuoso, Valentina Volpini, Francesca Vurro, Jolita Zaksauskaite, Giulia Zanarella, Paolo Zanotti, Francesca Zavettieri, Irene Zorzi}\\
+{\footnotesize\textit{A mixture-of-experts model reduces language competition in small multilingual training.}}\\[2pt]
+{\footnotesize Most open general-purpose language models are trained mainly on English, with non-English data reaching at most 12\%, and smaller European-language models still lag similarly sized general models, raising concerns that languages compete for limited capacity. The authors introduce Lara Mini base, trained from scratch on 6T tokens in English plus 44 other languages covering all 24 official European Union languages, where non-English data outweighs English as training progresses. Using a mixture-of-experts design with 7.2B total and 0.6B active parameters, it reports the highest average score among open base models with up to 2B active parameters, with the largest margins on multilingual and math benchmarks. The model supports 128k-token contexts and is at least 1.8× faster to generate than any higher-scoring model for a single user on one GPU.}
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+{\small\textbf{NaijaFacts: A Framework for Disentangling Language from Knowledge in Facts about Nigeria}} {\scriptsize[\href{https://arxiv.org/abs/2611.06504}{arxiv}]}\\
+{\scriptsize Zainab Afolabi, Nikita Kozodoi, Jack Butler, Babs Khalidson, Sabastine Dekaa Francis, Christiana I. Ezeilo, Olosunde Akinlolu Adesey}\\
+{\footnotesize\textit{NaijaFacts separates language skill from missing knowledge about Nigerian facts.}}\\[2pt]
+{\footnotesize Multilingual benchmarks for African languages often translate generic questions, testing language skill rather than whether models know facts about Africa. The authors introduce NaijaFacts, a benchmark of factual and statistical questions about Nigeria written by native speakers and grounded in official statistics, with each question in English, Nigerian Pidgin, Yorùbá, Igbo, and Hausa. By comparing Nigeria questions with similar UK and US questions across eight frontier and Nigeria-adapted models, they separate language effects from missing knowledge and find missing knowledge dominates: English accuracy is 49--50\% for US/UK but 20\% for Nigeria. Performance drops further in lower-resource languages, and larger models still do not exceed 31\% on Nigerian statistics.}
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+{\small\textbf{Outside the Purview of the Reward: Capability Drift in Multilingual Post-Training}} {\scriptsize[\href{https://arxiv.org/abs/2611.15717}{arxiv}]}\\
+{\scriptsize Sutanshu Saksena Raj, Purusharth Malik, Pasunuti Prasanjith, Daksh Maan, Parijat Chatterjee, Avinash Benki}\\
+{\footnotesize\textit{Multilingual post-training can boost rewarded tasks while degrading unrewarded language capabilities.}}\\[2pt]
+{\footnotesize Post-training can improve rewarded behavior while weakening capabilities users still need, so the authors examine capability drift in a multilingual mixture-of-experts model. Starting from a shared supervised checkpoint, they compare two GRPO branches: the released branch gains 36.07 points on MATH but loses 19.32 F1 on XQuAD-Indic, even as XQuAD-English improves under the same scoring rule. An independently trained sibling adds Indic instruction following and language-aware shaping, recovering the Indic task scores and preserving MATH, but it does not restore script compliance and trades off competition mathematics and code. A later round shows judge training can sharply reduce Indic extraction, while reward-free distillation from an earlier checkpoint restores most of the lost F1.}
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+{\small\textbf{What Do Tokenizer Comparisons Measure? Disentangling Granularity, Root Assignment, and Word-Level Readout across Amharic and Hausa}} {\scriptsize[\href{https://arxiv.org/abs/2611.14818}{arxiv}]}\\
+{\scriptsize Abdul Rehman Antall, Baidya Nath Saha}\\
+{\footnotesize\textit{Root-based tokenization improves Amharic recognition, but readout and granularity drive many gains.}}\\[2pt]
+{\footnotesize Morphology-aware tokenizers are often reported to beat byte-pair encoding, but such comparisons confound linguistic grouping with finer segmentation and with how token-level predictions are read out from sub-tokens. The authors disentangle granularity, root assignment, and word-level readout using a lossless root-and-pattern tokenizer and controls that vary one factor at a time, tested in two implementations on Amharic named-entity recognition, with Latin-script Hausa as an orthographic contrast. Real root assignment improved Amharic performance over scrambled roots by about 4.7--4.9 F1, while root-frequency structure explained little of the gain. In small from-scratch models, readout choice shifted F1 by up to 13.4 points and could reverse conclusions versus byte-pair encoding.}
+\end{minipage}
+
+\medskip
+\section*{Multilingual Speech Processing}
+\begin{minipage}{\linewidth}
+{\small\textbf{Low Language Transfer Speech-to-Text}} {\scriptsize[\href{https://arxiv.org/abs/2611.16260}{arxiv}]}\\
+{\scriptsize Husein Zolkepli}\\
+{\footnotesize\textit{Multilingual speech models transfer well to unseen languages with limited fine-tuning data.}}\\[2pt]
+{\footnotesize This study asks how much multilingual speech recognition models transfer to languages they were never trained on when fine-tuned with very little data. The authors evaluated 28 open multilingual models on Low-Language-TTS (50 low-resource languages in 11 writing systems) and fine-tuned 24 models using at most 1,000 clips per language (82 hours total), selecting checkpoints on a development set each epoch. Fine-tuning reduced macro character error rate by 16.6--53.1 points, reaching 9.5 at best, but best word error rate remained 34.4. Models trained from random weights stayed 60+ points worse, supporting transfer, but fine-tuning increased character error rate on English, Spanish, French, and German by a median 5.7 points.}
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+{\small\textbf{Beyond Word Error Rate: A Failure Taxonomy of Streaming Dictation ASR}} {\scriptsize[\href{https://arxiv.org/abs/2611.16919}{arxiv}]}\\
+{\scriptsize Harras Mansoor, Muhammad Wisal, Hassan Bhatti, Masood Shakir}\\
+{\footnotesize\textit{A dictation error taxonomy reveals streaming speech systems fail differently despite similar word error rates.}}\\[2pt]
+{\footnotesize Word error rate on cleaned, recorded audio can miss failures that matter in live dictation, where users must correct raw streamed text. The authors streamed a dictation test set to 11 speech recognition systems and labeled every error by rule into recognition, output formatting, language handling, and (for self-hosted models) audio dropped before the model. Systems with similar word error rate failed differently: Zoom Scribe and GPT-Live-Transcribe were similar on quiet English (7.4\% vs 7.3\%) but diverged on whispered English (34.7\% vs 8.8\%), often due to omitted words. They also show that voice activity detection that drops ``silence'' can sharply worsen whispered performance, and note that most English results come from one read speaker.}
+\end{minipage}
+
+\medskip
+\section*{Foundation Model Theory}
+\begin{minipage}{\linewidth}
+{\small\textbf{Goal Encoding in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2611.17297}{arxiv}]}\\
+{\scriptsize Arnab Sen Sharma, Eric Todd, Sheridan Feucht, Andy Arditi, Rohit Gandikota, Natalie Shapira, Gabriele Sarti, Constanza Fierro, Lisa Schut, David Bau}\\
+{\footnotesize\textit{Sparse attention heads encode and causally control sub-goals during multi-step coding tasks.}}\\[2pt]
+{\footnotesize Large language models can appear goal-directed, but it is unclear how they represent goals that guide flexible action. The authors build a multi--sub-task coding setting to test goal seeking and sub-goal selection, and they localize an encoding of the next sub-goal in the outputs of a sparse set of attention heads. These heads can be used to decode the model's upcoming action in natural language, and causal tests suggest the encoding influences the next action; transplanting it into a different environment triggers the same operation via different tokens. Although the model sustains this encoding during execution, the authors argue it may do so by repeatedly rereading the task specification and comparing it with visible progress, and they test this account with targeted interventions.}
+\end{minipage}
+
+\medskip
+\section*{LLM Evaluation}
+\begin{minipage}{\linewidth}
+{\small\textbf{Detection Is Not Early Warning: Evaluating Token-Level Alarms on Language Model Failures}} {\scriptsize[\href{https://arxiv.org/abs/2611.16803}{arxiv}]}\\
+{\scriptsize Marco De Negri (ETH Zurich), Luca Sartori (ETH Zurich), Lorenzo Baggi (ETH Zurich), Moritz Reihs (ETH Zurich), Eduard Frank \v{D}urech (ETH AI Center), Mennatallah El-Assady (ETH Zurich), Valentina Pyatkin (ETH Zurich, ETH AI Center), Anna Hedstr\"om (ETH AI Center, Solaris Research)}\\
+{\footnotesize\textit{PREWARN evaluates whether monitors warn before failures, not just detect them.}}\\[2pt]
+{\footnotesize Language-model failures often begin at a specific token, so a useful monitor must warn before the onset rather than merely detect a bad finished response. The authors introduce PREWARN, an evaluation protocol for failures with annotated onsets that calibrates each monitor's threshold to an application-chosen error rate, then scores alarms for response classification, detection during failure, and early warning. In a case study on repetitive degeneration in three open models, response-level metrics such as AUROC saturate and even a simple rule based on response length scores almost perfectly, yet monitors that look equal by AUROC warn very differently under PREWARN. Linear probes warn before onset on most degenerate responses in two models, while untrained baselines rarely beat random alarms.}
+\end{minipage}
+
+\medskip
+\section*{Field Overview}
+{\footnotesize Researchers are stress-testing how language-model agents and evaluators behave in the real world: when they should abstain, how to quantify uncertainty, how to detect hallucinations, and how reward training can cause cheating, drift, or over-refusal. A second theme is building and benchmarking agentic systems that use tools, memory, and multi-turn dialogue, including methods to trace failures, prevent prompt injection, and make long-horizon workflows efficient. A third theme is expanding robust multilingual and multimodal understanding, especially for low-resource languages, documents, speech, and domain tasks like medicine and law.}
+
+\end{document}
