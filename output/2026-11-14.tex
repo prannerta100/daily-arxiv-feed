@@ -1,0 +1,99 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=0.5in,top=0.4in,bottom=0.4in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=*}
+
+\titleformat{\section}{\normalsize\bfseries\scshape}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}]
+\titleformat{name=\section,numberless}{\large\bfseries\color{blue!60!black}}{}{0pt}{}[\vspace{-2pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+{\footnotesize\textbf{Arxiv Digest --- 2026-11-14} \hfill 8 papers}
+
+\smallskip
+\section*{Multilingual NLP}
+\begin{minipage}{\linewidth}
+{\small\textbf{Lara Mini Base: Language Diversity as a Resource, Not a Trade-off}} {\scriptsize[\href{https://arxiv.org/abs/2611.16956}{arxiv}]}\\
+{\scriptsize  Translated, Maria Pia Adinolfi, Isabelle Andrieu, Grazia Fiorella Anfuso, Melania Annunziata, Daniele Antonini, Marta Arena, Luca Barone, Dana Barras Franco, Francesca Basiricò, Francesca Bee, Sofia Bertini, Nicola Bertoldi, Giorgio Biancini, Alessandra Bigi, Giulia Boccalini, Tommaso Bonomo, Enrico Boscardi, Sebastien Bratieres, Francesco Brigante, Giulia Brignola, Romolo Buondestino, Brenda Patricia Byrne, Giorgia Campora, Edoardo Cappelli, Veronica Carascosi, Francesca Carducci, Cody Carlson, Davide Caroselli, Ambra Cascio, Dario Cascio, Mauro Cassani, Andrea Castro, Alessandro Cattelan, Giulia Ceccacci, Paola Cellini, Giulia Chiriatti, Federico Cialini, Valentina Ciarlariello, Daniele Cocozza, Emanuela Coghe, Kathleen Compares, Marco Comunità, Davide Conti, Helen Rebecca Corfield, Michele Cortellessa, Anna Cracco, Aurora Cuppone, Arianna D'Andrea, Maurizio Davoli, Andrea De Angelis, Andrea De Blasi, Rebecca De Giorgi, Annalisa De Petra, Arianna De Pilla, Joris Demiraj, Elena Deufemia, Federica Di Antonio, Pierluigi Di Cianni, Vincenzo Di Cicco, Michela Di Clemente, Alan Di Francesco, Ylenia Di Gese, Federica Di Iulio, Claudia Di Lorenzo, Andrea Di Paola, Giulia Di Pilla, Jessica Dickson, Francesco Elefante, Ilaria Fabrizio, Alessandro Falappa, Viviana Fantozzi, Antonio Farina, Andrea Fernandez Tostado Ro. Diego Andrea, Andrea Ferrari, Sara Ferri, Simona Ferri, Fabio Fioramonti, Stefano Florio, Mariachiara Fornaro, Anna Maria Foti, Niccolò Fransoni, Alessandro Fusacchia, Emma Gamba, Francesco Gasperoni, Davide Gattini, Marta Giani, Claudia Giannetti, Valerio Giannini, Antonella Giudici, Mara Gramendola, Michele Grandinetti, Eleonora Graziani, L'Meese Hope Greaney, Dario Gubernari, Filomena Guglielmi, Jonathan Hammond, Stephen William Harris, Rowena Elizabeth Hogg, Marta Hontanon Del Olmo, Marco Ilari, Kenneth Larry Jackson, Sagar Joshi, Bartosz Alberto Karman, Iuliia Khimenko, Valerio Lanni, Giulio Leonardi, Veronica Levco, Matteo Licci, Alessio Ligios, Noemi Lomartire, Domenico Lupinetti, Jennifer Mirjam Maechtlen, Chiara Maggiori, Maria Luisa Malerba, Francesco Marconi, Domenico Marini, Francesca Marsili, Andrea Martinelli, James Mc Groary, Matteo Menicacci, Andrew Steven Miller, Marco Moauro, Giuliana Molon, Ilaria Mongelluzzi, Emiliano Morghen, Giovanni Moscati, Filippo Musmeci, Flavia Napoleoni, Nicola Giuseppe Ninni, Beatrice Ottoni, Federica Pagliani, Nicolò Palmiero, Daniele Palumbo, Chiara Pantani, Stefano Paolucci, Deborah Paritario, Michela Pascale, Thomas Passera, Daniele Patrioli, Chiara Patrizi, Silvia Patrizi, Giulia Pelos, Simone Giovanni Perone, Cristiano Perrone, Joshua Peterson, Katia Piredda, Francesca Piscitelli, Alessandra Posca, Lorenzo Pratesi, Francesca Prencipe, Daniela Proietto Cuco, Mattia Pupino Marangio, Disheng Qiu, Mirco Ramo, Federica Rapagnà, Waldo Luis Ribeiro, Federico Ricciuti, Alessia Ridoni, Eleonora Risi Valdettaro, Jon Matthew Ritzdorf, Serena Rivera, Federico Roma, Arianna Ruggiero, Eleonora Ruggiu, Mariafrancesca Sagliocco, Vanessa Salvi, Alessio Sampieri, Elena Santanelli, Roberto Sastre, Luca Scofano, Alessandro Sdei, Giuseppe Sebastiani, Claudia Nicole Siegenthaler, Monica Signoretti, Nicola Sobieski, Biancamaria Soellner, Valentina Stati, Michael Stevens, Arianna Stissi, Fabiana Stomaci, Leonardo Taddei, Christopher Thomas, Maurizio Tiberi, John Tinsley, Riccardo Tittarelli, Carla Tocco, Martina Totaro, Barbara Veronika Totzauer, Alessio Tranzocchi, Letizia Treossi, Mara Trombetti, Marco Trombetti, Andrea Valenzi, Kirti Vashee, Giulia Vestita, Teodosio Vezza, Giulia Vignola, Sara Virtuoso, Valentina Volpini, Francesca Vurro, Jolita Zaksauskaite, Giulia Zanarella, Paolo Zanotti, Francesca Zavettieri, Irene Zorzi}\\
+{\footnotesize\textit{A mixture-of-experts model reduces language competition while supporting 45 languages.}}\\[2pt]
+{\footnotesize Most open general-purpose language models are trained mainly on English, with non-English data reaching at most a 12\% share, and models focused on European languages still lag similarly sized general models, raising concerns that languages compete for limited capacity in small models. The authors train Lara Mini base from scratch on 6 trillion tokens in English plus 44 other languages covering all 24 official European Union languages, with non-English data outweighing English over training. The model uses a mixture of experts design with 7.2B total and 0.6B active parameters to allocate capacity efficiently. Among open base models with up to 2B active parameters, it reports the highest average score across English, multilingual, math, and code benchmarks, and attributes this to reduced cross-language capacity competition.}
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+{\small\textbf{EvenVLM: A Text and Multimodal Dataset for the Even Language with Vision-Language Fine-Tuning}} {\scriptsize[\href{https://arxiv.org/abs/2611.16500}{arxiv}]}\\
+{\scriptsize Daniil Makovetskii, Ivan Bondarenko}\\
+{\footnotesize\textit{A new dataset and tokenizer expansion enable Even language text and vision tasks.}}\\[2pt]
+{\footnotesize EvenVLM introduces the first text and multimodal dataset for Even (Lamut), an endangered Northern Tungusic language spoken by about 6,800 people in Siberia. The authors extract 50,521 structured Even--Russian entries from dictionaries and phrasebooks using GPT-4o Mini-based parsing, then synthetically generate 107,543 training examples for translation, grammar, reading comprehension, and semantic classification. To reduce inefficient tokenization for Even's agglutinative word forms, they expand a tokenizer with Even-specific characters, a whitelisted vocabulary, and new merges, cutting average tokens per word by 27\% (4.99 to 3.64). LoRA fine-tuning of Qwen3-VL-4B yields 65\% accuracy on visual question answering, up from 0\% for the base model and text-only fine-tuning.}
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+{\small\textbf{Saidzoda-Kazakh-EmbeddingGemma-300M: How Far One Epoch of Generated Questions Takes a Small Kazakh Embedder}} {\scriptsize[\href{https://arxiv.org/abs/2611.16399}{arxiv}]}\\
+{\scriptsize Tohir Saidzoda, Madina Abdusalomzoda, Abubakr Abdullozoda, Amin Jalilov, Faroiz Bobokhon, Aibek Shokanuly}\\
+{\footnotesize\textit{One epoch of synthetic questions improves a small Kazakh retrieval embedder.}}\\[2pt]
+{\footnotesize Small open EmbeddingGemma-300M retrieves the correct passage first for 60.8\% of Kazakh Belebele questions. The authors fully fine-tuned it for one epoch on 208,511 question--passage pairs, mostly Kazakh questions generated from encyclopedias, Wikipedia, news, and books and checked by a second model, with some English and Russian replay. On Kazakh Belebele, recall@1 rose to 78.0\% and recall@10 to 91.4\%. A four-language variant trained with a capped share of the same Kazakh pairs was 2.8 percentage points lower at recall@1, and gains on Uzbek and Kyrgyz were not clearly specific to Kazakh training.}
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+{\small\textbf{Indic-Task Gains and Regressions after Reinforcement Learning}} {\scriptsize[\href{https://arxiv.org/abs/2611.16228}{arxiv}]}\\
+{\scriptsize Sutanshu Saksena Raj, Daksh Maan, Avinash Benki, Parijat Chatterjee, Pasunuti Prasanjith, Purusharth Malik}\\
+{\footnotesize\textit{Reinforcement learning boosts math but can degrade Indic question answering and script use.}}\\[2pt]
+{\footnotesize The authors ask how reinforcement learning changes performance for a 30B-A3B mixture-of-experts model trained on English and eight Indic languages. They apply GRPO reinforcement learning in four environments and evaluate the model before and after training on 34 benchmarks. Math improves by 36.07 points and most Indic benchmarks rise, but XQuAD-Indic drops 19.32 F1 as English answers increase from 8.7\% to 91.7\%. A second run that adds an Indic environment plus language and repetition rewards improves passage answering and instruction following while preserving math, but regresses on reasoning and coding, and the authors cannot attribute effects to any single reward term; script compliance remains unresolved.}
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+{\small\textbf{What Do Tokenizer Comparisons Measure? Disentangling Granularity, Root Assignment, and Word-Level Readout across Amharic and Hausa}} {\scriptsize[\href{https://arxiv.org/abs/2611.14818}{arxiv}]}\\
+{\scriptsize Abdul Rehman Antall, Baidya Nath Saha}\\
+{\footnotesize\textit{Root-based tokenization improves Amharic recognition, but readout and granularity confound comparisons.}}\\[2pt]
+{\footnotesize Reported gains from morphology-aware tokenizers over byte-pair encoding are often attributed to using linguistic units, but such comparisons also change segmentation granularity and how token-level predictions are read out. The authors isolate these factors from the effect of grouping words by their roots in Amharic, whose script obscures consonantal roots, using Latin-script Hausa as a contrast, with a lossless root-and-pattern tokenizer and controls that vary one factor at a time in two implementations. Real root assignment improves Amharic named-entity recognition over scrambled roots by about 4.7--4.9 F1, while root-frequency structure explains little of the gain. In small from-scratch models, readout choice shifts F1 by up to 13.4 points and can flip the direction of comparisons with byte-pair encoding.}
+\end{minipage}
+
+\medskip
+\section*{Multilingual Speech Processing}
+\begin{minipage}{\linewidth}
+{\small\textbf{Low Language Transfer Speech-to-Text}} {\scriptsize[\href{https://arxiv.org/abs/2611.16260}{arxiv}]}\\
+{\scriptsize Husein Zolkepli}\\
+{\footnotesize\textit{Multilingual speech models transfer strongly to unseen languages with limited fine-tuning.}}\\[2pt]
+{\footnotesize Multilingual speech recognition models are trained on many languages, but it is unclear how much they can transfer to a previously unseen language when only small amounts of new data are available. The authors evaluate 28 open multilingual models on Low-Language-TTS (50 low-resource languages) and fine-tune 24 models using at most 1,000 clips per language (82 hours total), selecting checkpoints on a development set each epoch. Fine-tuning reduces macro character error rate by 16.6--53.1 points, reaching 9.5 at best, but best word error rate remains 34.4. Models trained from random weights lag by 60+ points, and fine-tuning increases character error rate by 5.7 points on English, Spanish, French, and German in the median model.}
+\end{minipage}
+
+\medskip
+\section*{Foundation Model Theory}
+\begin{minipage}{\linewidth}
+{\small\textbf{Goal Encoding in LLMs}} {\scriptsize[\href{https://arxiv.org/abs/2611.17297}{arxiv}]}\\
+{\scriptsize Arnab Sen Sharma, Eric Todd, Sheridan Feucht, Andy Arditi, Rohit Gandikota, Natalie Shapira, Gabriele Sarti, Constanza Fierro, Lisa Schut, David Bau}\\
+{\footnotesize\textit{Attention heads encode next sub-goals that causally guide language model actions.}}\\[2pt]
+{\footnotesize Large language models often act goal-directed, but it is unclear whether they encode goals as internal representations that guide flexible action. The authors build a multi--sub-task coding setting to evaluate goal seeking and sub-goal selection, and localize an encoding of the next sub-goal to outputs of a sparse set of attention heads. These heads can be used to decode the model's upcoming action in natural language, and causal interventions suggest the encoding drives the next action and can be transplanted across environments to trigger the same operation via different token sequences. They also find the model sustains this encoding during execution and test an account in which it repeatedly rereads the task specification rather than carrying a persistent internal state.}
+\end{minipage}
+
+\medskip
+\section*{LLM Evaluation}
+\begin{minipage}{\linewidth}
+{\small\textbf{When Both Sides Adapt: The Challenges of Evaluating Interactive LLM Systems}} {\scriptsize[\href{https://arxiv.org/abs/2611.17239}{arxiv}]}\\
+{\scriptsize Hannah Li}\\
+{\footnotesize\textit{User adaptation makes offline and live evaluations estimate different model effects.}}\\[2pt]
+{\footnotesize Interactive evaluations of large language models are complicated because users adapt to model responses, changing their prompting strategy and even the type and difficulty of later tasks, so the model helps determine the prompts it is judged on. The authors analyze this ``prompt endogeneity'' and define two comparison targets: a common-distribution effect that holds the prompt distribution fixed across models, and an induced-distribution effect that evaluates each model on the prompts users generate with it. They show offline benchmarks and live A/B tests converge to these different quantities, which can rank models differently, and they give conditions for when rankings must agree. In a stylized linear interaction model, user adaptivity also increases estimation variance.}
+\end{minipage}
+
+\medskip
+\section*{Field Overview}
+{\footnotesize Researchers are building more reliable and efficient language-model agents: they study how models represent goals, decide when to use tools or memory, learn from limited feedback, and run cheaply on edge hardware through quantization, caching, and faster decoding. A second theme is auditing and securing model behavior, including prompt-injection defenses, watermarking and steganography, privacy leakage, reward hacking, and better benchmarks for judging failures and uncertainty. A third theme centers on speech and audio systems, especially streaming recognition and generation, voice cloning, deepfake detection, and long-form audio understanding under real-time constraints.}
+
+\end{document}
